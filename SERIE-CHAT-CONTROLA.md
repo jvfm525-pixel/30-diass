@@ -1,4 +1,29 @@
-# "O Chat Controla a Vida do Armando" — plano dos 30 dias
+# "O Chat Controla a Vida do Armando" — 30 dias até o reencontro
+
+## A meta (o gancho da série)
+
+**Daqui a 30 dias é o reencontro de 10 anos da turma da escola, e o Armando mentiu no grupo.**
+
+No DIA 1 chega a mensagem no grupo "Turma 3ºB 🎓": *"REENCONTRO em 30 dias!! Tragam a família 😍"*. Todo mundo posta foto de casamento, carro e viagem. Armando, de cueca no quarto imundo e comendo miojo, digita:
+
+> "Claro! Vou com minha namorada 😎 tô bem de vida, sarado e sou gerente agora"
+
+Enviado ✔✔. Ele se arrepende na hora, mas todo mundo já viu e reagiu.
+
+**Agora ele tem 30 dias para transformar as 4 mentiras em verdade, e o chat controla cada decisão.** Cada barra é uma mentira que ele contou:
+
+| Mentira no grupo | Barra | Meta no DIA 30 |
+| --- | --- | --- |
+| "tô bem de vida" | 💰 Dinheiro | 70+ |
+| "tô sarado" | ❤️ Saúde | 70+ |
+| "vou com minha namorada" | 💘 Amor | 70+ |
+| "sou gerente agora" | ⭐ Reputação | 70+ |
+
+Na tela fica sempre: **REENCONTRO EM: 30 DIAS** + as 4 barras com a linha da meta marcada.
+
+**O vilão:** o Rodrigo foi o valentão da turma e hoje é colega de trabalho do Armando. Ele sabe a verdade e ameaça contar pra todo mundo no reencontro.
+
+Gancho para fechar cada episódio: *"Faltam X dias… e o Rodrigo tá de olho."*
 
 ## Como funciona
 
@@ -70,13 +95,12 @@
 
 ## Dia 30 — O final
 
-As 4 barras aparecem uma a uma, e o final depende do resultado:
+**O reencontro da turma.** Armando entra no salão e cada barra é conferida diante de todo mundo. A mentira que bateu a meta ganha ✅, e a que não bateu vira ❌, quando o Rodrigo expõe a verdade no microfone.
 
-- **Todas acima de 50 →** "A Vida dos Sonhos" (o melhor final)
-- **💰 alto, 💘 baixo →** "Rico, mas sozinho"
-- **💘 alto, 💰 baixo →** "Pobre, mas apaixonado"
-- **⭐ alto, ❤️ baixo →** "Famoso e acabado"
-- **Alguma barra em 0 →** final trágico-cômico
+- **4 ✅ →** "Ele conseguiu": a turma inteira aplaude e o Rodrigo passa vergonha (o melhor final)
+- **3 ✅ →** "Quase": uma mentira é descoberta, mas ele sai de cabeça erguida
+- **1 ou 2 ✅ →** "Desmascarado": o Rodrigo humilha o Armando, mas alguém inesperado o defende
+- **0 ✅ ou alguma barra em 0 →** final trágico-cômico: ele foge pela janela do banheiro
 
 O episódio termina, como sempre, com 2 opções: **"Temporada 2? A) Continuar com o Armando · B) Começar com um personagem novo"**.
 
