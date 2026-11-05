@@ -1,0 +1,5 @@
+node_modules/
+renders/*
+!renders/.gitkeep
+.hyperframes/artifacts/
+.DS_Store
