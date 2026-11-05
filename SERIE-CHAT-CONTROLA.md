@@ -33,6 +33,12 @@ Gancho para fechar cada episódio: *"Faltam X dias… e o Rodrigo tá de olho."*
 - **Início:** 💰 15 · ❤️ 30 · 💘 10 · ⭐ 40
 - **Nenhuma escolha é perfeita:** toda opção sobe uma barra e derruba outra.
 - **Barra no zero = crise:** o episódio seguinte vira um episódio especial (💰 0 = despejo · ❤️ 0 = hospital · 💘 0 = coração partido · ⭐ 0 = cancelado na internet).
+- **Todo episódio tem piadas (de 5 a 9):** uma logo no gancho, uma em cada cena e uma no gancho final. Tipos que funcionam:
+  - comparação absurda ("a coluna estalou e o GPS falou: recalculando rota")
+  - o narrador cutucando o público ("obrigado pela consideração, gente")
+  - etiqueta irônica na tela ("BRONZEADO: MONITOR LED")
+  - piada visual no fundo (o grampeador suando, o limão com chapéu de aniversário)
+  - a barra virando outra coisa ("saúde igual bateria de celular às 23h: 20%")
 - **Os dias 7, 14 e 21 são "Dias de Consequência":** algo escolhido antes volta para cobrar o preço.
 
 ## Personagens fixos
