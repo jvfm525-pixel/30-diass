@@ -57,3 +57,10 @@
 ## Legenda do post
 
 > DIA 2 😮‍💨 Vocês mandaram o Armando trabalhar no sábado… e ele recebeu no FIADO 💀 Agora ele tem R$ 20, um limão e 20% de bateria. 🅰️ Miojo a semana toda ou 🅱️ Mercado de verdade? Comenta 👇 #30dias #ochatcontrola
+
+## Como foi produzido (versão final, 88 s)
+
+- **Narração:** ElevenLabs (voz Roberta), acelerada 10% e normalizada (`chat-dia02/assets/voice/`).
+- **Música:** "Positive Background" — Soundrider (CC BY), via Jamendo. A música para no "golpe" e volta com o Rodrigo. **Credite na legenda do post:** `Música: "Positive Background" — Soundrider (CC BY)`.
+- **Efeitos novos:** gota pingando, coluna estalando, moedas, bipe de hospital, cadeado, batimento e zumbido de geladeira, além dos do DIA 1.
+- **Arquivos:** projeto em `chat-dia02/`, gerado por `tools/build_chat_dia02.py`; vídeo em `renders/chat-dia02.mp4`.
