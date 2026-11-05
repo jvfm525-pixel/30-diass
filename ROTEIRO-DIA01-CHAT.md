@@ -47,3 +47,11 @@
 ## Legenda do post
 
 > DIA 1 😬 O Armando mentiu no grupo da turma e agora tem 30 dias pra virar o que prometeu. VOCÊ controla a vida dele: o chefe pediu hora extra no sábado. 🅰️ Aceitar ou 🅱️ Recusar? Comenta 👇 #30dias #ochatcontrola #desafio
+
+## Como foi produzido (versão final, 60 s)
+
+- **Narração:** ElevenLabs (voz Roberta), normalizada para −15 LUFS em `chat-dia01/assets/voice/`.
+- **Estilo "HQ pop":** traço de tinta grosso, sombra em retícula, onomatopeias (BZZZ!, PLOFT!, TEC TEC TEC, GULP!, TRIIIM!) e legendas em caixa amarela de narrador com a palavra falada em destaque.
+- **Trilha original** composta em código (`tools/trilha_dia01.py`): groove de pizzicato → tensão na mentira → tema do vilão no Rodrigo → groove da meta → subida até "é você" → game show na decisão → escuro no final.
+- **Efeitos:** vibração, mosca, boing, carimbo e toque de celular gerados no projeto, mais os do pacote do HyperFrames.
+- **Arquivos:** projeto em `chat-dia01/`, gerado por `tools/build_chat_dia01.py`; vídeo em `renders/chat-dia01.mp4`.

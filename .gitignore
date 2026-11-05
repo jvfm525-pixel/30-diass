@@ -2,6 +2,7 @@ node_modules/
 renders/*
 !renders/.gitkeep
 !renders/dia*.mp4
+!renders/chat-dia*.mp4
 .hyperframes/artifacts/
 .DS_Store
 __pycache__/
