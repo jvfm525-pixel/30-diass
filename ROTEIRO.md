@@ -3,6 +3,14 @@
 **Formato:** vertical 9:16 (1080×1920), ~30 s, desenho animado 2D original.
 **Premissa:** Armando conseguiu um encontro com a Bianca daqui a 30 dias. Só tem um problema: ele está feio, pobre e mora num chiqueiro. Cada episódio é um dia do desafio, e **o público decide nos comentários** o que ele faz no dia seguinte.
 
+## Regra da série
+
+**Todo episódio termina com uma escolha de 2 opções (A ou B) para o público responder nos comentários.** A opção mais votada vira o que o Armando faz no episódio seguinte. A legenda do post também repete as duas opções.
+
+## Legenda do post — DIA 1
+
+> DIA 1 de 30 😬 O Armando tem 30 dias até o encontro com a Bianca… e olha o estado dele. VOCÊ DECIDE o DIA 2: 🅰️ tomar banho ou 🅱️ arrumar a casa? Comenta A ou B 👇 #30dias #glowup #desafio
+
 ## Personagens
 
 - **Armando** (protagonista): uns 30 anos, gordinho, careca no topo com uns fios arrepiados, óculos grossos tortos com fita no meio, espinhas, barba por fazer, camiseta verde-musgo manchada de molho. Expressão de cansado. Moscas e "linhas de fedor" verdes em volta dele.
@@ -20,9 +28,9 @@
 | Tempo | Imagem | Texto na tela | Som |
 | --- | --- | --- | --- |
 | **0–2 s** · Gancho | Close no Armando de frente, olhar morto, moscas voando, linhas de fedor subindo. Já aparece pronto no frame 0 (é a capa do vídeo). | **DIA 1** (gigante) / **ELE ERA ASSIM 🤢** | Zumbido de mosca + batida da música começando |
-| **2–5 s** · O motivo | Celular vibra na mão dele: notificação "**Bianca:** então tá marcado, daqui 30 dias 😊". Balão de pensamento com a Bianca de olhos de coração. | **ELA ACEITOU SAIR COM ELE** | "Plim" de notificação, coração estalando |
-| **5–8 s** · A ficha cai | Armando sorri… e a câmera recua: revela o quarto inteiro — caixas de pizza, roupa no chão, pia cheia de louça, rato passando. O sorriso derrete. | **SÓ TEM UM PROBLEMA…** | Whoosh do zoom, música para de repente |
-| **8–12 s** · Problema 1: FEIO | Ele se olha no espelho; o espelho racha sozinho. | **❌ FEIO** | Vidro trincando |
+| **2–5,6 s** · O motivo | Celular vibra na mão dele: notificação "**Bianca:** então tá marcado, daqui 30 dias 😊". Balão de pensamento com a Bianca de olhos de coração. | **ELA ACEITOU SAIR COM ELE** | "Plim" de notificação, coração estalando |
+| **5,6–8,6 s** · A ficha cai | Armando sorri… e a câmera recua: revela o quarto inteiro — caixas de pizza, roupa no chão, pia cheia de louça, rato passando. O sorriso derrete. | **SÓ TEM UM PROBLEMA…** | Whoosh do zoom, música para de repente |
+| **8,6–12 s** · Problema 1: FEIO | Ele se olha no espelho; o espelho racha sozinho. | **❌ FEIO** | Vidro trincando |
 | **12–16 s** · Problema 2: POBRE | Abre a carteira: sai uma mariposa voando. Celular mostra saldo **R$ 3,50**. | **❌ POBRE** | Caixa registradora vazia, bater de asas |
 | **16–20 s** · Problema 3: CASA | Uma barata atravessa a tela; a pilha de louça desaba. | **❌ CASA UM CHIQUEIRO** | Pratos quebrando |
 | **20–24 s** · O desafio | Volta pro Armando, determinado, punho fechado. Barra do GLOW-UP treme em 0%; "30" pulsa no contador. | **30 DIAS PRA VIRAR O JOGO** | Música volta mais forte, "tum" grave |
@@ -36,7 +44,7 @@
 
 ## Som
 
-- Música de fundo cômica tipo lo-fi/ukulele (livre de direitos), sem narração — o texto carrega a história (muita gente assiste sem som).
+- Música de fundo: ainda não incluída (precisa de login na HeyGen: `npx hyperframes auth login`). Sem narração — o texto carrega a história (muita gente assiste sem som).
 - Efeitos em cada ação visível: mosca, notificação, vidro, mariposa, pratos, pops.
 
 ## Próximos episódios (ideia de série)
