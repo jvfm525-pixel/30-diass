@@ -39,6 +39,7 @@ Gancho para fechar cada episódio: *"Faltam X dias… e o Rodrigo tá de olho."*
   - etiqueta irônica na tela ("BRONZEADO: MONITOR LED")
   - piada visual no fundo (o grampeador suando, o limão com chapéu de aniversário)
   - a barra virando outra coisa ("saúde igual bateria de celular às 23h: 20%")
+- **Todo episódio sai com a legenda do post pronta** (ver `LEGENDAS.md`): gancho, piada, as 2 opções com o efeito nas barras, "comenta A ou B", hashtags fixas e o crédito da música quando for CC BY.
 - **Os dias 7, 14 e 21 são "Dias de Consequência":** algo escolhido antes volta para cobrar o preço.
 
 ## Personagens fixos
