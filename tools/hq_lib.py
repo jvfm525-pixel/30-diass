@@ -34,14 +34,89 @@ def _stubble(seed):
     return "".join(out)
 
 
+def _skin(hT):
+    """Pele por nível de saúde: espinhas, tom amarelado ou bochechas coradas."""
+    pimples = [(205, 235), (392, 212), (332, 176), (158, 418), (446, 438), (250, 470)][:[6, 3, 1, 0][hT]]
+    out = "".join(f'<circle cx="{x}" cy="{y}" r="10" fill="#d9613e" stroke="#9c3a22" stroke-width="3"/><circle cx="{x - 3}" cy="{y - 3}" r="3" fill="#ffd0a8"/>' for x, y in pimples)
+    if hT == 0:
+        out += '<rect x="100" y="110" width="400" height="450" fill="#9fb34a" opacity=".16"/>'
+    if hT == 3:
+        out += '<circle cx="175" cy="445" r="30" fill="#ff8fa3" opacity=".45"/><circle cx="425" cy="445" r="30" fill="#ff8fa3" opacity=".45"/>'
+    return out
+
+
+def _clothes(p, mT, rT):
+    """Roupa por nível de dinheiro (+ crachá/gravata pela reputação)."""
+    shade = f'<path d="M110 800 C115 700 160 640 205 600 L230 610 C180 660 160 720 165 800 Z" fill="url(#{p}-dots)"/>'
+    skin_sh = f'<path d="M10 800 C20 650 110 590 205 578 L180 620 C110 650 80 720 75 800 Z" fill="url(#{p}-dskin)"/>'
+    if mT <= 1:  # regata (furada e manchada no nível 0, limpa no 1)
+        out = (f'<path d="M110 800 C115 700 160 640 205 600 L300 640 L395 600 C440 640 485 700 490 800 Z" fill="{TANK if mT == 0 else "#ffffff"}" stroke="{INK}" stroke-width="9"/>'
+               f'<path d="M205 600 C230 640 370 640 395 600" fill="none" stroke="{INK}" stroke-width="7"/>')
+        if mT == 0:
+            out += (f'<ellipse cx="250" cy="720" rx="40" ry="26" fill="#d9b24c" opacity=".75"/><ellipse cx="360" cy="690" rx="20" ry="14" fill="#c9752e" opacity=".6"/>'
+                    f'<circle cx="410" cy="760" r="14" fill="none" stroke="{INK}" stroke-width="5"/>')
+        out += shade + skin_sh + f'<path d="M140 660 l-12 10 M150 672 l-14 6 M455 660 l12 10 M447 674 l14 6" stroke="{HAIR}" stroke-width="4"/>'
+    else:  # polo (2) ou camisa social (3): cobre os ombros
+        col = "#2a9d8f" if mT == 2 else "#cfe3f7"
+        out = (f'<path d="M10 800 C20 650 110 590 215 575 L300 600 L385 575 C490 590 580 650 590 800 Z" fill="{col}" stroke="{INK}" stroke-width="10"/>'
+               f'<path d="M10 800 C20 650 110 590 205 578 L180 620 C110 650 80 720 75 800 Z" fill="url(#{p}-dots)"/>'
+               f'<path d="M235 585 L300 640 L365 585 L345 640 L300 660 L255 640 Z" fill="{col}" stroke="{INK}" stroke-width="8" stroke-linejoin="round"/>')
+        if mT == 2:
+            out += f'<path d="M300 660 L300 720" stroke="{INK}" stroke-width="6"/><circle cx="300" cy="690" r="6" fill="#fff" stroke="{INK}" stroke-width="3"/>'
+        else:
+            out += (f'<path d="M300 660 L300 800" stroke="{INK}" stroke-width="5"/>' + "".join(f'<circle cx="300" cy="{y}" r="6" fill="#fff" stroke="{INK}" stroke-width="3"/>' for y in (690, 740, 790))
+                    + f'<rect x="380" y="680" width="70" height="60" fill="none" stroke="{INK}" stroke-width="5"/><rect x="398" y="660" width="10" height="40" fill="#1a73e8" stroke="{INK}" stroke-width="3"/>')
+    if rT >= 3:  # gravata
+        out += f'<path d="M285 650 L315 650 L325 680 L312 790 L300 805 L288 790 L275 680 Z" fill="{RED}" stroke="{INK}" stroke-width="7" stroke-linejoin="round"/><path d="M290 700 L312 690 M288 740 L314 730" stroke="#fff" stroke-width="5" opacity=".6"/>'
+    if rT >= 2:  # crachá
+        label = "GERENTE" if rT >= 3 else "ARMANDO"
+        out += (f'<g transform="rotate(-4 175 735)"><rect x="110" y="700" width="140" height="78" rx="8" fill="#fff" stroke="{INK}" stroke-width="6"/>'
+                f'<rect x="110" y="700" width="140" height="22" rx="6" fill="{CYAN}"/>'
+                f'<text x="180" y="760" text-anchor="middle" font-family="Archivo Black" font-size="{20 if rT >= 3 else 18}" fill="{INK}">{label}</text></g>')
+    return out
+
+
+def visual_changes(before, after):
+    """Lista do que mudou na aparência entre dois estados de barras (para a cena de UPGRADE)."""
+    txt = {
+        "health": [["muitas espinhas", "pele amarelada", "olheiras fundas"], ["menos espinhas", "olheiras menores"], ["quase sem espinhas", "olheiras quase sumindo"], ["pele limpa", "sem olheiras", "bochechas coradas"]],
+        "money": [["regata furada e manchada", "óculos com fita"], ["regata nova e limpa"], ["camisa polo", "óculos consertados"], ["camisa social", "caneta no bolso"]],
+        "love": [["barba por fazer", "cabelo arrepiado"], ["barba mais aparada"], ["barba feita", "cabelo penteado"], ["cara lisinha", "cabelo com brilho"]],
+        "rep": [["ninguém conhece"], ["sem crachá"], ["crachá da empresa"], ["gravata", "crachá de GERENTE"]],
+    }
+    icons = {"health": "❤️", "money": "💰", "love": "💘", "rep": "⭐"}
+    out = []
+    for k in ("money", "health", "love", "rep"):
+        a, b = tier(before[k]), tier(after[k])
+        if b != a:
+            out.append((icons[k], "UPGRADE" if b > a else "DOWNGRADE", txt[k][b]))
+    return out
+
+
 # ------------------------------------------------------------------ Armando
-def armando(p, pose="none", bags=1.0):
+def tier(v):
+    """Nível visual de uma barra: 0 (0–25), 1 (26–50), 2 (51–69), 3 (70+)."""
+    return 0 if v <= 25 else 1 if v <= 50 else 2 if v < 70 else 3
+
+
+def armando(p, pose="none", bags=None, stats=None):
     """Armando HQ, busto. viewBox 0 0 600 800.
+
+    stats = {"money": 0-100, "health": 0-100, "love": 0-100, "rep": 0-100}
+    muda a aparência por nível (ver tier()). Sem stats = visual do DIA 1.
 
     Partes: {p}-rig (raiz, para o traço "fervendo"), {p}-body, {p}-head,
     {p}-lid-l/-r, classe {p}-pupil, sobrancelhas {p}-br-sad/-shock/-worry/-angry,
     bocas {p}-m-sad/-chew/-shock/-grin/-smirk, {p}-sweat, poses {p}-pose-*.
     """
+    st = stats or {"money": 15, "health": 30, "love": 10, "rep": 40}
+    mT, hT, lT, rT = tier(st["money"]), tier(st["health"]), tier(st["love"]), tier(st["rep"])
+    if bags is None:
+        bags = [1.0, .6, .3, 0.0][hT] if stats else 1.0
+    stub_op = [.5, .32, .14, 0][lT]
+    stray = lT < 2
+    taped = mT < 2
+
     def eye(side, cx):
         return f'''
       <clipPath id="{p}-ec-{side}"><ellipse cx="{cx}" cy="338" rx="38" ry="31"/></clipPath>
@@ -106,14 +181,7 @@ def armando(p, pose="none", bags=1.0):
   <g id="{p}-rig">
   <g id="{p}-body">
     <path d="M10 800 C20 650 110 590 215 575 L300 600 L385 575 C490 590 580 650 590 800 Z" fill="{SKIN}" stroke="{INK}" stroke-width="10"/>
-    <path d="M110 800 C115 700 160 640 205 600 L300 640 L395 600 C440 640 485 700 490 800 Z" fill="{TANK}" stroke="{INK}" stroke-width="9"/>
-    <path d="M205 600 C230 640 370 640 395 600" fill="none" stroke="{INK}" stroke-width="7"/>
-    <ellipse cx="250" cy="720" rx="40" ry="26" fill="#d9b24c" opacity=".75"/>
-    <ellipse cx="360" cy="690" rx="20" ry="14" fill="#c9752e" opacity=".6"/>
-    <circle cx="410" cy="760" r="14" fill="none" stroke="{INK}" stroke-width="5"/>
-    <path d="M110 800 C115 700 160 640 205 600 L230 610 C180 660 160 720 165 800 Z" fill="url(#{p}-dots)"/>
-    <path d="M10 800 C20 650 110 590 205 578 L180 620 C110 650 80 720 75 800 Z" fill="url(#{p}-dskin)"/>
-    <path d="M140 660 l-12 10 M150 672 l-14 6 M455 660 l12 10 M447 674 l14 6" stroke="{HAIR}" stroke-width="4"/>
+    {_clothes(p, mT, rT)}
   </g>
   <g id="{p}-head">
     <rect x="245" y="510" width="110" height="90" fill="{SKIN}" stroke="{INK}" stroke-width="9"/>
@@ -124,7 +192,8 @@ def armando(p, pose="none", bags=1.0):
     <path d="M300 118 C430 118 492 210 492 320 C492 445 430 548 300 552 C170 548 108 445 108 320 C108 210 170 118 300 118 Z" fill="{SKIN}" stroke="{INK}" stroke-width="10"/>
     <g clip-path="url(#{p}-headclip)">
       <path d="M108 200 C150 300 140 470 300 560 L100 560 Z" fill="url(#{p}-dskin)"/>
-      <g fill="{HAIR}" opacity=".5">{_stubble(3)}</g>
+      <g fill="{HAIR}" opacity="{stub_op}">{_stubble(3)}</g>
+      {_skin(hT)}
       <ellipse cx="380" cy="180" rx="48" ry="20" fill="#fff" opacity=".35" transform="rotate(-20 380 180)"/>
     </g>
     <path d="M200 525 Q300 575 400 525" fill="none" stroke="{INK}" stroke-width="5" opacity=".6"/>
@@ -132,7 +201,8 @@ def armando(p, pose="none", bags=1.0):
     <path d="M488 310 C500 230 470 190 440 175 C450 230 450 280 440 320 Z" fill="{HAIR}" stroke="{INK}" stroke-width="5"/>
     <path d="M160 200 C210 120 330 110 430 170" fill="none" stroke="{HAIR}" stroke-width="9" stroke-linecap="round"/>
     <path d="M170 225 C230 140 350 135 440 195" fill="none" stroke="{HAIR}" stroke-width="7" stroke-linecap="round"/>
-    <path d="M290 122 q-10 -40 15 -66 M318 124 q20 -30 6 -60" fill="none" stroke="{HAIR}" stroke-width="7" stroke-linecap="round"/>
+    {'<path d="M290 122 q-10 -40 15 -66 M318 124 q20 -30 6 -60" fill="none" stroke="' + HAIR + '" stroke-width="7" stroke-linecap="round"/>' if stray else ''}
+    {'<path d="M175 215 C240 150 350 150 432 192" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".55"/>' if lT == 3 else ''}
     <path d="M230 230 q70 -14 140 0 M245 252 q55 -10 110 0" fill="none" stroke="{INK}" stroke-width="4" opacity=".45"/>
     <g id="{p}-br-sad" fill="{HAIR}" stroke="{INK}" stroke-width="4">
       <path d="M180 292 C200 268 250 266 280 282 L276 294 C250 284 210 286 186 304 Z"/>
@@ -146,14 +216,13 @@ def armando(p, pose="none", bags=1.0):
     <g id="{p}-br-angry" opacity="0" fill="{HAIR}" stroke="{INK}" stroke-width="4">
       <path d="M182 268 L284 300 L280 312 L186 286 Z"/><path d="M418 268 L316 300 L320 312 L414 286 Z"/></g>
     {eye("l", 228)}{eye("r", 372)}
-    <g transform="rotate(-2.5 300 340)">
+    <g transform="rotate({-2.5 if taped else 0} 300 340)">
       <rect x="166" y="290" width="128" height="100" rx="26" fill="rgba(200,235,255,.16)" stroke="{INK}" stroke-width="16"/>
       <rect x="306" y="290" width="128" height="100" rx="26" fill="rgba(200,235,255,.16)" stroke="{INK}" stroke-width="16"/>
       <path d="M184 372 L226 306 M200 378 L238 318" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
       <path d="M324 372 L366 306" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
       <path d="M294 322 Q300 314 306 322" stroke="{INK}" stroke-width="12" fill="none"/>
-      <rect x="278" y="304" width="44" height="34" rx="4" fill="#f6f1e2" stroke="{INK}" stroke-width="4" transform="rotate(10 300 321)"/>
-      <path d="M286 312 l28 16 M286 328 l28 -8" stroke="#b4ad97" stroke-width="3"/>
+      {'<rect x="278" y="304" width="44" height="34" rx="4" fill="#f6f1e2" stroke="' + INK + '" stroke-width="4" transform="rotate(10 300 321)"/><path d="M286 312 l28 16 M286 328 l28 -8" stroke="#b4ad97" stroke-width="3"/>' if taped else ''}
       <path d="M166 320 L118 312 M434 320 L482 312" stroke="{INK}" stroke-width="10"/>
     </g>
     <path d="M300 360 C262 420 246 462 274 478 C290 488 312 488 328 478 C356 462 338 420 300 360 Z" fill="{SKIN_SH}" stroke="{INK}" stroke-width="8"/>

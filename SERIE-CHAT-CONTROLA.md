@@ -42,6 +42,23 @@ Gancho para fechar cada episódio: *"Faltam X dias… e o Rodrigo tá de olho."*
 - **Todo episódio sai com a legenda do post pronta** (ver `LEGENDAS.md`): gancho, piada, as 2 opções com o efeito nas barras, "comenta A ou B", hashtags fixas e o crédito da música quando for CC BY.
 - **Os dias 7, 14 e 21 são "Dias de Consequência":** algo escolhido antes volta para cobrar o preço.
 
+## Evolução visível (a partir do DIA 4)
+
+**As mudanças na aparência e na vida do Armando têm que aparecer.** Cada barra muda o visual em 4 níveis (0–25, 26–50, 51–69 e 70+), de forma automática (`armando(..., stats=...)` em `tools/hq_lib.py`):
+
+| Barra | Nível 1 (0–25) | Nível 2 (26–50) | Nível 3 (51–69) | Nível 4 (70+) |
+| --- | --- | --- | --- | --- |
+| ❤️ Saúde | muitas espinhas, pele amarelada, olheiras fundas | menos espinhas, olheiras menores | quase sem espinhas | pele limpa, sem olheiras, bochechas coradas |
+| 💰 Dinheiro | regata furada e manchada, óculos com fita | regata nova e limpa | camisa polo, óculos consertados | camisa social, caneta no bolso |
+| 💘 Amor | barba por fazer, cabelo arrepiado | barba mais aparada | barba feita, cabelo penteado | cara lisinha, cabelo com brilho |
+| ⭐ Reputação | — | — | crachá da empresa | gravata e crachá de GERENTE |
+
+**Todo episódio tem a cena "O QUE MUDOU"** (`tools/upgrade_scene.py`), logo depois das barras: o Armando ANTES e DEPOIS lado a lado, as barras que mudaram (ex.: 💰 20 → 30) e a lista do que mudou ("💰 UPGRADE: regata nova e limpa"). Se nenhuma barra mudou de nível, a cena mostra quanto falta para o próximo visual ("Falta 5 de ❤️ pro próximo visual 👀").
+
+**A narração de cada episódio tem uma frase para essa cena**, por exemplo: "E olha a diferença: a regata nova, sem furo!" ou "Saúde subiu de nível: as espinhas estão sumindo."
+
+**A vida também muda** conforme as barras: o celular trincado vira um novo (💰), aparece comida na geladeira (❤️), a Carla começa a responder as mensagens (💘) e o Rodrigo para de rir no grupo (⭐).
+
 ## Personagens fixos
 
 - **Armando**: o protagonista.
