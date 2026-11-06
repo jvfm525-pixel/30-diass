@@ -48,12 +48,12 @@ Gancho para fechar cada episódio: *"Faltam X dias… e o Rodrigo tá de olho."*
 
 | Barra | Nível 1 (0–25) | Nível 2 (26–50) | Nível 3 (51–69) | Nível 4 (70+) |
 | --- | --- | --- | --- | --- |
-| ❤️ Saúde | muitas espinhas, pele amarelada, olheiras fundas | menos espinhas, olheiras menores | quase sem espinhas | pele limpa, sem olheiras, sem papada nem rugas |
-| 💰 Dinheiro | regata furada e manchada, óculos com fita | regata nova e limpa, óculos sem fita | camisa polo, óculos modernos de armação fina | camisa social, óculos redondos de grife |
-| 💘 Amor | barba por fazer, careca com fios de lado | barba aparada, cabelo raspado nascendo | barba feita, cabelo curto penteado | cara lisinha, topete com brilho |
-| ⭐ Reputação | — | — | crachá da empresa | gravata e crachá de GERENTE |
+| ❤️ Saúde | muitas espinhas, pele amarelada, olheiras fundas | menos espinhas, olheiras menores | quase sem espinhas | **rosto fino e queixo marcado**, pele limpa, sem papada nem rugas |
+| 💰 Dinheiro | regata furada e manchada, óculos com fita | regata nova e limpa, óculos sem fita | camisa polo, óculos modernos de armação fina | **blazer azul-marinho**, camisa social, óculos redondos de grife |
+| 💘 Amor | barba por fazer, careca com fios de lado | barba aparada, cabelo raspado nascendo | barba feita, cabelo curto penteado | **topete com brilho, nariz mais fino, sorriso confiante brilhando ✨** |
+| ⭐ Reputação | — | — | crachá da empresa | **gravata e crachá de GERENTE** |
 
-**Glow-up final (último degrau):** quando as 4 barras estão no máximo, o Armando ganha rosto mais fino com queixo marcado, nariz menor, blazer azul-marinho por cima da camisa e gravata, e um brilho ✨ no sorriso. A cena "O QUE MUDOU" anuncia: "✨ GLOW-UP FINAL".
+**Cada categoria no máximo traz a sua parte do glow-up** (ver a tabela). Com as 4 no máximo, o Armando fica completo e a cena "O QUE MUDOU" anuncia "✨ GLOW-UP COMPLETO". Prévia: `docs/armando-categorias.png`.
 
 **A expressão também muda:** quanto mais alto o conjunto das barras, mais confiante fica a cara "parada" dele (triste → neutra → sorriso de canto).
 

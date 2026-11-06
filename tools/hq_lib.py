@@ -113,14 +113,16 @@ def _nose(final):
             f'<circle cx="318" cy="440" r="7" fill="#fff" opacity=".7"/><path d="M282 470 q8 6 14 0 M306 470 q8 6 14 0" fill="none" stroke="{INK}" stroke-width="4"/>')
 
 
-def _jaw(final):
-    """Queixo marcado, covinha e brilho no sorriso no glow-up final."""
-    if not final:
-        return ""
-    return (f'<path d="M180 470 Q215 520 262 538" fill="none" stroke="{INK}" stroke-width="4" opacity=".35"/>'
-            f'<path d="M420 470 Q385 520 338 538" fill="none" stroke="{INK}" stroke-width="4" opacity=".35"/>'
-            f'<path d="M292 545 q8 6 16 0" fill="none" stroke="{INK}" stroke-width="4" opacity=".5"/>'
-            f'<path d="M395 470 l6 -16 l6 16 l16 6 l-16 6 l-6 16 l-6 -16 l-16 -6 Z" fill="#fff" stroke="{INK}" stroke-width="3"/>')
+def _jaw(fit, charm):
+    """Saúde no máximo: queixo marcado e covinha. Amor no máximo: brilho no sorriso."""
+    out = ""
+    if fit:
+        out += (f'<path d="M180 470 Q215 520 262 538" fill="none" stroke="{INK}" stroke-width="4" opacity=".35"/>'
+                f'<path d="M420 470 Q385 520 338 538" fill="none" stroke="{INK}" stroke-width="4" opacity=".35"/>'
+                f'<path d="M292 545 q8 6 16 0" fill="none" stroke="{INK}" stroke-width="4" opacity=".5"/>')
+    if charm:
+        out += f'<path d="M395 470 l6 -16 l6 16 l16 6 l-16 6 l-6 16 l-6 -16 l-16 -6 Z" fill="#fff" stroke="{INK}" stroke-width="3"/>'
+    return out
 
 
 def _clothes(p, mT, rT, final=False):
@@ -166,17 +168,17 @@ def _clothes(p, mT, rT, final=False):
 def visual_changes(before, after):
     """Lista do que mudou na aparência entre dois estados de barras (para a cena de UPGRADE)."""
     txt = {
-        "health": [["muitas espinhas", "pele amarelada", "olheiras fundas"], ["menos espinhas", "olheiras menores"], ["quase sem espinhas", "olheiras quase sumindo"], ["pele limpa", "sem olheiras", "sem papada"]],
-        "money": [["regata furada e manchada", "óculos com fita"], ["regata nova e limpa", "óculos sem fita"], ["camisa polo", "óculos modernos"], ["camisa social", "óculos de grife"]],
-        "love": [["barba por fazer", "careca"], ["barba aparada", "cabelo nascendo"], ["barba feita", "cabelo curto penteado"], ["cara lisinha", "topete com brilho"]],
+        "health": [["muitas espinhas", "pele amarelada", "olheiras fundas"], ["menos espinhas", "olheiras menores"], ["quase sem espinhas", "olheiras quase sumindo"], ["rosto fino e queixo marcado", "pele limpa", "sem papada"]],
+        "money": [["regata furada e manchada", "óculos com fita"], ["regata nova e limpa", "óculos sem fita"], ["camisa polo", "óculos modernos"], ["blazer azul-marinho", "camisa social", "óculos de grife"]],
+        "love": [["barba por fazer", "careca"], ["barba aparada", "cabelo nascendo"], ["barba feita", "cabelo curto penteado"], ["topete com brilho", "nariz mais fino", "sorriso brilhando ✨"]],
         "rep": [["ninguém conhece"], ["sem crachá"], ["crachá da empresa"], ["gravata", "crachá de GERENTE"]],
     }
     icons = {"health": "❤️", "money": "💰", "love": "💘", "rep": "⭐"}
     out = []
-    fb = sum(tier(before[k]) for k in before) >= 11
-    fa = sum(tier(after[k]) for k in after) >= 11
+    fb = all(tier(before[k]) == 3 for k in before)
+    fa = all(tier(after[k]) == 3 for k in after)
     if fa and not fb:
-        out.append(("✨", "GLOW-UP FINAL", ["rosto mais fino", "queixo marcado", "blazer novo", "sorriso brilhando"]))
+        out.append(("✨", "GLOW-UP COMPLETO", ["as 4 barras no máximo!"]))
     for k in ("money", "health", "love", "rep"):
         a, b = tier(before[k]), tier(after[k])
         if b != a:
@@ -204,9 +206,9 @@ def armando(p, pose="none", bags=None, stats=None):
     mT, hT, lT, rT = tier(st["money"]), tier(st["health"]), tier(st["love"]), tier(st["rep"])
     if bags is None:
         bags = [1.0, .6, .3, 0.0][hT] if stats else 1.0
-    final = mT + hT + lT + rT >= 11  # último degrau: glow-up completo
+    fit, rich, charm = hT == 3, mT == 3, lT == 3  # cada barra no máximo traz sua parte do glow-up
     head_d = ("M300 118 C428 118 480 205 480 312 C480 418 438 492 372 534 C344 552 256 552 228 534 C162 492 120 418 120 312 C120 205 172 118 300 118 Z"
-              if final else "M300 118 C430 118 492 210 492 320 C492 445 430 548 300 552 C170 548 108 445 108 320 C108 210 170 118 300 118 Z")
+              if fit else "M300 118 C430 118 492 210 492 320 C492 445 430 548 300 552 C170 548 108 445 108 320 C108 210 170 118 300 118 Z")
     stub_op = [.5, .32, .14, 0][lT]
     stray = lT < 1
     taped = mT < 2
@@ -275,7 +277,7 @@ def armando(p, pose="none", bags=None, stats=None):
   <g id="{p}-rig">
   <g id="{p}-body">
     <path d="M10 800 C20 650 110 590 215 575 L300 600 L385 575 C490 590 580 650 590 800 Z" fill="{SKIN}" stroke="{INK}" stroke-width="10"/>
-    {_clothes(p, mT, rT, final)}
+    {_clothes(p, mT, rT, rich)}
   </g>
   <g id="{p}-head">
     <rect x="245" y="510" width="110" height="90" fill="{SKIN}" stroke="{INK}" stroke-width="9"/>
@@ -308,9 +310,9 @@ def armando(p, pose="none", bags=None, stats=None):
       <path d="M182 268 L284 300 L280 312 L186 286 Z"/><path d="M418 268 L316 300 L320 312 L414 286 Z"/></g>
     {eye("l", 228)}{eye("r", 372)}
     {_glasses(mT)}
-    {_nose(final)}
-    {_jaw(final)}
-    <g id="{p}-m-sad">{_rest_mouth(mT + hT + lT + rT)}</g>
+    {_nose(charm)}
+    {_jaw(fit, charm)}
+    <g id="{p}-m-sad">{_rest_mouth(12 if charm else mT + hT + lT + rT)}</g>
     <g id="{p}-m-chew" opacity="0"><path d="M258 500 Q300 490 342 500 Q338 548 300 550 Q262 548 258 500 Z" fill="#5a1f26" stroke="{INK}" stroke-width="8"/>
       <path d="M285 505 q-4 30 6 60 M305 503 q6 30 -2 70" stroke="#ffd77a" stroke-width="7" fill="none" stroke-linecap="round"/></g>
     <ellipse id="{p}-m-shock" opacity="0" cx="300" cy="518" rx="26" ry="34" fill="#5a1f26" stroke="{INK}" stroke-width="8"/>
