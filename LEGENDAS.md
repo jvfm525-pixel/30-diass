@@ -39,3 +39,19 @@ Comenta A ou B 👇 A mais votada acontece amanhã!
 #ochatcontrola #armando #30dias #vocedecide #humor #animacao #fyp
 
 🎵 Música: "Positive Background" — Soundrider (CC BY)
+
+---
+
+## DIA 3 — O Mercado
+
+DIA 3 🛒 Vocês mandaram o Armando pro mercado de verdade: ele achou que brócolis era árvore, saiu com 10 centavos de troco e queimou o frango 🔥 Aí a Carla, a vizinha mais bonita do prédio, bateu na porta pedindo açúcar 😳
+
+E agora?
+🅰️ Abrir assim mesmo (💘+10 ⭐−10)
+🅱️ Fingir que não tá em casa (💘−5)
+
+Comenta A ou B 👇 A mais votada acontece amanhã!
+
+#ochatcontrola #armando #30dias #vocedecide #humor #animacao #fyp
+
+🎵 Música: crédito da faixa usada no episódio (CC BY)
