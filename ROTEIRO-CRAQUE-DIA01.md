@@ -62,3 +62,11 @@ Comenta A ou B 👇 A mais votada acontece no DIA 2!
 
 #ochatfazumcraque #biel #30dias #vocedecide #futebol #humor #animacao #fyp
 ```
+
+## Como foi produzido (versão final, 71 s)
+
+- **Narração:** ElevenLabs (voz Roberta), acelerada 10%. Legendas sincronizadas palavra por palavra com a transcrição automática (whisper).
+- **Estilo "Álbum de Figurinhas":** personagens de papel recortado em stop motion, papel kraft, fita adesiva, giz de prancheta e legendas em tira de papel rasgado (fonte Permanent Marker).
+- **Música:** "Simple Samba for Youtube" — eitabyte (CC BY), via Jamendo. Credite na legenda.
+- **Efeitos novos:** apito, bola murchando, chute, fita adesiva, papel e ronco.
+- **Arquivos:** projeto em `craque-dia01/`, gerado por `tools/build_craque_dia01.py` com os desenhos de `tools/figurinha_lib.py`; vídeo em `renders/craque-dia01.mp4`.
