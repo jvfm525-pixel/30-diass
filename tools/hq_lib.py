@@ -45,6 +45,66 @@ def _skin(hT):
     return out
 
 
+def _hair(p, lT):
+    """Cabelo por nível de amor (se cuidar): careca → nascendo → curto → topete."""
+    sides = (f'<path d="M112 310 C100 230 130 190 160 175 C150 230 150 280 160 320 Z" fill="{HAIR}" stroke="{INK}" stroke-width="5"/>'
+             f'<path d="M488 310 C500 230 470 190 440 175 C450 230 450 280 440 320 Z" fill="{HAIR}" stroke="{INK}" stroke-width="5"/>')
+    if lT == 0:
+        return sides + (f'<path d="M160 200 C210 120 330 110 430 170" fill="none" stroke="{HAIR}" stroke-width="9" stroke-linecap="round"/>'
+                        f'<path d="M170 225 C230 140 350 135 440 195" fill="none" stroke="{HAIR}" stroke-width="7" stroke-linecap="round"/>')
+    if lT == 1:  # raspado, nascendo
+        return sides + (f'<path d="M112 300 C100 165 200 108 300 108 C400 108 500 165 488 300 C460 225 400 190 300 186 C200 190 140 225 112 300 Z" '
+                        f'fill="#5a4535" stroke="{INK}" stroke-width="6"/>'
+                        f'<g fill="#2d1f17">{"".join(f"<circle cx=\"{x}\" cy=\"{y}\" r=\"3\"/>" for x, y in [(200, 150), (240, 130), (280, 122), (320, 122), (360, 130), (400, 150), (220, 165), (300, 140), (380, 165)])}</g>')
+    full = (f'<path d="M104 330 C88 160 190 88 300 88 C410 88 512 160 496 330 C476 250 452 200 420 186 C370 205 230 205 180 186 C148 200 124 250 104 330 Z" '
+            f'fill="{HAIR}" stroke="{INK}" stroke-width="8" stroke-linejoin="round"/>')
+    if lT == 2:  # curto, penteado de lado
+        return full + f'<path d="M180 186 C240 150 320 140 420 186" fill="none" stroke="#5a4535" stroke-width="6" stroke-linecap="round"/>'
+    # topete com brilho
+    return (full + f'<path d="M160 190 C170 70 330 30 440 120 C460 140 455 180 420 186 C380 140 260 130 160 190 Z" fill="{HAIR}" stroke="{INK}" stroke-width="8" stroke-linejoin="round"/>'
+            f'<path d="M220 130 C280 80 360 80 410 120" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".6"/>'
+            f'<path d="M250 155 C300 125 350 125 390 145" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".4"/>')
+
+
+def _glasses(mT):
+    """Óculos por nível de dinheiro: fita → inteiro → moderno → de grife."""
+    if mT <= 1:
+        tape = (f'<rect x="278" y="304" width="44" height="34" rx="4" fill="#f6f1e2" stroke="{INK}" stroke-width="4" transform="rotate(10 300 321)"/>'
+                f'<path d="M286 312 l28 16 M286 328 l28 -8" stroke="#b4ad97" stroke-width="3"/>') if mT == 0 else ""
+        return f'''<g transform="rotate({-2.5 if mT == 0 else 0} 300 340)">
+      <rect x="166" y="290" width="128" height="100" rx="26" fill="rgba(200,235,255,.16)" stroke="{INK}" stroke-width="16"/>
+      <rect x="306" y="290" width="128" height="100" rx="26" fill="rgba(200,235,255,.16)" stroke="{INK}" stroke-width="16"/>
+      <path d="M184 372 L226 306 M200 378 L238 318" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+      <path d="M324 372 L366 306" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+      <path d="M294 322 Q300 314 306 322" stroke="{INK}" stroke-width="12" fill="none"/>{tape}
+      <path d="M166 320 L118 312 M434 320 L482 312" stroke="{INK}" stroke-width="10"/></g>'''
+    if mT == 2:  # armação moderna fina
+        return f'''<g>
+      <rect x="172" y="300" width="118" height="78" rx="14" fill="rgba(200,235,255,.12)" stroke="{INK}" stroke-width="8"/>
+      <rect x="310" y="300" width="118" height="78" rx="14" fill="rgba(200,235,255,.12)" stroke="{INK}" stroke-width="8"/>
+      <path d="M290 322 Q300 314 310 322" stroke="{INK}" stroke-width="7" fill="none"/>
+      <path d="M190 365 L222 310" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".6"/>
+      <path d="M172 318 L118 312 M428 318 L482 312" stroke="{INK}" stroke-width="7"/></g>'''
+    # redondos de grife (tartaruga)
+    return f'''<g>
+      <circle cx="230" cy="340" r="56" fill="rgba(200,235,255,.1)" stroke="#7a4a1f" stroke-width="10"/>
+      <circle cx="370" cy="340" r="56" fill="rgba(200,235,255,.1)" stroke="#7a4a1f" stroke-width="10"/>
+      <circle cx="230" cy="340" r="56" fill="none" stroke="{INK}" stroke-width="3"/><circle cx="370" cy="340" r="56" fill="none" stroke="{INK}" stroke-width="3"/>
+      <path d="M286 330 Q300 318 314 330" stroke="#c9a227" stroke-width="6" fill="none"/>
+      <path d="M200 370 L235 305" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".6"/>
+      <path d="M174 330 L118 314 M426 330 L482 314" stroke="#c9a227" stroke-width="6"/></g>'''
+
+
+def _rest_mouth(score):
+    """Boca "parada": triste no começo, neutra no meio, sorriso confiante no fim."""
+    if score >= 9:
+        return f'<path d="M248 508 Q300 548 352 508" fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round"/><path d="M340 506 q10 -2 14 -10" stroke="{INK}" stroke-width="6" fill="none" stroke-linecap="round"/>'
+    if score >= 6:
+        return f'<path d="M255 515 Q300 530 345 515" fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round"/>'
+    return (f'<path d="M250 520 Q300 498 350 520" fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round"/>'
+            f'<path d="M272 532 Q300 542 328 532" fill="none" stroke="{INK}" stroke-width="4" opacity=".5"/>')
+
+
 def _clothes(p, mT, rT):
     """Roupa por nível de dinheiro (+ crachá/gravata pela reputação)."""
     shade = f'<path d="M110 800 C115 700 160 640 205 600 L230 610 C180 660 160 720 165 800 Z" fill="url(#{p}-dots)"/>'
@@ -79,9 +139,9 @@ def _clothes(p, mT, rT):
 def visual_changes(before, after):
     """Lista do que mudou na aparência entre dois estados de barras (para a cena de UPGRADE)."""
     txt = {
-        "health": [["muitas espinhas", "pele amarelada", "olheiras fundas"], ["menos espinhas", "olheiras menores"], ["quase sem espinhas", "olheiras quase sumindo"], ["pele limpa", "sem olheiras", "bochechas coradas"]],
-        "money": [["regata furada e manchada", "óculos com fita"], ["regata nova e limpa"], ["camisa polo", "óculos consertados"], ["camisa social", "caneta no bolso"]],
-        "love": [["barba por fazer", "cabelo arrepiado"], ["barba mais aparada"], ["barba feita", "cabelo penteado"], ["cara lisinha", "cabelo com brilho"]],
+        "health": [["muitas espinhas", "pele amarelada", "olheiras fundas"], ["menos espinhas", "olheiras menores"], ["quase sem espinhas", "olheiras quase sumindo"], ["pele limpa", "sem olheiras", "sem papada"]],
+        "money": [["regata furada e manchada", "óculos com fita"], ["regata nova e limpa", "óculos sem fita"], ["camisa polo", "óculos modernos"], ["camisa social", "óculos de grife"]],
+        "love": [["barba por fazer", "careca"], ["barba aparada", "cabelo nascendo"], ["barba feita", "cabelo curto penteado"], ["cara lisinha", "topete com brilho"]],
         "rep": [["ninguém conhece"], ["sem crachá"], ["crachá da empresa"], ["gravata", "crachá de GERENTE"]],
     }
     icons = {"health": "❤️", "money": "💰", "love": "💘", "rep": "⭐"}
@@ -114,7 +174,7 @@ def armando(p, pose="none", bags=None, stats=None):
     if bags is None:
         bags = [1.0, .6, .3, 0.0][hT] if stats else 1.0
     stub_op = [.5, .32, .14, 0][lT]
-    stray = lT < 2
+    stray = lT < 1
     taped = mT < 2
 
     def eye(side, cx):
@@ -196,14 +256,11 @@ def armando(p, pose="none", bags=None, stats=None):
       {_skin(hT)}
       <ellipse cx="380" cy="180" rx="48" ry="20" fill="#fff" opacity=".35" transform="rotate(-20 380 180)"/>
     </g>
-    <path d="M200 525 Q300 575 400 525" fill="none" stroke="{INK}" stroke-width="5" opacity=".6"/>
-    <path d="M112 310 C100 230 130 190 160 175 C150 230 150 280 160 320 Z" fill="{HAIR}" stroke="{INK}" stroke-width="5"/>
-    <path d="M488 310 C500 230 470 190 440 175 C450 230 450 280 440 320 Z" fill="{HAIR}" stroke="{INK}" stroke-width="5"/>
-    <path d="M160 200 C210 120 330 110 430 170" fill="none" stroke="{HAIR}" stroke-width="9" stroke-linecap="round"/>
-    <path d="M170 225 C230 140 350 135 440 195" fill="none" stroke="{HAIR}" stroke-width="7" stroke-linecap="round"/>
+    {'<path d="M200 525 Q300 575 400 525" fill="none" stroke="' + INK + '" stroke-width="5" opacity=".6"/>' if hT < 3 else '<path d="M230 540 Q300 560 370 540" fill="none" stroke="' + INK + '" stroke-width="4" opacity=".35"/>'}
+    {_hair(p, lT)}
     {'<path d="M290 122 q-10 -40 15 -66 M318 124 q20 -30 6 -60" fill="none" stroke="' + HAIR + '" stroke-width="7" stroke-linecap="round"/>' if stray else ''}
     {'<path d="M175 215 C240 150 350 150 432 192" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".55"/>' if lT == 3 else ''}
-    <path d="M230 230 q70 -14 140 0 M245 252 q55 -10 110 0" fill="none" stroke="{INK}" stroke-width="4" opacity=".45"/>
+    {'<path d="M230 230 q70 -14 140 0 M245 252 q55 -10 110 0" fill="none" stroke="' + INK + '" stroke-width="4" opacity=".45"/>' if hT < 3 else ''}
     <g id="{p}-br-sad" fill="{HAIR}" stroke="{INK}" stroke-width="4">
       <path d="M180 292 C200 268 250 266 280 282 L276 294 C250 284 210 286 186 304 Z"/>
       <path d="M420 292 C400 268 350 266 320 282 L324 294 C350 284 390 286 414 304 Z"/></g>
@@ -216,20 +273,11 @@ def armando(p, pose="none", bags=None, stats=None):
     <g id="{p}-br-angry" opacity="0" fill="{HAIR}" stroke="{INK}" stroke-width="4">
       <path d="M182 268 L284 300 L280 312 L186 286 Z"/><path d="M418 268 L316 300 L320 312 L414 286 Z"/></g>
     {eye("l", 228)}{eye("r", 372)}
-    <g transform="rotate({-2.5 if taped else 0} 300 340)">
-      <rect x="166" y="290" width="128" height="100" rx="26" fill="rgba(200,235,255,.16)" stroke="{INK}" stroke-width="16"/>
-      <rect x="306" y="290" width="128" height="100" rx="26" fill="rgba(200,235,255,.16)" stroke="{INK}" stroke-width="16"/>
-      <path d="M184 372 L226 306 M200 378 L238 318" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
-      <path d="M324 372 L366 306" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
-      <path d="M294 322 Q300 314 306 322" stroke="{INK}" stroke-width="12" fill="none"/>
-      {'<rect x="278" y="304" width="44" height="34" rx="4" fill="#f6f1e2" stroke="' + INK + '" stroke-width="4" transform="rotate(10 300 321)"/><path d="M286 312 l28 16 M286 328 l28 -8" stroke="#b4ad97" stroke-width="3"/>' if taped else ''}
-      <path d="M166 320 L118 312 M434 320 L482 312" stroke="{INK}" stroke-width="10"/>
-    </g>
+    {_glasses(mT)}
     <path d="M300 360 C262 420 246 462 274 478 C290 488 312 488 328 478 C356 462 338 420 300 360 Z" fill="{SKIN_SH}" stroke="{INK}" stroke-width="8"/>
     <circle cx="318" cy="440" r="7" fill="#fff" opacity=".7"/>
     <path d="M282 470 q8 6 14 0 M306 470 q8 6 14 0" fill="none" stroke="{INK}" stroke-width="4"/>
-    <g id="{p}-m-sad"><path d="M250 520 Q300 498 350 520" fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round"/>
-      <path d="M272 532 Q300 542 328 532" fill="none" stroke="{INK}" stroke-width="4" opacity=".5"/></g>
+    <g id="{p}-m-sad">{_rest_mouth(mT + hT + lT + rT)}</g>
     <g id="{p}-m-chew" opacity="0"><path d="M258 500 Q300 490 342 500 Q338 548 300 550 Q262 548 258 500 Z" fill="#5a1f26" stroke="{INK}" stroke-width="8"/>
       <path d="M285 505 q-4 30 6 60 M305 503 q6 30 -2 70" stroke="#ffd77a" stroke-width="7" fill="none" stroke-linecap="round"/></g>
     <ellipse id="{p}-m-shock" opacity="0" cx="300" cy="518" rx="26" ry="34" fill="#5a1f26" stroke="{INK}" stroke-width="8"/>
