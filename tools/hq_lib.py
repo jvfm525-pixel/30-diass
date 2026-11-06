@@ -105,7 +105,25 @@ def _rest_mouth(score):
             f'<path d="M272 532 Q300 542 328 532" fill="none" stroke="{INK}" stroke-width="4" opacity=".5"/>')
 
 
-def _clothes(p, mT, rT):
+def _nose(final):
+    if final:  # nariz menor e mais fino
+        return (f'<path d="M300 378 C280 424 270 450 286 460 C294 465 306 465 314 460 C330 450 320 424 300 378 Z" fill="{SKIN_SH}" stroke="{INK}" stroke-width="7"/>'
+                f'<circle cx="312" cy="438" r="5" fill="#fff" opacity=".7"/><path d="M288 456 q6 4 10 0 M302 456 q6 4 10 0" fill="none" stroke="{INK}" stroke-width="3"/>')
+    return (f'<path d="M300 360 C262 420 246 462 274 478 C290 488 312 488 328 478 C356 462 338 420 300 360 Z" fill="{SKIN_SH}" stroke="{INK}" stroke-width="8"/>'
+            f'<circle cx="318" cy="440" r="7" fill="#fff" opacity=".7"/><path d="M282 470 q8 6 14 0 M306 470 q8 6 14 0" fill="none" stroke="{INK}" stroke-width="4"/>')
+
+
+def _jaw(final):
+    """Queixo marcado, covinha e brilho no sorriso no glow-up final."""
+    if not final:
+        return ""
+    return (f'<path d="M180 470 Q215 520 262 538" fill="none" stroke="{INK}" stroke-width="4" opacity=".35"/>'
+            f'<path d="M420 470 Q385 520 338 538" fill="none" stroke="{INK}" stroke-width="4" opacity=".35"/>'
+            f'<path d="M292 545 q8 6 16 0" fill="none" stroke="{INK}" stroke-width="4" opacity=".5"/>'
+            f'<path d="M395 470 l6 -16 l6 16 l16 6 l-16 6 l-6 16 l-6 -16 l-16 -6 Z" fill="#fff" stroke="{INK}" stroke-width="3"/>')
+
+
+def _clothes(p, mT, rT, final=False):
     """Roupa por nível de dinheiro (+ crachá/gravata pela reputação)."""
     shade = f'<path d="M110 800 C115 700 160 640 205 600 L230 610 C180 660 160 720 165 800 Z" fill="url(#{p}-dots)"/>'
     skin_sh = f'<path d="M10 800 C20 650 110 590 205 578 L180 620 C110 650 80 720 75 800 Z" fill="url(#{p}-dskin)"/>'
@@ -128,11 +146,20 @@ def _clothes(p, mT, rT):
                     + f'<rect x="380" y="680" width="70" height="60" fill="none" stroke="{INK}" stroke-width="5"/><rect x="398" y="660" width="10" height="40" fill="#1a73e8" stroke="{INK}" stroke-width="3"/>')
     if rT >= 3:  # gravata
         out += f'<path d="M285 650 L315 650 L325 680 L312 790 L300 805 L288 790 L275 680 Z" fill="{RED}" stroke="{INK}" stroke-width="7" stroke-linejoin="round"/><path d="M290 700 L312 690 M288 740 L314 730" stroke="#fff" stroke-width="5" opacity=".6"/>'
+    badge = ""
     if rT >= 2:  # crachá
         label = "GERENTE" if rT >= 3 else "ARMANDO"
-        out += (f'<g transform="rotate(-4 175 735)"><rect x="110" y="700" width="140" height="78" rx="8" fill="#fff" stroke="{INK}" stroke-width="6"/>'
+        badge = (f'<g transform="rotate(-4 175 735)"><rect x="110" y="700" width="140" height="78" rx="8" fill="#fff" stroke="{INK}" stroke-width="6"/>'
                 f'<rect x="110" y="700" width="140" height="22" rx="6" fill="{CYAN}"/>'
                 f'<text x="180" y="760" text-anchor="middle" font-family="Archivo Black" font-size="{20 if rT >= 3 else 18}" fill="{INK}">{label}</text></g>')
+    if not final:
+        out += badge
+    if final:  # blazer azul-marinho por cima
+        out += (f'<path d="M10 800 C20 650 110 590 215 575 L262 700 L240 800 Z" fill="#1f2a44" stroke="{INK}" stroke-width="10" stroke-linejoin="round"/>'
+                f'<path d="M590 800 C580 650 490 590 385 575 L338 700 L360 800 Z" fill="#1f2a44" stroke="{INK}" stroke-width="10" stroke-linejoin="round"/>'
+                f'<path d="M215 575 L262 700 L228 690 L200 600 Z M385 575 L338 700 L372 690 L400 600 Z" fill="#2c3a5c" stroke="{INK}" stroke-width="6" stroke-linejoin="round"/>'
+                f'<path d="M455 690 l12 -16 l12 16 l-12 6 Z" fill="#fff" stroke="{INK}" stroke-width="4"/>'
+                f'<path d="M30 800 C40 690 100 630 170 600" fill="none" stroke="#3b4b72" stroke-width="8" opacity=".7"/>') + badge
     return out
 
 
@@ -146,6 +173,10 @@ def visual_changes(before, after):
     }
     icons = {"health": "❤️", "money": "💰", "love": "💘", "rep": "⭐"}
     out = []
+    fb = sum(tier(before[k]) for k in before) >= 11
+    fa = sum(tier(after[k]) for k in after) >= 11
+    if fa and not fb:
+        out.append(("✨", "GLOW-UP FINAL", ["rosto mais fino", "queixo marcado", "blazer novo", "sorriso brilhando"]))
     for k in ("money", "health", "love", "rep"):
         a, b = tier(before[k]), tier(after[k])
         if b != a:
@@ -173,6 +204,9 @@ def armando(p, pose="none", bags=None, stats=None):
     mT, hT, lT, rT = tier(st["money"]), tier(st["health"]), tier(st["love"]), tier(st["rep"])
     if bags is None:
         bags = [1.0, .6, .3, 0.0][hT] if stats else 1.0
+    final = mT + hT + lT + rT >= 11  # último degrau: glow-up completo
+    head_d = ("M300 118 C428 118 480 205 480 312 C480 418 438 492 372 534 C344 552 256 552 228 534 C162 492 120 418 120 312 C120 205 172 118 300 118 Z"
+              if final else "M300 118 C430 118 492 210 492 320 C492 445 430 548 300 552 C170 548 108 445 108 320 C108 210 170 118 300 118 Z")
     stub_op = [.5, .32, .14, 0][lT]
     stray = lT < 1
     taped = mT < 2
@@ -236,12 +270,12 @@ def armando(p, pose="none", bags=None, stats=None):
 
     return f'''<svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <defs>{dots(p)}{dots(p, "#7a3c12", 8, 2, .55, "dskin")}
-    <clipPath id="{p}-headclip"><path d="M300 118 C430 118 492 210 492 320 C492 445 430 548 300 552 C170 548 108 445 108 320 C108 210 170 118 300 118 Z"/></clipPath>
+    <clipPath id="{p}-headclip"><path d="{head_d}"/></clipPath>
   </defs>
   <g id="{p}-rig">
   <g id="{p}-body">
     <path d="M10 800 C20 650 110 590 215 575 L300 600 L385 575 C490 590 580 650 590 800 Z" fill="{SKIN}" stroke="{INK}" stroke-width="10"/>
-    {_clothes(p, mT, rT)}
+    {_clothes(p, mT, rT, final)}
   </g>
   <g id="{p}-head">
     <rect x="245" y="510" width="110" height="90" fill="{SKIN}" stroke="{INK}" stroke-width="9"/>
@@ -249,7 +283,7 @@ def armando(p, pose="none", bags=None, stats=None):
     <ellipse cx="108" cy="340" rx="32" ry="50" fill="{SKIN}" stroke="{INK}" stroke-width="9"/>
     <ellipse cx="492" cy="340" rx="32" ry="50" fill="{SKIN}" stroke="{INK}" stroke-width="9"/>
     <path d="M100 320 q10 -20 18 10 M500 320 q-10 -20 -18 10" fill="none" stroke="{INK}" stroke-width="5"/>
-    <path d="M300 118 C430 118 492 210 492 320 C492 445 430 548 300 552 C170 548 108 445 108 320 C108 210 170 118 300 118 Z" fill="{SKIN}" stroke="{INK}" stroke-width="10"/>
+    <path d="{head_d}" fill="{SKIN}" stroke="{INK}" stroke-width="10"/>
     <g clip-path="url(#{p}-headclip)">
       <path d="M108 200 C150 300 140 470 300 560 L100 560 Z" fill="url(#{p}-dskin)"/>
       <g fill="{HAIR}" opacity="{stub_op}">{_stubble(3)}</g>
@@ -274,9 +308,8 @@ def armando(p, pose="none", bags=None, stats=None):
       <path d="M182 268 L284 300 L280 312 L186 286 Z"/><path d="M418 268 L316 300 L320 312 L414 286 Z"/></g>
     {eye("l", 228)}{eye("r", 372)}
     {_glasses(mT)}
-    <path d="M300 360 C262 420 246 462 274 478 C290 488 312 488 328 478 C356 462 338 420 300 360 Z" fill="{SKIN_SH}" stroke="{INK}" stroke-width="8"/>
-    <circle cx="318" cy="440" r="7" fill="#fff" opacity=".7"/>
-    <path d="M282 470 q8 6 14 0 M306 470 q8 6 14 0" fill="none" stroke="{INK}" stroke-width="4"/>
+    {_nose(final)}
+    {_jaw(final)}
     <g id="{p}-m-sad">{_rest_mouth(mT + hT + lT + rT)}</g>
     <g id="{p}-m-chew" opacity="0"><path d="M258 500 Q300 490 342 500 Q338 548 300 550 Q262 548 258 500 Z" fill="#5a1f26" stroke="{INK}" stroke-width="8"/>
       <path d="M285 505 q-4 30 6 60 M305 503 q6 30 -2 70" stroke="#ffd77a" stroke-width="7" fill="none" stroke-linecap="round"/></g>

@@ -53,6 +53,8 @@ Gancho para fechar cada episódio: *"Faltam X dias… e o Rodrigo tá de olho."*
 | 💘 Amor | barba por fazer, careca com fios de lado | barba aparada, cabelo raspado nascendo | barba feita, cabelo curto penteado | cara lisinha, topete com brilho |
 | ⭐ Reputação | — | — | crachá da empresa | gravata e crachá de GERENTE |
 
+**Glow-up final (último degrau):** quando as 4 barras estão no máximo, o Armando ganha rosto mais fino com queixo marcado, nariz menor, blazer azul-marinho por cima da camisa e gravata, e um brilho ✨ no sorriso. A cena "O QUE MUDOU" anuncia: "✨ GLOW-UP FINAL".
+
 **A expressão também muda:** quanto mais alto o conjunto das barras, mais confiante fica a cara "parada" dele (triste → neutra → sorriso de canto).
 
 **Todo episódio tem a cena "O QUE MUDOU"** (`tools/upgrade_scene.py`), logo depois das barras: o Armando ANTES e DEPOIS lado a lado, as barras que mudaram (ex.: 💰 20 → 30) e a lista do que mudou ("💰 UPGRADE: regata nova e limpa"). Se nenhuma barra mudou de nível, a cena mostra quanto falta para o próximo visual ("Falta 5 de ❤️ pro próximo visual 👀").
