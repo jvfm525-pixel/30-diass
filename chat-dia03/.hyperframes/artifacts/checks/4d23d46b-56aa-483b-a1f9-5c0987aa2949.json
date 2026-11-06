@@ -1,0 +1,869 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 389 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/30-diass/chat-dia03/compositions/caps.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      }
+    ],
+    "filesScanned": 14
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 0,
+    "infoCount": 15,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 39.216,
+        "selector": "#s7-phone > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 258.53,
+          "top": 272.75,
+          "right": 512.38,
+          "bottom": 327.53,
+          "width": 253.85,
+          "height": 54.78
+        },
+        "containerSelector": "#hud-in > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1)",
+        "text": "Turma 3ºB 🎓",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7-rodrigo.html",
+        "bbox": {
+          "x": 258.53,
+          "y": 272.75,
+          "width": 253.85,
+          "height": 54.78
+        },
+        "firstSeen": 39.216,
+        "lastSeen": 44.009,
+        "occurrences": 12,
+        "heldMs": 4792.999999999999,
+        "times": [
+          39.216,
+          39.651,
+          40.087,
+          40.523,
+          40.959,
+          41.394,
+          41.83,
+          42.266,
+          42.702,
+          43.137,
+          43.573,
+          44.009
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 4.309,
+        "selector": "#s1-card-in > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 357.01,
+          "top": 877.76,
+          "right": 706.82,
+          "bottom": 962.82,
+          "width": 349.81,
+          "height": 85.06
+        },
+        "containerSelector": "#s1-face-in",
+        "text": "MERCADO",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.22,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 357.01,
+          "y": 877.76,
+          "width": 349.81,
+          "height": 85.06
+        },
+        "firstSeen": 4.309,
+        "lastSeen": 4.309,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.309
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 4.309,
+        "selector": "#s1-face-in > div:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 597.66,
+          "top": 779.41,
+          "right": 1023.87,
+          "bottom": 1331.11,
+          "width": 426.2,
+          "height": 551.7
+        },
+        "containerSelector": "#s1-face-in",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 628.66,
+          "top": 788.66,
+          "right": 981.34,
+          "bottom": 1141.34,
+          "width": 352.69,
+          "height": 352.69
+        },
+        "overflow": {
+          "left": 31,
+          "right": 42.53,
+          "top": 9.25,
+          "bottom": 189.77
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 597.66,
+          "y": 779.41,
+          "width": 426.2,
+          "height": 551.7
+        },
+        "firstSeen": 4.309,
+        "lastSeen": 4.309,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.309
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 12.927,
+        "selector": "#s3-q-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 114.47,
+          "top": 408.43,
+          "right": 583.37,
+          "bottom": 561.57,
+          "width": 468.9,
+          "height": 153.14
+        },
+        "containerSelector": "#s3-q",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 120,
+          "top": 440,
+          "right": 577.84,
+          "bottom": 530,
+          "width": 457.84,
+          "height": 90
+        },
+        "overflow": {
+          "left": 5.53,
+          "right": 5.53
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s3-brocolis.html",
+        "bbox": {
+          "x": 114.47,
+          "y": 408.43,
+          "width": 468.9,
+          "height": 153.14
+        },
+        "firstSeen": 12.927,
+        "lastSeen": 12.927,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.927
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 21.544,
+        "selector": "#s4-note-in > svg:nth-of-type(1) > rect:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 175.62,
+          "top": 763.19,
+          "right": 483.95,
+          "bottom": 946.83,
+          "width": 308.33,
+          "height": 183.64
+        },
+        "containerSelector": "#s4-note-in > svg:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 173.82,
+          "top": 767.22,
+          "right": 485.75,
+          "bottom": 942.8,
+          "width": 311.93,
+          "height": 175.58
+        },
+        "overflow": {
+          "top": 4.03,
+          "bottom": 4.03
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-caixa.html",
+        "bbox": {
+          "x": 175.62,
+          "y": 763.19,
+          "width": 308.33,
+          "height": 183.64
+        },
+        "firstSeen": 21.544,
+        "lastSeen": 21.544,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.544
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 30.162,
+        "selector": "#s5-v0",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 860,
+          "top": 376,
+          "right": 924.05,
+          "bottom": 428,
+          "width": 64.05,
+          "height": 52
+        },
+        "containerSelector": "#s5-d0-in",
+        "text": "20",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.04,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 860,
+          "y": 376,
+          "width": 64.05,
+          "height": 52
+        },
+        "firstSeen": 30.162,
+        "lastSeen": 30.162,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.162
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 30.162,
+        "selector": "#s5-v1",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 860,
+          "top": 501,
+          "right": 924.05,
+          "bottom": 553,
+          "width": 64.05,
+          "height": 52
+        },
+        "containerSelector": "#s5-d1-in",
+        "text": "30",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.22,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 860,
+          "y": 501,
+          "width": 64.05,
+          "height": 52
+        },
+        "firstSeen": 30.162,
+        "lastSeen": 30.162,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.162
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 30.162,
+        "selector": "#s5-d0-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 877.62,
+          "top": 313.28,
+          "right": 1020.14,
+          "bottom": 395.72,
+          "width": 142.52,
+          "height": 82.43
+        },
+        "containerSelector": "#s5-d0",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 880,
+          "top": 318,
+          "right": 1017.77,
+          "bottom": 391,
+          "width": 137.77,
+          "height": 73
+        },
+        "overflow": {
+          "left": 2.38,
+          "right": 2.37
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 877.62,
+          "y": 313.28,
+          "width": 142.52,
+          "height": 82.43
+        },
+        "firstSeen": 30.162,
+        "lastSeen": 30.162,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.162
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 30.162,
+        "selector": "#s5-d1-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 877.62,
+          "top": 438.28,
+          "right": 1020.14,
+          "bottom": 520.72,
+          "width": 142.52,
+          "height": 82.43
+        },
+        "containerSelector": "#s5-d1",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 880,
+          "top": 443,
+          "right": 1017.77,
+          "bottom": 516,
+          "width": 137.77,
+          "height": 73
+        },
+        "overflow": {
+          "left": 2.38,
+          "right": 2.37
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 877.62,
+          "y": 438.28,
+          "width": 142.52,
+          "height": 82.43
+        },
+        "firstSeen": 30.162,
+        "lastSeen": 30.162,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.162
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 47.398,
+        "selector": "#s8c-rig > text:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 481.37,
+          "top": 1187.02,
+          "right": 612.9,
+          "bottom": 1258.42,
+          "width": 131.53,
+          "height": 71.4
+        },
+        "containerSelector": "#s8-name-in",
+        "text": "302",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-porta.html",
+        "bbox": {
+          "x": 481.37,
+          "y": 1187.02,
+          "width": 131.53,
+          "height": 71.4
+        },
+        "firstSeen": 47.398,
+        "lastSeen": 47.398,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          47.398
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 47.398,
+        "selector": "#s8-carla",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 206,
+          "top": 406,
+          "right": 886,
+          "bottom": 1317.66,
+          "width": 680,
+          "height": 911.66
+        },
+        "containerSelector": "#s8-hole-in",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 140,
+          "top": 340,
+          "right": 940,
+          "bottom": 1140,
+          "width": 800,
+          "height": 800
+        },
+        "overflow": {
+          "bottom": 177.66
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-porta.html",
+        "bbox": {
+          "x": 206,
+          "y": 406,
+          "width": 680,
+          "height": 911.66
+        },
+        "firstSeen": 47.398,
+        "lastSeen": 47.398,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          47.398
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 56.016,
+        "selector": "#s9-c1",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -573,
+          "top": 356,
+          "right": -322.61,
+          "bottom": 414,
+          "width": 250.39,
+          "height": 58
+        },
+        "containerSelector": "#root",
+        "text": "❌ CASA",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 573
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-problema.html",
+        "bbox": {
+          "x": -573,
+          "y": 356,
+          "width": 250.39,
+          "height": 58
+        },
+        "firstSeen": 56.016,
+        "lastSeen": 56.016,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          56.016
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 56.016,
+        "selector": "#s9-c2",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -573,
+          "top": 428.89,
+          "right": -280.17,
+          "bottom": 486.89,
+          "width": 292.83,
+          "height": 58
+        },
+        "containerSelector": "#root",
+        "text": "❌ ROUPA",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 573
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-problema.html",
+        "bbox": {
+          "x": -573,
+          "y": 428.89,
+          "width": 292.83,
+          "height": 58
+        },
+        "firstSeen": 56.016,
+        "lastSeen": 56.016,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          56.016
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 56.016,
+        "selector": "#s9-c3",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -573,
+          "top": 501.78,
+          "right": -232.64,
+          "bottom": 559.78,
+          "width": 340.36,
+          "height": 58
+        },
+        "containerSelector": "#root",
+        "text": "❌ FRANGO",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 573
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-problema.html",
+        "bbox": {
+          "x": -573,
+          "y": 501.78,
+          "width": 340.36,
+          "height": 58
+        },
+        "firstSeen": 56.016,
+        "lastSeen": 56.016,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          56.016
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 56.016,
+        "selector": "#s9-world",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -432,
+          "top": -768,
+          "right": 1512,
+          "bottom": 2688,
+          "width": 1944,
+          "height": 3456
+        },
+        "containerSelector": "#s9-problema > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 432,
+          "right": 432,
+          "top": 768,
+          "bottom": 768
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-problema.html",
+        "bbox": {
+          "x": -432,
+          "y": -768,
+          "width": 1944,
+          "height": 3456
+        },
+        "firstSeen": 56.016,
+        "lastSeen": 56.016,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          56.016
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 75.381,
+        "selector": "#s11-end-in",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 498.05,
+          "top": 1278.87,
+          "right": 581.93,
+          "bottom": 1283.32,
+          "width": 83.88,
+          "height": 4.45
+        },
+        "containerSelector": "#cw54-3",
+        "text": "DIA 4 AMANHÃ · COMENTA A OU B 👇",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s11-final.html",
+        "bbox": {
+          "x": 498.05,
+          "y": 1278.87,
+          "width": 83.88,
+          "height": 4.45
+        },
+        "firstSeen": 75.381,
+        "lastSeen": 75.381,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          75.381
+        ]
+      }
+    ],
+    "duration": 77.56,
+    "samples": [
+      4.309,
+      12.927,
+      21.544,
+      30.162,
+      38.78,
+      47.398,
+      56.016,
+      64.633,
+      73.251
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 16,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.23:1; WCAG AA requires 3:1.",
+        "text": "🎓",
+        "fg": "rgb(233,237,239)",
+        "bg": "rgb(255,210,63)",
+        "ratio": 1.23,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(119,121,122)",
+        "large": true,
+        "selector": "div > div:nth-of-type(7) > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7-rodrigo.html",
+        "bbox": {
+          "x": 187.02670288085938,
+          "y": 546.3491821289062,
+          "width": 75.37948608398438,
+          "height": 75.37945556640625
+        },
+        "time": 38.78,
+        "times": [
+          38.78
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      4.309,
+      21.544,
+      38.78,
+      56.016,
+      73.251
+    ],
+    "checked": 36,
+    "passed": 35
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"MERCADO\" renders at 12 px for 1.68 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "MERCADO",
+        "selector": "#s1-card-in > div:nth-of-type(3)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 522.07,
+          "y": 769.62,
+          "width": 66.76,
+          "height": 46.28
+        },
+        "time": 0,
+        "times": [
+          0
+        ],
+        "fontPx": 12.4,
+        "floorPx": 28,
+        "seconds": 1.683,
+        "elements": [
+          {
+            "selector": "#s1-card-in > div:nth-of-type(3)",
+            "text": "MERCADO",
+            "fontPx": 12.4,
+            "time": 0,
+            "seconds": 1.683
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"R$ 19,90\" (3 words) is on screen 0.07 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "R$ 19,90",
+        "selector": "#s4-lcd",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-caixa.html",
+        "bbox": {
+          "x": 310.48,
+          "y": 361,
+          "width": 459.02,
+          "height": 387
+        },
+        "time": 19.002,
+        "words": 3,
+        "seconds": 0.073,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"FUSH!\" (1 word) is on screen 0.15 s (±0.01 s), under its 0.40 s floor: hold it about 0.5 s + 0.3 s a word (0.80 s here) before it leaves or changes; see references/motion.md.",
+        "text": "FUSH!",
+        "selector": "#s9-fush",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-problema.html",
+        "bbox": {
+          "x": 681.36,
+          "y": 782.5,
+          "width": 398.64,
+          "height": 185
+        },
+        "time": 58.016,
+        "words": 1,
+        "seconds": 0.154,
+        "floorSeconds": 0.4
+      }
+    ],
+    "enabled": true,
+    "step": 0.1290000000000049,
+    "samples": 599
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

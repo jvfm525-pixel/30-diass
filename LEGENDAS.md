@@ -54,4 +54,4 @@ Comenta A ou B 👇 A mais votada acontece amanhã!
 
 #ochatcontrola #armando #30dias #vocedecide #humor #animacao #fyp
 
-🎵 Música: crédito da faixa usada no episódio (CC BY)
+🎵 Música: "Positive Background" — Soundrider (CC BY)

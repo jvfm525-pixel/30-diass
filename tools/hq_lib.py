@@ -35,7 +35,7 @@ def _stubble(seed):
 
 
 # ------------------------------------------------------------------ Armando
-def armando(p, pose="none"):
+def armando(p, pose="none", bags=1.0):
     """Armando HQ, busto. viewBox 0 0 600 800.
 
     Partes: {p}-rig (raiz, para o traço "fervendo"), {p}-body, {p}-head,
@@ -53,8 +53,8 @@ def armando(p, pose="none"):
         <path d="M{cx-40} 336 L{cx+40} 336" stroke="{INK}" stroke-width="0"/>
       </g>
       <ellipse cx="{cx}" cy="338" rx="38" ry="31" fill="none" stroke="{INK}" stroke-width="5"/>
-      <path d="M{cx-30} 380 Q{cx} 394 {cx+30} 380" fill="none" stroke="{INK}" stroke-width="4" opacity=".6"/>
-      <path d="M{cx-22} 392 Q{cx} 400 {cx+22} 392" fill="none" stroke="{INK}" stroke-width="3" opacity=".35"/>'''
+      <path d="M{cx-30} 380 Q{cx} 394 {cx+30} 380" fill="none" stroke="{INK}" stroke-width="4" opacity="{.6 * bags:.2f}"/>
+      <path d="M{cx-22} 392 Q{cx} 400 {cx+22} 392" fill="none" stroke="{INK}" stroke-width="3" opacity="{.35 * bags * bags:.2f}"/>'''
 
     poses = {
         "miojo": f'''
@@ -213,6 +213,38 @@ def rodrigo(p):
   <ellipse cx="130" cy="340" rx="24" ry="40" fill="#f2b07c" stroke="{INK}" stroke-width="8"/>
   <ellipse cx="470" cy="340" rx="24" ry="40" fill="#f2b07c" stroke="{INK}" stroke-width="8"/>
   <circle cx="470" cy="370" r="7" fill="{YEL}" stroke="{INK}" stroke-width="3"/>
+  </g>
+</svg>'''
+
+
+# ------------------------------------------------------------------ Carla
+def carla(p):
+    """Carla, a vizinha do 302. viewBox 0 0 600 800. Boca {p}-m-smile / {p}-m-o."""
+    import math as _m
+    curls = "".join(f'<circle cx="{300 + 205 * _m.cos(a):.0f}" cy="{300 + 190 * _m.sin(a):.0f}" r="{58 + (i % 3) * 10}"/>'
+                    for i, a in enumerate([_m.pi * (0.75 + k * 0.105) for k in range(15)]))
+    return f'''<svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <defs>{dots(p)}{dots(p, "#5a2a10", 8, 2, .5, "dskin")}</defs>
+  <g id="{p}-rig">
+  <g fill="#2a1a14" stroke="{INK}" stroke-width="8">{curls}<ellipse cx="300" cy="330" rx="215" ry="230"/></g>
+  <path d="M30 800 C40 650 140 600 230 590 L300 615 L370 590 C460 600 560 650 570 800 Z" fill="{YEL}" stroke="{INK}" stroke-width="10"/>
+  <path d="M30 800 C40 650 140 600 210 592 L170 660 C110 690 90 740 85 800 Z" fill="url(#{p}-dots)"/>
+  <text x="300" y="740" text-anchor="middle" font-family="Archivo Black" font-size="58" fill="{MAG}">302</text>
+  <rect x="255" y="500" width="90" height="110" fill="#b97a56" stroke="{INK}" stroke-width="9"/>
+  <path d="M300 150 C410 150 455 230 455 330 C455 450 400 535 300 540 C200 535 145 450 145 330 C145 230 190 150 300 150 Z" fill="#b97a56" stroke="{INK}" stroke-width="10"/>
+  <path d="M150 300 C160 420 210 520 300 540 L150 540 Z" fill="url(#{p}-dskin)"/>
+  <path d="M150 260 C170 160 430 160 450 260 C400 200 320 190 300 230 C280 190 200 200 150 260 Z" fill="#2a1a14" stroke="{INK}" stroke-width="6"/>
+  <circle cx="150" cy="400" r="26" fill="none" stroke="{YEL}" stroke-width="9"/><circle cx="450" cy="400" r="26" fill="none" stroke="{YEL}" stroke-width="9"/>
+  <path d="M205 300 Q240 284 275 298 M325 298 Q360 284 395 300" fill="none" stroke="#2a1a14" stroke-width="10" stroke-linecap="round"/>
+  <ellipse cx="240" cy="345" rx="30" ry="34" fill="#fff" stroke="{INK}" stroke-width="5"/><ellipse cx="360" cy="345" rx="30" ry="34" fill="#fff" stroke="{INK}" stroke-width="5"/>
+  <g class="{p}-pupil"><circle cx="243" cy="350" r="15" fill="#4a2a1a"/><circle cx="363" cy="350" r="15" fill="#4a2a1a"/>
+    <circle cx="248" cy="344" r="5" fill="#fff"/><circle cx="368" cy="344" r="5" fill="#fff"/></g>
+  <path d="M212 318 l-14 -10 M222 312 l-8 -14 M388 318 l14 -10 M378 312 l8 -14" stroke="{INK}" stroke-width="5"/>
+  <circle cx="200" cy="420" r="22" fill="#ff8fa3" opacity=".55"/><circle cx="400" cy="420" r="22" fill="#ff8fa3" opacity=".55"/>
+  <path d="M300 370 C285 410 280 430 295 438 C305 442 318 438 318 430" fill="none" stroke="{INK}" stroke-width="7" stroke-linecap="round"/>
+  <g id="{p}-m-smile"><path d="M245 470 Q300 520 355 470 Z" fill="#7a1f2e" stroke="{INK}" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M255 474 Q300 490 345 474" fill="#fff"/></g>
+  <ellipse id="{p}-m-o" opacity="0" cx="300" cy="482" rx="18" ry="22" fill="#7a1f2e" stroke="{INK}" stroke-width="6"/>
   </g>
 </svg>'''
 

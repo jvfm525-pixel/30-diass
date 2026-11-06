@@ -59,3 +59,11 @@
 
 [whispers] Faltam vinte e oito dias... e a Carla ainda tá na porta.
 ```
+
+## Como foi produzido (versão final, 78 s)
+
+- **Narração:** ElevenLabs, acelerada 10%. Legendas sincronizadas palavra por palavra pela transcrição automática.
+- **Estilo HQ pop**, igual aos DIAS 1 e 2. Personagem nova: Carla (`carla()` em `tools/hq_lib.py`). O Armando aparece com as olheiras mais fracas, porque a Saúde subiu.
+- **Música:** "Positive Background" — Soundrider (CC BY), com pausa no "O problema?".
+- **Efeitos novos:** carrinho de mercado, bipe do caixa, alarme de fumaça, fogo, batida na porta e tosse.
+- **Arquivos:** projeto em `chat-dia03/`, gerado por `tools/build_chat_dia03.py`; vídeo em `renders/chat-dia03.mp4`.
