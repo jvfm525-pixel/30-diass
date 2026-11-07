@@ -8,3 +8,4 @@ renders/*
 .DS_Store
 __pycache__/
 !renders/mentes*
+!renders/olho*
