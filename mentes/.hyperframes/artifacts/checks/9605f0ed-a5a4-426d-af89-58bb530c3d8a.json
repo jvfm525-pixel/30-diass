@@ -1,0 +1,1250 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "audio_src_not_found",
+        "severity": "error",
+        "message": "<audio> element references file(s) not found in the project: assets/music/positive-background.mp3. The rendered video will be silent.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/30-diass/mentes/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add the file \"assets/music/positive-background.mp3\" to the project directory, or update the src attribute to point to an existing file."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 379 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/30-diass/mentes/compositions/caps.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      }
+    ],
+    "filesScanned": 12
+  },
+  "runtime": {
+    "ok": false,
+    "errorCount": 16,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Could not read the duration of 3 media element(s) within the validate timeout (trilha-a, trilha-b, trilha-c); their slot vs. source fit was not checked. Re-run with a longer --timeout if the source is slow to load.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 53.228,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 61.417,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 69.606,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 48.842,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 63.207,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "timeRange": [
+          0,
+          2.882
+        ],
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 49.408,
+        "timeRange": [
+          49.408,
+          52.29
+        ],
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 65.877,
+        "timeRange": [
+          65.877,
+          68.759
+        ],
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 5.184,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 56.5245,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/music/positive-background.mp3",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "73.7",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 65.1435,
+        "url": "http://127.0.0.1:36689/assets/music/positive-background.mp3"
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 13,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "warning",
+        "time": 58.466,
+        "selector": "#s9-c0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 360,
+          "top": 215,
+          "right": 757.81,
+          "bottom": 408,
+          "width": 397.81,
+          "height": 193
+        },
+        "containerSelector": "#s9-c1",
+        "text": "00:00",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-meianoite.html",
+        "bbox": {
+          "x": 360,
+          "y": 215,
+          "width": 397.81,
+          "height": 193
+        },
+        "firstSeen": 58.466,
+        "lastSeen": 58.878,
+        "occurrences": 2,
+        "heldMs": 411.99999999999903,
+        "times": [
+          58.466,
+          58.878
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 4.094,
+        "selector": "#s1-vz-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 93.55,
+          "top": 433.53,
+          "right": 639.59,
+          "bottom": 636.47,
+          "width": 546.04,
+          "height": 202.93
+        },
+        "containerSelector": "#s1-vz",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 100,
+          "top": 470,
+          "right": 633.14,
+          "bottom": 600,
+          "width": 533.14,
+          "height": 130
+        },
+        "overflow": {
+          "left": 6.45,
+          "right": 6.45
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s1-acorda.html",
+        "bbox": {
+          "x": 93.55,
+          "y": 433.53,
+          "width": 546.04,
+          "height": 202.93
+        },
+        "firstSeen": 4.094,
+        "lastSeen": 4.094,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.094
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 10.705,
+        "selector": "#s2-cup",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 631.83,
+          "top": 1191.02,
+          "right": 738.47,
+          "bottom": 1309.99,
+          "width": 106.64,
+          "height": 118.97
+        },
+        "containerSelector": "#cw8-2",
+        "text": "🥛",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s2-bichos.html",
+        "bbox": {
+          "x": 631.83,
+          "y": 1191.02,
+          "width": 106.64,
+          "height": 118.97
+        },
+        "firstSeen": 10.705,
+        "lastSeen": 10.705,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          10.705
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.283,
+        "selector": "#s3-toast",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 250,
+          "top": 1153,
+          "right": 374.78,
+          "bottom": 1264,
+          "width": 124.78,
+          "height": 111
+        },
+        "containerSelector": "#cg9-in",
+        "text": "🍞",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.33,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s3-cafe.html",
+        "bbox": {
+          "x": 250,
+          "y": 1153,
+          "width": 124.78,
+          "height": 111
+        },
+        "firstSeen": 12.283,
+        "lastSeen": 12.283,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.283
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 14.411,
+        "selector": "#s3-toast",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 243.15,
+          "top": 1189.47,
+          "right": 381.63,
+          "bottom": 1316.12,
+          "width": 138.48,
+          "height": 126.65
+        },
+        "containerSelector": "#cw11-1",
+        "text": "🍞",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s3-cafe.html",
+        "bbox": {
+          "x": 243.15,
+          "y": 1189.47,
+          "width": 138.48,
+          "height": 126.65
+        },
+        "firstSeen": 14.411,
+        "lastSeen": 14.411,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          14.411
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 36.85,
+        "selector": "#s6-ins-in > div:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 16.73,
+          "top": 877.47,
+          "right": 433.67,
+          "bottom": 1422.16,
+          "width": 416.94,
+          "height": 544.69
+        },
+        "containerSelector": "#s6-ins-in",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 31.34,
+          "top": 891.34,
+          "right": 388.66,
+          "bottom": 1248.66,
+          "width": 357.33,
+          "height": 357.33
+        },
+        "overflow": {
+          "left": 14.61,
+          "right": 45.01,
+          "top": 13.87,
+          "bottom": 173.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-crush.html",
+        "bbox": {
+          "x": 16.73,
+          "y": 877.47,
+          "width": 416.94,
+          "height": 544.69
+        },
+        "firstSeen": 36.85,
+        "lastSeen": 36.85,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          36.85
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 61.417,
+        "selector": "#s9-c0",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 360,
+          "top": 215,
+          "right": 757.81,
+          "bottom": 408,
+          "width": 397.81,
+          "height": 193
+        },
+        "containerSelector": "#s9-clock",
+        "text": "00:00",
+        "fixHint": "Text is 398px x 193px inside 400px x 183px and overflows by up to 18px; widen the container to at least ~418px or shrink font-size from 130px to ~123px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 340,
+          "top": 220,
+          "right": 740,
+          "bottom": 403,
+          "width": 400,
+          "height": 183
+        },
+        "overflow": {
+          "right": 17.81
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-meianoite.html",
+        "bbox": {
+          "x": 360,
+          "y": 215,
+          "width": 397.81,
+          "height": 193
+        },
+        "firstSeen": 61.417,
+        "lastSeen": 61.417,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.417
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 61.417,
+        "selector": "#s9-plim-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 115.58,
+          "top": 584.83,
+          "right": 419.92,
+          "bottom": 715.17,
+          "width": 304.33,
+          "height": 130.34
+        },
+        "containerSelector": "#s9-plim",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 120,
+          "top": 600,
+          "right": 415.5,
+          "bottom": 700,
+          "width": 295.5,
+          "height": 100
+        },
+        "overflow": {
+          "left": 4.42,
+          "right": 4.42
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s9-meianoite.html",
+        "bbox": {
+          "x": 115.58,
+          "y": 584.83,
+          "width": 304.33,
+          "height": 130.34
+        },
+        "firstSeen": 61.417,
+        "lastSeen": 61.417,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.417
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 69.606,
+        "selector": "#s10-a-in > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -626.88,
+          "top": 589.36,
+          "right": -558.64,
+          "bottom": 672.2,
+          "width": 68.24,
+          "height": 82.84
+        },
+        "containerSelector": "#root",
+        "text": "A",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 626.88
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-pergunta.html",
+        "bbox": {
+          "x": -626.88,
+          "y": 589.36,
+          "width": 68.24,
+          "height": 82.84
+        },
+        "firstSeen": 69.606,
+        "lastSeen": 69.606,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          69.606
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 69.606,
+        "selector": "#s10-a-in > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -580.25,
+          "top": 560.28,
+          "right": -256.58,
+          "bottom": 766.25,
+          "width": 323.67,
+          "height": 205.97
+        },
+        "containerSelector": "#root",
+        "text": "🧠⚡",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 580.25
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-pergunta.html",
+        "bbox": {
+          "x": -580.25,
+          "y": 560.28,
+          "width": 323.67,
+          "height": 205.97
+        },
+        "firstSeen": 69.606,
+        "lastSeen": 69.606,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          69.606
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 69.606,
+        "selector": "#s10-a-in > div:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -510.45,
+          "top": 704.5,
+          "right": -271.52,
+          "bottom": 856.65,
+          "width": 238.93,
+          "height": 152.15
+        },
+        "containerSelector": "#root",
+        "text": "SIM, PRASEMPRE",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 510.45
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-pergunta.html",
+        "bbox": {
+          "x": -510.45,
+          "y": 704.5,
+          "width": 238.93,
+          "height": 152.15
+        },
+        "firstSeen": 69.606,
+        "lastSeen": 69.606,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          69.606
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 69.606,
+        "selector": "#s10-b-in > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1290.78,
+          "top": 507.36,
+          "right": 1359.02,
+          "bottom": 590.2,
+          "width": 68.24,
+          "height": 82.84
+        },
+        "containerSelector": "#root",
+        "text": "B",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 279.02
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-pergunta.html",
+        "bbox": {
+          "x": 1290.78,
+          "y": 507.36,
+          "width": 68.24,
+          "height": 82.84
+        },
+        "firstSeen": 69.606,
+        "lastSeen": 69.606,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          69.606
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 69.606,
+        "selector": "#s10-b-in > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1370.12,
+          "top": 580.47,
+          "right": 1549.18,
+          "bottom": 747.7,
+          "width": 179.06,
+          "height": 167.23
+        },
+        "containerSelector": "#root",
+        "text": "🙈",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 469.18
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-pergunta.html",
+        "bbox": {
+          "x": 1370.12,
+          "y": 580.47,
+          "width": 179.06,
+          "height": 167.23
+        },
+        "firstSeen": 69.606,
+        "lastSeen": 69.606,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          69.606
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 69.606,
+        "selector": "#s10-b-in > div:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1257.06,
+          "top": 708.96,
+          "right": 1561.26,
+          "bottom": 915.7,
+          "width": 304.2,
+          "height": 206.74
+        },
+        "containerSelector": "#root",
+        "text": "NUNCA, PREFIRONÃO SABER",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 481.26
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-pergunta.html",
+        "bbox": {
+          "x": 1257.06,
+          "y": 708.96,
+          "width": 304.2,
+          "height": 206.74
+        },
+        "firstSeen": 69.606,
+        "lastSeen": 69.606,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          69.606
+        ]
+      }
+    ],
+    "duration": 73.7,
+    "samples": [
+      4.094,
+      12.283,
+      20.472,
+      28.661,
+      36.85,
+      45.039,
+      53.228,
+      61.417,
+      69.606
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 14,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.7:1; WCAG AA requires 3:1.",
+        "text": "ler",
+        "fg": "rgb(229,0,126)",
+        "bg": "rgb(255,179,198)",
+        "ratio": 2.7,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(215,0,118)",
+        "large": true,
+        "selector": "#cw27-0",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 207.03759765625,
+          "y": 1240.562744140625,
+          "width": 107.54592895507812,
+          "height": 65.9302978515625
+        },
+        "time": 36.85,
+        "times": [
+          36.85
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.54:1; WCAG AA requires 3:1.",
+        "text": "a",
+        "fg": "rgb(229,0,126)",
+        "bg": "rgb(255,179,63)",
+        "ratio": 2.54,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(207,0,114)",
+        "large": true,
+        "selector": "#cw27-1",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 328.4277648925781,
+          "y": 1243.9534912109375,
+          "width": 43.664581298828125,
+          "height": 64.14599609375
+        },
+        "time": 36.85,
+        "times": [
+          36.85
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.72:1; WCAG AA requires 3:1.",
+        "text": "mente",
+        "fg": "rgb(229,0,126)",
+        "bg": "rgb(255,189,63)",
+        "ratio": 2.72,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(216,0,119)",
+        "large": true,
+        "selector": "#cw27-2",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 385.93658447265625,
+          "y": 1245.559814453125,
+          "width": 197.104736328125,
+          "height": 68.4320068359375
+        },
+        "time": 36.85,
+        "times": [
+          36.85
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      4.094,
+      20.472,
+      36.85,
+      53.228,
+      69.606
+    ],
+    "checked": 33,
+    "passed": 30
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 4,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"SÓ POR 1 DIA ⏳\" (4 words) is on screen 0.47 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "SÓ POR 1 DIA ⏳",
+        "selector": "#s1-1d-in",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-acorda.html",
+        "bbox": {
+          "x": 603.44,
+          "y": 971.53,
+          "width": 468.78999999999996,
+          "height": 100.94000000000005
+        },
+        "time": 5.169,
+        "words": 4,
+        "seconds": 0.468,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"SUSPEITO Nº 1 🐱\" (3 words) is on screen 0.73 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "SUSPEITO Nº 1 🐱",
+        "selector": "#s2-sus-in",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s2-bichos.html",
+        "bbox": {
+          "x": 650.79,
+          "y": 645.97,
+          "width": 427.6399999999999,
+          "height": 67.24000000000001
+        },
+        "time": 10.907,
+        "words": 3,
+        "seconds": 0.733,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"não sei o que eu faria sem esse cara 💛\" (9 words) is on screen 1.49 s (±0.01 s), under its 2.40 s floor: hold it about 0.5 s + 0.3 s a word (3.20 s here) before it leaves or changes; see references/motion.md.",
+        "text": "não sei o que eu faria sem esse cara 💛",
+        "selector": "#s8-t-in > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-amigo.html",
+        "bbox": {
+          "x": 380.04,
+          "y": 414.84,
+          "width": 525.95,
+          "height": 99.95999999999998
+        },
+        "time": 56.47,
+        "words": 9,
+        "seconds": 1.491,
+        "floorSeconds": 2.4
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"foi um bom dia 🐾\" (4 words) is on screen 1.16 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "foi um bom dia 🐾",
+        "selector": "#s9-t-in > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-meianoite.html",
+        "bbox": {
+          "x": 609.44,
+          "y": 815.53,
+          "width": 302.5,
+          "height": 84.15999999999997
+        },
+        "time": 63.973,
+        "words": 4,
+        "seconds": 1.163,
+        "floorSeconds": 1.275
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 590
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}
