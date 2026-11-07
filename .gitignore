@@ -9,3 +9,4 @@ renders/*
 __pycache__/
 !renders/mentes*
 !renders/olho*
+.hyperframes/
