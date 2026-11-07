@@ -10,3 +10,4 @@ __pycache__/
 !renders/mentes*
 !renders/olho*
 .hyperframes/
+!renders/carmesim*
