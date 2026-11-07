@@ -14,6 +14,7 @@ from build_chat_dia01 import bg, place  # noqa: E402
 from build_chat_dia03 import tag  # noqa: E402
 from hq_lib import CYAN, GREEN, INK, MAG, RED, YEL, room, scene, sfx_word, speed_lines  # noqa: E402
 from mentes_lib import cachorro, gato, pessoa, thought, voce  # noqa: E402
+import mentes_cenarios as cen  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "mentes")
 COMP = os.path.join(ROOT, "compositions")
@@ -79,8 +80,9 @@ def pop(sel, t, rot=0):
 def s1():
     sc = "s1-acorda"
     d = D(sc)
+    cen1, cjs = cen.quarto_manha("c1", d)
     body = f'''
-    <div class="full">{room("s1r", .4)}</div>
+    {cen1}
     {place(voce("s1v"), "s1-voce", 150, 560, 780, 3)}
     <div style="position:absolute;left:0;right:0;top:190px;text-align:center;z-index:8"><div id="s1-title-in" style="display:inline-block;font-family:'Archivo Black';font-size:86px;line-height:1.05;color:{YEL};-webkit-text-stroke:12px {INK};paint-order:stroke fill;text-shadow:9px 9px 0 {INK}">E SE VOCÊ<br>LESSE MENTES?</div></div>
     <div id="s1-clock" style="position:absolute;left:800px;top:460px;z-index:4;width:180px;height:180px;border-radius:50%;background:#fff;border:9px solid {INK};font-family:'Archivo Black';font-size:54px;line-height:162px;text-align:center;color:{INK}">7:00</div>
@@ -98,15 +100,16 @@ def s1():
       {pop("#s1-vz-in", L(sc, 0, "ler"), -8)}
       {pop("#s1-on-in", L(sc, 0, "mentes"), -3)}
       {pop("#s1-1d-in", L(sc, 0, "so") - .3, 4)}'''
-    write(sc, scene(sc, body, js, bg="#27506b"))
+    write(sc, scene(sc, body, js + cjs, bg="#27506b"))
 
 
 # ------------------------------------------------------------------ S2 bichos
 def s2():
     sc = "s2-bichos"
     d = D(sc)
+    cen2, cjs = cen.sala("c2", d)
     body = f'''
-    {bg("s2", "#f4a261", True, 540, 900)}
+    {cen2}
     <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore style="z-index:1"><rect x="560" y="1020" width="520" height="40" fill="#8a6a4a" stroke="{INK}" stroke-width="8"/><rect x="600" y="1060" width="30" height="400" fill="#6f5238" stroke="{INK}" stroke-width="6"/></svg>
     {place(cachorro("s2d"), "s2-dog", 60, 820, 460, 3)}
     {place(gato("s2c"), "s2-cat", 700, 720, 300, 3)}
@@ -124,16 +127,17 @@ def s2():
       tl.fromTo("#s2-cup", {{ y: 0, rotation: 0 }}, {{ y: 420, rotation: 140, duration: .4, ease: "power2.in" }}, {L(sc, 1, "criminoso") - .1});
       {pop("#s2-crash-in", L(sc, 1, "criminoso") + .3, 8)}
       {pop("#s2-sus-in", L(sc, 1, "gato") + .2, -4)}'''
-    write(sc, scene(sc, body, js, bg="#f4a261"))
+    write(sc, scene(sc, body, js + cjs, bg="#f4a261"))
 
 
 # ------------------------------------------------------------------ S3 café
 def s3():
     sc = "s3-cafe"
     d = D(sc)
+    cen3, cjs = cen.cozinha("c3", d)
     apron = '<path d="M130 380 L270 380 L280 500 L120 500 Z" fill="#fff4e0" stroke="#15122b" stroke-width="6"/>'
     body = f'''
-    {bg("s3", "#ffd6a5", True, 540, 900)}
+    {cen3}
     {place(voce("s3v"), "s3-voce", 0, 760, 600, 3)}
     {place(pessoa("s3m", 1, "bun", "#8d8d8d", "#e76f51", apron), "s3-mae", 600, 760, 440, 3)}
     <div id="s3-toast" style="position:absolute;left:250px;top:1150px;z-index:5;font-size:100px">🍞</div>
@@ -146,13 +150,14 @@ def s3():
       setF(tl, "s3v", {L(sc, 2, "aniversario")}, ["m-o", "br-shock", "sweat"], ["m-calm", "br-calm"]);
       tl.fromTo("#s3-toast", {{ y: 0, rotation: 0 }}, {{ y: 520, rotation: 90, duration: .5, ease: "power2.in" }}, {L(sc, 2, "aniversario")});
       tl.fromTo("#s3-no-in", {{ scale: 2.5, opacity: 0, rotation: -20 }}, {{ scale: 1, opacity: 1, rotation: -6, duration: .16, ease: "power4.in" }}, {L(sc, 2, "pai")});'''
-    write(sc, scene(sc, body, js, bg="#ffd6a5"))
+    write(sc, scene(sc, body, js + cjs, bg="#ffd6a5"))
 
 
 # ------------------------------------------------------------------ S4 ônibus
 def s4():
     sc = "s4-onibus"
     d = D(sc)
+    cen4, cjs = cen.onibus("c4", d)
     people = [("s4p0", 0, "short", "#2d1f17", "#3a86ff", 60, 760), ("s4p1", 3, "long", "#b5651d", MAG, 380, 740),
               ("s4p2", 2, "cap", RED, "#2a9d8f", 700, 760), ("s4p3", 4, "curly", "#1a1210", YEL, 60, 1040),
               ("s4p4", 1, "bald", "#5a4535", "#6c757d", 380, 1060), ("s4p5", 0, "slick", "#1e1a24", "#f4a261", 700, 1040)]
@@ -162,9 +167,7 @@ def s4():
                 ("s4-t4", "quem comeu <span style='color:#2a9d4b'>CEBOLA</span>? 🧅", 560, 680, 460), ("s4-t5", "…fui eu 🧅🤫", 640, 900, 360)]
     th = "".join(thought(i, h, x, y, w, 36) for i, h, x, y, w in thoughts)
     body = f'''
-    <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore><rect width="1080" height="1920" fill="#ffb703"/>
-      <rect x="0" y="180" width="1080" height="230" fill="#9bd1e5" stroke="{INK}" stroke-width="10"/>{"".join(f'<line x1="{x}" y1="180" x2="{x}" y2="410" stroke="{INK}" stroke-width="12"/>' for x in (270, 540, 810))}
-      <rect x="0" y="1340" width="1080" height="580" fill="#6c757d"/>{"".join(f'<rect x="{x}" y="430" width="16" height="900" fill="#c0c7cc" stroke="{INK}" stroke-width="4"/>' for x in (350, 680))}</svg>
+    {cen4}
     {ppl}{th}
     {tag("s4-noise", "🔊 BARULHO MENTAL", 90, 190, "#fff", 48)}'''
     js = f'''
@@ -176,13 +179,14 @@ def s4():
       tl.to(["#s4-t0-in", "#s4-t1-in", "#s4-t2-in", "#s4-t3-in"], {{ opacity: .25, duration: .2 }}, {L(sc, 3, "ninguem")});
       {pop("#s4-t5-in", L(sc, 3, "so"), 3)}
       tl.fromTo("#s4p5-w", {{ scale: 1 }}, {{ scale: 1.12, duration: .25, ease: "back.out(2)", transformOrigin: "50% 100%" }}, {L(sc, 3, "so")});'''
-    write(sc, scene(sc, body, js, bg="#ffb703"))
+    write(sc, scene(sc, body, js + cjs, bg="#ffb703"))
 
 
 # ------------------------------------------------------------------ S5 chefe
 def s5():
     sc = "s5-chefe"
     d = D(sc)
+    cen5, cjs = cen.escritorio("c5", d)
     tie = f'<path d="M190 360 L210 360 L220 390 L200 470 L180 390 Z" fill="{RED}" stroke="{INK}" stroke-width="5"/>'
     board = f'''<div id="s5-board" style="position:absolute;left:560px;top:520px;width:440px;height:330px;z-index:2;background:#fff;border:9px solid {INK};box-shadow:10px 10px 0 {INK}">
       <svg viewBox="0 0 440 330" width="440" height="330"><path d="M30 290 L110 220 L170 250 L250 120 L320 170 L410 40" fill="none" stroke="{GREEN}" stroke-width="14" stroke-linecap="round"/>
@@ -192,7 +196,7 @@ def s5():
     ppl = "".join(place(pessoa(i, sk, h, hc, sh), i + "-w", x, y, 280, 3) for i, sk, h, hc, sh, x, y, _ in cols)
     th = "".join(thought(i + "-t", txt, x - 10, y - 170, 320, 34) for i, sk, h, hc, sh, x, y, txt in cols)
     body = f'''
-    {bg("s5", "#a8dadc", True, 540, 800)}
+    {cen5}
     {board}
     {place(pessoa("s5b", 0, "slick", "#2d1f17", "#2b2d42", tie), "s5-boss", 90, 500, 460, 3)}
     {thought("s5-tb", "eu não faço a <span style='color:" + RED + "'>MENOR IDEIA</span> do que tô fazendo 😰", 120, 210, 840, 44)}
@@ -204,15 +208,16 @@ def s5():
       setF(tl, "s5b", {L(sc, 4, "ideia")}, ["m-o"], ["m-smile"]);
       {pop("#s5c0-t-in", L(sc, 4, "ninguem"), -2)}{pop("#s5c1-t-in", L(sc, 4, "sala"), 2)}{pop("#s5c2-t-in", L(sc, 4, "faz", 1), -2)}
       {pop("#s5-sec-in", L(sc, 4, "mundo"), -3)}'''
-    write(sc, scene(sc, body, js, bg="#a8dadc"))
+    write(sc, scene(sc, body, js + cjs, bg="#a8dadc"))
 
 
 # ------------------------------------------------------------------ S6 crush
 def s6():
     sc = "s6-crush"
     d = D(sc)
+    cen6, cjs = cen.corredor("c6", d)
     body = f'''
-    {bg("s6", "#ffb3c6", True, 540, 760)}
+    {cen6}
     {place(pessoa("s6c", 2, "long", "#1a1210", "#9b5de5"), "s6-crush", 330, 640, 660, 3)}
     {thought("s6-t1", "💘💘💘", 380, 320, 420, 70)}
     {thought("s6-t2", "por que ele tá me <span style='color:" + RED + "'>encarando</span> há 10 minutos? 😳", 260, 300, 780, 44)}
@@ -230,7 +235,7 @@ def s6():
       {pop("#s6-t2-in", L(sc, 5, "pensando", 1), 0)}
       setF(tl, "s6c", {L(sc, 5, "encarando")}, ["m-flat"], ["m-smile"]);
       setF(tl, "s6v", {L(sc, 5, "encarando")}, ["m-grin", "sweat", "br-worry"], ["m-smile", "br-calm"]);'''
-    write(sc, scene(sc, body, js, bg="#ffb3c6"))
+    write(sc, scene(sc, body, js + cjs, bg="#ffb3c6"))
 
 
 # ------------------------------------------------------------------ S7 prova
@@ -242,9 +247,9 @@ LASANHA = f'''<svg viewBox="0 0 300 180" width="300" height="180"><rect x="20" y
 def s7():
     sc = "s7-prova"
     d = D(sc)
+    cen7, cjs = cen.sala_aula("c7", d)
     body = f'''
-    {bg("s7", "#2f5d3a", False)}
-    <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore style="z-index:1"><g opacity=".25" stroke="#fff" stroke-width="6" fill="none"><path d="M100 300 L500 300 M100 360 L400 360"/></g></svg>
+    {cen7}
     {place(pessoa("s7p", 3, "bald", "#8d8d8d", "#6d597a", glasses=True, beard=True), "s7-prof", 560, 560, 460, 3)}
     {thought("s7-tp", LASANHA, 560, 240, 380, 40)}
     {place(voce("s7v"), "s7-voce", 0, 820, 560, 3)}
@@ -261,18 +266,17 @@ def s7():
       setF(tl, "s7v", {L(sc, 6, "zero")}, ["m-o"], ["m-calm"]);
       {pop("#s7-tv-in", L(sc, 6, "lasanha", 1) - .5, -3)}
       setF(tl, "s7v", {L(sc, 6, "lasanha", 1) - .5}, ["m-drool"], ["m-o"]);'''
-    write(sc, scene(sc, body, js, bg="#2f5d3a"))
+    write(sc, scene(sc, body, js + cjs, bg="#2f5d3a"))
 
 
 # ------------------------------------------------------------------ S8 amigo
 def s8():
     sc = "s8-amigo"
     d = D(sc)
+    cen8, cjs = cen.sala_games("c8", d)
     body = f'''
-    <div class="full">{room("s8r", .2)}</div>
-    <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore style="z-index:1"><rect width="1080" height="1920" fill="#0b1026" opacity=".55"/>
-      <rect x="260" y="430" width="560" height="320" rx="16" fill="#9fe6ff" stroke="{INK}" stroke-width="12"/><rect x="510" y="750" width="60" height="60" fill="{INK}"/>
-      <path d="M0 1180 C200 1120 880 1120 1080 1180 L1080 1500 L0 1500 Z" fill="#6c3a5c" stroke="{INK}" stroke-width="10"/></svg>
+    {cen8}
+    <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore style="z-index:1"><path d="M0 1180 C200 1120 880 1120 1080 1180 L1080 1500 L0 1500 Z" fill="#6c3a5c" stroke="{INK}" stroke-width="10"/><path d="M0 1260 L1080 1260" stroke="#4f2a44" stroke-width="8"/></svg>
     {place(voce("s8v"), "s8-voce", 20, 820, 500, 3)}
     {place(pessoa("s8a", 4, "cap", "#2a9d8f", "#f4a261"), "s8-amigo", 560, 860, 440, 3)}
     {thought("s8-t", "não sei o que eu faria<br>sem esse cara 💛", 300, 380, 700, 46, 8, INK, "#fff6d6")}'''
@@ -284,16 +288,16 @@ def s8():
       tl.fromTo("#s8-t-in", {{ scale: 0, opacity: 0 }}, {{ scale: 1, opacity: 1, duration: .6, ease: "power2.out" }}, {L(sc, 7, "pensa") - .2});
       setF(tl, "s8v", {L(sc, 7, "cara") + .2}, ["m-smile"], ["m-calm"]);
       setF(tl, "s8a", {L(sc, 7, "cara") + .2}, ["m-smile"], ["m-flat"]);'''
-    write(sc, scene(sc, body, js, bg="#0b1026"))
+    write(sc, scene(sc, body, js + cjs, bg="#0b1026"))
 
 
 # ------------------------------------------------------------------ S9 meia-noite
 def s9():
     sc = "s9-meianoite"
     d = D(sc)
+    cen9, cjs = cen.varanda("c9", d, L(sc, 8, "acaba"))
     body = f'''
-    <div class="full">{room("s9r", 0)}</div>
-    <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore style="z-index:1"><rect width="1080" height="1920" fill="#05070f" opacity=".6"/></svg>
+    {cen9}
     <div id="s9-clock" style="position:absolute;left:320px;top:220px;z-index:4;width:440px;padding:10px;background:#111;border:10px solid {INK};border-radius:24px;font-family:'Space Mono';font-weight:700;font-size:130px;line-height:1.1;text-align:center;color:#ff4d6d"><span id="s9-c1">23:59</span><span id="s9-c2" style="display:none"></span></div>
     {place(voce("s9v"), "s9-voce", 40, 720, 560, 3)}
     {place(cachorro("s9d"), "s9-dog", 600, 1000, 420, 3)}
@@ -315,13 +319,14 @@ def s9():
     js = js.replace('<span id="s9-c2" style="display:none"></span>', '')
     body = body.replace('<span id="s9-c1">23:59</span><span id="s9-c2" style="display:none"></span>',
                         '<span style="position:relative;display:inline-block"><span id="s9-c0">00:00</span><span id="s9-c1" style="position:absolute;left:0;top:0;background:#111">23:59</span></span>')
-    write(sc, scene(sc, body, js, bg="#05070f"))
+    write(sc, scene(sc, body, js + cjs, bg="#05070f"))
 
 
 # ------------------------------------------------------------------ S10 pergunta
 def s10():
     sc = "s10-pergunta"
     d = D(sc)
+    cen10, cjs = cen.espaco_mental("c10", d)
 
     def card(k, letter, col, icon, title, x):
         return f'''<div id="s10-{k}" style="position:absolute;left:{x}px;top:560px;width:390px;z-index:4">
@@ -330,20 +335,19 @@ def s10():
             <div style="font-size:120px;line-height:1.1">{icon}</div>
             <div style="font-family:'Archivo Black';font-size:46px;line-height:1.05;color:#fff;-webkit-text-stroke:8px {INK};paint-order:stroke fill;margin-top:8px">{title}</div></div></div>'''
     body = f'''
-    <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore style="z-index:0"><rect width="1080" height="1920" fill="#3a0ca3"/><g id="s10-rays">{speed_lines("s10-sl", 540, 900, 40, "#fff", .12)}</g></svg>
+    {cen10}
     <div style="position:absolute;left:0;right:0;top:300px;text-align:center;z-index:5"><div id="s10-t-in" style="display:inline-block;font-family:'Archivo Black';font-size:80px;color:{YEL};-webkit-text-stroke:11px {INK};paint-order:stroke fill;text-shadow:9px 9px 0 {INK}">E VOCÊ? 🧠</div></div>
     {card("a", "A", CYAN, "🧠⚡", "SIM, PRA<br>SEMPRE", 100)}
     {card("b", "B", MAG, "🙈", "NUNCA, PREFIRO<br>NÃO SABER", 545)}
     <div style="position:absolute;left:0;right:0;top:1100px;text-align:center;z-index:6"><div id="s10-com-in" style="display:inline-block;font-family:'Archivo Black';font-size:80px;color:#fff;-webkit-text-stroke:12px {INK};paint-order:stroke fill;text-shadow:10px 10px 0 {INK}">
       COMENTA <span style="color:{CYAN}">A</span> OU <span style="color:#ff6fa8">B</span> 👇</div></div>'''
     js = f'''
-      tl.fromTo("#s10-rays", {{ rotation: 0 }}, {{ rotation: 15, duration: {d}, ease: "none", transformOrigin: "540px 900px" }}, 0);
       tl.fromTo("#s10-t-in", {{ scale: 0 }}, {{ scale: 1, duration: .3, ease: "back.out(2.5)" }}, 0);
       tl.fromTo("#s10-a-in", {{ x: -700, rotation: -15 }}, {{ x: 0, rotation: -3, duration: .4, ease: "back.out(1.4)" }}, {L(sc, 9, "ia")});
       tl.fromTo("#s10-b-in", {{ x: 700, rotation: 15 }}, {{ x: 0, rotation: 3, duration: .4, ease: "back.out(1.4)" }}, {L(sc, 9, "prefere")});
       tl.fromTo("#s10-com-in", {{ scale: 0, rotation: -10 }}, {{ scale: 1, rotation: -2, duration: .35, ease: "back.out(2.5)" }}, {L(sc, 9, "comenta")});
       tl.fromTo("#s10-com-in", {{ scale: 1 }}, {{ scale: 1.08, duration: .22, repeat: 3, yoyo: true, ease: "sine.inOut", immediateRender: false }}, {L(sc, 9, "comenta") + .4});'''
-    write(sc, scene(sc, body, js, bg="#3a0ca3"))
+    write(sc, scene(sc, body, js + cjs, bg="#3a0ca3"))
 
 
 # ------------------------------------------------------------------ legendas
