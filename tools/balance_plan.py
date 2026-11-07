@@ -1,36 +1,46 @@
-"""Confere se o plano de dilemas permite chegar com as 4 barras no máximo (70+).
+"""Confere se o plano de dilemas permite chegar com as 4 barras no máximo (70+)
+e se o caminho não é óbvio (sempre A, sempre B, ou "a opção mais boazinha" não chegam).
 
-Simula todos os caminhos de votação a partir das barras atuais.
 Uso: python3 tools/balance_plan.py
 """
-import sys, random
-sys.path.insert(0,'.'); from plan_chat import PLAN
-K="mhlr"
-def apply(s,e): return tuple(max(0,min(100,s[i]+e.get(K[i],0))) for i in range(4))
-start=(20,30,20,30)
-days=sorted(PLAN)
-# DP: melhor "menor barra" no fim
-states={start:[]}
-for d in days:
-    new={}
-    for s,path in states.items():
-        for c,(t,e) in zip("AB",PLAN[d][1:]):
-            n=apply(s,e)
-            if n not in new: new[n]=path+[c]
-    states=new
-best=max(states, key=lambda s:(min(s),sum(s)))
-print("estados finais:",len(states)); print("melhor fim:",dict(zip(["💰","❤️","💘","⭐"],best)),"min",min(best))
-print("caminho:","".join(states[best]))
-ok=[s for s in states if min(s)>=70]; print("finais com tudo >=70:",len(ok),"de",len(states))
-# votação aleatória
-rnd=random.Random(1); hits=0
-for _ in range(20000):
-    s=start
-    for d in days: s=apply(s,PLAN[d][1+rnd.randint(0,1)][1])
-    hits+=min(s)>=70
-print(f"chance de chegar com tudo >=70 votando aleatório: {hits/200:.1f}%")
-# todos A / todos B
-for opt in (1,2):
-    s=start
-    for d in days: s=apply(s,PLAN[d][opt][1])
-    print("sempre","AB"[opt-1],s)
+import os
+import random
+import sys
+
+sys.path.insert(0, os.path.dirname(__file__))
+from plan_chat import PLAN  # noqa: E402
+
+K = "mhlr"
+START = (20, 30, 20, 30)
+
+
+def apply(s, e):
+    return tuple(max(0, min(100, s[i] + e.get(K[i], 0))) for i in range(4))
+
+
+def run(choose):
+    s = START
+    for d in sorted(PLAN):
+        s = apply(s, PLAN[d][choose(d)][1])
+    return s
+
+
+states = {START: ""}
+for d in sorted(PLAN):
+    new = {}
+    for s, path in states.items():
+        for c, opt in zip("AB", PLAN[d][1:]):
+            n = apply(s, opt[1])
+            new.setdefault(n, path + c)
+    states = new
+best = max(states, key=lambda s: (min(s), sum(s)))
+ok = [s for s in states if min(s) >= 70]
+print("melhor final:", dict(zip(["dinheiro", "saude", "amor", "reputacao"], best)))
+print("finais diferentes com tudo >= 70:", len(ok), "de", len(states))
+rnd = random.Random(1)
+hits = sum(min(run(lambda d: 1 + rnd.randint(0, 1))) >= 70 for _ in range(20000))
+print(f"votando aleatório, chance de tudo >= 70: {hits / 200:.1f}%")
+for nome, f in [("sempre A", lambda d: 1), ("sempre B", lambda d: 2),
+                ("sempre a opção que mais soma na hora", lambda d: 1 if sum(PLAN[d][1][1].values()) >= sum(PLAN[d][2][1].values()) else 2)]:
+    s = run(f)
+    print(f"{nome}: {s} -> {'chega' if min(s) >= 70 else 'NÃO chega'}")

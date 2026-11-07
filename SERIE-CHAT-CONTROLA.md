@@ -72,61 +72,67 @@ Gancho para fechar cada episódio: *"Faltam X dias… e o Rodrigo tá de olho."*
 - **Rodrigo**: o colega puxa-saco e rival.
 - **Dona Neide**: a mãe, que vive ligando.
 
-## Plano rebalanceado: dá pra chegar no máximo em tudo
+## Plano rebalanceado: dá pra chegar no máximo, mas o caminho não é óbvio
 
-Depois dos DIAS 1–4 o Armando está com 💰 20 · ❤️ 30 · 💘 20 · ⭐ 30. Os dilemas abaixo foram testados por um programa que simula **todos os caminhos de votação possíveis** (`tools/balance_plan.py`):
+Depois dos DIAS 1–4 o Armando está com 💰 20 · ❤️ 30 · 💘 20 · ⭐ 30. `python3 tools/balance_plan.py` simula **todos os caminhos de votação**:
 
-- **Existe um caminho em que as 4 barras chegam ao máximo visual (70+):** o melhor termina com 💰 90 · ❤️ 95 · 💘 100 · ⭐ 100.
-- **Dá para errar algumas vezes:** há 1.850 finais diferentes com as 4 barras em 70+.
-- **Não é automático:** votar sempre na A deixa o 💰 em 45, e votar sempre na B derruba tudo. Votando no aleatório, a chance de chegar com tudo no máximo é de só 0,3%. O público precisa pensar em cada escolha.
-- As barras vão de 0 a 100. Barra no zero continua causando crise.
+- **Dá para chegar com as 4 barras no máximo:** o melhor caminho termina com 💰 95 · ❤️ 100 · 💘 100 · ⭐ 100, e há 2.058 finais diferentes com tudo em 70+.
+- **Nenhuma estratégia simples funciona:** sempre A, sempre B ou "sempre a opção que parece somar mais" não chegam. Votando no aleatório, a chance é de ~8%.
 
-**Regra ao mudar um dilema:** rode `python3 tools/balance_plan.py` e confira que continua existindo um caminho com tudo em 70+.
+### Regras para não deixar o caminho óbvio
+
+1. **Os números nunca aparecem antes da votação.** O cartão de cada opção mostra só **"MEXE COM: 💰 ⭐"** (quais barras estão em jogo, sem + nem −). Os números aparecem só no episódio seguinte, na cena das barras.
+2. **A narração não entrega o resultado.** Ela fala do que está em jogo de forma vaga ("uma enche o bolso… a outra pode sair caro"), nunca em pontos.
+3. **As duas opções parecem razoáveis.** Nada de "devolver a carteira × roubar a carteira": o público tem que discutir.
+4. **Surpresas e armadilhas:** algumas escolhas que parecem ótimas cobram depois (o investimento do Rodrigo), e algumas que parecem ruins dão certo (pedir pra apagar o vídeo e a marca pagar). Elas estão marcadas como SURPRESA ou ARMADILHA na tabela abaixo, que é **só para bastidores**.
+5. **Ao mudar um dilema**, rode `python3 tools/balance_plan.py` e confira que o máximo continua possível e que nenhuma estratégia simples chega lá.
+
+*O DIA 5 já foi postado mostrando os números. Do DIA 6 em diante vale a regra 1.*
 
 ### Semana 1 — Primeiros passos (DIAS 5–7)
 
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 5 | Celular quebrado | Parcelar em 12x (💰−15 ⭐+10) | Consertar com durex (⭐−5) |
-| 6 | Tonhão chama pro churrasco na véspera do trabalho | Ir e levar a Carla (💘+15 ❤️−5) | Dormir cedo (❤️+10) |
-| 7 | **CONSEQUÊNCIA:** a mãe liga perguntando da namorada | Contar que tá conhecendo a Carla (💘+10 ⭐+5) | Mentir que já namora (⭐+10 💘−10) |
+| Dia | Dilema | Na tela | A (bastidor) | B (bastidor) |
+| --- | --- | --- | --- | --- |
+| 5 | Celular quebrado | MEXE COM: 💰 ⭐ | Parcelar em 12x (💰−15 ⭐+10) | Consertar com durex (⭐−5) |
+| 6 | Tonhão chama pro churrasco na véspera do trabalho | MEXE COM: ❤️ 💘 | Ir e chamar a Carla (💘+15 ❤️−5) — _acorda destruído_ | Dormir cedo (❤️+10) |
+| 7 | **CONSEQUÊNCIA:** a mãe liga perguntando da namorada | MEXE COM: 💘 ⭐ | Contar que tá conhecendo a Carla (💘+10 ⭐+5) | Dizer que já namora (⭐+10 💘−10) — _a mãe conta pra família toda; a Carla descobre pelo Instagram da tia_ |
 
 ### Semana 2 — As oportunidades (DIAS 8–14)
 
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 8 | Acha uma carteira com R$ 300 na rua | Devolver ao dono (⭐+15) | Ficar com o dinheiro (💰+20 ⭐−15) |
-| 9 | Bico de fim de semana: lavar carros do prédio | Aceitar (💰+15 ❤️−5) | Recusar e ir correr (❤️+10) |
-| 10 | Academia nova com promoção | Matricular (❤️+15 💰−5) | Treinar na praça de graça (❤️+5) |
-| 11 | Rodrigo rouba a ideia dele na reunião | Provar na frente de todos que a ideia é dele (⭐+15 💘−5) | Deixar quieto (⭐−10) |
-| 12 | Primeiro encontro com a Carla | Restaurante chique (💘+15 💰−10) | Piquenique feito por ele (💘+10 ❤️+5) |
-| 13 | Vídeo dele dançando viraliza | Abraçar o meme (⭐+10 💘+5) | Pedir pra apagar (⭐−5) |
-| 14 | **CONSEQUÊNCIA:** proposta de emprego melhor | Aceitar (salário maior) (💰+25 ❤️−5) | Ficar e pedir aumento (💰+10 ⭐+5) |
+| Dia | Dilema | Na tela | A (bastidor) | B (bastidor) |
+| --- | --- | --- | --- | --- |
+| 8 | Tonhão pede R$ 50 emprestados pra consertar a moto | MEXE COM: 💰 ⭐ | Emprestar (💰+10 ⭐+5) — _SURPRESA no dia 15: ele devolve R$ 100_ | Negar (⭐−5) — _Tonhão fica chateado_ |
+| 9 | Bico de fim de semana: lavar os carros do prédio | MEXE COM: 💰 ❤️ | Aceitar (💰+15 ❤️−5) | Recusar e ir correr (❤️+10) |
+| 10 | Começar a se exercitar | MEXE COM: 💰 ❤️ ⭐ | Academia com promoção (❤️+15 💰−5) | Futebol com o Tonhão aos sábados (❤️+10 ⭐+5) |
+| 11 | Rodrigo rouba a ideia dele na reunião | MEXE COM: 💘 ⭐ | Confrontar na frente de todos (⭐−5 💘+10) — _SURPRESA: o chefe acha barraco, mas a Carla vê o vídeo e acha corajoso_ | Mandar e-mail pro chefe com as provas (⭐+10) |
+| 12 | Primeiro encontro com a Carla | MEXE COM: 💰 ❤️ 💘 | Restaurante chique (💘+15 💰−10) | Piquenique feito por ele (💘+10 ❤️+5) |
+| 13 | Vídeo dele dançando viraliza | MEXE COM: 💰 💘 ⭐ | Abraçar o meme (⭐+10 💘+5) | Pedir pra apagar (⭐−5 💰+10) — _SURPRESA: a marca da música paga pelos direitos do vídeo_ |
+| 14 | **CONSEQUÊNCIA:** proposta de emprego melhor | MEXE COM: 💰 ❤️ ⭐ | Aceitar (salário maior) (💰+25 ❤️−5) | Ficar e pedir aumento (💰+10 ⭐+5) |
 
 ### Semana 3 — As complicações (DIAS 15–21)
 
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 15 | Fatura do cartão chega alta | Vender o videogame e pagar (💰+10 💘−5) | Pagar o mínimo (💰−10) |
-| 16 | Carla quer conhecer o apartamento | Faxina geral (vira a noite) (💘+15 ❤️−5) | Levar ela num café (💘+5 💰−5) |
-| 17 | Rodrigo oferece 'investimento garantido' | Entrar (💰+10) | Recusar e avisar a turma (⭐+10) |
-| 18 | Dor nas costas | Ir ao médico (❤️+15 💰−5) | Ignorar (❤️−10) |
-| 19 | A ex manda 'saudade 🥺' | Bloquear e contar pra Carla (💘+15) | Responder (💘−15 ⭐−5) |
-| 20 | Nutricionista do plano de saúde da empresa nova | Seguir a dieta (❤️+15 💘−5) | Só cortar o miojo (❤️+5) |
-| 21 | **CONSEQUÊNCIA:** a mãe vem visitar | Apresentar a Carla (💘+15 ⭐+5) | Esconder a Carla (💘−10) |
+| Dia | Dilema | Na tela | A (bastidor) | B (bastidor) |
+| --- | --- | --- | --- | --- |
+| 15 | Fatura do cartão chega alta | MEXE COM: 💰 ❤️ 💘 | Vender o videogame (💰+10 💘−5) — _ele jogava com a Carla_ | Hora extra no fim de semana (💰+15 ❤️−10 💘−5) |
+| 16 | Carla quer conhecer o apartamento | MEXE COM: 💰 ❤️ 💘 | Faxina geral (vira a noite) (💘+15 ❤️−5) | Levar ela num café (💘+5 💰−5) |
+| 17 | Rodrigo oferece um 'investimento garantido' | MEXE COM: 💰 ⭐ | Entrar (💰−15) — _ARMADILHA: rende no começo, desmorona no dia 25_ | Recusar e avisar a turma (⭐+10) |
+| 18 | Dor nas costas | MEXE COM: 💰 ❤️ 💘 | Ir ao médico (❤️+15 💰−5) | Fazer yoga com a Carla (❤️+10 💘+5) |
+| 19 | A ex manda 'saudade 🥺' | MEXE COM: ❤️ 💘 | Bloquear sem contar pra Carla (💘+5) | Mostrar a mensagem pra Carla (💘+15 ❤️−5) — _briga feia, depois reconciliam mais fortes_ |
+| 20 | Nutricionista do plano de saúde | MEXE COM: ❤️ 💘 | Seguir a dieta rígida (❤️+15 💘−5) — _fica mal-humorado_ | Cozinhar junto com a Carla (❤️+5 💘+10) |
+| 21 | **CONSEQUÊNCIA:** a mãe vem visitar | MEXE COM: 💰 ❤️ 💘 ⭐ | Apresentar a Carla (💘+15 ⭐+5) | Almoçar na casa da mãe sozinho (❤️+10 💰+10) — _volta com um mês de marmitas_ |
 
 ### Semana 4 — A reta final (DIAS 22–29)
 
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 22 | Sobrou dinheiro no mês | Poupança (💰+10) | Cripto do Rodrigo (💰−10 ⭐−5) |
-| 23 | Corrida beneficente de 10 km | Correr (❤️+10 ⭐+10) | Só doar (💰−5 ⭐+5) |
-| 24 | Chefe oferece gerência, mas teria que demitir o Tonhão | Aceitar e salvar o Tonhão em outro setor (⭐+15 💰+15 ❤️−5) | Recusar (⭐+5) |
-| 25 | O 'investimento' do Rodrigo desmorona | Denunciar o Rodrigo (⭐+15) | Ficar quieto (⭐−5) |
-| 26 | Aniversário do Armando | Festa no prédio (⭐+10 💰−10) | Jantar a dois com a Carla (💘+10) |
-| 27 | Pedir a Carla em namoro | Pedido no terraço do prédio (💘+20 💰−5) | Esperar mais (💘−5) |
-| 28 | Roupa pro reencontro | Terno sob medida (💰−10 ⭐+10) | Terno alugado (💰−5 ⭐+5) |
-| 29 | Noite antes do reencontro | Dormir cedo (❤️+10) | Ensaiar o discurso (⭐+10) |
+| Dia | Dilema | Na tela | A (bastidor) | B (bastidor) |
+| --- | --- | --- | --- | --- |
+| 22 | Sobrou dinheiro no mês | MEXE COM: 💰 ⭐ | Poupança (💰+10) | A cripto do grupo da turma (💰+20 ⭐−5) — _SURPRESA: a cripto sobe, mas o Rodrigo se gaba de ter indicado_ |
+| 23 | Corrida beneficente de 10 km | MEXE COM: 💰 ❤️ 💘 ⭐ | Correr (❤️+10 ⭐+10) | Doar e torcer (💰−5 ⭐+5 💘+5) — _a Carla corre e ele torce com cartaz_ |
+| 24 | Chefe oferece a gerência, mas ele teria que demitir o Tonhão | MEXE COM: 💰 ❤️ 💘 ⭐ | Aceitar e transferir o Tonhão de setor (⭐+15 💰+15 ❤️−5) | Indicar o Tonhão pra vaga (⭐+10 💘+5) |
+| 25 | **CONSEQUÊNCIA:** o 'investimento' do Rodrigo desmorona | MEXE COM: 💰 💘 ⭐ | Denunciar o Rodrigo (⭐+15 💘−5) — _a turma se divide_ | Ajudar a turma a recuperar o dinheiro (⭐+10 💰−5) |
+| 26 | Aniversário do Armando | MEXE COM: 💰 💘 ⭐ | Festa no prédio (⭐+10 💰−10) | Jantar a dois com a Carla (💘+10) |
+| 27 | Pedir a Carla em namoro | MEXE COM: 💰 💘 ⭐ | Pedido no terraço do prédio (💘+20 💰−5) | Pedir no reencontro, na frente da turma (💘+15 ⭐+5) — _risco: a turma inteira assiste_ |
+| 28 | Roupa pro reencontro | MEXE COM: 💰 💘 ⭐ | Terno sob medida (💰−10 ⭐+10) | Terno do pai, ajustado pela costureira (💰−5 ⭐+5 💘+5) |
+| 29 | Noite antes do reencontro | MEXE COM: ❤️ ⭐ | Dormir cedo (❤️+10) | Ensaiar o discurso (⭐+10) |
 
 ## Dia 30 — O final
 
