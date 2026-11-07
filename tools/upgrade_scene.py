@@ -12,9 +12,10 @@ NAME = {"money": "DINHEIRO", "health": "SAÚDE", "love": "AMOR", "rep": "REPUTA�
 def upgrade_scene(cid, before, after, dur, reveal=0.6):
     """before/after: dicts com money, health, love, rep (0–100)."""
     changes = visual_changes(before, after)
-    up = any(c[1] == "UPGRADE" for c in changes) or sum(after.values()) > sum(before.values())
-    title = "UPGRADE!" if up else "DOWNGRADE…"
-    tcol = GREEN if up else RED
+    up = any(c[1] == "UPGRADE" for c in changes)
+    down = any(c[1] == "DOWNGRADE" for c in changes) and not up
+    title = "UPGRADE!" if up else "DOWNGRADE…" if down else "QUASE LÁ! 👀"
+    tcol = GREEN if up else RED if down else YEL
     deltas = "".join(
         f'<div class="uc-d" style="display:inline-block;margin:6px;font-family:\'Archivo Black\';font-size:40px;color:{INK};'
         f'background:{GREEN if after[k] > before[k] else "#ff8fa3"};border:6px solid {INK};border-radius:16px;padding:2px 16px;box-shadow:6px 6px 0 {INK}">'
@@ -46,8 +47,8 @@ def upgrade_scene(cid, before, after, dur, reveal=0.6):
         <div style="position:absolute;left:0;right:0;top:10px;text-align:center;font-family:'Archivo Black';font-size:40px;color:{INK}">DEPOIS</div>
         <div style="position:absolute;left:10px;top:70px;width:430px">{armando(cid + "a", stats=after)}</div></div></div>
     <div id="{cid}-arrow" style="position:absolute;left:480px;top:700px;z-index:5;font-size:110px">➡️</div>
-    <div style="position:absolute;left:0;right:0;top:1050px;text-align:center;z-index:5">{deltas}</div>
-    <div id="{cid}-list" data-layout-allow-overlap style="position:absolute;left:80px;right:80px;top:1150px;z-index:5">
+    <div style="position:absolute;left:0;right:0;top:1030px;text-align:center;z-index:5">{deltas}</div>
+    <div id="{cid}-list" data-layout-allow-overlap style="position:absolute;left:80px;right:80px;top:1118px;z-index:5">
       <div id="{cid}-list-in" style="background:#fff;border:8px solid {INK};box-shadow:10px 10px 0 {INK};padding:14px 26px;font-family:Inter;font-weight:800;font-size:34px;line-height:1.25;color:{INK}">{items}</div></div>'''
     js = f'''
       tl.fromTo("#{cid}-rays", {{ rotation: 0 }}, {{ rotation: 15, duration: {dur}, ease: "none", transformOrigin: "540px 760px" }}, 0);
@@ -58,5 +59,5 @@ def upgrade_scene(cid, before, after, dur, reveal=0.6):
       tl.fromTo(".uc-d", {{ scale: 0 }}, {{ scale: 1, duration: .25, stagger: .12, ease: "back.out(2.5)" }}, {reveal + .4});
       tl.fromTo("#{cid}-list-in", {{ y: 300, opacity: 0 }}, {{ y: 0, opacity: 1, duration: .35, ease: "back.out(1.5)" }}, {reveal + .8});
       hfAlive(tl, "{cid}b", {dur}); hfAlive(tl, "{cid}a", {dur});
-      tl.set(["#{cid}a-m-sad", "#{cid}a-br-sad"], {{ opacity: 0 }}, 0); tl.set(["#{cid}a-m-{'grin' if up else 'shock'}", "#{cid}a-br-{'shock' if up else 'worry'}"], {{ opacity: 1 }}, 0);'''
+      tl.set(["#{cid}a-m-sad", "#{cid}a-br-sad"], {{ opacity: 0 }}, 0); tl.set(["#{cid}a-m-{'grin' if up else 'shock' if down else 'smirk'}", "#{cid}a-br-{'shock' if up else 'worry'}"], {{ opacity: 1 }}, 0);'''
     return scene(cid, body, js, bg="#3a0ca3")

@@ -381,7 +381,7 @@ def carla(p):
   <g fill="#2a1a14" stroke="{INK}" stroke-width="8">{curls}<ellipse cx="300" cy="330" rx="215" ry="230"/></g>
   <path d="M30 800 C40 650 140 600 230 590 L300 615 L370 590 C460 600 560 650 570 800 Z" fill="{YEL}" stroke="{INK}" stroke-width="10"/>
   <path d="M30 800 C40 650 140 600 210 592 L170 660 C110 690 90 740 85 800 Z" fill="url(#{p}-dots)"/>
-  <text x="300" y="740" text-anchor="middle" font-family="Archivo Black" font-size="58" fill="{MAG}">302</text>
+  <text data-layout-ignore x="300" y="740" text-anchor="middle" font-family="Archivo Black" font-size="58" fill="{MAG}">302</text>
   <rect x="255" y="500" width="90" height="110" fill="#b97a56" stroke="{INK}" stroke-width="9"/>
   <path d="M300 150 C410 150 455 230 455 330 C455 450 400 535 300 540 C200 535 145 450 145 330 C145 230 190 150 300 150 Z" fill="#b97a56" stroke="{INK}" stroke-width="10"/>
   <path d="M150 300 C160 420 210 520 300 540 L150 540 Z" fill="url(#{p}-dskin)"/>

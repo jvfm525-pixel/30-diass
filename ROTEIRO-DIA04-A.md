@@ -57,3 +57,10 @@
 
 [whispers] Faltam vinte e sete dias... e a Carla tá esperando a mensagem dele.
 ```
+
+## Como foi produzido (versão final, 80 s)
+
+- **Narração:** ElevenLabs, acelerada 10%. Legendas sincronizadas palavra por palavra pela transcrição automática.
+- **Estilo HQ pop**, igual aos DIAS 1–3. O Armando já é desenhado pelas barras (`stats` em `hq_lib.armando`), e entrou a cena "O QUE MUDOU" (`tools/upgrade_scene.py`). Como nada mudou de nível, ela mostra "QUASE LÁ! 👀".
+- **Música:** "Positive Background" — Soundrider (CC BY), com pausa enquanto o celular cai.
+- **Arquivos:** projeto em `chat-dia04/`, gerado por `tools/build_chat_dia04.py`; vídeo em `renders/chat-dia04.mp4`.
