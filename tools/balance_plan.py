@@ -8,10 +8,15 @@ import random
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from plan_chat import PLAN  # noqa: E402
+import importlib  # noqa: E402
 
-K = "mhlr"
-START = (20, 30, 20, 30)
+# python3 tools/balance_plan.py          -> série do Armando
+# python3 tools/balance_plan.py craque   -> série do Biel
+_mod = importlib.import_module("plan_craque" if len(sys.argv) > 1 and sys.argv[1] == "craque" else "plan_chat")
+PLAN = _mod.PLAN
+K = getattr(_mod, "KEYS", "mhlr")
+START = getattr(_mod, "START", (20, 30, 20, 30))
+NAMES = getattr(_mod, "NAMES", ["dinheiro", "saude", "amor", "reputacao"])
 
 
 def apply(s, e):
@@ -35,7 +40,7 @@ for d in sorted(PLAN):
     states = new
 best = max(states, key=lambda s: (min(s), sum(s)))
 ok = [s for s in states if min(s) >= 70]
-print("melhor final:", dict(zip(["dinheiro", "saude", "amor", "reputacao"], best)))
+print("melhor final:", dict(zip(NAMES, best)))
 print("finais diferentes com tudo >= 70:", len(ok), "de", len(states))
 rnd = random.Random(1)
 hits = sum(min(run(lambda d: 1 + rnd.randint(0, 1))) >= 70 for _ in range(20000))

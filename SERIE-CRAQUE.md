@@ -35,54 +35,77 @@
 - **Barras como a "carta do jogador":** um card de figurinha com as 4 estatísticas, que sobe ou desce com carimbo.
 - **Narração no estilo narrador de futebol:** voz masculina empolgada, com bordões como "Olha ele!" e "Que fase!".
 
-## Semana 1 — Do zero
+## Regras da série (as mesmas do Armando)
 
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 1 | Sábado de manhã: a Vó Cida precisa de ajuda na feira no mesmo horário do treino do Professor Bigode | Ajudar a vó (💰+10 ⚽−5) | Ir ao treino (⚽+10 🧠+5 💰−5 ⚠️ **zera o dinheiro!**) |
-| 2 | A chuteira emprestada rasga no meio do jogo | Consertar com fita e cola (⚽−5) | Jogar descalço, "pé de pedra" (⚽+5 💪−5) |
-| 3 | O Kauã desafia pro 1x1 na frente do bairro | Aceitar (⚽ ±15, arriscado) | Recusar (🧠−10) |
-| 4 | Comida da semana | Marmita da vó (💪+10 💰−5) | Salgado que sobrou da feira (💰+5 💪−5) |
-| 5 | A Duda quer postar o vídeo da embaixadinha | Postar (🧠+10, risco de virar meme) | Não postar (🧠−5) |
-| 6 | Chuva alaga o campo | Treinar na lama (💪+10 ⚽+5, risco de gripe) | Treinar na laje com bola de meia (⚽+5) |
-| 7 | **CONSEQUÊNCIA:** o Bigode oferece vaga no time da várzea, mas a inscrição custa R$ 30 | Vender o videogame velho (💰+20, paga a inscrição) | Pedir fiado ao Bigode (🧠−5) |
+- **Piadas:** de 5 a 9 por episódio, uma em cada cena (comparação absurda, narrador cutucando o público, etiqueta irônica, piada visual de fundo, barra que vira outra coisa).
+- **2 opções no final**, sempre, com a legenda do post pronta em `LEGENDAS-CRAQUE.md`.
+- **Votação acirrada ou não:** o episódio abre com o resultado da votação anterior (sem inventar porcentagem).
+- **Números escondidos até a votação:** o cartão mostra só **"MEXE COM: ⚽ 💪"**, e os números aparecem no episódio seguinte, na cena das barras.
+- **Dá pra chegar no máximo, mas o caminho não é óbvio:** `python3 tools/balance_plan.py craque` simula todos os caminhos de votação. O melhor caminho termina com ⚽ 95 · 💪 95 · 💰 100 · 🧠 95 (2.064 finais diferentes com tudo em 70+). Sempre A, sempre B ou "sempre a opção que parece melhor" não chegam. Votando no aleatório, a chance é de ~1%.
 
-## Semana 2 — As primeiras chances
+## Evolução visual do Biel (aparece a cada mudança de nível)
 
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 8 | Primeiro jogo da várzea | Jogar de atacante (⚽+10 💪−5) | Ir pro gol porque faltou goleiro (🧠+10) |
-| 9 | Um vídeo dele caindo de bunda viraliza | Abraçar o meme (🧠+10) | Pedir pra apagar (🧠−5) |
-| 10 | Bico de entregador de bicicleta | Aceitar (💰+15 💪+5 ⚽−10) | Recusar (⚽+5) |
-| 11 | O Kauã "doa" a chuteira velha dele, na frente de todo mundo | Aceitar (⚽+10 🧠−15) | Recusar (🧠+10) |
-| 12 | Treino às 5h na escadaria do morro | Ir (💪+15 🧠−5) | Dormir (🧠+5) |
-| 13 | Show de talentos da escola, com prêmio de R$ 50 | Fazer embaixadinha (💰+15, risco de errar) | Não ir (🧠−5) |
-| 14 | **CONSEQUÊNCIA:** a Vó Cida fica doente | Ficar cuidando dela (🧠+10 ⚽−10) | Treinar e a Duda cuida (⚽+10 🧠−10) |
+Cada barra muda o visual em 4 níveis (0–25, 26–50, 51–69, 70+), e a cena **"O QUE MUDOU"** mostra ANTES e DEPOIS em cada episódio, como no Armando. O formato é de figurinha: a figurinha dele vai de "COMUM" a "LENDÁRIA ✨".
 
-## Semana 3 — As complicações
+| Barra | Nível 1 (0–25) | Nível 2 (26–50) | Nível 3 (51–69) | Nível 4 (70+) |
+| --- | --- | --- | --- | --- |
+| ⚽ Habilidade | chinelo e bola murcha | chuteira emprestada com fita | chuteira usada inteira e bola cheia | **chuteira nova brilhando** e a bola "colando" no pé |
+| 💪 Físico | magrelo, braços de palito, curvado | menos magro | atlético | **forte e definido**, postura de atleta |
+| 💰 Dinheiro | camisa furada e shorts rasgado | camisa nova | uniforme do time da várzea | **agasalho completo e mochila esportiva** |
+| 🧠 Cabeça | cara insegura e ombros caídos | sorriso tímido | olhar confiante | **olhar de craque e faixa de capitão** |
 
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 15 | Um "empresário" pede R$ 100 pra "garantir a vaga" | Pagar (💰−20, é golpe?) | Desconfiar e denunciar (🧠+10) |
-| 16 | Dor no tornozelo | Gelo e repouso (💪+5 ⚽−5) | Jogar mesmo assim (⚽+5 💪−15) |
-| 17 | O Kauã provoca no grupo do bairro | Responder no campo (⚽ ±10) | Ignorar (🧠+10) |
-| 18 | Festa na laje na véspera do treino | Ir (🧠+10 💪−10) | Dormir cedo (💪+5) |
-| 19 | Final da copa da várzea: pênalti decisivo | Bater (⚽ ±20) | Passar a vez pro amigo (🧠+5) |
-| 20 | A padaria do bairro quer patrocinar | Usar a camisa "Pão Quente do Seu Zé" (💰+20 🧠−5) | Recusar (🧠+5) |
-| 21 | **CONSEQUÊNCIA:** o "empresário" do dia 15 volta, ou a polícia aparece | Encarar e contar tudo (🧠+15) | Fugir do assunto (🧠−10) |
+Com as 4 no máximo: **figurinha LENDÁRIA ✨** (moldura dourada holográfica), anunciada como "✨ CRAQUE COMPLETO".
 
-## Semana 4 — A reta final
+## Plano dos dilemas (DIAS 3–29) — bastidores
 
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 22 | Comprar chuteira nova | Comprar (💰−30 ⚽+10) | Manter a de fita "da sorte" (🧠+10) |
-| 23 | Treino com o Zé Foguete, ex-jogador lendário do bairro | Treino pesado (⚽+15 💪−10) | Treino leve (⚽+5) |
-| 24 | O Kauã se machuca no treino | Ajudar o rival (🧠+15) | Aproveitar a vantagem (⚽+5 🧠−10) |
-| 25 | A Vó Cida inventa uma simpatia antes da peneira | Fazer a simpatia (🧠+10) | Não fazer (🧠−5, a vó fica brava) |
-| 26 | O que treinar por último | Jogo coletivo (⚽+10) | Drible solo (⚽+5 🧠+5) |
-| 27 | Como chegar à peneira | Ônibus às 4h da manhã (💪−5) | Carona com o Kauã (🧠−10) |
-| 28 | A noite anterior | Dormir cedo (💪+10) | Assistir lances de craques (🧠+10) |
-| 29 | O aquecimento na frente do olheiro | Tentar a bicicleta (⚽ ±25) | Jogar seguro (⚽+5) |
+Depois dos DIAS 1–2 o Biel está com ⚽ 45 · 💪 20 · 💰 0 · 🧠 30. Na tela, antes da votação, aparece só a coluna "Na tela". Os números e as notas são **só de bastidor** (`tools/plan_craque.py`).
+
+### Semana 1 — Do zero (DIAS 3–7)
+
+| Dia | Dilema | Na tela | A (bastidor) | B (bastidor) |
+| --- | --- | --- | --- | --- |
+| 3 | Como chegar no amistoso do bairro vizinho (8 km) | MEXE COM: ⚽ 💪 🧠 | Ir correndo (💪+10 ⚽−5) — _chega cansado_ | Pedir carona pro Kauã (🧠−10 ⚽+10) — _joga descansado, mas o Kauã filma tudo_ |
+| 4 | Primeiro amistoso: faltou goleiro | MEXE COM: ⚽ 💪 💰 🧠 | Continuar no ataque (⚽+10 💪−5) | Ir pro gol (🧠+10 💰+5) — _SURPRESA: o time paga o lanche do herói_ |
+| 5 | A Vó Cida oferece sociedade nos salgados | MEXE COM: 💪 💰 🧠 | Vender no intervalo dos jogos (💰+15 💪−5) | Vender geladinho na saída da escola (💰+10 🧠+5) |
+| 6 | A chuteira emprestada rasga | MEXE COM: ⚽ 💪 🧠 | Jogar descalço, 'pé de pedra' (⚽+5 💪−5) | Trocar o álbum de figurinhas por uma chuteira usada (⚽+10 🧠−5) — _era o álbum do pai_ |
+| 7 | **CONSEQUÊNCIA:** a Duda quer postar o vídeo do chapéu | MEXE COM: 💰 🧠 | Deixar postar (🧠+10 💰+10) — _SURPRESA: viraliza e uma loja dá uma camisa_ | Não postar (🧠−5) |
+
+### Semana 2 — As primeiras chances (DIAS 8–14)
+
+| Dia | Dilema | Na tela | A (bastidor) | B (bastidor) |
+| --- | --- | --- | --- | --- |
+| 8 | Bico pra juntar dinheiro | MEXE COM: ⚽ 💪 💰 🧠 | Entregador de bicicleta (💰+15 💪+5 ⚽−5) | Ajudante no lava-jato (💰+10 🧠+5) |
+| 9 | O Kauã desafia pro 1x1 valendo a chuteira dourada | MEXE COM: ⚽ 💰 🧠 | Aceitar (⚽+10 🧠−10) — _ARMADILHA: ganha o 1x1, mas a chuteira não serve e o bairro zoa_ | Propor valendo um lanche (💰+5 🧠+5) |
+| 10 | Treino às 5h na escadaria do morro | MEXE COM: 💪 🧠 | Ir (💪+15 🧠−5) | Dormir e treinar à noite (💪+5 🧠+5) |
+| 11 | Comida da semana | MEXE COM: 💪 🧠 | Dieta da Vó: feijão, arroz e ovo (💪+10) | Shake de graça do personal do Kauã (💪+15 🧠−10) — _o Kauã posta 'ajudando os pobres'_ |
+| 12 | O Professor Bigode quer ele de volante | MEXE COM: ⚽ 🧠 | Aceitar a posição nova (⚽+5 🧠+10) | Insistir em ser atacante (⚽+10 🧠−5) |
+| 13 | Show de talentos da escola (prêmio de R$ 50) | MEXE COM: 💰 🧠 | Fazer embaixadinha (💰+15 🧠+5) | Levar a Vó Cida pra cantar (💰+10 🧠+10) — _SURPRESA: a Vó arrasa_ |
+| 14 | **CONSEQUÊNCIA:** a Vó Cida fica doente | MEXE COM: ⚽ 🧠 | Ficar cuidando dela (🧠+10 ⚽−5) | Treinar e a Duda cuida (⚽+10 🧠−10) |
+
+### Semana 3 — As complicações (DIAS 15–21)
+
+| Dia | Dilema | Na tela | A (bastidor) | B (bastidor) |
+| --- | --- | --- | --- | --- |
+| 15 | Um 'empresário' pede R$ 100 pra 'garantir a vaga' | MEXE COM: 💰 🧠 | Pagar (💰−15) — _GOLPE_ | Pesquisar o nome dele antes (🧠+10) |
+| 16 | O tornozelo começa a doer | MEXE COM: ⚽ 💪 🧠 | Gelo e repouso (💪+5 ⚽−5) | Fisioterapia no posto de saúde (💪+10 🧠−5) — _fila de 4 horas_ |
+| 17 | A padaria do bairro quer patrocinar | MEXE COM: 💪 💰 🧠 | Usar a camisa 'Pão Quente do Seu Zé' (💰+20 🧠−5 💪−5) — _a zoeira no bairro + pão de graça todo dia_ | Recusar e esperar algo melhor (🧠+5 💰+5) — _SURPRESA: a loja de esportes oferece um bico_ |
+| 18 | Festa na laje na véspera do treino | MEXE COM: 💪 🧠 | Ir (🧠+10 💪−10) | Dormir cedo (💪+5) |
+| 19 | Final da copa da várzea: pênalti decisivo | MEXE COM: ⚽ 💪 🧠 | Bater (⚽+15 🧠+10 💪−15) — _faz o gol… e torce o tornozelo comemorando em cima do alambrado_ | Passar a vez pro amigo (⚽+5 🧠+5) — _dá a assistência no rebote_ |
+| 20 | O bairro quer fazer uma vaquinha pra ele | MEXE COM: 💰 🧠 | Aceitar (💰+20 🧠−5) — _a pressão aumenta_ | Dar aula de futebol pras crianças (💰+10 🧠+10) |
+| 21 | **CONSEQUÊNCIA:** o 'empresário' volta | MEXE COM: 🧠 | Encarar, com a Duda gravando (🧠+15) | Fugir do assunto (🧠−10) |
+
+### Semana 4 — A reta final (DIAS 22–29)
+
+| Dia | Dilema | Na tela | A (bastidor) | B (bastidor) |
+| --- | --- | --- | --- | --- |
+| 22 | Chuteira nova antes da peneira | MEXE COM: ⚽ 💰 🧠 | Comprar (💰−20 ⚽+15) | Manter a de fita 'da sorte' (🧠+10) |
+| 23 | Treino com o Zé Foguete, lenda do bairro | MEXE COM: ⚽ 💪 🧠 | Treino pesado (⚽+15 💪−5) | Treino leve de técnica (⚽+10 🧠+5) |
+| 24 | O Kauã se machuca no treino | MEXE COM: ⚽ 🧠 | Ajudar o rival (🧠+15) | Aproveitar e treinar mais (⚽+10 🧠−10) |
+| 25 | A Vó Cida inventa uma simpatia | MEXE COM: ⚽ 💪 🧠 | Fazer a simpatia (🧠+10) | Treino extra de pênalti (⚽+5 💪+5) |
+| 26 | O que treinar por último | MEXE COM: ⚽ 💪 🧠 | Jogo coletivo (⚽+10 🧠+5) | Drible solo (⚽+10 💪+5) |
+| 27 | Como chegar à peneira | MEXE COM: 💪 💰 🧠 | Ônibus às 4h da manhã (💪−5 💰−5 🧠+5) | Carona com o Kauã (🧠−10 💪+5) |
+| 28 | A noite anterior | MEXE COM: 💪 🧠 | Dormir cedo (💪+10) | Assistir lances de craques (🧠+10) |
+| 29 | O aquecimento na frente do olheiro | MEXE COM: ⚽ 🧠 | Tentar a bicicleta (⚽+20 🧠−5) — _arriscado_ | Jogar seguro (⚽+5 🧠+5) |
 
 ## DIA 30 — A peneira
 
