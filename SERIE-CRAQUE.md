@@ -117,3 +117,8 @@ As 4 barras aparecem na "carta do jogador", e cada ✅ é um carimbo do olheiro:
 - **0 ✅:** vira meme do bairro… e sobe a hashtag #VoltaBiel.
 
 **Temporada 2?** A) O Biel na Europa · B) O Biel tenta de novo no Brasil
+
+## Regra de cenário (pedido do público/criador)
+
+- Nunca reaproveitar o mesmo cenário entre séries ou episódios: cada cena ganha um lugar próprio.
+- Fundos sempre detalhados: objetos, profundidade (frente/meio/fundo), luz e pequenos detalhes animados. Nada de fundo liso ou só com raios.

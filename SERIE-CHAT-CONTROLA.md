@@ -150,3 +150,8 @@ O episódio termina, como sempre, com 2 opções: **"Temporada 2? A) Continuar c
 - O público vê na hora o efeito da escolha dele nas barras.
 - Os Dias de Consequência mostram que escolhas antigas importam, e quem perdeu um episódio quer voltar para entender.
 - O risco de zerar uma barra gera torcida e briga nos comentários.
+
+## Regra de cenário (pedido do público/criador)
+
+- Nunca reaproveitar o mesmo cenário entre séries ou episódios: cada cena ganha um lugar próprio.
+- Fundos sempre detalhados: objetos, profundidade (frente/meio/fundo), luz e pequenos detalhes animados. Nada de fundo liso ou só com raios.
