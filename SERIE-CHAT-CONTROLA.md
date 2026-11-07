@@ -72,54 +72,61 @@ Gancho para fechar cada episódio: *"Faltam X dias… e o Rodrigo tá de olho."*
 - **Rodrigo**: o colega puxa-saco e rival.
 - **Dona Neide**: a mãe, que vive ligando.
 
-## Semana 1 — O fundo do poço
+## Plano rebalanceado: dá pra chegar no máximo em tudo
+
+Depois dos DIAS 1–4 o Armando está com 💰 20 · ❤️ 30 · 💘 20 · ⭐ 30. Os dilemas abaixo foram testados por um programa que simula **todos os caminhos de votação possíveis** (`tools/balance_plan.py`):
+
+- **Existe um caminho em que as 4 barras chegam ao máximo visual (70+):** o melhor termina com 💰 90 · ❤️ 95 · 💘 100 · ⭐ 100.
+- **Dá para errar algumas vezes:** há 1.850 finais diferentes com as 4 barras em 70+.
+- **Não é automático:** votar sempre na A deixa o 💰 em 45, e votar sempre na B derruba tudo. Votando no aleatório, a chance de chegar com tudo no máximo é de só 0,3%. O público precisa pensar em cada escolha.
+- As barras vão de 0 a 100. Barra no zero continua causando crise.
+
+**Regra ao mudar um dilema:** rode `python3 tools/balance_plan.py` e confira que continua existindo um caminho com tudo em 70+.
+
+### Semana 1 — Primeiros passos (DIAS 5–7)
 
 | Dia | Dilema | A | B |
 | --- | --- | --- | --- |
-| 1 | Chefe pede hora extra no sábado | Aceitar (💰+15 ❤️−10) | Recusar (❤️+10 ⭐−10) |
-| 2 | Geladeira vazia, R$ 20 no bolso | Miojo a semana toda (💰+10 ❤️−10) | Mercado de verdade (💰−10 ❤️+10) |
-| 3 | Carla bate na porta pedindo açúcar, casa imunda | Abrir assim mesmo (💘+10 ⭐−10) | Fingir que não tá em casa (💘−5) |
-| 4 | O celular quebra | Parcelar um novo em 12x (💰−15 ⭐+10) | Consertar com durex (⭐−5) |
-| 5 | Tonhão chama pra churrasco na véspera do trabalho | Ir (⭐+10 ❤️−10) | Ficar dormindo (❤️+10 ⭐−5) |
-| 6 | Acha uma carteira na rua com R$ 300 | Devolver (⭐+20) | Ficar com o dinheiro (💰+20 ⭐−15) |
-| 7 | **CONSEQUÊNCIA:** balanço da semana + a mãe liga: "e a namorada?" | Mentir que tem namorada (⭐+10) | Contar a verdade (❤️+5 ⭐−5) |
+| 5 | Celular quebrado | Parcelar em 12x (💰−15 ⭐+10) | Consertar com durex (⭐−5) |
+| 6 | Tonhão chama pro churrasco na véspera do trabalho | Ir e levar a Carla (💘+15 ❤️−5) | Dormir cedo (❤️+10) |
+| 7 | **CONSEQUÊNCIA:** a mãe liga perguntando da namorada | Contar que tá conhecendo a Carla (💘+10 ⭐+5) | Mentir que já namora (⭐+10 💘−10) |
 
-## Semana 2 — As oportunidades
+### Semana 2 — As oportunidades (DIAS 8–14)
 
 | Dia | Dilema | A | B |
 | --- | --- | --- | --- |
-| 8 | Entrevista num emprego melhor, no horário do trabalho | Faltar e ir (⭐−10, chance de 💰) | Não ir |
-| 9 | Carla chama pra sair no dia do jogo com o Tonhão | Sair com a Carla (💘+15 ⭐−5) | Ir ao jogo (⭐+10 💘−5) |
-| 10 | Academia na esquina com promoção | Matricular (💰−10 ❤️+15) | Correr na rua de graça (❤️+5) |
-| 11 | Rodrigo rouba a ideia dele na reunião | Confrontar na frente de todos (⭐±15, arriscado) | Contar pro chefe em particular (⭐+5) |
-| 12 | Primeiro encontro com a Carla | Restaurante caro (💰−15 💘+15) | Piquenique no parque (💘+10) |
-| 13 | Vídeo dele dançando bêbado viraliza | Virar influencer (⭐+20 ❤️−5) | Pedir pra apagar (⭐−5) |
-| 14 | **CONSEQUÊNCIA:** a entrevista do dia 8 deu certo (ou ele foi pego faltando) | Aceitar o emprego longe (💰+25 ❤️−15) | Ficar e pedir aumento (💰+10) |
+| 8 | Acha uma carteira com R$ 300 na rua | Devolver ao dono (⭐+15) | Ficar com o dinheiro (💰+20 ⭐−15) |
+| 9 | Bico de fim de semana: lavar carros do prédio | Aceitar (💰+15 ❤️−5) | Recusar e ir correr (❤️+10) |
+| 10 | Academia nova com promoção | Matricular (❤️+15 💰−5) | Treinar na praça de graça (❤️+5) |
+| 11 | Rodrigo rouba a ideia dele na reunião | Provar na frente de todos que a ideia é dele (⭐+15 💘−5) | Deixar quieto (⭐−10) |
+| 12 | Primeiro encontro com a Carla | Restaurante chique (💘+15 💰−10) | Piquenique feito por ele (💘+10 ❤️+5) |
+| 13 | Vídeo dele dançando viraliza | Abraçar o meme (⭐+10 💘+5) | Pedir pra apagar (⭐−5) |
+| 14 | **CONSEQUÊNCIA:** proposta de emprego melhor | Aceitar (salário maior) (💰+25 ❤️−5) | Ficar e pedir aumento (💰+10 ⭐+5) |
 
-## Semana 3 — As complicações
-
-| Dia | Dilema | A | B |
-| --- | --- | --- | --- |
-| 15 | A fatura do cartão chega altíssima | Pagar o mínimo (💰−5, a dívida cresce) | Vender o videogame (💰+10 ❤️−5) |
-| 16 | Carla quer conhecer o apartamento dele | Faxina a noite toda (❤️−10 💘+15) | Levar ela pra casa do Tonhão (💘−5 ⭐+5) |
-| 17 | Rodrigo oferece entrar num "investimento garantido" | Entrar (💰+20 agora… risco no dia 26) | Recusar (⭐+5) |
-| 18 | Dor forte nas costas | Ir ao médico (💰−10 ❤️+15) | Ignorar (❤️−15) |
-| 19 | A ex manda mensagem: "saudade 🥺" | Responder (💘−15 se a Carla descobrir) | Bloquear (💘+10) |
-| 20 | O dono da carteira do dia 6 aparece | Contar tudo (⭐+10 ou −10) | Negar (⭐−20 se tiver câmera) |
-| 21 | **CONSEQUÊNCIA:** a mãe vem visitar e quer conhecer a "namorada" | Apresentar a Carla (💘±20, arriscado) | Confessar a mentira (⭐−10 ❤️+5) |
-
-## Semana 4 — As grandes apostas
+### Semana 3 — As complicações (DIAS 15–21)
 
 | Dia | Dilema | A | B |
 | --- | --- | --- | --- |
-| 22 | Sobrou um dinheiro | Apostar tudo na cripto do Rodrigo (💰 ×2 ou 0) | Poupança (💰+5) |
-| 23 | Carla recebe proposta de trabalho em outra cidade | Pedir pra ela ficar (💘±15) | Apoiar ela ir (💘+10, ela some por uns dias) |
-| 24 | Corrida beneficente no bairro | Correr os 10 km (❤️+10 ⭐+10, se a ❤️ estiver baixa ele desmaia) | Só doar (💰−10 ⭐+5) |
-| 25 | O chefe oferece o cargo de gerente, mas ele teria que demitir o Tonhão | Aceitar (💰+30 ⭐−20) | Recusar (⭐+15) |
-| 26 | O "investimento" do Rodrigo desmorona (quem entrou no dia 17 perde) | Denunciar o Rodrigo (⭐+15) | Ficar quieto e tentar recuperar (💰±) |
-| 27 | Aniversário do Armando | Festa grande (💰−20 ⭐+15) | Jantar só com quem importa (💘+10 ❤️+5) |
-| 28 | Momento de pedir a Carla em namoro | Pedido público e exagerado (💘±25) | Pedido simples a dois (💘+15) |
-| 29 | Última noite antes do fim | Gastar tudo numa viagem (💰−30 ❤️+15 💘+10) | Guardar pro futuro (💰+10) |
+| 15 | Fatura do cartão chega alta | Vender o videogame e pagar (💰+10 💘−5) | Pagar o mínimo (💰−10) |
+| 16 | Carla quer conhecer o apartamento | Faxina geral (vira a noite) (💘+15 ❤️−5) | Levar ela num café (💘+5 💰−5) |
+| 17 | Rodrigo oferece 'investimento garantido' | Entrar (💰+10) | Recusar e avisar a turma (⭐+10) |
+| 18 | Dor nas costas | Ir ao médico (❤️+15 💰−5) | Ignorar (❤️−10) |
+| 19 | A ex manda 'saudade 🥺' | Bloquear e contar pra Carla (💘+15) | Responder (💘−15 ⭐−5) |
+| 20 | Nutricionista do plano de saúde da empresa nova | Seguir a dieta (❤️+15 💘−5) | Só cortar o miojo (❤️+5) |
+| 21 | **CONSEQUÊNCIA:** a mãe vem visitar | Apresentar a Carla (💘+15 ⭐+5) | Esconder a Carla (💘−10) |
+
+### Semana 4 — A reta final (DIAS 22–29)
+
+| Dia | Dilema | A | B |
+| --- | --- | --- | --- |
+| 22 | Sobrou dinheiro no mês | Poupança (💰+10) | Cripto do Rodrigo (💰−10 ⭐−5) |
+| 23 | Corrida beneficente de 10 km | Correr (❤️+10 ⭐+10) | Só doar (💰−5 ⭐+5) |
+| 24 | Chefe oferece gerência, mas teria que demitir o Tonhão | Aceitar e salvar o Tonhão em outro setor (⭐+15 💰+15 ❤️−5) | Recusar (⭐+5) |
+| 25 | O 'investimento' do Rodrigo desmorona | Denunciar o Rodrigo (⭐+15) | Ficar quieto (⭐−5) |
+| 26 | Aniversário do Armando | Festa no prédio (⭐+10 💰−10) | Jantar a dois com a Carla (💘+10) |
+| 27 | Pedir a Carla em namoro | Pedido no terraço do prédio (💘+20 💰−5) | Esperar mais (💘−5) |
+| 28 | Roupa pro reencontro | Terno sob medida (💰−10 ⭐+10) | Terno alugado (💰−5 ⭐+5) |
+| 29 | Noite antes do reencontro | Dormir cedo (❤️+10) | Ensaiar o discurso (⭐+10) |
 
 ## Dia 30 — O final
 
