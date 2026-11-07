@@ -48,55 +48,119 @@ def tape(x, y, w=170, rot=-8, color="#f3e7b8"):
 
 
 # ------------------------------------------------------------------ Biel
-def biel(p):
+def tier(v):
+    """Nível visual de uma barra: 0 (0–25), 1 (26–50), 2 (51–69), 3 (70+)."""
+    return 0 if v <= 25 else 1 if v <= 50 else 2 if v < 70 else 3
+
+
+def biel(p, stats=None):
     """Biel, corpo inteiro, boneco de papel. viewBox 0 0 500 1000.
 
-    Juntas: {p}-head (pescoço), {p}-armL/-armR (ombro), {p}-legL/-legR (quadril).
-    Rosto: classe {p}-pupil, bocas {p}-m-smile/-o/-sad, {p}-eyes / {p}-eyes-closed,
-    sobrancelhas {p}-br-up/-worry.
+    stats = {"s": ⚽ habilidade, "f": 💪 físico, "m": 💰 dinheiro, "c": 🧠 cabeça} (0–100)
+    muda pés, corpo, roupa e expressão por nível. Sem stats = visual do DIA 1.
+    Juntas: {p}-head, {p}-armL/-armR, {p}-legL/-legR. Rosto: classe {p}-pupil,
+    bocas {p}-m-smile/-shy/-o/-sad, {p}-eyes / {p}-eyes-closed, {p}-br-up/-worry.
     """
+    st = stats or {"s": 35, "f": 20, "m": 5, "c": 25}
+    sT, fT, mT, cT = tier(st["s"]), tier(st["f"]), tier(st["m"]), tier(st["c"])
+    legacy = stats is None
+    lw = [24, 28, 32, 37][fT]          # meia largura de braços e pernas
+    sh = [0, 8, 18, 30][fT]            # ombros mais largos
     hair = "".join(f'<circle cx="{250 + 100 * math.cos(a):.0f}" cy="{205 + 95 * math.sin(a):.0f}" r="30"/>'
                    for a in [math.pi * (1.05 + i * 0.09) for i in range(11)])
+    # roupa por dinheiro
+    shirt = [RED, RED, GREEN, BLUE][mT]
+    shorts = [BLUE, BLUE, "#f5f5f5", BLUE][mT]
+    # pés por habilidade
+    def foot(x, side):
+        fx = x + (6 if side == "R" else -6)
+        if sT == 0:  # chinelo
+            sil = f'<ellipse cx="{fx}" cy="905" rx="50" ry="20"/>'
+            det = (f'<ellipse cx="{fx}" cy="905" rx="50" ry="20" fill="#3fa7d6"/><ellipse cx="{fx}" cy="898" rx="40" ry="12" fill="{SKIN_B}"/>'
+                   f'<path d="M{x - 18} 890 Q{x} 870 {x + 18} 890" stroke="#e8f6ff" stroke-width="7" fill="none"/>')
+            return sil, det
+        col = {1: "#2b2b2b", 2: "#2b2b2b", 3: "#f2c230"}[sT]
+        sil = f'<path d="M{fx - 48} 880 L{fx + 30} 875 C{fx + 60} 880 {fx + 62} 925 {fx + 40} 925 L{fx - 48} 925 Z"/>'
+        det = f'<path d="M{fx - 48} 880 L{fx + 30} 875 C{fx + 60} 880 {fx + 62} 925 {fx + 40} 925 L{fx - 48} 925 Z" fill="{col}"/>'
+        det += "".join(f'<rect x="{fx - 40 + k * 24}" y="922" width="10" height="10" fill="#9a9a9a"/>' for k in range(4))
+        if sT == 1:  # emprestada, com fita
+            det += f'<rect x="{fx - 20}" y="882" width="40" height="18" fill="#cfd4d9" transform="rotate(-8 {fx} 891)"/>'
+        if sT >= 2:
+            det += f'<path d="M{fx - 40} 900 L{fx + 40} 896" stroke="{"#fff" if sT == 2 else "#fff6c2"}" stroke-width="6"/>'
+        if sT == 3:
+            det += f'<path d="M{fx + 52} 870 l5 -14 l5 14 l14 5 l-14 5 l-5 14 l-5 -14 l-14 -5 Z" fill="#fff" stroke="{INK}" stroke-width="2"/>'
+        return sil, det
     legs = ""
-    for side, x, rot in (("L", 215, 0), ("R", 285, 0)):
-        sil = f'<path d="M{x - 26} 600 L{x + 26} 600 L{x + 22} 880 L{x - 22} 880 Z"/><ellipse cx="{x + (6 if side == "R" else -6)}" cy="905" rx="50" ry="20"/>'
-        det = (f'<path d="M{x - 26} 600 L{x + 26} 600 L{x + 22} 880 L{x - 22} 880 Z" fill="{SKIN_B}"/>'
-               f'<path d="M{x - 26} 600 L{x - 6} 600 L{x - 8} 880 L{x - 22} 880 Z" fill="{SKIN_B2}" opacity=".5"/>'
-               f'<ellipse cx="{x + (6 if side == "R" else -6)}" cy="905" rx="50" ry="20" fill="#3fa7d6"/>'
-               f'<ellipse cx="{x + (6 if side == "R" else -6)}" cy="898" rx="40" ry="12" fill="{SKIN_B}"/>'
-               f'<path d="M{x - 18} 890 Q{x} 870 {x + 18} 890" stroke="#e8f6ff" stroke-width="7" fill="none"/>')
-        legs += f'<g id="{p}-leg{side}">{cut(sil, det)}</g>'
+    for side, x in (("L", 215), ("R", 285)):
+        fsil, fdet = foot(x, side)
+        sil = f'<path d="M{x - lw - 2} 600 L{x + lw + 2} 600 L{x + lw - 2} 880 L{x - lw + 2} 880 Z"/>' + fsil
+        det = (f'<path d="M{x - lw - 2} 600 L{x + lw + 2} 600 L{x + lw - 2} 880 L{x - lw + 2} 880 Z" fill="{SKIN_B}"/>'
+               f'<path d="M{x - lw - 2} 600 L{x - 4} 600 L{x - 6} 880 L{x - lw + 2} 880 Z" fill="{SKIN_B2}" opacity=".5"/>')
+        if fT == 3:
+            det += f'<path d="M{x - 14} 700 Q{x} 730 {x + 14} 700" stroke="{SKIN_B2}" stroke-width="5" fill="none"/>'
+        if sT >= 1:  # meião
+            det += f'<path d="M{x - lw + 1} 790 L{x + lw - 1} 790 L{x + lw - 2} 880 L{x - lw + 2} 880 Z" fill="{["#fff", "#fff", "#fff", "#f2c230"][sT]}"/>'
+        legs += f'<g id="{p}-leg{side}">{cut(sil, det + fdet)}</g>'
     arms = ""
-    for side, x, dx in (("L", 160, -40), ("R", 340, 40)):
-        sil = f'<path d="M{x - 24} 345 L{x + 24} 345 L{x + dx + 22} 560 L{x + dx - 22} 560 Z"/><circle cx="{x + dx}" cy="570" r="30"/>'
-        det = (f'<path d="M{x - 24} 345 L{x + 24} 345 L{x + dx + 22} 560 L{x + dx - 22} 560 Z" fill="{SKIN_B}"/>'
-               f'<path d="M{x - 30} 335 L{x + 30} 335 L{x + 26} 420 L{x - 26} 420 Z" fill="{RED}"/>'
-               f'<circle cx="{x + dx}" cy="570" r="30" fill="{SKIN_B}"/>')
+    for side, x, dx in (("L", 160 - sh, -40 - sh // 2), ("R", 340 + sh, 40 + sh // 2)):
+        sil = f'<path d="M{x - lw} 345 L{x + lw} 345 L{x + dx + lw - 2} 560 L{x + dx - lw + 2} 560 Z"/><circle cx="{x + dx}" cy="570" r="{28 + fT * 2}"/>'
+        sleeve = shirt if mT < 3 else BLUE
+        det = (f'<path d="M{x - lw} 345 L{x + lw} 345 L{x + dx + lw - 2} 560 L{x + dx - lw + 2} 560 Z" fill="{SKIN_B if mT < 3 else BLUE}"/>'
+               f'<path d="M{x - lw - 6} 335 L{x + lw + 6} 335 L{x + lw + 2} 420 L{x - lw - 2} 420 Z" fill="{sleeve}"/>'
+               f'<circle cx="{x + dx}" cy="570" r="{28 + fT * 2}" fill="{SKIN_B}"/>')
+        if mT == 3:
+            det += f'<path d="M{x + dx // 3 - 4} 345 L{x + dx - 4} 560" stroke="#fff" stroke-width="7"/>'
+        if fT >= 2 and mT < 3:
+            det += f'<path d="M{x - 10} 450 Q{x + dx // 2} 470 {x + 10} 450" stroke="{SKIN_B2}" stroke-width="5" fill="none"/>'
+        if side == "L" and cT == 3:  # faixa de capitão
+            det += (f'<rect x="{x - lw - 4}" y="378" width="{2 * lw + 8}" height="30" fill="{YEL}" stroke="{INK}" stroke-width="4"/>'
+                    f'<text data-layout-ignore x="{x}" y="402" text-anchor="middle" font-family="Bangers" font-size="26" fill="{INK}">C</text>')
         arms += f'<g id="{p}-arm{side}">{cut(sil, det)}</g>'
-    torso_sil = '<path d="M150 330 L350 330 L345 600 L155 600 Z"/><path d="M160 560 L340 560 L345 660 L155 660 Z"/>'
-    torso_det = (f'<path d="M150 330 L350 330 L345 600 L155 600 Z" fill="{RED}"/>'
-                 f'<path d="M150 330 L200 330 L205 600 L155 600 Z" fill="#000" opacity=".12"/>'
-                 f'<path d="M215 330 Q250 370 285 330" fill="{SKIN_B}"/>'
-                 f'<text x="252" y="500" text-anchor="middle" font-family="Permanent Marker" font-size="110" fill="#fff">10</text>'
-                 f'<ellipse cx="310" cy="560" rx="14" ry="9" fill="{SKIN_B}"/><path d="M296 560 q14 -12 28 0" stroke="#7a2020" stroke-width="3" fill="none"/>'
-                 f'<path d="M160 560 L340 560 L345 660 L155 660 Z" fill="{BLUE}"/>'
-                 f'<path d="M250 572 L250 650" stroke="#1d3d8a" stroke-width="5"/>')
+    tl, tr = 150 - sh, 350 + sh
+    torso_sil = f'<path d="M{tl} 330 L{tr} 330 L345 600 L155 600 Z"/><path d="M160 560 L340 560 L345 660 L155 660 Z"/>'
+    torso_det = (f'<path d="M{tl} 330 L{tr} 330 L345 600 L155 600 Z" fill="{shirt}"/>'
+                 f'<path d="M{tl} 330 L{tl + 50} 330 L205 600 L155 600 Z" fill="#000" opacity=".12"/>'
+                 f'<path d="M215 330 Q250 370 285 330" fill="{SKIN_B}"/>')
+    if mT == 3:  # agasalho com zíper e listras
+        torso_det += (f'<path d="M250 345 L250 600" stroke="#dfe6ec" stroke-width="8"/><path d="M{tl + 6} 340 L165 600 M{tr - 6} 340 L335 600" stroke="#fff" stroke-width="9"/>'
+                      f'<path d="M210 330 L250 360 L290 330" fill="none" stroke="#dfe6ec" stroke-width="10"/>')
+    else:
+        torso_det += f'<text data-layout-ignore x="252" y="500" text-anchor="middle" font-family="Permanent Marker" font-size="110" fill="#fff">10</text>'
+        if mT == 2:  # uniforme do time da várzea
+            torso_det += (f'<path d="M{tl} 380 L{tr} 380" stroke="#fff" stroke-width="16"/>'
+                          f'<circle cx="305" cy="365" r="22" fill="{YEL}" stroke="{INK}" stroke-width="4"/>')
+    if mT == 0:  # furo na camisa
+        torso_det += f'<ellipse cx="310" cy="560" rx="14" ry="9" fill="{SKIN_B}"/><path d="M296 560 q14 -12 28 0" stroke="#7a2020" stroke-width="3" fill="none"/>'
+    if fT == 3 and mT < 3:
+        torso_det += f'<path d="M200 430 Q225 445 250 430 Q275 445 300 430" stroke="#000" stroke-width="4" fill="none" opacity=".25"/>'
+    torso_det += (f'<path d="M160 560 L340 560 L345 660 L155 660 Z" fill="{shorts}"/><path d="M250 572 L250 650" stroke="#1d3d8a" stroke-width="5"/>')
+    if mT == 0:
+        torso_det += f'<path d="M300 640 l12 -14 l8 16" stroke="{SKIN_B}" stroke-width="6" fill="none"/>'
+    # expressão por cabeça
+    if legacy:
+        show_mouth, show_brow = "smile", "up"
+    else:
+        show_mouth = ["sad", "shy", "smile", "smile"][cT]
+        show_brow = "worry" if cT == 0 else "up"
+    op = lambda k, v: "1" if k == v else "0"  # noqa: E731
     head_sil = f'<rect x="225" y="290" width="50" height="60"/><circle cx="250" cy="225" r="105"/><ellipse cx="146" cy="235" rx="22" ry="30"/><ellipse cx="354" cy="235" rx="22" ry="30"/>{hair}'
     head_det = f'''<rect x="225" y="290" width="50" height="60" fill="{SKIN_B2}"/>
       <ellipse cx="146" cy="235" rx="22" ry="30" fill="{SKIN_B}"/><ellipse cx="354" cy="235" rx="22" ry="30" fill="{SKIN_B}"/>
       <circle cx="250" cy="225" r="105" fill="{SKIN_B}"/>
       <path d="M150 230 Q160 320 250 330 Q190 300 175 220 Z" fill="{SKIN_B2}" opacity=".45"/>
       <g fill="#1a1210">{hair}<rect x="160" y="130" width="180" height="60" rx="30"/></g>
-      <g id="{p}-br-up" stroke="#1a1210" stroke-width="10" stroke-linecap="round"><path d="M195 185 L232 178"/><path d="M268 178 L305 185"/></g>
-      <g id="{p}-br-worry" opacity="0" stroke="#1a1210" stroke-width="10" stroke-linecap="round"><path d="M195 178 L232 190"/><path d="M268 190 L305 178"/></g>
+      {'<path d="M170 150 C210 110 300 105 340 140" stroke="#fff" stroke-width="6" fill="none" opacity=".4"/>' if cT >= 2 else ''}
+      <g id="{p}-br-up" opacity="{op(show_brow, "up")}" stroke="#1a1210" stroke-width="10" stroke-linecap="round"><path d="M195 185 L232 178"/><path d="M268 178 L305 185"/></g>
+      <g id="{p}-br-worry" opacity="{op(show_brow, "worry")}" stroke="#1a1210" stroke-width="10" stroke-linecap="round"><path d="M195 178 L232 190"/><path d="M268 190 L305 178"/></g>
       <g id="{p}-eyes"><ellipse cx="212" cy="222" rx="24" ry="28" fill="#fff"/><ellipse cx="288" cy="222" rx="24" ry="28" fill="#fff"/>
         <g class="{p}-pupil"><circle cx="215" cy="226" r="12" fill="{INK}"/><circle cx="291" cy="226" r="12" fill="{INK}"/>
         <circle cx="219" cy="221" r="4" fill="#fff"/><circle cx="295" cy="221" r="4" fill="#fff"/></g></g>
       <g id="{p}-eyes-closed" opacity="0" stroke="{INK}" stroke-width="7" fill="none" stroke-linecap="round"><path d="M192 226 Q212 238 232 226"/><path d="M268 226 Q288 238 308 226"/></g>
       <path d="M250 235 Q240 265 252 272 Q262 270 262 262" fill="none" stroke="{SKIN_B2}" stroke-width="7" stroke-linecap="round"/>
-      <g id="{p}-m-smile"><path d="M200 282 Q250 330 300 282 Z" fill="#5a1a1a"/><rect x="236" y="284" width="14" height="14" fill="#fff"/><rect x="254" y="284" width="14" height="14" fill="#fff"/></g>
+      <g id="{p}-m-smile" opacity="{op(show_mouth, "smile")}"><path d="M200 282 Q250 330 300 282 Z" fill="#5a1a1a"/><rect x="236" y="284" width="14" height="14" fill="#fff"/><rect x="254" y="284" width="14" height="14" fill="#fff"/></g>
+      <path id="{p}-m-shy" opacity="{op(show_mouth, "shy")}" d="M222 292 Q250 312 278 292" stroke="#5a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
       <ellipse id="{p}-m-o" opacity="0" cx="250" cy="295" rx="18" ry="22" fill="#5a1a1a"/>
-      <path id="{p}-m-sad" opacity="0" d="M215 302 Q250 282 285 302" stroke="#5a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>'''
+      <path id="{p}-m-sad" opacity="{op(show_mouth, "sad")}" d="M215 302 Q250 282 285 302" stroke="#5a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>'''
     return f'''<svg viewBox="0 0 500 1000" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <g id="{p}-rig">
     {legs}
@@ -104,6 +168,26 @@ def biel(p):
     {arms}
     <g id="{p}-head">{cut(head_sil, head_det)}</g>
   </g></svg>'''
+
+
+BIEL_TXT = {
+    "s": [["chinelo de dedo", "bola murcha"], ["chuteira emprestada com fita"], ["chuteira usada inteira"], ["chuteira dourada brilhando ✨"]],
+    "f": [["magrelo, braços de palito"], ["menos magro"], ["atlético"], ["forte e definido"]],
+    "m": [["camisa furada", "shorts rasgado"], ["camisa nova, sem furo"], ["uniforme do time da várzea"], ["agasalho completo"]],
+    "c": [["cara insegura"], ["sorriso tímido", "postura melhor"], ["sorriso confiante"], ["olhar de craque", "faixa de capitão"]],
+}
+BIEL_ICON = {"s": "⚽", "f": "💪", "m": "💰", "c": "🧠"}
+
+
+def biel_changes(before, after):
+    out = []
+    for k in "sfmc":
+        a, b = tier(before[k]), tier(after[k])
+        if a != b:
+            out.append((BIEL_ICON[k], "UPGRADE" if b > a else "DOWNGRADE", BIEL_TXT[k][b]))
+    if all(tier(after[k]) == 3 for k in "sfmc") and not all(tier(before[k]) == 3 for k in "sfmc"):
+        out.append(("✨", "FIGURINHA LENDÁRIA", ["craque completo!"]))
+    return out
 
 
 # ------------------------------------------------------------------ Vó Cida
@@ -135,7 +219,7 @@ def kaua(p):
     sil = f'<path d="M50 600 C60 470 150 420 250 418 C350 420 440 470 450 600 Z"/><circle cx="250" cy="260" r="115"/>{spikes}<ellipse cx="135" cy="270" rx="20" ry="28"/><ellipse cx="365" cy="270" rx="20" ry="28"/>'
     det = f'''<path d="M50 600 C60 470 150 420 250 418 C350 420 440 470 450 600 Z" fill="#f2c230"/>
       <path d="M200 420 L250 470 L300 420" fill="none" stroke="#b8860b" stroke-width="10"/>
-      <text x="250" y="560" text-anchor="middle" font-family="Bangers" font-size="80" fill="#b8860b">K</text>
+      <text data-layout-ignore x="250" y="560" text-anchor="middle" font-family="Bangers" font-size="80" fill="#b8860b">K</text>
       <ellipse cx="135" cy="270" rx="20" ry="28" fill="{SKIN_K}"/><ellipse cx="365" cy="270" rx="20" ry="28" fill="{SKIN_K}"/>
       <circle cx="250" cy="260" r="115" fill="{SKIN_K}"/>
       <g fill="#ffe066">{spikes}</g><path d="M140 200 C160 150 340 150 360 200 L360 215 L140 215 Z" fill="#4a3220"/>

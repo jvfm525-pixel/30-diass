@@ -62,3 +62,11 @@
 ## Bastidor (não mostrar)
 
 Efeitos reais do DIA 3 (`tools/plan_craque.py`): A) Ir correndo = 💪+10 ⚽−5 (chega cansado) · B) Carona com o Kauã = 🧠−10 ⚽+10 (joga descansado, mas o Kauã filma tudo).
+
+## Como foi produzido (versão final, 69 s)
+
+- **Narração:** ElevenLabs (Roberta), acelerada 10%, com legendas sincronizadas pela transcrição automática.
+- **Estilo Álbum de Figurinhas.** O Biel é desenhado pelas barras (`biel(p, stats)` em `tools/figurinha_lib.py`, prévia em `docs/biel-niveis.png`). Primeira cena "O QUE MUDOU" da série (`tools/figurinha_upgrade.py`): 🧠 UPGRADE, sorriso tímido.
+- **Decisão sem números:** os cartões mostram só "MEXE COM".
+- **Música:** "Simple Samba for Youtube" — eitabyte (CC BY), com pausa no "zerou".
+- **Arquivos:** projeto em `craque-dia02/`, gerado por `tools/build_craque_dia02.py`; vídeo em `renders/craque-dia02.mp4`.
