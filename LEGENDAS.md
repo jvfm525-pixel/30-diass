@@ -55,3 +55,19 @@ Comenta A ou B 👇 A mais votada acontece amanhã!
 #ochatcontrola #armando #30dias #vocedecide #humor #animacao #fyp
 
 🎵 Música: "Positive Background" — Soundrider (CC BY)
+
+---
+
+## DIA 4 — A Porta
+
+DIA 4 🚪 Votação MAIS ACIRRADA até agora… e deu A! O Armando abriu a porta de cueca, disse que o frango queimado era "churrasco" e deu ketchup no lugar de açúcar 🍅 E a Carla… pediu o número dele 😳 Só que o celular caiu e a tela virou um mapa do metrô 💀
+
+E agora?
+🅰️ Parcelar um celular novo em 12x (💰−15 ⭐+10 ⚠️ quase zera o dinheiro)
+🅱️ Consertar com durex (⭐−5)
+
+Comenta A ou B 👇 A mais votada acontece amanhã!
+
+#ochatcontrola #armando #30dias #vocedecide #humor #animacao #fyp
+
+🎵 Música: "Positive Background" — Soundrider (CC BY)
