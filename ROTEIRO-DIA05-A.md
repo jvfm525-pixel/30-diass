@@ -80,3 +80,12 @@ Comenta A ou B 👇 A mais votada decide o DIA 6!
 
 #ochatcontrola #armando #30dias #interativo #humor #animacao #fyp
 ```
+
+## Como foi produzido (versão final, 73 s)
+
+- **Narração:** ElevenLabs (Roberta), acelerada 10%, com legendas sincronizadas pela transcrição automática.
+- **Estilo HQ pop**, igual aos DIAS 1–4.
+- **Cenários novos e detalhados** (`tools/armando_cenarios.py`): fachada do shopping, loja de celular com neon, pastelaria, ponto de ônibus, portaria do prédio, banheiro (selfie), palco com plateia, laje do Tonhão, decisão dividida (churrasco × cama) e quarto à noite.
+- **O QUE MUDOU:** "QUASE LÁ! Falta 6 de 💘 amor".
+- **Música:** "Positive Background" — Soundrider (CC BY), com pausa quando o dinheiro cai.
+- **Arquivos:** projeto em `chat-dia05/`, gerado por `tools/build_chat_dia05.py`; vídeo em `renders/chat-dia05.mp4`.

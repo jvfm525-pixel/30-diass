@@ -1,0 +1,744 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 371 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/30-diass/chat-dia05/compositions/caps.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      }
+    ],
+    "filesScanned": 14
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 12,
+    "findings": [
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 4.056,
+        "selector": "#s1-pa-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 709,
+          "top": 398.05,
+          "right": 996.96,
+          "bottom": 591.95,
+          "width": 287.96,
+          "height": 193.9
+        },
+        "containerSelector": "#s1-pa",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 720,
+          "top": 420,
+          "right": 985.95,
+          "bottom": 570,
+          "width": 265.95,
+          "height": 150
+        },
+        "overflow": {
+          "left": 11,
+          "right": 11.01
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 709,
+          "y": 398.05,
+          "width": 287.96,
+          "height": 193.9
+        },
+        "firstSeen": 4.056,
+        "lastSeen": 4.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.056
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 20.278,
+        "selector": "#s4-arm",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -40,
+          "top": 1020,
+          "right": 520,
+          "bottom": 1771.66,
+          "width": 560,
+          "height": 751.66
+        },
+        "containerSelector": "#s4-mensagem > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 40
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-mensagem.html",
+        "bbox": {
+          "x": -40,
+          "y": 1020,
+          "width": 560,
+          "height": 751.66
+        },
+        "firstSeen": 20.278,
+        "lastSeen": 20.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          20.278
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 28.389,
+        "selector": "#s5-tag",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 70,
+          "top": 760,
+          "right": 1118.31,
+          "bottom": 839,
+          "width": 1048.31,
+          "height": 79
+        },
+        "containerSelector": "#s5-resposta > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 38.31
+        },
+        "dataAttributes": {
+          "data-layout-allow-overlap": ""
+        },
+        "sourceFile": "compositions/s5-resposta.html",
+        "bbox": {
+          "x": 70,
+          "y": 760,
+          "width": 1048.31,
+          "height": 79
+        },
+        "firstSeen": 28.389,
+        "lastSeen": 28.389,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          28.389
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 36.5,
+        "selector": "#s6-sel > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 545.45,
+          "top": 466.81,
+          "right": 869.86,
+          "bottom": 895.7,
+          "width": 324.41,
+          "height": 428.89
+        },
+        "containerSelector": "#s6-sel > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 535.11,
+          "top": 457.16,
+          "right": 855.39,
+          "bottom": 767.8,
+          "width": 320.28,
+          "height": 310.64
+        },
+        "overflow": {
+          "right": 14.47,
+          "bottom": 127.9
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-grupo.html",
+        "bbox": {
+          "x": 545.45,
+          "y": 466.81,
+          "width": 324.41,
+          "height": 428.89
+        },
+        "firstSeen": 36.5,
+        "lastSeen": 36.5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          36.5
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 44.611,
+        "selector": "#s8-mudou-b-in > div:nth-of-type(2)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 79,
+          "top": 579,
+          "right": 509,
+          "bottom": 1157.33,
+          "width": 430,
+          "height": 578.33
+        },
+        "containerSelector": "#s8-mudou-b-in",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 60,
+          "top": 500,
+          "right": 510,
+          "bottom": 1020,
+          "width": 450,
+          "height": 520
+        },
+        "overflow": {
+          "bottom": 137.33
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-mudou.html",
+        "bbox": {
+          "x": 79,
+          "y": 579,
+          "width": 430,
+          "height": 578.33
+        },
+        "firstSeen": 44.611,
+        "lastSeen": 44.611,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.611
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 52.722,
+        "selector": "#s9t-rig > text:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1192.92,
+          "top": 1448.96,
+          "right": 1362.88,
+          "bottom": 1497.96,
+          "width": 169.96,
+          "height": 49
+        },
+        "containerSelector": "#root",
+        "text": "REI DA",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 282.88
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-tonhao.html",
+        "bbox": {
+          "x": 1192.92,
+          "y": 1448.96,
+          "width": 169.96,
+          "height": 49
+        },
+        "firstSeen": 52.722,
+        "lastSeen": 52.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          52.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 52.722,
+        "selector": "#s9t-rig > text:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1154.7,
+          "top": 1504.96,
+          "right": 1401.1,
+          "bottom": 1553.96,
+          "width": 246.4,
+          "height": 49
+        },
+        "containerSelector": "#root",
+        "text": "BRASA 🔥",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 321.1
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-tonhao.html",
+        "bbox": {
+          "x": 1154.7,
+          "y": 1504.96,
+          "width": 246.4,
+          "height": 49
+        },
+        "firstSeen": 52.722,
+        "lastSeen": 52.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          52.722
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 52.722,
+        "selector": "#s9-cal-in > div:nth-of-type(1) > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 174.09,
+          "top": 1523.62,
+          "right": 334.46,
+          "bottom": 1661.89,
+          "width": 160.38,
+          "height": 138.26
+        },
+        "containerSelector": "#s9-cal-in > div:nth-of-type(1) > div:nth-of-type(1)",
+        "text": "7H",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.07,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-tonhao.html",
+        "bbox": {
+          "x": 174.09,
+          "y": 1523.62,
+          "width": 160.38,
+          "height": 138.26
+        },
+        "firstSeen": 52.722,
+        "lastSeen": 52.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          52.722
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 52.722,
+        "selector": "#s9-ton",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 930,
+          "top": 700,
+          "right": 1630,
+          "bottom": 1580,
+          "width": 700,
+          "height": 880
+        },
+        "containerSelector": "#s9-tonhao > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 550
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-tonhao.html",
+        "bbox": {
+          "x": 930,
+          "y": 700,
+          "width": 700,
+          "height": 880
+        },
+        "firstSeen": 52.722,
+        "lastSeen": 52.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          52.722
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 52.722,
+        "selector": "#s9-ton",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 930,
+          "top": 700,
+          "right": 1630,
+          "bottom": 1580,
+          "width": 700,
+          "height": 880
+        },
+        "containerSelector": "#s9-tonhao > div:nth-of-type(1)",
+        "text": "REI DA BRASA 🔥",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-tonhao.html",
+        "bbox": {
+          "x": 930,
+          "y": 700,
+          "width": 700,
+          "height": 880
+        },
+        "firstSeen": 52.722,
+        "lastSeen": 52.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          52.722
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 60.833,
+        "selector": "#s10-a-in > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 143.85,
+          "top": 588.05,
+          "right": 424.36,
+          "bottom": 724.25,
+          "width": 280.51,
+          "height": 136.2
+        },
+        "containerSelector": "#s10-a-in > div:nth-of-type(1)",
+        "text": "🍖💘",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.04,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-decisao.html",
+        "bbox": {
+          "x": 143.85,
+          "y": 588.05,
+          "width": 280.51,
+          "height": 136.2
+        },
+        "firstSeen": 60.833,
+        "lastSeen": 60.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          60.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 60.833,
+        "selector": "#s10-b-in > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 655.64,
+          "top": 588.05,
+          "right": 936.15,
+          "bottom": 724.25,
+          "width": 280.51,
+          "height": 136.2
+        },
+        "containerSelector": "#s10-b-in > div:nth-of-type(1)",
+        "text": "😴⏰",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.04,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-decisao.html",
+        "bbox": {
+          "x": 655.64,
+          "y": 588.05,
+          "width": 280.51,
+          "height": 136.2
+        },
+        "firstSeen": 60.833,
+        "lastSeen": 60.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          60.833
+        ]
+      }
+    ],
+    "duration": 73,
+    "samples": [
+      4.056,
+      12.167,
+      20.278,
+      28.389,
+      36.5,
+      44.611,
+      52.722,
+      60.833,
+      68.944
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 12,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.86:1; WCAG AA requires 3:1.",
+        "text": "👩",
+        "fg": "rgb(233,237,239)",
+        "bg": "rgb(255,61,127)",
+        "ratio": 2.86,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(64,65,66)",
+        "large": true,
+        "selector": "div > div:nth-of-type(4) > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-mensagem.html",
+        "bbox": {
+          "x": 448,
+          "y": 344,
+          "width": 70,
+          "height": 70
+        },
+        "time": 20.278,
+        "times": [
+          20.278
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.23:1; WCAG AA requires 3:1.",
+        "text": "🎓",
+        "fg": "rgb(233,237,239)",
+        "bg": "rgb(255,210,63)",
+        "ratio": 1.23,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(119,121,122)",
+        "large": true,
+        "selector": "div > div:nth-of-type(6) > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-grupo.html",
+        "bbox": {
+          "x": 259.38323974609375,
+          "y": 1214.9283447265625,
+          "width": 81.3297119140625,
+          "height": 81.3297119140625
+        },
+        "time": 36.5,
+        "times": [
+          36.5
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.11:1; WCAG AA requires 3:1.",
+        "text": "32 participantes",
+        "fg": "rgb(134,150,160)",
+        "bg": "rgb(255,210,63)",
+        "ratio": 2.11,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(110,123,131)",
+        "large": true,
+        "selector": "div > div:nth-of-type(6) > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-grupo.html",
+        "bbox": {
+          "x": 352.4501953125,
+          "y": 1266.52392578125,
+          "width": 254.78656005859375,
+          "height": 62.1865234375
+        },
+        "time": 36.5,
+        "times": [
+          36.5
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      4.056,
+      20.278,
+      36.5,
+      52.722,
+      68.944
+    ],
+    "checked": 43,
+    "passed": 40
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"oi olá, vizinha e aí, sobreviveu ao meu churrasco? oi Car...\" (20 words) is on screen 2.27 s (±0.01 s), under its 4.88 s floor: hold it about 0.5 s + 0.3 s a word (6.50 s here) before it leaves or changes; see references/motion.md.",
+        "text": "oi olá, vizinha e aí, sobreviveu ao meu churrasco? oi Carla, tudo bem? então... oi, é o Armando do 302 😎 ✓✓",
+        "selector": "#s4-phone > div:nth-of-type(2) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-mensagem.html",
+        "bbox": {
+          "x": 526.59,
+          "y": 866.03,
+          "width": 433.0400000000001,
+          "height": 93.94000000000005
+        },
+        "time": 24.07,
+        "words": 20,
+        "seconds": 2.266,
+        "floorSeconds": 4.875
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Carla está digitando…\" (3 words) is on screen 0.77 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Carla está digitando…",
+        "selector": "#s5-typ-in",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-resposta.html",
+        "bbox": {
+          "x": 155.14,
+          "y": 413.84,
+          "width": 487.72,
+          "height": 55.31999999999999
+        },
+        "time": 26.438,
+        "words": 3,
+        "seconds": 0.766,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"DIA 6 AMANHÃ · COMENTA A OU B 👇\" (7 words) is on screen 1.64 s (±0.01 s), under the 2.00 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "DIA 6 AMANHÃ · COMENTA A OU B 👇",
+        "selector": "#s11-end",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s11-final.html",
+        "bbox": {
+          "x": 214.65,
+          "y": 1264.46,
+          "width": 650.68,
+          "height": 34.51999999999998
+        },
+        "time": 71.367,
+        "words": 7,
+        "seconds": 1.637,
+        "floorSeconds": 2
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 584
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}
