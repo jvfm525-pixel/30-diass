@@ -1,0 +1,16 @@
+{
+  "name": "muzan-thumb",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.9.17 preview",
+    "check": "npx --yes hyperframes@0.9.17 check",
+    "lint": "npx --yes hyperframes@0.9.17 lint",
+    "snapshot": "npx --yes hyperframes@0.9.17 snapshot",
+    "doctor": "npx --yes hyperframes@0.9.17 doctor",
+    "render": "npx --yes hyperframes@0.9.17 render --quality looks -o ../renders/chat-out.mp4",
+    "render:draft": "npx --yes hyperframes@0.9.17 render --quality draft -o ../renders/chat-draft.mp4",
+    "render:final": "npx --yes hyperframes@0.9.17 render --quality delivery -o ../renders/chat-final.mp4",
+    "publish": "npx --yes hyperframes@0.9.17 publish"
+  }
+}
