@@ -28,7 +28,7 @@
 | 7 · O fim do bando | O navio de velas brancas se afasta; lanternas se apagam uma a uma. | **O BANDO SE SEPARA** | "Então ele desfez o bando. Cada um seguiu o seu caminho. E o capitão foi sozinho até a Marinha." |
 | 8 · A praça | De volta ao patíbulo, na cidade onde ele nasceu. A câmera sobe até a silhueta, que sorri. | **ELE ESCOLHEU O LUGAR** | "Ele foi executado na cidade onde nasceu. Na frente de uma multidão. E ele escolheu isso, porque precisava de uma plateia." |
 | 9 · A resposta | Ele fala; uma onda dourada sai da praça e atravessa o mar. | **A RESPOSTA** | "Porque a execução era o último plano dele. Diante de todo mundo, ele disse que o tesouro existia… e que era de quem fosse buscar. Com uma única frase, ele transformou a própria morte no começo de uma nova era: milhares de jovens se lançaram ao mar. Entre eles… a pessoa que ele estava esperando." |
-| 10 · A nova era | Centenas de navios zarpando ao nascer do sol; um chapéu de palha simples voando com o vento. | **A GRANDE ERA DOS PIRATAS** | "Ele não se entregou pra morrer. Ele se entregou pra dar o mundo pra próxima geração." |
+| 10 · A nova era | Centenas de navios zarpando ao nascer do sol, com velas de todas as cores e gaivotas. | **A GRANDE ERA DOS PIRATAS** | "Ele não se entregou pra morrer. Ele se entregou pra dar o mundo pra próxima geração." |
 | 11 · Pergunta | Dois cartões 3D. | **A) FOI GENIAL 🧠 · B) FOI UM SACRIFÍCIO 💔** | "E pra você: o Roger foi um gênio que planejou tudo… ou um homem que se sacrificou pelos sonhos dos outros? Comenta A ou B." |
 
 **Emoção:**
