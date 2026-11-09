@@ -1,0 +1,83 @@
+<template>
+  <style>
+    #root { position:absolute; inset:0; overflow:hidden; background:transparent; }
+    
+  .full { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .onom { position:absolute; font-family:'Archivo Black'; letter-spacing:-.02em; line-height:1;
+           -webkit-text-stroke:12px #15122b; paint-order:stroke fill; text-shadow:10px 12px 0 #15122b; white-space:nowrap; }
+  .panel { position:absolute; overflow:hidden; border:12px solid #15122b; background:#fff; }
+  .tag { position:absolute; font-family:'Archivo Black'; font-size:46px; color:#15122b; background:#fff; border:7px solid #15122b;
+          padding:8px 22px; box-shadow:8px 8px 0 #15122b; white-space:nowrap; }
+
+    #root { background: transparent; }
+  .lbl { position:absolute; font-family:'Space Mono',monospace; font-weight:700; color:#fff; letter-spacing:.06em; text-transform:uppercase;
+    background:rgba(8,6,18,.88); border-left:8px solid #c99aff; padding:10px 22px; font-size:36px; }
+  .big { position:absolute; left:0; right:0; text-align:center; font-family:'Archivo Black'; color:#fff; letter-spacing:.02em; line-height:1.05;
+    text-shadow:0 0 22px rgba(201,154,255,.35), 0 6px 24px rgba(0,0,0,.85); }
+  .card { position:absolute; left:60px; right:60px; padding:20px 30px 22px; background:rgba(8,6,18,.8); border:3px solid rgba(255,255,255,.16);
+    border-left:10px solid #7af0ff; box-shadow:0 0 40px rgba(79,240,255,.18); }
+  .card .nm { font-family:'Archivo Black'; font-size:92px; color:#fff; line-height:1; letter-spacing:.02em; }
+  .card .sub { font-family:'Space Mono',monospace; font-weight:700; font-size:30px; color:#d6dcff; letter-spacing:.05em; margin-top:10px; text-transform:uppercase; }
+  .stamp { position:absolute; right:26px; top:22px; font-family:'Archivo Black'; font-size:46px; padding:4px 16px; border:6px solid; border-radius:6px;
+    background:rgba(8,6,18,.55); opacity:0; }
+  .dead { color:#ff4d6d; border-color:#ff4d6d; text-shadow:0 0 14px rgba(255,77,109,.6); }
+  .alive { color:#4dffa6; border-color:#4dffa6; text-shadow:0 0 14px rgba(77,255,166,.6); }
+  .unk { color:#ffd27a; border-color:#ffd27a; text-shadow:0 0 14px rgba(255,225,77,.6); }
+  .rec { position:absolute; inset:150px 50px 330px; border:4px solid rgba(255,255,255,.75); opacity:0; }
+  .rec .dot { position:absolute; left:26px; top:22px; font-family:'Space Mono',monospace; font-weight:700; font-size:40px; color:#ff3b4f; }
+  .rec .tc { position:absolute; right:26px; top:22px; font-family:'Space Mono',monospace; font-weight:700; font-size:36px; color:#fff; }
+  </style>
+  <div id="root" data-composition-id="s5-sorte" data-width="1080" data-height="1920">
+<div class="big" id="s5-q" style="top:290px;font-size:100px;color:#fff;opacity:0;z-index:6">FOI SORTE? 🍀<div id="s5-q-x" style="position:absolute;left:8%;right:8%;top:50%;height:16px;margin-top:-8px;background:#ff4d6d;box-shadow:0 0 18px rgba(255,60,80,.7);transform-origin:0% 50%"></div></div><div id="s5-l1" class="lbl" style="left:50px;top:520px;z-index:7;border-left-color:#ff4d6d;font-size:32px;opacity:0">⚠️ O CORPO DELE NÃO É NORMAL</div>
+  </div>
+  <script>
+    (function() {
+
+  function hfHash(n) { const s = Math.sin(n * 12.9898) * 43758.5453; return s - Math.floor(s); }
+  // traço "fervendo" a 12 quadros por segundo + respiração
+  function hfAlive(tl, p, dur, amp) {
+    const st = { t: 0 }; amp = amp || 1;
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      const k = Math.floor(st.t * 12);
+      gsap.set('#' + p + '-rig', { x: (hfHash(k) - .5) * 2.4 * amp, y: (hfHash(k + 99) - .5) * 2.4 * amp });
+      const b = document.getElementById(p + '-body');
+      if (b) gsap.set(b, { scaleY: 1 + 0.016 * Math.sin(st.t * 2.3), transformOrigin: '50% 100%' });
+      const h = document.getElementById(p + '-head');
+      if (h) gsap.set(h, { y: 4 * Math.sin(st.t * 2.3 - .6), rotation: 1.1 * Math.sin(st.t * 1.2), transformOrigin: '50% 90%' });
+    } }, 0);
+  }
+  function hfBlink(tl, p, at) {
+    at.forEach(t => {
+      tl.fromTo(['#' + p + '-lid-l', '#' + p + '-lid-r'], { scaleY: 1 }, { scaleY: 2.2, duration: .07, ease: 'power1.in', transformOrigin: '50% 0%', immediateRender: false }, t)
+        .to(['#' + p + '-lid-l', '#' + p + '-lid-r'], { scaleY: 1, duration: .09, ease: 'power1.out' }, t + .08);
+    });
+  }
+  // troca de expressão com "take": encolhe, troca, estica, assenta
+  function hfMood(tl, p, t, show, hide) {
+    tl.to('#' + p + '-head', { scaleY: .94, scaleX: 1.04, duration: .08, ease: 'power2.in', transformOrigin: '50% 100%' }, t);
+    hide.forEach(id => tl.set('#' + p + '-' + id, { opacity: 0 }, t + .08));
+    show.forEach(id => tl.set('#' + p + '-' + id, { opacity: 1 }, t + .08));
+    tl.to('#' + p + '-head', { scaleY: 1.05, scaleX: .97, duration: .1, ease: 'power2.out' }, t + .08)
+      .to('#' + p + '-head', { scaleY: 1, scaleX: 1, duration: .3, ease: 'elastic.out(1, .5)' }, t + .18);
+  }
+  function hfFlies(tl, ids, dur, area) {
+    const st = { t: 0 };
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      ids.forEach((id, i) => {
+        const a = area[i], t = st.t, ph = i * 1.7;
+        gsap.set('#' + id, { x: a[0] + a[2] * Math.cos(t * (2.1 + i * .37) + ph) + 16 * Math.sin(t * 9 + ph),
+                            y: a[1] + a[3] * Math.sin(t * (2.9 + i * .23) + ph) + 10 * Math.cos(t * 11 + ph), rotation: 25 * Math.sin(t * 4 + ph) });
+        gsap.set('.' + id + '-w', { scaleY: (Math.floor(t * 30 + i) % 2) ? .35 : 1, transformOrigin: '50% 100%' });
+      });
+    } }, 0);
+  }
+  function hfPop(tl, sel, t, rot) {
+    tl.fromTo(sel, { scale: 0, rotation: (rot || 0) - 14 }, { scale: 1, rotation: rot || 0, duration: .32, ease: 'back.out(2.6)' }, t);
+  }
+
+      const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s5-q", { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .3 }, 0.24);tl.fromTo("#s5-q-x", { scaleX: 0, scaleY: 1, rotation: -4 }, { scaleX: 1, scaleY: 1, rotation: -4, duration: .25 }, 1.48);tl.to("#s5-q", { opacity: .45, duration: .3 }, 1.93);tl.fromTo("#s5-l1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: .3 }, 6.64);
+      window.__timelines["s5-sorte"] = tl;
+    })();
+  </script>
+</template>
