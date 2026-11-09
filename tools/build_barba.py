@@ -184,7 +184,8 @@ def s5():
     sc = "s5-sorte"
     b = xq("s5-q", "FOI SORTE? 🍀", at(sc, "sorte", -.3), at(sc, "tambem4"), top=290, size=100)
     l1 = lbl2("s5-l1", "⚠️ O CORPO DELE NÃO É NORMAL", 50, 520, at(sc, "corpo4", -.2), RED, 32)
-    ov(sc, b[0] + l1[0], b[1] + l1[1])
+    fade = f'tl.to("#s5-q", {{ opacity: 0, duration: .35 }}, {at(sc, "marco", .3)});'  # some quando o Marco entra
+    ov(sc, b[0] + l1[0], b[1] + fade + l1[1])
 
 
 def s6():

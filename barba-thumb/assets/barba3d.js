@@ -412,25 +412,26 @@ addSet("s2-navio", (g) => {
       seaU(t); S.upd(t); const y0 = S.sh.position.y + 1.15;
       const tl = seg(t, K.decadas - 0.2, K.unica); const cyc = tl * 3; const dayK = 0.5 + 0.5 * Math.cos(cyc * Math.PI * 2);
       night.material.opacity = t < K.decadas - 0.2 ? 0 : t > K.unica ? 0.6 : 1 - dayK; sun.position.set(-30 + ((cyc % 1) * 60), 6 + Math.sin((cyc % 1) * Math.PI) * 20, -75); sun.material.opacity = 0.8 * dayK;
-      cap0.position.set(-0.8, y0, 1.0); cap0.rotation.y = 0.5; pReset(cap0); pIdle(cap0, t);
-      const lunge = sm(seg(t, K.matou - 0.3, K.matou + 0.1)), hold = sm(seg(t, K.ficar - 0.6, K.ficar));
+      const lunge = sm(seg(t, K.matou - 0.3, K.matou + 0.1)), hold = sm(seg(t, K.matou + 0.05, K.matou + 0.55)), lift = sm(seg(t, K.ficar - 0.7, K.ficar - 0.1));
+      cap0.position.set(lerp(-0.8, 0.0, lunge), y0, 1.0); cap0.rotation.y = 0.5; pReset(cap0); pIdle(cap0, t);
       chest.position.set(0.2, y0, -0.4);
       const op = sm(seg(t, K.escuridao - 0.5, K.escuridao + 0.2)); lid.rotation.x = -1.6 * op; cg.material.opacity = 0.8 * op;
       const take = sm(seg(t, K.apareceu - 0.2, K.apareceu + 0.6));
       mate.position.set(lerp(1.4, 0.6, take), y0, lerp(-0.4, -0.2, take)); mate.rotation.y = -0.9; pReset(mate); pIdle(mate, t, 2);
       if (take > 0) mate.userData.arms[0].rotation.x = -1.2 * take;
+      const fk = seg(t, K.matou, K.matou + 0.8); mate.rotation.z = 1.3 * sm(fk); mate.position.y = y0 + 0.1 * sm(fk); mate.visible = fk < 0.95;
+      // o capitão avança, arranca a fruta da mão do companheiro e depois a ergue rindo
+      cap0.userData.arms[1].rotation.x = -1.3 * Math.max(lunge, hold) - 1.6 * lift;
+      pEyesGlow(cap0, lift); pLaugh(cap0, t, lift * 0.8); cap0.userData.arms[1].rotation.z = 0.12 - 0.3 * lift; // depois do pLaugh: ergue a fruta acima da cabeça
       const hand = new THREE.Vector3(); mate.updateMatrixWorld(); mate.userData.arms[0].children[1].getWorldPosition(hand);
       const fromChest = new THREE.Vector3(0.2, y0 + 0.6 + Math.sin(t * 2) * 0.05, -0.4);
-      const capHand = new THREE.Vector3(); cap0.updateMatrixWorld(); cap0.userData.arms[1].children[1].getWorldPosition(capHand);
+      const capHand = new THREE.Vector3(); cap0.updateMatrixWorld(); cap0.userData.arms[1].children[1].getWorldPosition(capHand); capHand.y += 0.14;
       if (t < K.apareceu - 0.2) fD.position.copy(fromChest); else if (hold < 0.01) fD.position.lerpVectors(fromChest, hand, take); else fD.position.lerpVectors(hand, capHand, hold);
       fD.visible = op > 0.05; fD.rotation.y = t;
-      cap0.position.x = lerp(-0.8, 0.0, lunge); cap0.userData.arms[1].rotation.x = -1.3 * Math.max(lunge, hold);
-      const fk = seg(t, K.matou, K.matou + 0.8); mate.rotation.z = 1.3 * sm(fk); mate.position.y = y0 + 0.1 * sm(fk); mate.visible = fk < 0.95;
       flash.position.set(0.3, y0 + 1.2, -0.2); flash.material.opacity = Math.max(0, 1 - Math.abs(t - K.matou) / 0.2) * 0.9;
       for (let i = 0; i < 60; i++) { const k = (fk * 0.9 + hash(i) * 0.5) % 1; fall.pos[i * 3] = 0.6 + (hash(i + 1) - 0.5) * 0.8; fall.pos[i * 3 + 1] = y0 + k * 2.2; fall.pos[i * 3 + 2] = -0.2 + (hash(i + 2) - 0.5) * 0.5; } fall.upd(); fall.pts.material.opacity = fk > 0 && fk < 1 ? 0.8 * Math.sin(fk * Math.PI) : 0;
-      pEyesGlow(cap0, hold); pLaugh(cap0, t, hold * 0.8);
     },
-    cam(t) { const s = T.sc["s2-navio"]; return keys(t, [[s[0], [9, 6, 10], [0, 3, 0]], [K.decadas + 0.5, [6.2, 4.0, 7.6], [0.2, 2.2, 0.2]], [K.escuridao - 0.4, [2.4, 2.9, 3.6], [0, 1.9, -0.2]], [K.matou - 0.3, [2.8, 2.9, 4.4], [0.2, 1.9, -0.2]], [K.ficar, [1.6, 2.7, 3.4], [-0.2, 2.2, 0.4]], [s[1], [1.4, 2.7, 3.2], [-0.2, 2.25, 0.5]]]); },
+    cam(t) { const s = T.sc["s2-navio"]; return keys(t, [[s[0], [9, 6, 10], [0, 3, 0]], [K.decadas + 0.5, [6.2, 4.0, 7.6], [0.2, 2.2, 0.2]], [K.escuridao - 0.4, [2.4, 2.9, 3.6], [0, 1.9, -0.2]], [K.matou - 0.3, [3.3, 3.3, 6.0], [0.2, 2.1, 0.1]], [K.ficar, [2.6, 3.15, 5.1], [0.05, 2.35, 0.7]], [s[1], [2.45, 3.15, 4.9], [0.05, 2.4, 0.8]]]); },
   };
 });
 
@@ -445,8 +446,11 @@ addSet("s3-guerra", (g) => {
   const booms = [boom(g, 1.4), boom(g, 1.2), boom(g, 1.6)];
   const giant = velhoGigante(); giant.position.set(0, 0, -1.5); g.add(giant);
   const capB = capitaoSombra(); g.add(capB);
-  const clothM = new THREE.MeshToonMaterial({ color: 0x0a0a0e, gradientMap: grad, side: THREE.DoubleSide });
-  const cloth = mesh(new THREE.ConeGeometry(2.4, 4.6, 28, 4, true), clothM, 0, 0, -1.4, g);
+  const clothM = new THREE.MeshToonMaterial({ color: 0x18141e, gradientMap: grad, side: THREE.DoubleSide });
+  // lençol enorme: perfil (raio, altura) que passa do chapéu e da capa do gigante
+  const CH = 4.3, prof = [[0, 4.3], [0.35, 4.25], [0.62, 4.05], [0.82, 3.82], [0.98, 3.6], [1.14, 3.38], [1.32, 3.12], [1.45, 2.5], [1.57, 1.6], [1.72, 0.7], [1.8, 0.25], [1.84, 0]].map(([r, y]) => new THREE.Vector2(r, y));
+  const cloth = mesh(new THREE.LatheGeometry(prof, 48), clothM, 0, 0, -1.5, g);
+  cloth.frustumCulled = false; // os vértices mudam a cada quadro; a esfera de recorte calculada uma vez escondia o pano
   const cpos = cloth.geometry.attributes.position; const cbase = Float32Array.from(cpos.array);
   const rings = quakeRings(g); const cracks = new THREE.Group(); g.add(cracks);
   for (let i = 0; i < 10; i++) { const a = (i / 10) * Math.PI * 2 + hash(i) * 0.3; const L = 2 + hash(i + 1) * 3; const c = mesh(box(0.06, 0.02, L), new THREE.MeshBasicMaterial({ color: 0xcff4ff }), Math.cos(a) * L / 2, 0.02, 0.6 + Math.sin(a) * L / 2, cracks); c.rotation.y = -a + Math.PI / 2; }
@@ -462,22 +466,32 @@ addSet("s3-guerra", (g) => {
       pReset(giant); pIdle(giant, t, 3);
       const dead = sm(seg(t, K.morreu - 0.3, K.pe + 0.2)); giant.userData.eyes.forEach((e) => (e.e.scale.y = 1 - 0.92 * dead)); giant.userData.head.rotation.x = 0.25 * dead; giant.userData.body.rotation.x = 0.06 * dead;
       giant.userData.arms[1].rotation.x = -0.4 * (1 - dead);
-      const cover = sm(seg(t, K.cobriu - 0.2, K.enorme)), drop = sm(seg(t, K.pano2 - 0.2, K.caiu + 0.4));
+      const cover = sm(seg(t, K.cobriu - 0.2, K.cobriu + 1.3)), drop = seg(t, K.pano2 - 0.15, K.caiu + 0.55);
       const walkIn = sm(seg(t, K.tripulacao, K.cobriu));
-      capB.position.set(lerp(4.0, 0.15, walkIn), 0, lerp(2.5, 0.4, walkIn)); capB.rotation.y = walkIn < 1 ? -1.2 : 0; pReset(capB); pIdle(capB, t, 1); if (walkIn > 0 && walkIn < 1) pWalk(capB, t);
+      capB.position.set(lerp(4.0, 0.15, walkIn), 0, lerp(2.5, 0.55, walkIn)); capB.rotation.y = walkIn < 1 ? -1.2 : 0; pReset(capB); pIdle(capB, t, 1); if (walkIn > 0 && walkIn < 1) pWalk(capB, t);
       capB.visible = t > K.tripulacao - 0.1;
-      // pano: cai de cima e cobre; depois escorrega pro chão
-      const p = cpos.array; const top = lerp(14, 4.4, cover); const hS = lerp(0.05, 1, cover) * (1 - drop * 0.95);
-      for (let i = 0; i < p.length; i += 3) { const y0 = cbase[i + 1] + 2.3; const r0 = Math.hypot(cbase[i], cbase[i + 2]); const a = Math.atan2(cbase[i + 2], cbase[i]); const wav = Math.sin(a * 5 + t * 3) * 0.08 * (1 - y0 / 4.6); const rr = r0 * (1 + drop * 1.6) + wav; p[i] = Math.cos(a) * rr; p[i + 2] = Math.sin(a) * rr; p[i + 1] = top - (4.6 - y0) * hS; }
+      // pano: desce do alto e cobre o gigante; no "caiu", desaba e fica amontoado no chão
+      const p = cpos.array; const top = lerp(CH + 2.4, CH, cover), hS = lerp(0.3, 1, cover), fl = 1 + 0.3 * (1 - cover);
+      for (let i = 0; i < p.length; i += 3) {
+        const bx = cbase[i], by = cbase[i + 1], bz = cbase[i + 2]; const r0 = Math.hypot(bx, bz), a = Math.atan2(bz, bx);
+        const front = Math.max(0, bz / (r0 || 1)) ** 2, low = 1 - by / CH; // mais justo na frente, onde o capitão está
+        const wav = (Math.sin(a * 7 + t * 2.4) * 0.05 + Math.sin(a * 13 - t * 1.6) * 0.02) * low;
+        const hem = 0.14 * Math.sin(a * 5 + t * 2.2) * Math.max(0, 1 - by / 0.7) * (1 - cover); // barra ondulando enquanto cai
+        const rC = (r0 * (1 - 0.32 * front * low) + wav) * fl, yC = top - (CH - by) * hS + hem;
+        const k = Math.min(1, Math.max(0, drop * 1.4 - (by / CH) * 0.4)); // a barra assenta primeiro, o topo por último
+        const rr = lerp(rC, 0.4 + low * 1.9, k), yy = lerp(yC, 0.03 + 0.08 * Math.abs(Math.sin(a * 5 + by * 2.3)), k * k);
+        const lean = (0.06 * yy + 0.16 * Math.min(1, Math.max(0, (yy - 3.2) / 0.8))) * (1 - k); // acompanha o gigante inclinado
+        p[i] = Math.cos(a) * rr; p[i + 1] = yy; p[i + 2] = Math.sin(a) * rr + lean;
+      }
       cpos.needsUpdate = true; cloth.geometry.computeVertexNormals(); cloth.visible = cover > 0.01;
       const pw = sm(seg(t, K.caiu, K.tinha)); pEyesGlow(capB, pw);
       const punch = seg(t, K.terremotos - 0.25, K.terremotos + 0.15); capB.userData.arms[1].rotation.x = -1.5 * Math.sin(Math.min(1, punch) * Math.PI / 2) * pw;
       const fist = new THREE.Vector3(); capB.updateMatrixWorld(); capB.userData.arms[1].children[1].getWorldPosition(fist); rings(t, fist, pw, "z");
-      const bk = seg(t, K.terremotos, K.terremotos + 1.2); cracks.position.set(0.15, 0, 0.4); cracks.scale.setScalar(sm(bk)); cracks.visible = bk > 0;
+      const bk = seg(t, K.terremotos, K.terremotos + 1.2); cracks.position.set(0.15, 0, 0.55); cracks.scale.setScalar(sm(bk)); cracks.visible = bk > 0;
       air.position.set(fist.x, fist.y, fist.z + 0.5); air.visible = bk > 0 && bk < 0.6; air.material.opacity = 1 - bk; air.scale.setScalar(0.6 + bk * 2);
       L.position.copy(fist); L.intensity = 8 * Math.max(0, 1 - bk) * (bk > 0 ? 1 : 0);
     },
-    cam(t) { const s = T.sc["s3-guerra"]; const c = keys(t, [[s[0], [3.5, 3.2, 9.5], [0, 2.4, -2]], [K.morreu, [2.0, 3.0, 6.0], [0, 3.0, -1.5]], [K.pe + 0.5, [1.6, 3.4, 5.2], [0, 3.4, -1.5]], [K.cobriu, [3.6, 3.0, 7.5], [0, 2.4, -1.4]], [K.caiu - 0.1, [2.6, 2.4, 5.6], [0.1, 2.0, -0.4]], [K.terremotos - 0.4, [1.7, 2.2, 4.8], [0.1, 2.0, 0.3]], [s[1], [2.4, 2.6, 6.2], [0.1, 1.7, 0.3]]]); return shakeCam(c, t, t > K.terremotos && t < K.terremotos + 1.0 ? 0.09 : 0); },
+    cam(t) { const s = T.sc["s3-guerra"]; const c = keys(t, [[s[0], [3.5, 3.2, 9.5], [0, 2.4, -2]], [K.morreu, [2.0, 3.0, 6.0], [0, 3.0, -1.5]], [K.pe + 0.5, [1.6, 3.4, 5.2], [0, 3.4, -1.5]], [K.cobriu + 0.5, [4.0, 3.2, 8.6], [0, 2.4, -1.4]], [K.caiu - 0.1, [2.6, 2.4, 5.6], [0.1, 2.0, -0.4]], [K.terremotos - 0.4, [1.7, 2.2, 4.8], [0.1, 2.0, 0.3]], [s[1], [2.4, 2.6, 6.2], [0.1, 1.7, 0.3]]]); return shakeCam(c, t, t > K.terremotos && t < K.terremotos + 1.0 ? 0.09 : 0); },
   };
 });
 
@@ -510,7 +524,7 @@ addSet("s5-sorte", (g) => {
   g.add(floorP(60, 60, M(0xffffff, { map: rep(planks("#3a2a1c", "#33241a"), 6, 6) })));
   const coin = new THREE.Group(); g.add(coin); ol(mesh(cyl(0.18, 0.18, 0.03, 24), M(0xe0b84a), 0, 0, 0, coin), 0.006); coin.children[0].rotation.x = Math.PI / 2;
   const capS = capitaoSombra(); capS.position.set(0.5, 0, -0.6); g.add(capS);
-  const mate2 = pirata({ coat: 0x2a4a7a, shirt: 0xe0e0e8, scarf: 0x3a8ad8, hair: true, hairC: 0xd8b04a, collar: false }); mate2.position.set(-1.3, 0, 0.6); mate2.rotation.y = 0.75; g.add(mate2);
+  const mate2 = pirata({ coat: 0x2a4a7a, shirt: 0xe0e0e8, scarf: 0x3a8ad8, hair: true, hairC: 0xd8b04a, collar: false }); mate2.position.set(-0.65, 0, 0.45); mate2.rotation.y = 0.85; g.add(mate2);
   const scan = mesh(new THREE.PlaneGeometry(2.4, 0.06), new THREE.MeshBasicMaterial({ color: 0x7af0ff, transparent: true, opacity: 0.9, depthWrite: false, blending: ADD, side: THREE.DoubleSide }), 0.5, 0, -0.6, g); scan.rotation.x = -Math.PI / 2;
   const scanG = glowSprite(0x7af0ff, 2.2, 0); g.add(scanG);
   const noise = flowPts(160, 0xff4d6d, 0.05); g.add(noise.pts);
@@ -527,7 +541,7 @@ addSet("s5-sorte", (g) => {
       q.position.set(0.5, 2.8, -0.4); q.visible = t > K.normal - 0.2; q.material.opacity = 0.7 + 0.3 * Math.sin(t * 20);
       pEyesGlow(capS, on ? 1 : 0); pLaugh(capS, t, sm(seg(t, K.normal, K.normal + 0.4)) * 0.6);
     },
-    cam(t) { const s = T.sc["s5-sorte"]; return keys(t, [[s[0], [0.2, 1.8, 4.6], [-0.4, 1.6, 0.8]], [K.tambem4, [0.4, 2.0, 5.2], [-0.2, 1.6, 0]], [K.corpo4 - 0.3, [0.9, 2.0, 4.2], [0.4, 1.5, -0.6]], [s[1], [0.8, 1.9, 3.8], [0.45, 1.5, -0.6]]]); },
+    cam(t) { const s = T.sc["s5-sorte"]; return keys(t, [[s[0], [0.2, 1.8, 4.6], [-0.4, 1.6, 0.8]], [K.tambem4, [0.4, 2.0, 5.2], [-0.2, 1.6, 0]], [K.marco + 0.4, [0.0, 2.2, 6.4], [-0.05, 1.5, 0.0]], [K.corpo4 - 1.0, [-0.1, 2.15, 6.0], [0.0, 1.5, 0.0]], [K.corpo4 - 0.3, [0.9, 2.05, 4.4], [0.4, 1.6, -0.6]], [s[1], [0.8, 2.0, 4.1], [0.45, 1.65, -0.6]]]); },
   };
 });
 
