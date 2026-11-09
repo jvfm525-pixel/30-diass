@@ -21,7 +21,7 @@
   .meter .fill { height:100%; width:100%; background:linear-gradient(90deg,#ffd27a,#fff3c9); transform-origin:0% 50%; }
   </style>
   <div id="root" data-composition-id="s3-azar" data-width="1080" data-height="1920">
-<div class="big" id="s3-q" style="top:300px;font-size:130px;color:#fff;opacity:0;z-index:6">AZAR? 🎲<div id="s3-q-x" style="position:absolute;left:10%;right:10%;top:50%;height:16px;margin-top:-8px;background:#ff5a6a;box-shadow:0 0 18px rgba(255,60,80,.7);transform-origin:0% 50%;transform:scaleX(0) rotate(-4deg)"></div></div>
+<div class="big" id="s3-q" style="top:300px;font-size:130px;color:#fff;opacity:0;z-index:6">AZAR? 🎲<div id="s3-q-x" style="position:absolute;left:10%;right:10%;top:50%;height:16px;margin-top:-8px;background:#ff5a6a;box-shadow:0 0 18px rgba(255,60,80,.7);transform-origin:0% 50%"></div></div>
   </div>
   <script>
     (function() {
@@ -69,7 +69,7 @@
   }
 
       const tl = gsap.timeline({ paused: true });
-tl.fromTo("#s3-q", { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .3 }, 0.35);tl.fromTo("#s3-q-x", { scaleX: 0, rotation: -4 }, { scaleX: 1, rotation: -4, duration: .25 }, 1.55);tl.to("#s3-q", { opacity: .45, duration: .3 }, 2.0);
+tl.fromTo("#s3-q", { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .3 }, 0.35);tl.fromTo("#s3-q-x", { scaleX: 0, scaleY: 1, rotation: -4 }, { scaleX: 1, scaleY: 1, rotation: -4, duration: .25 }, 1.55);tl.to("#s3-q", { opacity: .45, duration: .3 }, 2.0);
       window.__timelines["s3-azar"] = tl;
     })();
   </script>

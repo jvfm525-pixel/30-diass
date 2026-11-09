@@ -117,9 +117,9 @@ def xq(cid, text, t, cross, top=300, size=120):
     """Palpite errado: aparece e leva um risco vermelho."""
     b = (f'<div class="big" id="{cid}" style="top:{top}px;font-size:{size}px;color:#fff;opacity:0;z-index:6">{text}'
          f'<div id="{cid}-x" style="position:absolute;left:10%;right:10%;top:50%;height:16px;margin-top:-8px;background:{RED};'
-         f'box-shadow:0 0 18px rgba(255,60,80,.7);transform-origin:0% 50%;transform:scaleX(0) rotate(-4deg)"></div></div>')
+         f'box-shadow:0 0 18px rgba(255,60,80,.7);transform-origin:0% 50%"></div></div>')
     j = f'tl.fromTo("#{cid}", {{ opacity: 0, scale: .9 }}, {{ opacity: 1, scale: 1, duration: .3 }}, {t});'
-    j += f'tl.fromTo("#{cid}-x", {{ scaleX: 0, rotation: -4 }}, {{ scaleX: 1, rotation: -4, duration: .25 }}, {cross});'
+    j += f'tl.fromTo("#{cid}-x", {{ scaleX: 0, scaleY: 1, rotation: -4 }}, {{ scaleX: 1, scaleY: 1, rotation: -4, duration: .25 }}, {cross});'
     j += f'tl.to("#{cid}", {{ opacity: .45, duration: .3 }}, {round(cross + .45, 2)});'
     return b, j
 
