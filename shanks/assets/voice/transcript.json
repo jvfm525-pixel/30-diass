@@ -1,0 +1,1604 @@
+[
+  {
+    "text": "O",
+    "start": 0.05,
+    "end": 0.07,
+    "id": "w0"
+  },
+  {
+    "text": "Shanks",
+    "start": 0.07,
+    "end": 0.51,
+    "id": "w1"
+  },
+  {
+    "text": "navegou",
+    "start": 0.51,
+    "end": 0.99,
+    "id": "w2"
+  },
+  {
+    "text": "com",
+    "start": 1.05,
+    "end": 1.25,
+    "id": "w3"
+  },
+  {
+    "text": "rei",
+    "start": 1.27,
+    "end": 1.49,
+    "id": "w4"
+  },
+  {
+    "text": "dos",
+    "start": 1.49,
+    "end": 1.72,
+    "id": "w5"
+  },
+  {
+    "text": "piratas,",
+    "start": 1.72,
+    "end": 2.44,
+    "id": "w6"
+  },
+  {
+    "text": "e",
+    "start": 2.44,
+    "end": 2.51,
+    "id": "w7"
+  },
+  {
+    "text": "é",
+    "start": 2.51,
+    "end": 2.58,
+    "id": "w8"
+  },
+  {
+    "text": "um",
+    "start": 2.58,
+    "end": 2.72,
+    "id": "w9"
+  },
+  {
+    "text": "dos",
+    "start": 2.72,
+    "end": 2.93,
+    "id": "w10"
+  },
+  {
+    "text": "homens",
+    "start": 2.93,
+    "end": 3.35,
+    "id": "w11"
+  },
+  {
+    "text": "mais",
+    "start": 3.35,
+    "end": 3.61,
+    "id": "w12"
+  },
+  {
+    "text": "fortes",
+    "start": 3.76,
+    "end": 4.05,
+    "id": "w13"
+  },
+  {
+    "text": "do",
+    "start": 4.05,
+    "end": 4.19,
+    "id": "w14"
+  },
+  {
+    "text": "mundo.",
+    "start": 4.19,
+    "end": 4.65,
+    "id": "w15"
+  },
+  {
+    "text": "Mas",
+    "start": 4.65,
+    "end": 5.3,
+    "id": "w16"
+  },
+  {
+    "text": "por",
+    "start": 5.3,
+    "end": 5.42,
+    "id": "w17"
+  },
+  {
+    "text": "mais",
+    "start": 5.42,
+    "end": 5.84,
+    "id": "w18"
+  },
+  {
+    "text": "de",
+    "start": 5.84,
+    "end": 6.04,
+    "id": "w19"
+  },
+  {
+    "text": "20",
+    "start": 6.04,
+    "end": 6.68,
+    "id": "w20"
+  },
+  {
+    "text": "anos,",
+    "start": 6.68,
+    "end": 7.28,
+    "id": "w21"
+  },
+  {
+    "text": "nunca",
+    "start": 7.28,
+    "end": 7.61,
+    "id": "w22"
+  },
+  {
+    "text": "foi",
+    "start": 7.63,
+    "end": 7.84,
+    "id": "w23"
+  },
+  {
+    "text": "atrás",
+    "start": 7.84,
+    "end": 8.19,
+    "id": "w24"
+  },
+  {
+    "text": "do",
+    "start": 8.19,
+    "end": 8.33,
+    "id": "w25"
+  },
+  {
+    "text": "One",
+    "start": 8.33,
+    "end": 8.54,
+    "id": "w26"
+  },
+  {
+    "text": "Piece.",
+    "start": 8.54,
+    "end": 8.92,
+    "id": "w27"
+  },
+  {
+    "text": "Por",
+    "start": 8.92,
+    "end": 9.3,
+    "id": "w28"
+  },
+  {
+    "text": "quê?",
+    "start": 9.3,
+    "end": 9.74,
+    "id": "w29"
+  },
+  {
+    "text": "Fica",
+    "start": 9.74,
+    "end": 10.3,
+    "id": "w30"
+  },
+  {
+    "text": "até",
+    "start": 10.3,
+    "end": 10.39,
+    "id": "w31"
+  },
+  {
+    "text": "o",
+    "start": 10.39,
+    "end": 10.48,
+    "id": "w32"
+  },
+  {
+    "text": "final,",
+    "start": 10.48,
+    "end": 11.16,
+    "id": "w33"
+  },
+  {
+    "text": "porque",
+    "start": 11.16,
+    "end": 11.58,
+    "id": "w34"
+  },
+  {
+    "text": "a",
+    "start": 11.58,
+    "end": 11.65,
+    "id": "w35"
+  },
+  {
+    "text": "última",
+    "start": 11.65,
+    "end": 12.07,
+    "id": "w36"
+  },
+  {
+    "text": "pista",
+    "start": 12.07,
+    "end": 12.42,
+    "id": "w37"
+  },
+  {
+    "text": "é",
+    "start": 12.42,
+    "end": 12.49,
+    "id": "w38"
+  },
+  {
+    "text": "a",
+    "start": 12.49,
+    "end": 12.52,
+    "id": "w39"
+  },
+  {
+    "text": "mais",
+    "start": 12.6,
+    "end": 12.84,
+    "id": "w40"
+  },
+  {
+    "text": "estranha.",
+    "start": 12.84,
+    "end": 13.64,
+    "id": "w41"
+  },
+  {
+    "text": "Medo?",
+    "start": 13.95,
+    "end": 14.4,
+    "id": "w42"
+  },
+  {
+    "text": "Não.",
+    "start": 14.69,
+    "end": 15.14,
+    "id": "w43"
+  },
+  {
+    "text": "Ele",
+    "start": 15.14,
+    "end": 15.35,
+    "id": "w44"
+  },
+  {
+    "text": "é",
+    "start": 15.35,
+    "end": 15.42,
+    "id": "w45"
+  },
+  {
+    "text": "um",
+    "start": 15.42,
+    "end": 15.56,
+    "id": "w46"
+  },
+  {
+    "text": "imperador,",
+    "start": 15.56,
+    "end": 16.37,
+    "id": "w47"
+  },
+  {
+    "text": "acabou",
+    "start": 16.39,
+    "end": 16.82,
+    "id": "w48"
+  },
+  {
+    "text": "uma",
+    "start": 16.83,
+    "end": 17.04,
+    "id": "w49"
+  },
+  {
+    "text": "guerra",
+    "start": 17.05,
+    "end": 17.5,
+    "id": "w50"
+  },
+  {
+    "text": "só",
+    "start": 17.5,
+    "end": 17.58,
+    "id": "w51"
+  },
+  {
+    "text": "aparecendo,",
+    "start": 17.66,
+    "end": 18.57,
+    "id": "w52"
+  },
+  {
+    "text": "e",
+    "start": 18.57,
+    "end": 18.63,
+    "id": "w53"
+  },
+  {
+    "text": "fez",
+    "start": 18.63,
+    "end": 18.82,
+    "id": "w54"
+  },
+  {
+    "text": "um",
+    "start": 18.82,
+    "end": 18.92,
+    "id": "w55"
+  },
+  {
+    "text": "almirante",
+    "start": 19.06,
+    "end": 19.53,
+    "id": "w56"
+  },
+  {
+    "text": "recuar",
+    "start": 19.53,
+    "end": 19.91,
+    "id": "w57"
+  },
+  {
+    "text": "sem",
+    "start": 19.91,
+    "end": 19.97,
+    "id": "w58"
+  },
+  {
+    "text": "encostar",
+    "start": 20.1,
+    "end": 20.61,
+    "id": "w59"
+  },
+  {
+    "text": "nele.",
+    "start": 20.61,
+    "end": 21.16,
+    "id": "w60"
+  },
+  {
+    "text": "Ele",
+    "start": 21.16,
+    "end": 21.55,
+    "id": "w61"
+  },
+  {
+    "text": "já",
+    "start": 21.55,
+    "end": 21.6,
+    "id": "w62"
+  },
+  {
+    "text": "sabia",
+    "start": 21.62,
+    "end": 22.06,
+    "id": "w63"
+  },
+  {
+    "text": "o",
+    "start": 22.06,
+    "end": 22.15,
+    "id": "w64"
+  },
+  {
+    "text": "caminho?",
+    "start": 22.15,
+    "end": 23.06,
+    "id": "w65"
+  },
+  {
+    "text": "Também",
+    "start": 23.4,
+    "end": 23.52,
+    "id": "w66"
+  },
+  {
+    "text": "não.",
+    "start": 23.52,
+    "end": 24,
+    "id": "w67"
+  },
+  {
+    "text": "Antes",
+    "start": 24,
+    "end": 24.39,
+    "id": "w68"
+  },
+  {
+    "text": "da",
+    "start": 24.39,
+    "end": 24.51,
+    "id": "w69"
+  },
+  {
+    "text": "viagem",
+    "start": 24.51,
+    "end": 24.94,
+    "id": "w70"
+  },
+  {
+    "text": "para",
+    "start": 24.94,
+    "end": 25.23,
+    "id": "w71"
+  },
+  {
+    "text": "a",
+    "start": 25.23,
+    "end": 25.3,
+    "id": "w72"
+  },
+  {
+    "text": "última",
+    "start": 25.3,
+    "end": 25.74,
+    "id": "w73"
+  },
+  {
+    "text": "ilha,",
+    "start": 25.74,
+    "end": 26.16,
+    "id": "w74"
+  },
+  {
+    "text": "o",
+    "start": 26.16,
+    "end": 26.23,
+    "id": "w75"
+  },
+  {
+    "text": "Bug",
+    "start": 26.23,
+    "end": 26.44,
+    "id": "w76"
+  },
+  {
+    "text": "pegou",
+    "start": 26.45,
+    "end": 26.81,
+    "id": "w77"
+  },
+  {
+    "text": "febre,",
+    "start": 26.81,
+    "end": 27.4,
+    "id": "w78"
+  },
+  {
+    "text": "e",
+    "start": 27.4,
+    "end": 27.46,
+    "id": "w79"
+  },
+  {
+    "text": "o",
+    "start": 27.46,
+    "end": 27.52,
+    "id": "w80"
+  },
+  {
+    "text": "Shanks",
+    "start": 27.52,
+    "end": 27.88,
+    "id": "w81"
+  },
+  {
+    "text": "ficou",
+    "start": 27.88,
+    "end": 28.18,
+    "id": "w82"
+  },
+  {
+    "text": "para",
+    "start": 28.18,
+    "end": 28.42,
+    "id": "w83"
+  },
+  {
+    "text": "trás",
+    "start": 28.42,
+    "end": 28.66,
+    "id": "w84"
+  },
+  {
+    "text": "cuidando",
+    "start": 28.66,
+    "end": 28.99,
+    "id": "w85"
+  },
+  {
+    "text": "dele.",
+    "start": 29.13,
+    "end": 29.44,
+    "id": "w86"
+  },
+  {
+    "text": "Nunca",
+    "start": 29.72,
+    "end": 29.99,
+    "id": "w87"
+  },
+  {
+    "text": "pisou",
+    "start": 29.99,
+    "end": 30.32,
+    "id": "w88"
+  },
+  {
+    "text": "lá.",
+    "start": 30.32,
+    "end": 30.65,
+    "id": "w89"
+  },
+  {
+    "text": "Ele",
+    "start": 30.65,
+    "end": 30.96,
+    "id": "w90"
+  },
+  {
+    "text": "trabalha",
+    "start": 30.96,
+    "end": 31.26,
+    "id": "w91"
+  },
+  {
+    "text": "para",
+    "start": 31.26,
+    "end": 31.48,
+    "id": "w92"
+  },
+  {
+    "text": "o",
+    "start": 31.48,
+    "end": 31.53,
+    "id": "w93"
+  },
+  {
+    "text": "governo?",
+    "start": 31.53,
+    "end": 32.12,
+    "id": "w94"
+  },
+  {
+    "text": "Muita",
+    "start": 32.42,
+    "end": 32.44,
+    "id": "w95"
+  },
+  {
+    "text": "gente",
+    "start": 32.48,
+    "end": 32.77,
+    "id": "w96"
+  },
+  {
+    "text": "achou,",
+    "start": 32.77,
+    "end": 33.22,
+    "id": "w97"
+  },
+  {
+    "text": "porque",
+    "start": 33.22,
+    "end": 33.63,
+    "id": "w98"
+  },
+  {
+    "text": "um",
+    "start": 33.63,
+    "end": 33.76,
+    "id": "w99"
+  },
+  {
+    "text": "homem",
+    "start": 33.76,
+    "end": 34.09,
+    "id": "w100"
+  },
+  {
+    "text": "igualzinho",
+    "start": 34.09,
+    "end": 34.7,
+    "id": "w101"
+  },
+  {
+    "text": "a",
+    "start": 34.78,
+    "end": 34.79,
+    "id": "w102"
+  },
+  {
+    "text": "ele",
+    "start": 34.81,
+    "end": 35.01,
+    "id": "w103"
+  },
+  {
+    "text": "visitou",
+    "start": 35.01,
+    "end": 35.47,
+    "id": "w104"
+  },
+  {
+    "text": "os",
+    "start": 35.47,
+    "end": 35.6,
+    "id": "w105"
+  },
+  {
+    "text": "5",
+    "start": 35.6,
+    "end": 35.8,
+    "id": "w106"
+  },
+  {
+    "text": "ansiões.",
+    "start": 35.8,
+    "end": 36.56,
+    "id": "w107"
+  },
+  {
+    "text": "Mas",
+    "start": 36.56,
+    "end": 36.71,
+    "id": "w108"
+  },
+  {
+    "text": "o",
+    "start": 36.71,
+    "end": 36.86,
+    "id": "w109"
+  },
+  {
+    "text": "autor",
+    "start": 36.86,
+    "end": 37.21,
+    "id": "w110"
+  },
+  {
+    "text": "confirmou,",
+    "start": 37.21,
+    "end": 38,
+    "id": "w111"
+  },
+  {
+    "text": "não",
+    "start": 38,
+    "end": 38.22,
+    "id": "w112"
+  },
+  {
+    "text": "era",
+    "start": 38.22,
+    "end": 38.39,
+    "id": "w113"
+  },
+  {
+    "text": "ele.",
+    "start": 38.45,
+    "end": 38.91,
+    "id": "w114"
+  },
+  {
+    "text": "Era",
+    "start": 38.91,
+    "end": 39.065,
+    "id": "w115"
+  },
+  {
+    "text": "o",
+    "start": 39.065,
+    "end": 39.22,
+    "id": "w116"
+  },
+  {
+    "text": "irmão",
+    "start": 39.22,
+    "end": 39.55,
+    "id": "w117"
+  },
+  {
+    "text": "gêmeo,",
+    "start": 39.55,
+    "end": 39.99,
+    "id": "w118"
+  },
+  {
+    "text": "o",
+    "start": 40.04,
+    "end": 40.11,
+    "id": "w119"
+  },
+  {
+    "text": "Shamrock.",
+    "start": 40.11,
+    "end": 40.92,
+    "id": "w120"
+  },
+  {
+    "text": "Rapidinho,",
+    "start": 41.24,
+    "end": 41.6,
+    "id": "w121"
+  },
+  {
+    "text": "tem",
+    "start": 41.6,
+    "end": 41.76,
+    "id": "w122"
+  },
+  {
+    "text": "quiz",
+    "start": 41.79,
+    "end": 42.04,
+    "id": "w123"
+  },
+  {
+    "text": "aleatórias",
+    "start": 42.04,
+    "end": 42.66,
+    "id": "w124"
+  },
+  {
+    "text": "da",
+    "start": 42.66,
+    "end": 42.78,
+    "id": "w125"
+  },
+  {
+    "text": "Steam",
+    "start": 42.78,
+    "end": 43.09,
+    "id": "w126"
+  },
+  {
+    "text": "bem",
+    "start": 43.09,
+    "end": 43.28,
+    "id": "w127"
+  },
+  {
+    "text": "baratas",
+    "start": 43.28,
+    "end": 43.72,
+    "id": "w128"
+  },
+  {
+    "text": "no",
+    "start": 43.72,
+    "end": 43.84,
+    "id": "w129"
+  },
+  {
+    "text": "link",
+    "start": 43.84,
+    "end": 44.09,
+    "id": "w130"
+  },
+  {
+    "text": "da",
+    "start": 44.09,
+    "end": 44.21,
+    "id": "w131"
+  },
+  {
+    "text": "bio.",
+    "start": 44.21,
+    "end": 44.68,
+    "id": "w132"
+  },
+  {
+    "text": "Agora,",
+    "start": 45.04,
+    "end": 45.35,
+    "id": "w133"
+  },
+  {
+    "text": "as",
+    "start": 45.35,
+    "end": 45.54,
+    "id": "w134"
+  },
+  {
+    "text": "pistas.",
+    "start": 45.54,
+    "end": 46.42,
+    "id": "w135"
+  },
+  {
+    "text": "Pista",
+    "start": 46.74,
+    "end": 46.98,
+    "id": "w136"
+  },
+  {
+    "text": "1.",
+    "start": 46.98,
+    "end": 47.34,
+    "id": "w137"
+  },
+  {
+    "text": "Quando",
+    "start": 47.71,
+    "end": 47.76,
+    "id": "w138"
+  },
+  {
+    "text": "o",
+    "start": 47.77,
+    "end": 47.84,
+    "id": "w139"
+  },
+  {
+    "text": "Roger",
+    "start": 47.84,
+    "end": 48.19,
+    "id": "w140"
+  },
+  {
+    "text": "chegou",
+    "start": 48.21,
+    "end": 48.63,
+    "id": "w141"
+  },
+  {
+    "text": "na",
+    "start": 48.63,
+    "end": 48.77,
+    "id": "w142"
+  },
+  {
+    "text": "ilha",
+    "start": 48.77,
+    "end": 49.05,
+    "id": "w143"
+  },
+  {
+    "text": "do",
+    "start": 49.05,
+    "end": 49.18,
+    "id": "w144"
+  },
+  {
+    "text": "Tesouro,",
+    "start": 49.19,
+    "end": 49.82,
+    "id": "w145"
+  },
+  {
+    "text": "ele",
+    "start": 49.82,
+    "end": 50.03,
+    "id": "w146"
+  },
+  {
+    "text": "riu,",
+    "start": 50.03,
+    "end": 50.36,
+    "id": "w147"
+  },
+  {
+    "text": "e",
+    "start": 50.36,
+    "end": 50.42,
+    "id": "w148"
+  },
+  {
+    "text": "disse",
+    "start": 50.42,
+    "end": 50.74,
+    "id": "w149"
+  },
+  {
+    "text": "que",
+    "start": 50.74,
+    "end": 50.93,
+    "id": "w150"
+  },
+  {
+    "text": "tinham",
+    "start": 50.93,
+    "end": 51.26,
+    "id": "w151"
+  },
+  {
+    "text": "chegado",
+    "start": 51.42,
+    "end": 51.77,
+    "id": "w152"
+  },
+  {
+    "text": "cedo",
+    "start": 51.77,
+    "end": 52.02,
+    "id": "w153"
+  },
+  {
+    "text": "demais.",
+    "start": 52.02,
+    "end": 52.45,
+    "id": "w154"
+  },
+  {
+    "text": "Pista",
+    "start": 52.96,
+    "end": 53.33,
+    "id": "w155"
+  },
+  {
+    "text": "2.",
+    "start": 53.33,
+    "end": 53.76,
+    "id": "w156"
+  },
+  {
+    "text": "Anos",
+    "start": 54.11,
+    "end": 54.32,
+    "id": "w157"
+  },
+  {
+    "text": "depois,",
+    "start": 54.32,
+    "end": 54.84,
+    "id": "w158"
+  },
+  {
+    "text": "o",
+    "start": 54.85,
+    "end": 54.89,
+    "id": "w159"
+  },
+  {
+    "text": "Shanks",
+    "start": 54.93,
+    "end": 55.29,
+    "id": "w160"
+  },
+  {
+    "text": "deu",
+    "start": 55.31,
+    "end": 55.51,
+    "id": "w161"
+  },
+  {
+    "text": "o",
+    "start": 55.51,
+    "end": 55.57,
+    "id": "w162"
+  },
+  {
+    "text": "chapéu",
+    "start": 55.57,
+    "end": 55.96,
+    "id": "w163"
+  },
+  {
+    "text": "do",
+    "start": 55.96,
+    "end": 56.08,
+    "id": "w164"
+  },
+  {
+    "text": "Roger",
+    "start": 56.09,
+    "end": 56.43,
+    "id": "w165"
+  },
+  {
+    "text": "para",
+    "start": 56.43,
+    "end": 56.69,
+    "id": "w166"
+  },
+  {
+    "text": "o",
+    "start": 56.7,
+    "end": 56.76,
+    "id": "w167"
+  },
+  {
+    "text": "Luffy,",
+    "start": 56.76,
+    "end": 57.22,
+    "id": "w168"
+  },
+  {
+    "text": "perdeu",
+    "start": 57.22,
+    "end": 57.62,
+    "id": "w169"
+  },
+  {
+    "text": "o",
+    "start": 57.62,
+    "end": 57.68,
+    "id": "w170"
+  },
+  {
+    "text": "braço",
+    "start": 57.68,
+    "end": 57.98,
+    "id": "w171"
+  },
+  {
+    "text": "salvando",
+    "start": 58.05,
+    "end": 58.55,
+    "id": "w172"
+  },
+  {
+    "text": "ele,",
+    "start": 58.55,
+    "end": 58.82,
+    "id": "w173"
+  },
+  {
+    "text": "e",
+    "start": 58.82,
+    "end": 59.08,
+    "id": "w174"
+  },
+  {
+    "text": "disse",
+    "start": 59.08,
+    "end": 59.34,
+    "id": "w175"
+  },
+  {
+    "text": "que",
+    "start": 59.34,
+    "end": 59.48,
+    "id": "w176"
+  },
+  {
+    "text": "apostou",
+    "start": 59.48,
+    "end": 59.95,
+    "id": "w177"
+  },
+  {
+    "text": "o",
+    "start": 59.95,
+    "end": 60.01,
+    "id": "w178"
+  },
+  {
+    "text": "braço",
+    "start": 60.01,
+    "end": 60.27,
+    "id": "w179"
+  },
+  {
+    "text": "na",
+    "start": 60.36,
+    "end": 60.47,
+    "id": "w180"
+  },
+  {
+    "text": "nova",
+    "start": 60.47,
+    "end": 60.74,
+    "id": "w181"
+  },
+  {
+    "text": "era.",
+    "start": 60.74,
+    "end": 61.36,
+    "id": "w182"
+  },
+  {
+    "text": "Pista",
+    "start": 61.6,
+    "end": 61.88,
+    "id": "w183"
+  },
+  {
+    "text": "3.",
+    "start": 61.89,
+    "end": 62.56,
+    "id": "w184"
+  },
+  {
+    "text": "Ele",
+    "start": 62.56,
+    "end": 62.87,
+    "id": "w185"
+  },
+  {
+    "text": "só",
+    "start": 62.87,
+    "end": 62.89,
+    "id": "w186"
+  },
+  {
+    "text": "falou,",
+    "start": 62.89,
+    "end": 63.34,
+    "id": "w187"
+  },
+  {
+    "text": "chegou",
+    "start": 63.37,
+    "end": 63.77,
+    "id": "w188"
+  },
+  {
+    "text": "a",
+    "start": 63.77,
+    "end": 63.81,
+    "id": "w189"
+  },
+  {
+    "text": "hora",
+    "start": 63.87,
+    "end": 64.07,
+    "id": "w190"
+  },
+  {
+    "text": "de",
+    "start": 64.11,
+    "end": 64.24,
+    "id": "w191"
+  },
+  {
+    "text": "pegar",
+    "start": 64.24,
+    "end": 64.58,
+    "id": "w192"
+  },
+  {
+    "text": "o",
+    "start": 64.58,
+    "end": 64.65,
+    "id": "w193"
+  },
+  {
+    "text": "Unpeace,",
+    "start": 64.65,
+    "end": 65.25,
+    "id": "w194"
+  },
+  {
+    "text": "depois",
+    "start": 65.25,
+    "end": 65.66,
+    "id": "w195"
+  },
+  {
+    "text": "que",
+    "start": 65.66,
+    "end": 65.86,
+    "id": "w196"
+  },
+  {
+    "text": "o",
+    "start": 65.86,
+    "end": 65.93,
+    "id": "w197"
+  },
+  {
+    "text": "Luffy",
+    "start": 65.93,
+    "end": 66.27,
+    "id": "w198"
+  },
+  {
+    "text": "derrotou",
+    "start": 66.27,
+    "end": 66.74,
+    "id": "w199"
+  },
+  {
+    "text": "o",
+    "start": 66.8,
+    "end": 66.87,
+    "id": "w200"
+  },
+  {
+    "text": "Kaidou.",
+    "start": 66.87,
+    "end": 67.46,
+    "id": "w201"
+  },
+  {
+    "text": "Ou",
+    "start": 67.46,
+    "end": 67.92,
+    "id": "w202"
+  },
+  {
+    "text": "seja,",
+    "start": 67.92,
+    "end": 68.36,
+    "id": "w203"
+  },
+  {
+    "text": "ele",
+    "start": 68.36,
+    "end": 68.64,
+    "id": "w204"
+  },
+  {
+    "text": "não",
+    "start": 68.65,
+    "end": 68.93,
+    "id": "w205"
+  },
+  {
+    "text": "estava",
+    "start": 68.93,
+    "end": 69.45,
+    "id": "w206"
+  },
+  {
+    "text": "parado,",
+    "start": 69.51,
+    "end": 70.26,
+    "id": "w207"
+  },
+  {
+    "text": "estava",
+    "start": 70.26,
+    "end": 70.66,
+    "id": "w208"
+  },
+  {
+    "text": "esperando.",
+    "start": 70.66,
+    "end": 71.46,
+    "id": "w209"
+  },
+  {
+    "text": "A",
+    "start": 71.46,
+    "end": 71.82,
+    "id": "w210"
+  },
+  {
+    "text": "pessoa",
+    "start": 71.82,
+    "end": 72.04,
+    "id": "w211"
+  },
+  {
+    "text": "certa,",
+    "start": 72.05,
+    "end": 72.59,
+    "id": "w212"
+  },
+  {
+    "text": "na",
+    "start": 72.64,
+    "end": 72.75,
+    "id": "w213"
+  },
+  {
+    "text": "hora",
+    "start": 72.81,
+    "end": 73.15,
+    "id": "w214"
+  },
+  {
+    "text": "certa.",
+    "start": 73.15,
+    "end": 73.86,
+    "id": "w215"
+  },
+  {
+    "text": "Mas",
+    "start": 73.86,
+    "end": 74.21,
+    "id": "w216"
+  },
+  {
+    "text": "tem",
+    "start": 74.21,
+    "end": 74.28,
+    "id": "w217"
+  },
+  {
+    "text": "um",
+    "start": 74.28,
+    "end": 74.42,
+    "id": "w218"
+  },
+  {
+    "text": "detalhe.",
+    "start": 74.42,
+    "end": 75.15,
+    "id": "w219"
+  },
+  {
+    "text": "O",
+    "start": 75.15,
+    "end": 75.48,
+    "id": "w220"
+  },
+  {
+    "text": "Roger",
+    "start": 75.48,
+    "end": 75.58,
+    "id": "w221"
+  },
+  {
+    "text": "achou",
+    "start": 75.58,
+    "end": 75.92,
+    "id": "w222"
+  },
+  {
+    "text": "o",
+    "start": 75.92,
+    "end": 76,
+    "id": "w223"
+  },
+  {
+    "text": "Shanks",
+    "start": 76,
+    "end": 76.41,
+    "id": "w224"
+  },
+  {
+    "text": "bebê,",
+    "start": 76.47,
+    "end": 76.84,
+    "id": "w225"
+  },
+  {
+    "text": "dentro",
+    "start": 76.84,
+    "end": 77.26,
+    "id": "w226"
+  },
+  {
+    "text": "de",
+    "start": 77.26,
+    "end": 77.35,
+    "id": "w227"
+  },
+  {
+    "text": "um",
+    "start": 77.43,
+    "end": 77.53,
+    "id": "w228"
+  },
+  {
+    "text": "baú",
+    "start": 77.53,
+    "end": 77.7,
+    "id": "w229"
+  },
+  {
+    "text": "do",
+    "start": 77.78,
+    "end": 77.89,
+    "id": "w230"
+  },
+  {
+    "text": "Tesouro,",
+    "start": 77.89,
+    "end": 78.6,
+    "id": "w231"
+  },
+  {
+    "text": "e",
+    "start": 78.6,
+    "end": 78.66,
+    "id": "w232"
+  },
+  {
+    "text": "hoje",
+    "start": 78.66,
+    "end": 78.88,
+    "id": "w233"
+  },
+  {
+    "text": "a",
+    "start": 78.92,
+    "end": 78.98,
+    "id": "w234"
+  },
+  {
+    "text": "gente",
+    "start": 78.98,
+    "end": 79.3,
+    "id": "w235"
+  },
+  {
+    "text": "sabe",
+    "start": 79.3,
+    "end": 79.56,
+    "id": "w236"
+  },
+  {
+    "text": "que",
+    "start": 79.56,
+    "end": 79.75,
+    "id": "w237"
+  },
+  {
+    "text": "ele",
+    "start": 79.75,
+    "end": 79.94,
+    "id": "w238"
+  },
+  {
+    "text": "nasceu",
+    "start": 79.94,
+    "end": 80.18,
+    "id": "w239"
+  },
+  {
+    "text": "numa",
+    "start": 80.38,
+    "end": 80.58,
+    "id": "w240"
+  },
+  {
+    "text": "família",
+    "start": 80.7,
+    "end": 81.04,
+    "id": "w241"
+  },
+  {
+    "text": "de",
+    "start": 81.04,
+    "end": 81.17,
+    "id": "w242"
+  },
+  {
+    "text": "dragões",
+    "start": 81.17,
+    "end": 81.62,
+    "id": "w243"
+  },
+  {
+    "text": "celestiais.",
+    "start": 81.62,
+    "end": 82.44,
+    "id": "w244"
+  },
+  {
+    "text": "Por",
+    "start": 82.92,
+    "end": 83.06,
+    "id": "w245"
+  },
+  {
+    "text": "isso,",
+    "start": 83.06,
+    "end": 83.45,
+    "id": "w246"
+  },
+  {
+    "text": "muitos",
+    "start": 83.45,
+    "end": 83.84,
+    "id": "w247"
+  },
+  {
+    "text": "fãs",
+    "start": 83.84,
+    "end": 84.02,
+    "id": "w248"
+  },
+  {
+    "text": "acham",
+    "start": 84.02,
+    "end": 84.35,
+    "id": "w249"
+  },
+  {
+    "text": "que",
+    "start": 84.35,
+    "end": 84.55,
+    "id": "w250"
+  },
+  {
+    "text": "ele",
+    "start": 84.55,
+    "end": 84.75,
+    "id": "w251"
+  },
+  {
+    "text": "tem",
+    "start": 84.75,
+    "end": 84.95,
+    "id": "w252"
+  },
+  {
+    "text": "um",
+    "start": 84.95,
+    "end": 85.08,
+    "id": "w253"
+  },
+  {
+    "text": "plano",
+    "start": 85.08,
+    "end": 85.41,
+    "id": "w254"
+  },
+  {
+    "text": "só",
+    "start": 85.41,
+    "end": 85.54,
+    "id": "w255"
+  },
+  {
+    "text": "dele.",
+    "start": 85.54,
+    "end": 86.06,
+    "id": "w256"
+  },
+  {
+    "text": "Epara",
+    "start": 86.36,
+    "end": 86.43,
+    "id": "w257"
+  },
+  {
+    "text": "você,",
+    "start": 86.43,
+    "end": 86.87,
+    "id": "w258"
+  },
+  {
+    "text": "por",
+    "start": 86.87,
+    "end": 87.11,
+    "id": "w259"
+  },
+  {
+    "text": "que",
+    "start": 87.11,
+    "end": 87.34,
+    "id": "w260"
+  },
+  {
+    "text": "o",
+    "start": 87.34,
+    "end": 87.35,
+    "id": "w261"
+  },
+  {
+    "text": "Shanks",
+    "start": 87.41,
+    "end": 87.86,
+    "id": "w262"
+  },
+  {
+    "text": "esperou",
+    "start": 87.86,
+    "end": 88.38,
+    "id": "w263"
+  },
+  {
+    "text": "tanto?",
+    "start": 88.39,
+    "end": 89.06,
+    "id": "w264"
+  },
+  {
+    "text": "Comenta",
+    "start": 89.3,
+    "end": 89.62,
+    "id": "w265"
+  },
+  {
+    "text": "aqui!",
+    "start": 89.62,
+    "end": 90.06,
+    "id": "w266"
+  }
+]
