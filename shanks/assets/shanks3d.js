@@ -914,10 +914,10 @@ addSet("thumb", (g) => {
   const mp = mesh(new THREE.PlaneGeometry(2.4, 1.8), new THREE.MeshBasicMaterial({ map: mapaTex(true), transparent: true, opacity: 0.9 }), 0.0, 2.75, -2.6, g); mp.rotation.set(0.05, -0.12, 0.05);
   const xg = glowSprite(0xff3a2a, 0.7, 0.55); xg.position.set(0.66, 2.48, -2.4); g.add(xg);
   g.add(dustPts(140, [-3, 3, 0.5, 4, -3, 1], 0xffd88a, 0.05, 0.8, ADD, 2));
-  const cap = ruivo(); g.add(cap);
+  const cap = ruivo(1.1, { hat: "straw" }); g.add(cap); // o chapéu de palha (modelo original, faixa marrom)
   return {
     bg: 0x2a1a3a, fog: [30, 120],
-    update(t) { cap.position.set(-0.15, 0, 0); cap.rotation.y = 0.2; pReset(cap); pIdle(cap, 0.4); capeWave(cap, 0.6, 1.4); pEyesGlow(cap, 0.75); cap.userData.head.rotation.set(0.06, 0.12, 0); },
+    update(t) { cap.position.set(-0.15, 0, 0); cap.rotation.y = 0.2; pReset(cap); pIdle(cap, 0.4); capeWave(cap, 0.6, 1.4); pEyesGlow(cap, 0.75); cap.userData.head.rotation.set(0.04, 0.12, 0); cap.userData.hatG.rotation.set(-0.16, 0, 0.09); },
     cam(t) { return { pos: [0.1, 2.25, 3.4], look: [0.05, 2.0, 0] }; },
   };
 });
