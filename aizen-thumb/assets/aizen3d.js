@@ -773,26 +773,41 @@ addSet("s9-pergunta", (g) => {
   };
 });
 
-// thumb: o estrategista de perto, dedo erguido, fios de luz até um cavalo âmbar
+// thumb: o mestre gigante ao fundo, sob a lua, puxando os fios do espadachim (de costas, como marionete)
 addSet("thumb", (g) => {
-  mundo(g, { lua: [-5, 7, -60], luaSize: 20, seed: 4 });
+  const ceu = plane(260, 140, new THREE.MeshBasicMaterial({ map: skyTex([[0, "#05030c"], [0.55, "#1a0e36"], [1, "#3a1a5a"]]), fog: false })); ceu.position.set(0, 30, -90); g.add(ceu);
+  g.add(dustPts(600, [-60, 60, 4, 60, -88, -60], 0xffffff, 0.24, 0.95, ADD, 31));
+  luaCrescente(g, 0, 9.5, -64, 30, 0xc8b0ff);
+  const halo = glowSprite(0x9a6aff, 22, 0.28); halo.material.fog = false; halo.position.set(0, 4.5, -12); g.add(halo);
+  deserto(g, 0xb8b0d0);
   const TB = tabuleiro(g);
-  const cav = peca("cavalo", "b", 1.0); cav.position.set(1.35, 0.08, -3.0); cav.rotation.y = -0.9; g.add(cav); const cg = glowSprite(0xffa040, 2.4, 0.75); cg.position.set(1.35, 1.0, -2.9); g.add(cg); const CA = new THREE.PointLight(0xffa040, 1.2, 2.5); CA.position.set(1.35, 1.2, -2.6); g.add(CA);
-  const strat = estrategista(); dedoNaMao(strat); g.add(strat); const fios = fiosDe(g, 2);
-  const L1 = new THREE.PointLight(0x9a6aff, 3, 8); L1.position.set(1, 3, 1); g.add(L1);
-  const v = new THREE.Vector3();
+  const rei = peca("rei", "p", 1.55); rei.position.set(-1.65, 0.08, -2.3); rei.rotation.y = 0.4; g.add(rei);
+  const torre = peca("torre", "b", 1.55); torre.position.set(1.75, 0.08, -2.0); g.add(torre);
+  const mestre = estrategista(2.4); g.add(mestre);
+  const hero = espadachim(1.0); g.add(hero); const sw = espada(g); const aura = auraFogo(g, 12);
+  const fioM = new THREE.MeshBasicMaterial({ color: 0xd8b8ff, transparent: true, opacity: 0.95, blending: ADD, depthWrite: false });
+  const tubos = []; const fioTubo = (a, b, sag) => { const mid = a.clone().lerp(b, 0.5); mid.y -= sag; const geo = new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(a.clone(), mid, b.clone()), 40, 0.018, 6, false); const m = new THREE.Mesh(geo, fioM); m.frustumCulled = false; g.add(m); tubos.push(m);
+    for (let k = 1; k < 6; k++) { const q = new THREE.QuadraticBezierCurve3(a, mid, b).getPoint(k / 6); const bd = glowSprite(0xc89aff, 0.22, 0.9); bd.position.copy(q); g.add(bd); tubos.push(bd); } };
+  const fog = []; for (let i = 0; i < 8; i++) { const f = glowSprite(0x8a7ab8, 9, 0.28, NORM); f.position.set(-12 + i * 3.4, 0.4, -5.5 - hash(i) * 3); g.add(f); fog.push(f); }
+  const rimV = new THREE.DirectionalLight(0xb08aff, 1.4); rimV.position.set(0, 9, -40); g.add(rimV);
+  const LA = new THREE.PointLight(0xffa040, 2.2, 3.5); g.add(LA); const LV = new THREE.PointLight(0x9a6aff, 3.5, 14); LV.position.set(0, 4, -4); g.add(LV);
+  const v = new THREE.Vector3(), w = new THREE.Vector3(), a1 = new THREE.Vector3(), a2 = new THREE.Vector3();
   return {
-    bg: 0x07060c, fog: [30, 140],
+    bg: 0x05030c, fog: [40, 160],
     update(t) {
-      strat.position.set(-0.25, 0.08, -3.2); strat.rotation.y = 0.2; pReset(strat); pIdle(strat, 0.4); pose(strat); pEyesGlow(strat, 0.85);
-      strat.userData.arms[0].rotation.set(-2.5, 0, -0.1); strat.userData.arms[0].userData.dedo.visible = true; strat.userData.arms[1].rotation.set(-1.6, 0, 0.5);
-      strat.updateMatrixWorld(); strat.userData.arms[1].children[1].getWorldPosition(v);
-      fios(0.6, v, [new THREE.Vector3(1.35, 1.75, -3.0), new THREE.Vector3(2.6, 2.4, -5.0)], [0.25, 0.35], 1);
+      mestre.position.set(0, -1.25, -7.6); mestre.rotation.y = 0; pReset(mestre); pIdle(mestre, 0.4); pose(mestre); pEyesGlow(mestre, 1);
+      mestre.userData.head.rotation.x = 0.28; mestre.userData.arms.forEach((a, i) => a.rotation.set(-1.05, 0, (i ? 1 : -1) * 0.55));
+      mestre.updateMatrixWorld(); mestre.userData.arms[0].children[1].getWorldPosition(a1); mestre.userData.arms[1].children[1].getWorldPosition(a2);
+      hero.position.set(0.8, 0.08, -0.3); hero.rotation.y = 0.35; // de frente pra câmera; o mestre atrás puxa os fios pReset(hero); pIdle(hero, 0.4, 2); serio(hero);
+      hero.userData.head.rotation.x = 0.05; hero.userData.arms[0].rotation.set(-0.3, 0, -0.3); hero.userData.arms[1].rotation.set(-1.2, 0, 0.2);
+      hero.updateMatrixWorld(); hero.userData.arms[1].children[1].getWorldPosition(w); sw.b.position.copy(w); sw.b.rotation.set(0.1, 0.35, -0.45); sw.glow(0.75, 0.4); aura(0.4, v.set(0.8, 1.3, -0.3), 0.55); LA.position.set(w.x, w.y + 0.4, w.z + 0.4);
+      const hh = new THREE.Vector3(); hero.userData.head.getWorldPosition(hh); hh.y += 0.32; const hl = new THREE.Vector3(), hr = new THREE.Vector3(); hero.userData.arms[1].children[1].getWorldPosition(hl); hero.userData.arms[0].children[1].getWorldPosition(hr);
+      const ombro = new THREE.Vector3(hh.x + 0.25, hh.y - 0.55, hh.z);
+      if (!tubos.length) { fioTubo(a1, hh, 0.35); fioTubo(a1, hr, 0.45); fioTubo(a2, hl, 0.4); fioTubo(a2, ombro, 0.3); }
     },
-    cam(t) { return { pos: [1.0, 2.25, 1.9], look: [0.0, 2.35, -3.2] }; },
+    cam(t) { return { pos: [0.45, 2.55, 4.7], look: [-0.05, 2.35, -7.5] }; },
   };
 });
-
 scene.traverse((o) => { if (o.isPoints || o.isLineSegments || o.isLine) o.frustumCulled = false; });
 
 function sceneAt(t) { for (const [n, a, b] of T.scenes) if (t >= a && t < b) return n; return T.scenes[T.scenes.length - 1][0]; }
