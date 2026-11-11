@@ -48,7 +48,7 @@
 [serious] E pra você: qual é a revelação mais pesada de Attack on Titan? [pause] Comenta aqui.
 ```
 
-Voz: "Roberta - For Conversational" (ElevenLabs, pt-BR).
+Voz: "Roberta - For Conversational" (ElevenLabs, pt-BR, modelo v4), gerada no app da ElevenLabs (a geração automática foi bloqueada no plano gratuito). Acelerada 8% e normalizada em -15 LUFS: o vídeo final tem cerca de 85 s.
 
 ## Descrição pra postar
 

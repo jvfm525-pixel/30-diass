@@ -35,7 +35,7 @@ PARS = [
     "E o pior:|a Titã que devorou a mãe do Eren…|era a primeira esposa|do próprio pai dele.",
     "E pra você:|qual é a revelação mais pesada|de Attack on Titan?|Comenta aqui.",
 ]
-FIX = {"para": ["pra"], "epara": ["e", "pra"], "atackontitan": ["attack", "on", "titan"], "atack": ["attack"], "stim": ["steam"], "imir": ["ymir"], "erin": ["eren"]}
+FIX = {"para": ["pra"], "epara": ["e", "pra"], "epra": ["e", "pra"], "eterceiro": ["e", "terceiro"], "eexiste": ["e", "existe"], "ecomo": ["e", "como"], "eo": ["e", "o"], "60": ["sessenta"], "view": ["bio"], "isaleatorias": ["keys", "aleatorias"], "stim": ["steam"], "imir": ["ymir"], "erin": ["eren"]}
 _TR = os.path.join(ROOT, "assets/voice/transcript.json")
 if not os.path.exists(_TR):  # sem narração ainda: tempos estimados a partir do roteiro
     _TR = os.path.join(ROOT, "assets/voice/transcript-provisorio.json")
@@ -65,7 +65,7 @@ KEYS = {
     "segundo": W(2, "segundo"), "energia": W(2, "energia"), "sol": W(2, "sol"), "luz": W(2, "luz"), "lentos": W(2, "lentos"), "noite": W(2, "noite"), "param": W(2, "param"),
     "terceiro": W(3, "terceiro"), "cavalos": W(3, "cavalos"), "vacas": W(3, "vacas"), "animal": W(3, "animal"), "atacam3": W(3, "atacam"), "humanos": W(3, "humanos"),
     "rapidinho": W(4, "rapidinho"), "steam": W(4, "steam"), "bio": W(4, "bio"), "agora": W(4, "agora"), "resposta4": W(4, "resposta"),
-    "pessoas": W(5, "pessoas"), "gente5": W(5, "gente"), "forca": W(5, "forca"), "injecao": W(5, "injecao"), "fluido": W(5, "fluido"), "tita5": W(5, "tita"),
+    "pessoas": W(5, "pessoas"), "gente5": W(5, "gente"), "forca": W(5, "forca"), "injecao": W(5, "injecao"), "fluido": W(5, "fluido"), "tita5": W(5, "tita", 1),
     "prisioneiros": W(5, "prisioneiros"), "ilha": W(5, "ilha"), "castigo": W(5, "castigo"),
     "existe": W(6, "existe"), "voltar6": W(6, "voltar"), "humano6": W(6, "humano"), "comer6": W(6, "comer"), "poder6": W(6, "poder"), "nove": W(6, "nove"),
     "ymir": W(6, "ymir"), "sessenta": W(6, "sessenta"), "vagando": W(6, "vagando"), "comeu": W(6, "comeu"), "marcel": W(6, "marcel"),

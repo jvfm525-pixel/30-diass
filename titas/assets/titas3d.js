@@ -848,7 +848,7 @@ function gigante(o = {}) {
   const cw = v === "magro" ? 0.84 : 1;
   const ch = L([[0.001, -0.03], [0.152 * cw, -0.03], [0.172 * cw, 0.07], [0.195 * cw, 0.16], [0.19 * cw, 0.22], [0.165 * cw, 0.27], [0.1, 0.305], [0.001, 0.315]], S.chest, 0, 30); ch.scale.z = 0.72;
   [-1, 1].forEach((k) => {
-    mesh(sph(0.088, 18, 12), skinM, k * 0.075 * cw, 0.17, 0.07 * cw, S.chest).scale.set(1.3, 0.62, 0.42);
+    mesh(sph(0.088, 18, 12), skinM, k * 0.07 * cw, 0.175, 0.058 * cw, S.chest).scale.set(1.45, 0.7, 0.3);
     mesh(sph(0.075, 16, 12), skinM, k * 0.095, 0.29, -0.015, S.chest).scale.set(1.35, 0.75, 0.95);
     mesh(sph(0.09, 16, 12), skinM, k * 0.08, 0.12, -0.075, S.chest).scale.set(1.1, 1.3, 0.55);
   });
@@ -1678,7 +1678,7 @@ addSet("s7-voltar", (g) => {
   const cloud = steam(g, { n: 30, size: 2.4, rise: 0.9, spread: 5.5, life: 3.4, opacity: 0.32, color: 0xb8c4e0, origin: [-5, 0, -3] });
   const embL = new THREE.PointLight(0xffb060, 0, 8, 1.5); embL.position.set(-3, 1.2, 0.4); g.add(embL);
   const moonL = new THREE.SpotLight(0xa8c0ff, 220, 90, 0.35, 0.6, 1.2); moonL.position.set(4, 60, -6); moonL.target.position.set(-4, 0, -2); moonL.castShadow = true; moonL.shadow.mapSize.set(1024, 1024); g.add(moonL, moonL.target);
-  const TF = K.comeu + 0.25, gone = (t) => t > TF + 0.18;
+  const TF = K.comeu - 0.12, gone = (t) => t > TF + 0.18;
   return {
     bg: 0x0a1222, fogExp: 0.022, fogCol: 0x101a2e, dome,
     look: { exposure: 1.25, bloom: 0.85, bloomT: 0.55, vig: 0.6, sat: 0.95, con: 1.08, lift: [0.0, 0.01, 0.04] },
@@ -1688,7 +1688,7 @@ addSet("s7-voltar", (g) => {
       // gigante sentado, olhos fechados até a pessoa chegar
       gi.visible = !gone(t);
       gi.position.copy(G0); gi.rotation.y = 0.45; restPose(gi);
-      const wake = smr(t, K.ymir - 0.3, K.ymir + 0.6), reach = smr(t, K.comeu - 0.5, TF);
+      const wake = smr(t, K.ymir - 0.3, K.ymir + 0.6), reach = smr(t, TF - 0.8, TF);
       pose(gi, { hipsPos: [0, -(gi.userData.d.hipY - 0.16), 0], legR: [-1.3, 0.25, -0.1, 1.25, -0.2], legL: [-1.35, -0.3, 0.1, 1.3, -0.2], spine: [-0.15 + reach * 0.5, 0, 0], chest: [-0.05, 0, 0], neck: [0.55 * (1 - wake) + 0.1, 0, 0.25 * (1 - wake)], head: [0.2 * (1 - wake), 0.3 * wake, 0], armR: [0.15, 0, -0.35, -0.3], armL: [0.1, 0, 0.3, -0.2], handR: 0.3, handL: 0.3 });
       gi.userData.lidOpen = wake; idle(gi, t, 6, 0.25 * wake);
       gi.updateMatrixWorld(true);
