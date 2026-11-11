@@ -1221,7 +1221,7 @@ addSet("s1-gancho", (g) => {
   const dust = dustRing(g, 0xb8a080);
   const rise = (t) => E.out(seg(t, K.titas0 - 0.2, K.nem + 0.8));
   const gx = (t) => -1.5, gz = (t) => lerp(-30, -9, E.inOut(seg(t, K.mesmo - 0.3, K.porque0 + 0.4)));
-  const head = V3();
+  const head = V3(), faceP = V3(), faceN = V3();
   return {
     bg: 0xc8b8a8, fogExp: 0.0011, fogCol: 0xc0b4a8, dome,
     look: { exposure: 1.0, bloom: 0.5, bloomT: 0.86, bloomR: 0.55, sat: 1.15, vig: 0.42, con: 1.1, lift: [0.0, 0.0, 0.015] },
@@ -1245,7 +1245,7 @@ addSet("s1-gancho", (g) => {
       }
       gi.userData.lidOpen = 1; idle(gi, t, 1, 0.6);
       giantMouth(gi, t > K.fica + 0.6 ? 0.5 : 0);
-      gi.updateMatrixWorld(true); wpos(gi.userData.head, head);
+      gi.updateMatrixWorld(true); wpos(gi.userData.head, head); gi.userData.head.localToWorld(faceP.set(0, 0.11 * 1.58, 0.09 * 1.58)); faceN.set(0, 0, 1).transformDirection(gi.userData.head.matrixWorld);
       if (t > K.porque0) lookAtW(gi, V3(head.x + 1.5, head.y + 1.2, head.z + 9), smr(t, K.porque0, K.porque0 + 0.8));
       vap(t, r);
       // morador
@@ -1269,11 +1269,11 @@ addSet("s1-gancho", (g) => {
         return shakeCam(c, t, impact(t, K.titas0 + 1.5, 0.14, 1.2) + impact(t, K.nem + 0.4, 0.08));
       }
       if (t < K.porque0 - 0.12) {
-        const c = path(t, [[K.mesmo - 0.1, [4.3, 1.95, 25.5], [0, 7.5, -12], 44], [K.porque0 - 0.12, [3.7, 1.85, 24], [-0.5, 8.5, -9], 42]]);
+        const c = path(t, [[K.mesmo - 0.1, [4.3, 1.95, 25.5], [0, 11.5, -12], 46], [K.porque0 - 0.12, [3.7, 1.85, 24], [-0.5, 13, -9], 46]]);
         const ph = (t - K.mesmo) * 0.42, st = Math.floor(ph * 2) / 2;
         return shakeCam(c, t, impact(t, K.mesmo + st / 0.42, 0.05, 0.5));
       }
-      return path(t, [[K.porque0 - 0.12, [head.x + 2.6, head.y + 1.3, head.z + 11], [head.x, head.y + 1.1, head.z], 34], [K.fica, [head.x + 1.2, head.y + 1.25, head.z + 7.5], [head.x, head.y + 1.15, head.z], 30], [b, [head.x + 0.5, head.y + 1.2, head.z + 6.2], [head.x, head.y + 1.15, head.z], 28]]);
+      const F = (d, sx, up) => faceP.clone().addScaledVector(faceN, d).add(V3(sx, up, 0)).toArray(); return path(t, [[K.porque0 - 0.12, F(13, 1.6, 0.4), faceP.toArray(), 34], [K.fica, F(9, 0.8, 0.2), faceP.toArray(), 32], [b, F(7.2, 0.4, 0.1), faceP.toArray(), 30]]);
     },
   };
 });
@@ -1361,7 +1361,7 @@ addSet("s3-sol", (g) => {
     look: { exposure: 1.0, bloom: 0.6, bloomT: 0.75 },
     update(t) {
       // 0 = meio-dia, 0.5 = pôr do sol, 1 = noite
-      u = clamp(seg(t, a + 0.3, K.noite + 0.5) * 0.85 + smr(t, K.noite - 0.2, K.noite + 0.8) * 0.15);
+      u = clamp(seg(t, a + 0.3, K.noite) * 0.85 + smr(t, K.noite - 0.4, K.noite + 0.3) * 0.15);
       const el = lerp(1.1, -0.35, u), az = lerp(-0.3, 1.2, u);
       sd.set(Math.cos(el) * Math.sin(az), Math.sin(el), -Math.cos(el) * Math.cos(az)).normalize();
       const k1 = clamp(u * 2), k2 = clamp(u * 2 - 1);
@@ -1632,7 +1632,7 @@ addSet("s6-pessoas", (g) => {
       guards[0].updateMatrixWorld(true); wpos(guards[0].userData.wr[0], vial.position); vial.position.y -= 0.06; vial.rotation.z = 0.15;
       liq.material.emissiveIntensity = 0.85 + Math.sin(t * 6) * 0.2;
       // vapor e o gigante subindo
-      const rise = smr(t, T2 + 0.1, K.prisioneiros + 0.4);
+      const rise = smr(t, T2 + 0.05, K.prisioneiros - 0.3);
       col.upd(t, smr(t, T2 - 0.1, T2 + 0.3)); colL.intensity = smr(t, T2, T2 + 0.3) * 260 * (1 - rise * 0.5);
       gr.position.set(46, -78 - 22 * (1 - rise), 14); restPose(gr); idle(gr, t, 2, 0.4); pose(gr, { spine: [0.25 * (1 - rise), 0, 0], neck: [-0.2, 0, 0.2] });
       giantMouth(gr, 0.5);
@@ -1643,7 +1643,7 @@ addSet("s6-pessoas", (g) => {
     cam(t) {
       if (t < K.injecao - 0.15) { const k = keys(t, [[a, [-4, 0, 0], [0, 0, 0]], [K.gente5, [-4, 0, 0], [0, 0, 0]], [K.forca - 0.1, [-2, 0, 0], [0, 0, 0]], [K.forca + 0.4, [-2, 0, 0], [0, 0, 0]], [K.injecao - 0.15, [0, 0, 0], [0, 0, 0]]]); const z = k.pos[0]; return { pos: [2.6, 1.5, z + 0.12], look: [1.4, 1.62, z], fov: 30 }; }
       if (t < T2 + 0.05) { const v = vial.position; return path(t, [[K.injecao - 0.15, [v.x + 0.55, v.y + 0.1, v.z + 0.45], [v.x, v.y, v.z], 30], [T2 + 0.05, [v.x + 0.38, v.y + 0.05, v.z + 0.3], [v.x, v.y, v.z], 26]]); }
-      if (t < K.prisioneiros - 0.1) return shakeCam(path(t, [[T2 + 0.05, [104, -50, 88], [44, -54, 14], 40], [K.prisioneiros - 0.1, [96, -52, 80], [44, -50, 14], 38]]), t, impact(t, T2 + 0.1, 0.6, 0.8));
+      if (t < K.prisioneiros - 0.1) return shakeCam(path(t, [[T2 + 0.05, [80, -62, 58], [46, -62, 14], 42], [K.prisioneiros - 0.1, [74, -66, 50], [46, -58, 14], 40]]), t, impact(t, T2 + 0.1, 0.5, 0.8));
       if (t < K.ilha - 0.15) return path(t, [[K.prisioneiros - 0.1, [2.4, 1.05, -5.2], [1.4, 1.05, -2.5], 38], [K.ilha - 0.15, [2.4, 1.0, 3.4], [1.4, 1.0, 5.5], 38]]);
       return path(t, [[K.ilha - 0.15, [40, 30, -120], [140, -60, 20], 42], [b, [60, 24, -110], [150, -64, 30], 40]]);
     },
@@ -1815,7 +1815,7 @@ addSet("s9-pior", (g) => {
     },
     cam(t) {
       if (t < K.eren + 0.1) return path(t, [[a, [-0.05, 1.5, 1.8], [-0.3, 0.0, 0.85], 34], [K.eren + 0.1, [-0.1, 1.1, 1.45], [-0.3, 0.0, 0.85], 30]]);
-      return path(t, [[K.eren + 0.1, [0.5, 1.2, 3.4], [0.6, 5.5, -30], 40], [b, [0.3, 1.3, 2.4], [1.0, 9, -34], 34]]);
+      return path(t, [[K.eren + 0.1, [0.5, 1.2, 3.4], [0.8, 11, -30], 42], [b, [0.3, 1.3, 2.4], [1.2, 14, -34], 38]]);
     },
   };
 });
