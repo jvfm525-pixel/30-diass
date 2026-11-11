@@ -88,7 +88,9 @@ CSS = f'''@font-face {{ font-family:'Cinzel'; font-weight:900; font-style:normal
   .lbl {{ position:absolute; font-family:'Space Mono',monospace; font-weight:700; color:#fff; letter-spacing:.06em; text-transform:uppercase;
     background:linear-gradient(90deg, rgba(14,8,6,.88), rgba(14,8,6,.7)); border-left:8px solid {RED}; padding:10px 22px; font-size:36px; box-shadow:0 8px 30px rgba(0,0,0,.35); }}
   .big {{ position:absolute; left:0; right:0; text-align:center; font-family:'Cinzel','Archivo Black',serif; font-weight:900; color:{BONE}; letter-spacing:.02em; line-height:1.06;
-    text-shadow:0 0 26px rgba(255,120,60,.35), 0 6px 26px rgba(0,0,0,.9), 0 2px 0 rgba(0,0,0,.6); }}
+    text-shadow:0 0 26px rgba(255,120,60,.35), 0 6px 26px rgba(0,0,0,.9), 0 2px 0 rgba(0,0,0,.6); -webkit-text-stroke:6px rgba(18,8,4,.9); paint-order:stroke fill; }}
+  .big::before {{ content:''; position:absolute; left:4%; right:4%; top:-46px; bottom:-46px; z-index:-1;
+    background:radial-gradient(ellipse at 50% 50%, rgba(12,6,4,.62) 0%, rgba(12,6,4,.42) 45%, rgba(12,6,4,0) 72%); }}
   .card {{ position:absolute; left:70px; right:70px; padding:22px 30px 24px; background:linear-gradient(135deg, rgba(30,12,8,.92), rgba(12,8,6,.9));
     border:3px solid rgba(255,195,90,.6); border-radius:6px; box-shadow:0 0 44px rgba(255,120,60,.25); }}
   .card .nm {{ font-family:'Cinzel','Archivo Black',serif; font-weight:900; font-size:92px; color:#fff; line-height:1; letter-spacing:.02em; }}
@@ -152,9 +154,9 @@ def s2():
 def s3():
     sc = "s3-sol"
     ov(sc, *join(
-        lbl2("s3-l1", "2️⃣ DE ONDE VEM A ENERGIA?", 50, 230, at(sc, "segundo", -.2), GOLD, 34, out=at(sc, "sol", -.3)),
-        big("s3-a", f"☀️ {g('LUZ DO SOL')}", 300, at(sc, "sol", -.2), 104, out=at(sc, "luz", -.25)),
-        big("s3-b", f"SEM LUZ =<br>{g('LENTOS', STEEL)}", 300, at(sc, "luz", -.1), 100, out=at(sc, "noite", -.25)),
+        lbl2("s3-l1", "2️⃣ DE ONDE VEM A ENERGIA?", 50, 230, at(sc, "segundo", -.2), GOLD, 34, out=at(sc, "energia", -.25)),
+        big("s3-a", f"☀️ {g('LUZ DO SOL')}", 300, at(sc, "energia", -.1), 104, out=at(sc, "noite", -.3)),
+        lbl2("s3-l2", "🐢 SEM LUZ = LENTOS", 60, 560, at(sc, "luz", -.1), STEEL, 38, out=at(sc, "noite", -.3)),
         big("s3-c", f"🌙 DE NOITE<br>{g('QUASE PARAM', STEEL)}", 300, at(sc, "noite", -.1), 92),
     ))
 
@@ -162,9 +164,9 @@ def s3():
 def s4():
     sc = "s4-animais"
     ov(sc, *join(
-        lbl2("s4-l1", "3️⃣ E OS ANIMAIS?", 60, 230, at(sc, "terceiro", -.2), GREEN, 36, out=at(sc, "humanos", -.35)),
-        lbl2("s4-i1", "🐴 CAVALO: IGNORA", 70, 330, at(sc, "cavalos", -.1), GREEN, 38, out=at(sc, "humanos", -.35)),
-        lbl2("s4-i2", "🐄 VACA: IGNORA", 70, 420, at(sc, "vacas", -.1), GREEN, 38, out=at(sc, "humanos", -.35)),
+        lbl2("s4-l1", "3️⃣ E OS ANIMAIS?", 60, 230, at(sc, "terceiro", -.2), GREEN, 36, out=at(sc, "atacam3", -.4)),
+        lbl2("s4-i1", "🐴 CAVALO: IGNORA", 70, 330, at(sc, "cavalos", -.1), GREEN, 38, out=at(sc, "atacam3", -.4)),
+        lbl2("s4-i2", "🐄 VACA: IGNORA", 70, 420, at(sc, "vacas", -.1), GREEN, 38, out=at(sc, "atacam3", -.4)),
         big("s4-a", f"SÓ ATACAM<br>{g('HUMANOS', RED)}", 300, at(sc, "atacam3", -.15), 104),
     ))
 
@@ -196,7 +198,7 @@ def s7():
     body = f'''<div id="s7-card" class="card" style="top:240px;z-index:7;opacity:0"><div class="nm">YMIR</div><div class="sub">≈ 60 ANOS VAGANDO COMO TITÃ</div></div>'''
     js = f'''tl.fromTo("#s7-card", {{ opacity: 0, x: -40 }}, {{ opacity: 1, x: 0, duration: .35 }}, {at(sc, "ymir", -.15)});
       tl.to("#s7-card", {{ opacity: 0, duration: .3 }}, {at(sc, "comeu", -.3)});'''
-    a = big("s7-a", f"DÁ PRA VOLTAR<br>A SER {g('HUMANO')}", 290, at(sc, "voltar6", -.2), 92, out=at(sc, "comer6", -.25))
+    a = big("s7-a", f"DÁ PRA VOLTAR<br>A SER {g('HUMANO')}", 290, at(sc, "existe", -.1), 92, out=at(sc, "comer6", -.25))
     l1 = lbl2("s7-l1", "🦷 COMER UM DOS NOVE TITÃS", 50, 250, at(sc, "comer6", -.1), GOLD, 34, out=at(sc, "ymir", -.3))
     b = big("s7-b", f"COMEU O {g('MARCEL')}…<br>E VOLTOU", 300, at(sc, "comeu", -.15), 88)
     ov(sc, body + a[0] + l1[0] + b[0], js + a[1] + l1[1] + b[1])

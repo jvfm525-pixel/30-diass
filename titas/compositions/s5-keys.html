@@ -14,7 +14,9 @@
   .lbl { position:absolute; font-family:'Space Mono',monospace; font-weight:700; color:#fff; letter-spacing:.06em; text-transform:uppercase;
     background:linear-gradient(90deg, rgba(14,8,6,.88), rgba(14,8,6,.7)); border-left:8px solid #ff4a3d; padding:10px 22px; font-size:36px; box-shadow:0 8px 30px rgba(0,0,0,.35); }
   .big { position:absolute; left:0; right:0; text-align:center; font-family:'Cinzel','Archivo Black',serif; font-weight:900; color:#f3eadb; letter-spacing:.02em; line-height:1.06;
-    text-shadow:0 0 26px rgba(255,120,60,.35), 0 6px 26px rgba(0,0,0,.9), 0 2px 0 rgba(0,0,0,.6); }
+    text-shadow:0 0 26px rgba(255,120,60,.35), 0 6px 26px rgba(0,0,0,.9), 0 2px 0 rgba(0,0,0,.6); -webkit-text-stroke:6px rgba(18,8,4,.9); paint-order:stroke fill; }
+  .big::before { content:''; position:absolute; left:4%; right:4%; top:-46px; bottom:-46px; z-index:-1;
+    background:radial-gradient(ellipse at 50% 50%, rgba(12,6,4,.62) 0%, rgba(12,6,4,.42) 45%, rgba(12,6,4,0) 72%); }
   .card { position:absolute; left:70px; right:70px; padding:22px 30px 24px; background:linear-gradient(135deg, rgba(30,12,8,.92), rgba(12,8,6,.9));
     border:3px solid rgba(255,195,90,.6); border-radius:6px; box-shadow:0 0 44px rgba(255,120,60,.25); }
   .card .nm { font-family:'Cinzel','Archivo Black',serif; font-weight:900; font-size:92px; color:#fff; line-height:1; letter-spacing:.02em; }
