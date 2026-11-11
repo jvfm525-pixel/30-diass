@@ -42,11 +42,14 @@ Aqui está o áudio da narração. Anime o roteiro em 3D usando HyperFrames + Th
 - Acelere a voz em 8% e normalize em -15 LUFS.
 - Transcreva com whisper e sincronize as legendas palavra por palavra (a palavra falada acende na cor de destaque).
 
-Cena 3D:
+Cena 3D (motor 3D v2, em tools/motor3d):
 - Renderizada a partir do tempo (hf-seek), sem animação por relógio.
-- Personagens em estilo toon com contorno escuro.
+- Use o motor v2: sombras suaves, céu com nuvens e sol, névoa, bloom, gradação de cor, vinheta e grão.
+- Personagens articulados (cotovelo, joelho, dedos), com pálpebras que piscam, boca com expressão e cabelo em mechas. Use IK para mãos e pés que tocam em coisas.
+- Criaturas e gigantes com pele texturizada e rosto pintado.
+- Cenários em camadas: terreno com relevo, grama ao vento, árvores, pedra com relevo, construções detalhadas, raios de luz, poeira e vapor.
+- Câmera em curva (path), com tremor nos impactos. O quadro vertical é estreito na horizontal (cerca de metade do ângulo vertical), então centralize o assunto.
 - Cada cena com câmera própria, sempre enquadrando o assunto. Nada de câmera dentro de objetos ou cabeças.
-- Cenários detalhados, com profundidade e pequenos movimentos: partículas, chuva, neve, fumaça, luzes piscando.
 
 Textos e áudio:
 - Textos na tela estilo documentário: etiquetas com borda lateral colorida e números grandes.
@@ -70,5 +73,6 @@ Entrega:
 
 - **ElevenLabs:** a voz que usamos foi a "Roberta – Smooth and Confident", modelo v3. Dá pra acelerar no próprio editor.
 - **Duração:** 75–90 s funciona bem. Acima disso, corte uma cena.
+- **Qualidade (pedido fixo):** a partir do vídeo dos Titãs, toda animação usa o motor 3D v2 e tem que ficar visivelmente melhor que a anterior: animação, personagens e cenários.
 - **Viralizar:** gancho + pergunta no meio + resposta guardada pro final + A/B nos comentários.
 - **Direitos autorais:** citar e analisar uma obra pode; copiar o desenho dos personagens não. O TikTok também derruba trechos oficiais de anime.

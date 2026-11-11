@@ -22,3 +22,5 @@ __pycache__/
 !renders/shanks*
 !renders/aizen-3d*
 !renders/aizen-thumb*
+!renders/titas-3d*
+!renders/titas-thumb*
