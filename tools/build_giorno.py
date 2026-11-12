@@ -231,7 +231,7 @@ def caps():
             js.append(f'tl.fromTo("#cw{gi}-{j}", {{ color: "#ffffff" }}, {{ color: "{HL}", duration: .05, immediateRender: false }}, {w[4]:.2f});')
     css = '''#root { background: transparent; }
       .cg { position:absolute; left:90px; right:150px; top:1240px; text-align:center; }
-      .cbox { display:inline-block; padding:8px 18px; background:rgba(10,6,4,.62); font-family:Montserrat; font-weight:800; font-size:50px; line-height:1.15; color:#fff;
+      .cbox { display:inline-block; padding:8px 18px; background:rgba(10,6,4,.74); font-family:Montserrat; font-weight:800; font-size:50px; line-height:1.15; color:#fff;
         text-transform:uppercase; text-shadow:0 3px 10px rgba(0,0,0,.9); max-width:840px; }'''
     write(cid, scene(cid, "\n".join(html), "\n      ".join(js), css, bg="transparent"))
 

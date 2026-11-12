@@ -26,12 +26,6 @@ function lanternaArena(g, x, y, z) {
 }
 const TOCHAS = [];
 function tochas(t) { TOCHAS.forEach((l, i) => { const f = 0.8 + noise1(t * 6 + i * 3) * 0.2; l.userData.fl.scale.setScalar(0.55 + 0.2 * f); l.userData.L.intensity = 2.0 * f; }); }
-// painel de parede com um arco vazado (para arcadas instanciadas)
-function bayGeo(w, h, aw, ah, d) {
-  const s = new THREE.Shape(); s.moveTo(-w / 2, 0); s.lineTo(w / 2, 0); s.lineTo(w / 2, h); s.lineTo(-w / 2, h); s.lineTo(-w / 2, 0);
-  const hole = new THREE.Path(); hole.moveTo(-aw / 2, 0); hole.lineTo(aw / 2, 0); hole.lineTo(aw / 2, ah - aw / 2); hole.absarc(0, ah - aw / 2, aw / 2, 0, Math.PI, false); hole.lineTo(-aw / 2, 0); s.holes.push(hole);
-  const geo = new THREE.ExtrudeGeometry(s, { depth: d, bevelEnabled: false, curveSegments: 10 }); geo.translate(0, 0, -d / 2); return geo;
-}
 
 // ---------------------------------------------------------------- 1 · gancho: arena ao entardecer; o golpe para no ar, rebobina e some
 addSet("s1-gancho", (g) => {

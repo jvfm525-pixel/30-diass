@@ -17,7 +17,7 @@ function garoto(o = {}) {
   // broche de sol no peito
   const pin = mesh(new THREE.CircleGeometry(0.02, 20), new THREE.MeshStandardMaterial({ map: sunEmblem, transparent: true, color: 0xffd060, metalness: 0.6, roughness: 0.3, emissive: 0x6a4000, emissiveIntensity: 0.6 }), 0.085, 0.2, 0.124, u.chest); pin.rotation.y = 0.42; pin.castShadow = false;
   // gravata fina dourada
-  const tie = mesh(box(0.022, 0.2, 0.006), gm, 0, 0.16, 0.124, u.chest); tie.rotation.x = -0.12; tie.castShadow = false;
+  const tie = mesh(box(0.022, 0.2, 0.006), SM(0xc89a3a, { metalness: 0.5, roughness: 0.55 }), 0, 0.16, 0.124, u.chest); tie.rotation.x = -0.12; tie.castShadow = false;
   return p;
 }
 
@@ -96,6 +96,17 @@ function glyph(g, txt, color = "#ffd070", size = 1) {
 function ondaDourada(g) {
   const m = holoMat(0xffc040); const s = mesh(sph(1, 48, 32), m, 0, 0, 0, g); s.castShadow = s.receiveShadow = false; s.renderOrder = 7; s.visible = false;
   return (t, t0, pos, R = 30, dur = 1.0) => { const k = (t - t0) / dur; s.visible = k > 0 && k < 1; if (!s.visible) return; s.position.copy(pos); s.scale.setScalar(0.3 + R * E.out(k)); m.uniforms.uA.value = (1 - k) * 0.7; };
+}
+// reflexo noturno para água e metais à noite: céu azul-escuro, luzes da cidade e a lua
+let _envNoite = null;
+function envNoite() {
+  if (_envNoite) return _envNoite;
+  const tx = canvasTex(1024, 512, (c, w, h) => { const g_ = c.createLinearGradient(0, 0, 0, h); g_.addColorStop(0, "#0a1430"); g_.addColorStop(0.45, "#1c2a4e"); g_.addColorStop(0.5, "#3a3a50"); g_.addColorStop(0.56, "#0c0e16"); g_.addColorStop(1, "#04060a"); c.fillStyle = g_; c.fillRect(0, 0, w, h);
+    for (let i = 0; i < 260; i++) { const x = hash(i * 3.1) * w, y = h * (0.4 + hash(i * 7.7) * 0.11); c.fillStyle = `rgba(255,${170 + hash(i) * 60 | 0},${90 + hash(i * 5) * 60 | 0},${0.5 + hash(i * 9) * 0.5})`; c.fillRect(x, y, 3 + hash(i * 11) * 5, 3 + hash(i * 13) * 4); }
+    c.fillStyle = "#e8ecff"; c.beginPath(); c.arc(w * 0.42, h * 0.18, 14, 0, 7); c.fill(); });
+  tx.mapping = THREE.EquirectangularReflectionMapping;
+  const pm = new THREE.PMREMGenerator(renderer); _envNoite = pm.fromEquirectangular(tx).texture; pm.dispose();
+  return _envNoite;
 }
 // cópias fantasma (holograma dourado) de um personagem, para o rastro de rebobinar
 function fantasmas(g, make, n = 3, color = 0xffc040) {
@@ -245,4 +256,11 @@ function chao(g, w, d, tex, rx, ry, o = {}) {
   const map = tex.map.clone(), nm = tex.normalMap.clone(); map.needsUpdate = nm.needsUpdate = true; rep(map, rx, ry); rep(nm, rx, ry);
   const f = mesh(new THREE.PlaneGeometry(w, d), SM(0xffffff, { map, normalMap: nm, roughness: o.rough ?? 0.85, metalness: o.metal ?? 0, envMapIntensity: 1 }), o.x ?? 0, o.y ?? 0, o.z ?? 0, g); f.rotation.x = -Math.PI / 2; f.castShadow = false;
   return f;
+}
+
+// painel de parede com um arco vazado (para arcadas instanciadas)
+function bayGeo(w, h, aw, ah, d) {
+  const s = new THREE.Shape(); s.moveTo(-w / 2, 0); s.lineTo(w / 2, 0); s.lineTo(w / 2, h); s.lineTo(-w / 2, h); s.lineTo(-w / 2, 0);
+  const hole = new THREE.Path(); hole.moveTo(-aw / 2, 0); hole.lineTo(aw / 2, 0); hole.lineTo(aw / 2, ah - aw / 2); hole.absarc(0, ah - aw / 2, aw / 2, 0, Math.PI, false); hole.lineTo(-aw / 2, 0); s.holes.push(hole);
+  const geo = new THREE.ExtrudeGeometry(s, { depth: d, bevelEnabled: false, curveSegments: 10 }); geo.translate(0, 0, -d / 2); return geo;
 }
