@@ -74,5 +74,12 @@ Entrega:
 - **ElevenLabs:** a voz que usamos foi a "Roberta – Smooth and Confident", modelo v3. Dá pra acelerar no próprio editor.
 - **Duração:** 75–90 s funciona bem. Acima disso, corte uma cena.
 - **Qualidade (pedido fixo):** a partir do vídeo dos Titãs, toda animação usa o motor 3D v2 e tem que ficar visivelmente melhor que a anterior: animação, personagens e cenários.
+- **Foco atual (pedido fixo, depois do vídeo do Kakashi):** nos próximos vídeos, melhorar **só a animação**, ou seja, o movimento dos personagens e da câmera. Exemplos:
+  - pés que não deslizam ao andar;
+  - antecipação e acomodação nos gestos;
+  - tecido e cabelo reagindo ao movimento;
+  - expressões que mudam com a fala;
+  - câmera com movimento contínuo.
+  Personagens e cenários seguem o estilo atual. Não refazer vídeos já entregues sem pedido.
 - **Viralizar:** gancho + pergunta no meio + resposta guardada pro final + A/B nos comentários.
 - **Direitos autorais:** citar e analisar uma obra pode; copiar o desenho dos personagens não. O TikTok também derruba trechos oficiais de anime.
