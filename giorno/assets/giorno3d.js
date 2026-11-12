@@ -1824,7 +1824,7 @@ addSet("s1-gancho", (g) => {
       // anéis, "0", onda dourada, relógio em volta do chefe
       ring(t, K.chega - 0.02, fist, [0, 0, 1], 0.9, 1.0);
       const zk = smr(t, K.chega - 0.05, K.chega + 0.15) * (1 - smr(t, K.chega + 0.7, K.chega + 1.1));
-      zero.position.set(fist.x + 0.02, fist.y + 0.38, fist.z - 0.05); zero.material.opacity = zk; zero.scale.setScalar(0.25 + 0.25 * E.outBack(smr(t, K.chega - 0.05, K.chega + 0.25)));
+      zero.position.set(fist.x, fist.y + 0.02, fist.z - 0.42); zero.material.opacity = zk; zero.scale.setScalar(0.2 + 0.2 * E.outBack(smr(t, K.chega - 0.05, K.chega + 0.25)));
       onda(t0, eB, V3(sp.position.x, 1.3, sp.position.z), 34, 1.1);
       const ck = smr(t, K.destino0 - 0.6, K.destino0 + 0.4);
       clockR.position.set(X0, 0.08, Z0); clockR.rotation.y = -t * 0.9; clockR.userData.hd.rotation.y = -t * 4; clockR.userData.cm.opacity = ck * 0.85; clockR.scale.setScalar(1.15 - 0.25 * smr(t, K.assustador - 0.5, b));
