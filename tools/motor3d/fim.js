@@ -32,11 +32,14 @@ function renderAt(t) {
   s.update(t);
   const c = window.DBG_CAM ? { pos: window.DBG_CAM[0], look: window.DBG_CAM[1], fov: window.DBG_CAM[2] ?? 40 } : s.cam(t);
   camera.position.set(...c.pos); camera.lookAt(...c.look);
+  if (s.hand !== 0) { const hh = handCam(t, s.hand ?? 0.012, 0.5); camera.position.x += hh[0]; camera.position.y += hh[1]; camera.position.z += hh[2]; camera.lookAt(...c.look); }
   if (c.roll) camera.rotateZ(c.roll);
-  camera.fov = c.fov ?? 35; camera.updateProjectionMatrix();
+  camera.fov = c.fov ?? 35; camera.near = c.near ?? 0.1; camera.updateProjectionMatrix();
   if (s.dome) s.dome.position.copy(camera.position);
   if (s.after) s.after(t);
   if (s.fadeIn) { const [a] = T.sc[n]; GU.uFade.value = Math.max(GU.uFade.value, 1 - seg(t, a, a + s.fadeIn)); }
+  // transição curta entre cenas (mergulho no escuro) e câmera na mão sutil
+  if (T.cut !== false && n !== T.scenes[0][0]) { const a0 = T.sc[n][0], d = t - a0; if (d < 0.2) { GU.uFade.value = Math.max(GU.uFade.value, Math.pow(1 - d / 0.2, 2) * 0.8); GU.uFadeCol.value.set(0, 0, 0); } }
   composer.render();
 }
 window.__hf = window.__hf || {};
