@@ -36,7 +36,7 @@
 
 [serious] A explicação mais aceita tem três partes. Primeiro: ele quase não usava. O Kamui gastava tanto chakra que, depois de uma luta, ele desmaiou e teve que ser carregado de volta.
 
-[mysterious] Segundo: cada uso durava segundos. O Sasuke lutava inteiro com o Mangekyou ativado. O Kakashi abria o portal... e fechava o olho.
+[mysterious] Segundo: cada uso durava segundos. O Sasuke lutava inteiro com o Mangekyou ativado. O Kakashi abriu o portal... e fechava o olho.
 
 [serious] E terceiro: o tempo acabou antes. No fim da guerra, ele perdeu o Sharingan... e hoje tem os dois olhos normais.
 

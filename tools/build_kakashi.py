@@ -30,13 +30,14 @@ PARS = [
     "E o olho do Kakashi|nem era dele.|Foi um presente do Obito,|o amigo que se sacrificou|pra salvar ele.|Como o Kakashi não é um Uchiha,|o olho não desliga|e fica sugando chakra|o tempo todo.|Por isso ele vivia|com o olho tapado.",
     "Rapidinho:|tem keys aleatórias da Steam|bem baratas no link da minha bio.|Agora, a resposta.",
     "A explicação mais aceita|tem três partes.|Primeiro:|ele quase não usava.|O Kamui gastava tanto chakra|que, depois de uma luta,|ele desmaiou|e teve que ser carregado de volta.",
-    "Segundo:|cada uso durava segundos.|O Sasuke lutava inteiro|com o Mangekyou ativado.|O Kakashi abria o portal…|e fechava o olho.",
+    "Segundo:|cada uso durava segundos.|O Sasuke lutava inteiro|com o Mangekyou ativado.|O Kakashi abriu o portal…|e fechava o olho.",
     "E terceiro:|o tempo acabou antes.|No fim da guerra,|ele perdeu o Sharingan…|e hoje tem os dois olhos normais.",
     "Ou seja:|ele nunca teve chakra|nem tempo pra ficar cego.|O olho do amigo durou|exatamente até onde precisava.",
     "E pra você:|qual foi o momento mais triste|do Kakashi?|Comenta aqui.",
 ]
 FIX = {"para": ["pra"], "epara": ["e", "pra"], "epra": ["e", "pra"], "eterceiro": ["e", "terceiro"], "eo": ["e", "o"], "view": ["bio"], "isaleatorias": ["keys", "aleatorias"], "stim": ["steam"],
-       "mangekyo": ["mangekyou"], "kakachi": ["kakashi"], "itati": ["itachi"], "sasque": ["sasuke"], "uchia": ["uchiha"], "camui": ["kamui"]}
+       "mangekyo": ["mangekyou"], "kakachi": ["kakashi"], "itati": ["itachi"], "sasque": ["sasuke"], "uchia": ["uchiha"], "camui": ["kamui"],
+       "manguekiosharingan": ["mangekyou", "sharingan"], "manguekio": ["mangekyou"], "manguequio": ["mangekyou"], "utirra": ["uchiha"], "quis": ["keys"]}
 _TR = os.path.join(ROOT, "assets/voice/transcript.json")
 if not os.path.exists(_TR):  # sem narração ainda: tempos estimados a partir do roteiro
     _TR = os.path.join(ROOT, "assets/voice/transcript-provisorio.json")
