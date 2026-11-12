@@ -504,7 +504,8 @@ function hairLocks(head, o) {
   const hm = TM(o.color, { side: THREE.DoubleSide }), hc = new THREE.Color(o.color);
   const shades = [hm, TM(hc.clone().offsetHSL(0, 0, 0.05).getHex(), { side: THREE.DoubleSide }), TM(hc.clone().offsetHSL(0, 0, -0.04).getHex(), { side: THREE.DoubleSide })];
   const capG = new THREE.SphereGeometry(1, 30, 16, 0, Math.PI * 2, 0, Math.PI * (o.capA ?? 0.42)); capG.scale(ax, ay, az);
-  const capM = mesh(capG, hm, cx, cy, -0.004, head); capM.rotation.x = o.capTilt ?? -0.42; ol(capM, 0.003);
+  const hg = grp(head, 0, cy, 0); const hroot = grp(hg, 0, -cy, 0); head.userData.hairG = hg; head.userData.hairLong = (o.style ?? "curto") === "longo" || (o.len ?? 1) > 1.2;
+  const capM = mesh(capG, hm, cx, cy, -0.004, hroot); capM.rotation.x = o.capTilt ?? -0.42; ol(capM, 0.003);
   const style = o.style ?? "curto", n = o.n ?? (style === "longo" ? 96 : 56);
   const P = (th, ph, k = 1) => new THREE.Vector3(Math.sin(th) * Math.sin(ph) * ax * k, cy + Math.cos(th) * ay * k, Math.sin(th) * Math.cos(ph) * az * k);
   for (let i = 0; i < n; i++) {
@@ -524,10 +525,10 @@ function hairLocks(head, o) {
     if (front) { p2.z = Math.max(p2.z, az * 0.98); p3.z = Math.max(p3.z, az * 1.0); const yMin = cy + (o.bangY ?? 0.036); p2.y = Math.max(p2.y, yMin + 0.012); p3.y = Math.max(p3.y, yMin); }
     const w = (o.thick ?? (style === "longo" ? 0.012 : 0.016)) * (0.75 + hash(i * 2.9) * 0.5);
     if (style === "longo" && !front) { p1.addScaledVector(nrm, 0.012); p2.addScaledVector(nrm, 0.02); }
-    const lm = mesh(lockGeo([root.toArray(), p1.toArray(), p2.toArray(), p3.toArray()], w, 0.0015, 0.55, 10, 7), shades[i % 3], 0, 0, 0, head);
+    const lm = mesh(lockGeo([root.toArray(), p1.toArray(), p2.toArray(), p3.toArray()], w, 0.0015, 0.55, 10, 7), shades[i % 3], 0, 0, 0, hroot);
     lm.castShadow = i % 2 === 0;
   }
-  if (style === "rabo") { const pts = [[0, cy + 0.02, -az * 0.95], [0, cy - 0.02, -az * 1.25], [0, cy - 0.12, -az * 1.3], [0, cy - 0.22, -az * 1.15]]; ol(mesh(lockGeo(pts, 0.03, 0.004, 0.8, 14, 9), hm, 0, 0, 0, head), 0.003); }
+  if (style === "rabo") { const pts = [[0, cy + 0.02, -az * 0.95], [0, cy - 0.02, -az * 1.25], [0, cy - 0.12, -az * 1.3], [0, cy - 0.22, -az * 1.15]]; ol(mesh(lockGeo(pts, 0.03, 0.004, 0.8, 14, 9), hm, 0, 0, 0, hroot), 0.003); }
 }
 
 // mão com dedos (2 falanges) e polegar; curl 0..1 fecha
@@ -705,6 +706,13 @@ function idle(p, t, seed = 0, amt = 1) {
   u.chest.rotation.x += b * 0.012 * amt;
   u.spine.rotation.z += fbm1(t * 0.3 + seed) * 0.03 * amt;
   u.head.rotation.y += fbm1(t * 0.4 + seed * 3) * 0.12 * amt; u.head.rotation.x += fbm1(t * 0.35 + seed * 5) * 0.05 * amt;
+  // troca de peso lenta, ombros que sobem com a respiração e braços com micro-movimento
+  const ws = Math.sin(t * 0.42 + seed * 1.7);
+  u.hips.position.x += ws * 0.01 * amt; u.hips.rotation.z += ws * 0.018 * amt; u.spine.rotation.z -= ws * 0.012 * amt;
+  u.sh.forEach((sh, i) => { sh.rotation.z += (i ? 1 : -1) * b * 0.008 * amt; sh.rotation.x += fbm1(t * 0.45 + seed + i * 7) * 0.035 * amt; });
+  u.el.forEach((e, i) => (e.rotation.x += fbm1(t * 0.38 + seed * 2 + i * 5) * 0.03 * amt));
+  const hgp = u.head.userData.hairG;
+  if (hgp) { const ha = u.head.userData.hairLong ? 2.2 : 1; hgp.rotation.z = (Math.sin(t * 1.15 + seed) * 0.018 + fbm1(t * 0.7 + seed) * 0.012) * ha; hgp.rotation.x = Math.sin(t * 0.85 + seed * 2) * 0.012 * ha; }
   if (u.eyes) {
     const ph = (t + hash(seed) * 4) % 3.9, bl = ph < 0.16 ? Math.sin((ph / 0.16) * Math.PI) : 0;
     const sacc = Math.floor(t * 1.3 + seed), yaw = (hash(sacc * 1.7 + seed) - 0.5) * 0.35 * amt, pit = (hash(sacc * 2.3 + seed) - 0.5) * 0.15 * amt;
@@ -1285,7 +1293,7 @@ addSet("s1-gancho", (g) => {
   const vroof = grp(g, -3.6, 2, -2.8); mesh(box(5, 4.6, 3), SM(0xd8ccb4, { map: texPlaster("#2a1a10", "#d8ccb4") }), 0, 2.3, 0, vroof); mesh(box(5.6, 0.3, 3.6), SM(0x3a3a46), 0, 4.75, 0, vroof);
   const mist = mistLayers(g, { y: 0.6, opacity: 0.2, color: 0x4a5a80, size: 300, n: 2 });
   const flies = dustPts(80, [-10, 10, 1, 8, -12, 6], 0xffb070, 0.05, 0.8); g.add(flies);
-  const lid = (t) => smr(t, K.nunca0 - 0.3, K.nunca0 + 0.35);
+  const lid = (t) => E.inOut(seg(t, K.nunca0 - 0.5, K.nunca0 + 0.45));
   const fp = V3(), fn = V3();
   return {
     bg: 0x0a1228, fogExp: 0.005, fogCol: 0x141e3a, dome,
@@ -1398,7 +1406,7 @@ addSet("s3-presente", (g) => {
       dust.upd(t, 0.8);
       // presente: o olho vermelho sugando chakra; ele tapa
       restPose(nj); idle(nj, t, 5, 0.4); clothWind(nj, t, 0.6);
-      const cover = smr(t, K.tapado - 0.25, K.tapado + 0.35);
+      const cover = E.inOut(seg(t, K.tapado - 0.45, K.tapado + 0.5));
       liftPatch(nj, 1 - cover); eyeR.set(1 - cover, 0, t); face(nj, { sad: 0.6, brow: -0.2 }); nj.userData.lidOpen = 0.7;
       pose(nj, { armL: [-1.6 * Math.sin(cover * Math.PI), 0, 0.3, -1.8 * Math.sin(cover * Math.PI)] });
       nj.updateMatrixWorld(true); wpos(nj.userData.eyes[1].g, ePos); fp.copy(ePos); fn.set(0, 0, 1).transformDirection(nj.userData.head.matrixWorld);
@@ -1469,8 +1477,8 @@ addSet("s5-desmaio", (g) => {
     look: { exposure: 1.05, bloom: 0.7, bloomT: 0.72, vig: 0.45, sat: 1.12, con: 1.06 },
     sun: { dir: SD, col: 0xffb070, I: 2.5, c: [0, 1, 0], r: 14 }, hemi: { sky: 0x9ab0e0, ground: 0x4a4020, I: 0.6 }, fill: { col: 0xffd8b8, I: 0.6, dir: [-0.3, 0.4, 1] }, rim: { col: 0xffc080, str: 0.6 },
     update(t) {
-      const open = smr(t, K.kamui - 0.4, K.kamui), vk = smr(t, K.kamui, K.kamui + 0.4) * (1 - smr(t, K.luta4 + 0.3, K.luta4 + 0.8));
-      const fall = smr(t, K.desmaiou - 0.4, K.desmaiou + 0.3), carry = t > K.carregado - 0.3;
+      const open = E.inOut(seg(t, K.kamui - 0.6, K.kamui + 0.05)), vk = E.outBack(seg(t, K.kamui, K.kamui + 0.5)) * (1 - E.inOut(seg(t, K.luta4 + 0.3, K.luta4 + 0.9)));
+      const fall = clamp(E.in(seg(t, K.desmaiou - 0.55, K.desmaiou + 0.2)) + Math.sin(seg(t, K.desmaiou + 0.2, K.desmaiou + 0.7) * Math.PI) * 0.04), carry = t > K.carregado - 0.3;
       // o ninja
       restPose(nj); idle(nj, t, 5, 0.5); clothWind(nj, t, 0.8);
       if (!carry) {
@@ -1537,7 +1545,7 @@ addSet("s6-segundos", (g) => {
     look: { exposure: 1.05, bloom: 0.5, bloomT: 0.86, vig: 0.6, sat: 1.05, con: 1.12, lift: [0, 0.01, 0.03] },
     sun: { dir: [0.4, 0.8, 0.5], col: 0x8aa0d8, I: 0.6, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x2a3a6a, ground: 0x06080c, I: 0.4 }, rim: { col: 0x9ab8ff, str: 0.8 },
     update(t) {
-      const on = smr(t, K.segundos - 0.5, K.segundos - 0.1) * (1 - smr(t, K.segundos + 1.5, K.segundos + 1.9));
+      const on = E.inOut(seg(t, K.segundos - 0.6, K.segundos - 0.05)) * (1 - E.inOut(seg(t, K.segundos + 1.4, K.segundos + 1.95)));
       const open2 = smr(t, K.portal - 0.5, K.portal - 0.15) * (1 - smr(t, K.fechava - 0.1, K.fechava + 0.3));
       const k = Math.max(on, open2);
       restPose(nj); idle(nj, t, 5, 0.5); clothWind(nj, t, 0.6); liftPatch(nj, k); eyeR.set(k, k * 0.6, t); face(nj, { angry: 0.3 * k }); nj.userData.lidOpen = 0.95;
@@ -1580,7 +1588,7 @@ addSet("s7-guerra", (g) => {
     look: { exposure: 1.05, bloom: 0.7, bloomT: 0.75, vig: 0.5, sat: 1.05, con: 1.08 },
     sun: { dir: SD, col: 0xffa050, I: 2.4, c: [0, 1, 0], r: 12 }, hemi: { sky: 0x8a90c0, ground: 0x3a2a20, I: 0.6 }, fill: { col: 0xffd0b0, I: 0.7, dir: [0.2, 0.3, 1] }, rim: { col: 0xffb070, str: 0.7 },
     update(t) {
-      const up = smr(t, K.normais - 0.6, K.normais + 0.2);
+      const up = E.inOut(seg(t, K.normais - 0.9, K.normais + 0.3));
       restPose(nj); kneelPose(nj, 1 - up * 0.6); idle(nj, t, 5, 0.5); clothWind(nj, t, 0.7);
       pose(nj, { neck: [0.5 * (1 - up) - 0.1 * up, 0, 0], head: [0.15 * (1 - up), 0, 0] });
       const lose = smr(t, K.perdeu - 0.3, K.perdeu + 0.6);
