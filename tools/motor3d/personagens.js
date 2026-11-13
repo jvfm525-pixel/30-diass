@@ -274,6 +274,7 @@ function restPose(p) {
   if (u.eyes) u.eyes.forEach((e) => setEye(e, 1));
   if (u.mouth) setMouth(u.mouth, 0, 0);
   if (u.chest.userData.sc0 == null) u.chest.userData.sc0 = u.chest.scale.clone();
+  if (u.chest.userData.y0 == null) u.chest.userData.y0 = u.chest.position.y; else u.chest.position.y = u.chest.userData.y0;
 }
 // aplica uma pose: { hips:[x,y,z] (rotação), hipsPos:[dx,dy,dz], spine, chest, neck, head, armR:[shx,shy,shz,el], armL, legR:[hx,hy,hz,kn,an], legL, handR, handL }
 function pose(p, q, k = 1) {
@@ -378,10 +379,50 @@ function kneelPose(p, k = 1) {
 // tapa-olho: 0 = cobrindo, 1 = levantado na testa
 function liftPatch(p, k) { const pt = p.userData.patch; if (pt) pt.rotation.x = -k * 2.1; }
 // capa balançando ao vento
-function clothWind(p, t, wind = 1) {
-  const u = p.userData;
-  [...(u.tails || []), ...(u.scarfTails || [])].forEach((m, j) => { const a = m.geometry.attributes.position, b = m.userData.base; for (let i = 0; i < a.count; i++) { const x = b[i * 3], y = b[i * 3 + 1], k = -y * 2; a.setXYZ(i, x + Math.sin(t * 3.1 + y * 6 + j) * 0.012 * k * wind, y + k * k * 0.01 * wind, b[i * 3 + 2] - k * k * 0.05 * wind - Math.sin(t * 4.3 + x * 9 + y * 7 + j * 2) * 0.03 * k * wind); } a.needsUpdate = true; m.geometry.computeVertexNormals(); });
+function clothWind(p, t, wind = 1, lag = null) {
+  const u = p.userData, lx = lag ? lag[0] : 0, ly = lag ? lag[1] : 0, lz = lag ? lag[2] : 0;
+  [...(u.tails || []), ...(u.scarfTails || [])].forEach((m, j) => { const a = m.geometry.attributes.position, b = m.userData.base; for (let i = 0; i < a.count; i++) { const x = b[i * 3], y = b[i * 3 + 1], k = -y * 2, k2 = k * k; a.setXYZ(i, x + Math.sin(t * 3.1 + y * 6 + j) * 0.012 * k * wind + lx * k2, y + k2 * 0.01 * wind + ly * k2 * 0.5, b[i * 3 + 2] - k2 * 0.05 * wind - Math.sin(t * 4.3 + x * 9 + y * 7 + j * 2) * 0.03 * k * wind + lz * k2); } a.needsUpdate = true; m.geometry.computeVertexNormals(); });
   cloakWind(p, t, wind);
+}
+// mola amortecida sem estado: simula a última janela de tempo a partir de uma função de posição pos(τ) -> [x,y,z]
+// e devolve o atraso da ponta (em metros, no mundo). Serve para cabelo, abas do casaco, cachecol, pena, bandeira.
+function mola(t, pos, o = {}) {
+  const k = o.k ?? 55, c = o.c ?? 6.5, Wn = o.w ?? 1.4, dt = 1 / 120, n = Math.round(Wn / dt), t0 = t - n * dt;
+  const x = [0, 0, 0], v = [0, 0, 0]; let p0 = pos(t0 - dt), p1 = pos(t0);
+  for (let i = 1; i <= n; i++) { const p2 = pos(t0 + i * dt); for (let j = 0; j < 3; j++) { const acc = (p2[j] - 2 * p1[j] + p0[j]) / (dt * dt), a = -k * x[j] - c * v[j] - acc; v[j] += a * dt; x[j] += v[j] * dt; } p0 = p1; p1 = p2; }
+  return x;
+}
+// atraso do mundo para o referencial do personagem (girado por rotation.y)
+function lagLocal(p, lag) { const a = -p.rotation.y, c = Math.cos(a), s_ = Math.sin(a); return [lag[0] * c - lag[2] * s_, lag[1], lag[0] * s_ + lag[2] * c]; }
+// cabelo com mola: inclina as mechas contra o atraso (lag local, em metros)
+function hairMola(p, L, gain = 6) { const hg = p.userData.head.userData.hairG; if (!hg) return; const k = p.userData.head.userData.hairLong ? 1.5 : 1; hg.rotation.x += clamp(L[2] * gain * k, -0.5, 0.5); hg.rotation.z += clamp(-L[0] * gain * k, -0.5, 0.5); }
+// gargalhada com o corpo inteiro: cabeça para trás, ombros sacudindo, olhos apertados, boca aberta; k = intensidade, t0 = início
+function riso(p, t, k = 1, t0 = 0, o = {}) {
+  if (k <= 0) return;
+  const u = p.userData, f = o.freq ?? 5.2, dec = 0.55 + 0.45 * Math.exp(-Math.max(0, t - t0) * 0.5), ph = (t - t0) * f * Math.PI * 2;
+  const b = Math.abs(Math.sin(ph)) * dec * k;
+  u.neck.rotation.x -= 0.28 * k; u.head.rotation.x -= 0.22 * k + b * 0.06;
+  u.spine.rotation.x += -0.08 * k + b * 0.07; u.chest.rotation.x += b * 0.05;
+  u.chest.position.y = (u.chest.userData.y0 ?? (u.chest.userData.y0 = u.chest.position.y)) + b * 0.014;
+  u.sh.forEach((sh, i) => (sh.rotation.z += (i ? 1 : -1) * b * 0.06));
+  if (u.mouth) setMouth(u.mouth, 0.45 + 0.4 * b, 1);
+  if (u.brows) u.brows.forEach((br, i) => { br.position.y = 0.142 + 0.006 * k; br.rotation.z = (i ? 1 : -1) * -0.2 * k; });
+  u.lidOpen = 1 - 0.65 * k;
+}
+// pés plantados sobre uma superfície que se move (convés do navio): posições no referencial do anfitrião
+function standFeetOn(p, host, o = {}) {
+  const u = p.userData, sc = p.scale.x, ang = p.rotation.y, sx = Math.cos(ang), sz = -Math.sin(ang), dx = Math.sin(ang), dz = Math.cos(ang);
+  host.updateMatrixWorld(true); p.updateMatrixWorld(true);
+  const hq = new THREE.Quaternion(); host.getWorldQuaternion(hq);
+  [0, 1].forEach((i) => {
+    const side = (i ? 1 : -1) * (u.d.hipW + 0.03) * sc * (o.spread ?? 1), fwd = (i ? 0.08 : -0.06) * sc;
+    const fl = V3_(p.position.x + sx * side + dx * fwd, (o.y ?? 0), p.position.z + sz * side + dz * fwd);
+    const fw = host.localToWorld(fl.clone()), pole = host.localToWorld(fl.clone().add(V3_(dx, 0.6 * sc, dz)));
+    legIK(p, i, fw, pole);
+    u.knee[i].updateMatrixWorld(true); u.knee[i].getWorldQuaternion(_gq); _gq.invert();
+    _gq2.copy(hq).multiply(new THREE.Quaternion().setFromEuler(_gE.set(0, ang + (i ? 0.1 : -0.1), 0, "YXZ")));
+    u.ankle[i].quaternion.copy(_gq.multiply(_gq2));
+  });
 }
 function cloakWind(p, t, wind = 1) {
   const c = p.userData.cloak; if (!c) return;
