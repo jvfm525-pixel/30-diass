@@ -137,7 +137,8 @@ addSet("s1-gancho", (g) => {
     if (!o.ghost) { clothWind(p, t, 2.2); chefeFlaps(p, t, 2); }
   }
   const eraseE = (t) => { if (t < eA) return 0; if (t < eB) { const q = (t - eA) / (eB - eA); return q < 0.34 ? 0 : q < 0.67 ? 0.45 : 1; } return 1 - E.in(seg(t, eB + 0.12, eB + 0.95)); };
-  const sigma = (t) => rebob(t, tS, K.chega, 0.5, 1.25, E.in) * sHit;
+  const back1 = clamp(K.apagar0 - 0.12 - (K.chega + 0.35) - 0.08, 0.5, 1.25), rw1End = K.chega + 0.35 + back1;
+  const sigma = (t) => rebob(t, tS, K.chega, 0.35, back1, E.in) * sHit;
   const lateS = Math.max(K.porque0 - 0.4, eB + 1.0);
 
   return {
@@ -179,7 +180,7 @@ addSet("s1-gancho", (g) => {
       }
       auraR(t, V3(cr.position.x, cr.position.y - 0.2, cr.position.z), cr.scale.x > 0.5 ? 0.7 : 0, 0.45, 1.8);
       // fantasmas dourados no rebobinar (o chefe em instantes "mais adiante" da história)
-      const rw1 = t > K.chega + 0.5 && t < K.chega + 1.75, rw2 = t0 > eB + 0.1 && t0 < eB + 1.0;
+      const rw1 = t > K.chega + 0.35 && t < rw1End, rw2 = t0 > eB + 0.1 && t0 < eB + 1.0;
       gh.forEach((p, i) => {
         p.visible = rw1 || rw2; if (!p.visible) return;
         if (rw1) { const s = Math.min(sHit, sigma(t) + (i + 1) * 0.16); bossAt(p, s, t, { ghost: true }); p.userData.holo.uniforms.uA.value = 0.55 - i * 0.14; }
@@ -199,8 +200,8 @@ addSet("s1-gancho", (g) => {
       const er = t >= eA && t < eB;
       lookApagado(er ? 1 - smr(t, eB - 0.08, eB) * 0 : 0, t);
       if (er) { const q = Math.floor(t * 6); GU.uFlash.value = hash(q * 3.3) > 0.72 ? 0.35 : 0; GU.uFlashCol.value.set(1, 0.2, 0.2); }
-      else { GU.uFlashCol.value.set(1, 0.95, 0.8); GU.uFlash.value = Math.max(0, 0.6 * (1 - seg(t, eB, eB + 0.35))) * (t >= eB ? 1 : 0) + 0.12 * (1 - seg(t, K.chega - 0.02, K.chega + 0.2)) * (t >= K.chega - 0.02 ? 1 : 0); }
-      const rk = (t > K.chega + 0.5 && t < K.chega + 1.75) || (t > eB + 0.1 && t < eB + 1.0) ? 1 : 0;
+      else { GU.uFlashCol.value.set(1, 0.95, 0.8); GU.uFlash.value = Math.max(0, 0.4 * (1 - seg(t, eB, eB + 0.35))) * (t >= eB ? 1 : 0) + 0.12 * (1 - seg(t, K.chega - 0.02, K.chega + 0.2)) * (t >= K.chega - 0.02 ? 1 : 0); }
+      const rk = (t > K.chega + 0.35 && t < rw1End) || (t > eB + 0.1 && t < eB + 1.0) ? 1 : 0;
       lookRebobina(rk);
     },
     cam(t0) {
@@ -210,15 +211,15 @@ addSet("s1-gancho", (g) => {
         [Math.min(1.8, K.nenhum - 1.2), [1.5, 2.0, 6.8], [-0.05, 1.45, -1.0], 38],
         [K.nenhum - 0.2, [0.95, 1.8, 5.2], [-0.05, 1.5, 0.2], 36],
         [K.chega, [2.1, 1.68, 1.75], [0.0, 1.58, 1.78], 36],
-        [K.chega + 0.5, [1.4, 1.8, 3.6], [-0.1, 1.45, -2.0], 36],
-        [K.chega + 1.6, [0.9, 1.85, 5.4], [-0.1, 1.4, -6.0], 36],
-        [K.apagar0 + 0.1, [0.8, 1.8, 5.6], [0.1, 1.5, -1.0], 36],
-        [K.funcionou - 0.05, [0.8, 1.75, 5.2], [0.2, 1.55, -0.4], 36],
+        [K.chega + 0.45, [1.4, 1.8, 3.6], [-0.1, 1.45, -2.0], 36],
+        [Math.min(K.chega + 1.6, K.apagar0 - 0.1), [0.9, 1.85, 5.4], [-0.1, 1.4, -6.0], 36],
+        [K.apagar0 + 0.12, [0.8, 1.8, 5.6], [0.1, 1.5, -1.0], 36],
+        [Math.max(K.apagar0 + 0.25, K.funcionou - 0.05), [0.8, 1.75, 5.2], [0.2, 1.55, -0.4], 36],
         [K.funcionou + 0.5, [1.8, 1.5, -0.6], [0.0, 1.45, 1.8], 36],
         [K.porque0 + 0.6, [-0.4, 0.8, -0.9], [-0.1, 1.75, 2.2], 34],
         [K.impossivel, [0.5, 0.7, -0.8], [-0.15, 1.75, 2.2], 33],
         [K.fica + 0.2, [1.2, 1.6, 0.4], [X0, 1.2, Z0 + 2], 36],
-        [K.destino0, [-0.4, 1.5, Z0 + 3.4], [X0, 0.75, Z0], 34],
+        [K.destino0, [-0.4, 1.1, Z0 + 3.3], [X0, 0.95, Z0], 34],
         [b, [0.3, 1.3, Z0 + 2.2], [X0, 0.8, Z0], 30],
       ]);
       const sh = impact(t, K.chega, 0.06, 0.5) + impact(t0, eB, 0.12, 0.7);
@@ -260,7 +261,7 @@ addSet("s2-flecha", (g) => {
   const sp = evoluir(espDourado({ emisI: 0.5 })); sp.scale.setScalar(1.12); g.add(sp);
   const ar = flecha(g); ar.scale.setScalar(1.1);
   const ring = aneis(g, 4, 0xffe090), burst = aura(g, 140, 0xffd070, 0.05), onda = ondaDourada(g);
-  const SX = -0.7, SZ0 = 0.7, L = 0.55 * 1.12, DS = gaitStop(1.55, L), SZ1 = SZ0 - DS;
+  const SX = -0.7, SZ1 = -0.92, SZ0 = SZ1 + 0.62, DS = SZ0 - SZ1, LS = gaitFit(DS, 0.55 * 1.12) / 1.12;
   const chestY = FY + 1.52, hitZ = SZ1 + 0.02, A0 = -3.25;
   const tA = K.atravessou;
   // a flecha: flutua sobre o altar, sobe girando, aponta, recua (antecipação) e mergulha no peito do espírito
@@ -278,10 +279,10 @@ addSet("s2-flecha", (g) => {
     sun: { dir: [0.12, 0.26, -1], col: 0xffaa66, I: 2.6, c: [0, 1, -2], r: 14 }, hemi: { sky: 0x9a9ad0, ground: 0x7a5a3a, I: 0.78 }, fill: { col: 0xffc8a0, I: 0.7, dir: [0.7, 0.35, -0.2] }, rim: { col: 0xffc890, str: 0.6 },
     update(t) {
       // o espírito anda dois passos em direção à flecha (pés plantados), é atravessado, se arqueia, sobe e evolui
-      const u = sp.userData, walkK = smr(t, K.flecha - 0.1, tA - 0.75), hitK = act(t, tA, tA + 0.7, 0.05, 0.25);
+      const u = sp.userData, walkK = smr(t, K.flecha - 0.3, tA - 0.7), hitK = act(t, tA, tA + 0.7, 0.05, 0.25);
       restPose(sp); idle(sp, t, 2, 0.5);
       const rise = 0.55 * E.inOut(smr(t, K.stand, K.evoluiu)) + 0.1 * smr(t, K.evoluiu, b);
-      if (rise < 0.01) gait(sp, DS * walkK, { from: [SX, FY, SZ0], ang: Math.PI, hf: hf0, arms: 0.5 });
+      if (rise < 0.01) gait(sp, DS * walkK, { from: [SX, FY, SZ0], ang: Math.PI, hf: hf0, arms: 0.5, step: LS });
       else { sp.position.set(SX, FY + rise, SZ1); sp.rotation.set(0, Math.PI, 0); pose(sp, { legR: [0.25, 0, -0.05, 0.5, 0.35], legL: [0.1, 0, 0.08, 0.3, 0.3] }); }
       if (rise < 0.01 && walkK >= 1) standFeet(sp, { hf: hf0 });
       const arch = clamp(hitK) * (1 - smr(t, K.evoluiu - 0.3, K.evoluiu + 0.3));
@@ -317,10 +318,9 @@ addSet("s2-flecha", (g) => {
     },
     cam(t) {
       const c = path(t, [
-        [a, [SX + 0.45, chestY + 0.18, A0 + 0.98], [SX, chestY + 0.33, A0 + 0.6], 30],
-        [K.flecha + 0.3, [SX + 0.45, chestY + 0.25, A0 - 1.9], [SX, chestY - 0.1, SZ1 + 0.4], 36],
-        [tA - 0.75, [SX + 4.2, 3.05, -1.65], [SX, 3.0, -1.6], 42],
-        [tA - 0.1, [SX + 4.0, 2.9, -1.5], [SX, 2.85, -1.45], 42],
+        [a, [SX + 0.55, P0.y + 0.08, A0 + 0.55], [SX, P0.y, A0 + 0.5], 32],
+        [K.flecha - 0.1, [SX + 6.0, 2.7, -1.78], [SX, 2.55, -1.78], 50],
+        [tA - 0.1, [SX + 4.1, 2.9, -1.5], [SX, 2.8, -1.45], 42],
         [tA + 0.6, [SX + 2.3, chestY - 0.2, -3.6], [SX, chestY + 0.1, SZ1], 38],
         [K.evoluiu - 0.3, [SX + 1.0, FY + 0.7, -4.4], [SX + 0.2, chestY + 0.5, SZ1 + 0.3], 40],
         [K.virou, [SX + 1.7, FY + 0.45, -4.6], [SX + 0.55, chestY + 0.6, SZ1 + 0.4], 40],
@@ -388,7 +388,7 @@ addSet("s3-zero", (g) => {
   // ações (tempo da história de cada uma)
   const q = K.qualquer2, ac = K.acao, gp = K.golpe;
   const punch1 = (t) => rebob(t, q - 0.4, q + 0.18, 0.3, 0.8, E.inOut);
-  const thr = (t) => { if (t < ac - 0.5) return 0; if (t < ac + 0.35) return seg(t, ac - 0.5, ac + 0.35); if (t < ac + 0.65) return 1; return 1 - E.inOut(seg(t, ac + 0.65, ac + 1.35)); };
+  const thr = (t) => { if (t < ac - 0.38) return 0; if (t < ac + 0.22) return seg(t, ac - 0.38, ac + 0.22); if (t < ac + 0.36) return 1; return 1 - E.inOut(seg(t, ac + 0.36, ac + 0.76)); };
   const punch2 = (t) => { if (t < gp - 0.45) return 0; if (t < K.nunca2 - 0.15) { const k = seg(t, gp - 0.45, K.nunca2 - 0.15); return 0.985 * (1 - Math.pow(1 - k, 2.4)); } return 0.985 * (1 - E.in(seg(t, K.nunca2 - 0.15, K.nunca2 + 0.45))); };
   function crimAt(c, k, t, fistTo) {
     restPose(c); idle(c, t, 31, 0.7);
@@ -421,7 +421,7 @@ addSet("s3-zero", (g) => {
       // chefe: arremessa, a pedra volta; a vontade (aura vermelha) se acende e é sugada de volta
       restPose(bo); bo.position.copy(BP); bo.rotation.set(0, -0.05, 0); idle(bo, t, 21, 0.8); standFeet(bo, { hf: () => 0, spread: 1.6 });
       const th = thr(t), wind = clamp(th / 0.47), rel = smr(th, 0.47, 0.62);
-      const will = smr(t, K.vontade - 0.2, K.vontade + 0.6) * (1 - smr(t, K.volta2 - 0.1, K.volta2 + 0.5));
+      const will = smr(t, Math.max(K.vontade, ac + 0.7), Math.max(K.vontade, ac + 0.7) + 0.6) * (1 - smr(t, K.volta2 - 0.1, K.volta2 + 0.5));
       pose(bo, { armR: [-0.2 + 1.3 * wind - 2.4 * rel, 0.2, -0.35 + 0.2 * rel, -1.6 * wind + 1.3 * rel], chest: [0, 0.45 * wind - 0.7 * rel, 0], spine: [0.05 + 0.25 * will, 0, 0], handR: 1 - rel, handL: 0.4 + 0.6 * will });
       pose(bo, { armL: [-0.35 * will, 0, 0.45 * will + 0.1, -1.4 * will - 0.2], armR: [-0.35 * will, 0, -0.45 * will - 0.1, -1.4 * will - 0.2], handR: 1 }, will);
       const fin = smr(t, K.nunca2 + 0.4, K.acontece + 0.2);
@@ -432,7 +432,7 @@ addSet("s3-zero", (g) => {
       // pedra arremessada: voa, para na frente do espírito e volta para a mão
       const hp = hand0(), stopP = V3(face0.x + 0.05, 1.55, face0.z - 0.55), fly = smr(th, 0.55, 1), sv = th > 0.5 && th < 1.0001;
       shard.visible = th > 0.02; shard.position.copy(hp.clone().lerp(stopP, E.out(fly))); shard.lookAt(stopP); shard.rotateZ(t * 8);
-      shG.forEach((s_, i) => { const kk = Math.max(0, fly - (i + 1) * 0.06); s_.position.copy(hp.clone().lerp(stopP, E.out(kk))); s_.material.opacity = sv && t > ac + 0.65 ? 0.5 - i * 0.1 : 0; });
+      shG.forEach((s_, i) => { const kk = Math.max(0, fly - (i + 1) * 0.06); s_.position.copy(hp.clone().lerp(stopP, E.out(kk))); s_.material.opacity = sv && t > ac + 0.36 ? 0.5 - i * 0.1 : 0; });
       // espírito carmesim: soco que volta (fita rebobinando) e o golpe final que nunca chega
       const p1 = punch1(t), p2 = punch2(t), kk = Math.max(p1, p2);
       crimAt(cr, kk, t, V3(face0.x + 0.02, face0.y, face0.z - (p2 > p1 ? 0.04 : 0.02)));
@@ -441,10 +441,10 @@ addSet("s3-zero", (g) => {
       // anéis e "0"
       ring(t, K.zero2, V3(0, 0.1, 0), [0, 1, 0], 9, 1.4); ring(t, K.ponto, V3(0, 0.1, 0), [0, 1, 0], 9, 1.4); ring(t, q + 0.15, face0.clone().add(V3(0, 0, -0.1)), [0, 0, 1], 0.9, 0.8);
       const zk = smr(t, K.zero2 - 0.1, K.zero2 + 0.2) * (1 - smr(t, K.zero2 + 0.5, K.zero2 + 0.8)) + smr(t, K.ponto - 0.1, K.ponto + 0.2) * (1 - smr(t, K.ponto + 0.7, K.ponto + 1.0));
-      zero.position.set(0, 3.0, -0.5); zero.material.opacity = zk; zero.scale.setScalar(1.0 + 1.0 * E.outBack(clamp(zk)));
+      zero.position.set(0, 3.0, -0.5); zero.material.opacity = zk * 0.75; zero.scale.setScalar(1.0 + 1.0 * E.outBack(clamp(zk)));
     },
     after(t) {
-      const rk = (t > q + 0.48 && t < q + 1.3) || (t > ac + 0.65 && t < ac + 1.35) || (t > K.nunca2 - 0.12 && t < K.nunca2 + 0.5) || (t > K.volta2 && t < K.volta2 + 0.6) ? 1 : 0;
+      const rk = (t > q + 0.48 && t < q + 1.3) || (t > ac + 0.36 && t < ac + 0.76) || (t > K.nunca2 - 0.12 && t < K.nunca2 + 0.5) || (t > K.volta2 && t < K.volta2 + 0.6) ? 1 : 0;
       lookRebobina(rk);
       GU.uFlashCol.value.set(1, 0.9, 0.65); GU.uFlash.value = 0.25 * Math.pow(1 - seg(t, K.zero2, K.zero2 + 0.4), 2) * (t >= K.zero2 ? 1 : 0) + 0.2 * Math.pow(1 - seg(t, K.ponto, K.ponto + 0.4), 2) * (t >= K.ponto ? 1 : 0);
     },
@@ -455,9 +455,9 @@ addSet("s3-zero", (g) => {
         [q - 0.3, [-0.55, 2.35, 4.0], [0.1, 1.85, 0.6], 38],
         [q + 1.2, [-0.75, 2.3, 4.2], [0.1, 1.8, 0.4], 38],
         [ac - 0.3, [1.1, 2.1, -5.6], [0.0, 1.55, 0.8], 36],
-        [ac + 1.2, [0.8, 2.0, -5.3], [0.0, 1.5, 0.9], 36],
-        [K.vontade + 0.3, [0.8, 1.65, -0.2], [0.25, 1.55, -2.6], 34],
-        [K.volta2 + 0.2, [1.3, 2.0, -0.3], [0.25, 1.35, -2.6], 36],
+        [ac + 0.55, [0.8, 2.0, -5.3], [0.0, 1.5, 0.9], 36],
+        [Math.max(K.vontade + 0.5, ac + 1.15), [0.8, 1.65, -0.2], [0.25, 1.55, -2.6], 34],
+        [Math.max(K.volta2 + 0.2, ac + 1.6), [1.3, 2.0, -0.3], [0.25, 1.35, -2.6], 36],
         [K.ponto + 0.4, [4.0, 4.6, -5.0], [0, 0.6, -0.8], 42],
         [gp - 0.2, [4.7, 2.0, 1.2], [0.1, 1.9, 1.3], 34],
         [K.nunca2, [4.6, 2.0, 1.1], [0.1, 1.85, 1.2], 34],

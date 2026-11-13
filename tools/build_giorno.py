@@ -36,13 +36,14 @@ PARS = [
     "E pra você:|quem teria alguma chance|contra o Gold Experience Requiem?|Comenta aqui.",
 ]
 FIX = {"para": ["pra"], "epara": ["e", "pra"], "epra": ["e", "pra"], "eo": ["e", "o"], "eisso": ["e", "isso"], "view": ["bio"], "isaleatorias": ["keys", "aleatorias"], "quis": ["keys"], "stim": ["steam"],
-       "jorno": ["giorno"], "giovana": ["giovanna"], "requiem": ["requiem"], "rekiem": ["requiem"], "diavolo": ["diavolo"], "jojo": ["jojo"]}
+       "jorno": ["giorno"], "giovana": ["giovanna"], "requiem": ["requiem"], "rekiem": ["requiem"], "diavolo": ["diavolo"], "jojo": ["jojo"],
+       "jorn": ["o", "giorno"], "havana": ["giovanna"], "racking": ["requiem"], "estande": ["stand"], "ir": ["keys"]}
 _TR = os.path.join(ROOT, "assets/voice/transcript.json")
 if not os.path.exists(_TR):  # sem narração ainda: tempos estimados a partir do roteiro
     _TR = os.path.join(ROOT, "assets/voice/transcript-provisorio.json")
 WORDS = align(PARS, _TR, FIX)
 END = max(w[5] for w in WORDS)
-TOTAL = round(END + 2.2, 2)
+TOTAL = round(END + 3.2, 2)
 PSTART = [min(w[4] for w in WORDS if w[0] == p) for p in range(len(PARS))]
 NAMES = ["s1-gancho", "s2-flecha", "s3-zero", "s4-tempo", "s5-keys", "s6-sozinho", "s7-destino", "s8-ninguem", "s9-pergunta"]
 SCENES = []
@@ -149,7 +150,7 @@ def s2():
 def s3():
     sc = "s3-zero"
     ov(sc, *join(
-        big("s3-a", f"TUDO VOLTA<br>A {g('ZERO')}", 300, at(sc, "zero2", -.4), 108, out=at(sc, "qualquer2", -.3)),
+        big("s3-a", f"TUDO VOLTA<br>A {g('ZERO')}", 300, at(sc, "zero2", -1.6), 108, out=at(sc, "qualquer2", -.3)),
         lbl2("s3-i1", "✖ QUALQUER ATAQUE", 70, 300, at(sc, "qualquer2", -.1), GOLD, 40, out=at(sc, "golpe", -.4)),
         lbl2("s3-i2", "✖ QUALQUER AÇÃO", 70, 390, at(sc, "acao", -.1), GOLD, 40, out=at(sc, "golpe", -.4)),
         lbl2("s3-i3", "✖ ATÉ A VONTADE", 70, 480, at(sc, "vontade", -.1), RED, 40, out=at(sc, "golpe", -.4)),
@@ -162,7 +163,7 @@ def s4():
     body = f'''<div id="s4-card" class="card" style="top:240px;z-index:7;opacity:0"><div class="nm" style="font-size:74px">KING CRIMSON</div><div class="sub">⏱️ APAGA O TEMPO</div></div>'''
     js = f'''tl.fromTo("#s4-card", {{ opacity: 0, x: -40 }}, {{ opacity: 1, x: 0, duration: .35 }}, {at(sc, "apagar3", -.3)});
       tl.to("#s4-card", {{ opacity: 0, duration: .3 }}, {at(sc, "mesmo3", -.3)});'''
-    l1 = lbl2("s4-l1", "👔 O CHEFE DA PASSIONE", 60, 240, at(sc, "chefe", -.2), RED, 36, out=at(sc, "apagar3", -.35))
+    l1 = lbl2("s4-l1", "👔 O CHEFE DA PASSIONE", 60, 600, at(sc, "chefe", -.4), RED, 36, out=at(sc, "apagar3", .5))
     b = big("s4-b", f"{g('CANCELADO')} ✨", 320, at(sc, "cancelou", -.2), 110)
     ov(sc, body + l1[0] + b[0], js + l1[1] + b[1])
 

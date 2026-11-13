@@ -23,7 +23,7 @@
   .card .sub { font-family:'Space Mono',monospace; font-weight:700; font-size:30px; color:#f0dcc8; letter-spacing:.05em; margin-top:10px; text-transform:uppercase; }
   </style>
   <div id="root" data-composition-id="s4-tempo" data-width="1080" data-height="1920">
-<div id="s4-card" class="card" style="top:240px;z-index:7;opacity:0"><div class="nm" style="font-size:74px">KING CRIMSON</div><div class="sub">⏱️ APAGA O TEMPO</div></div><div id="s4-l1" class="lbl" style="left:60px;top:240px;z-index:7;border-left-color:#ff4a5a;font-size:36px;opacity:0">👔 O CHEFE DA PASSIONE</div><div class="big" id="s4-b" style="top:320px;font-size:110px;color:#f6eedc;opacity:0;z-index:6"><span style='color:#ffc94a'>CANCELADO</span> ✨</div>
+<div id="s4-card" class="card" style="top:240px;z-index:7;opacity:0"><div class="nm" style="font-size:74px">KING CRIMSON</div><div class="sub">⏱️ APAGA O TEMPO</div></div><div id="s4-l1" class="lbl" style="left:60px;top:600px;z-index:7;border-left-color:#ff4a5a;font-size:36px;opacity:0">👔 O CHEFE DA PASSIONE</div><div class="big" id="s4-b" style="top:320px;font-size:110px;color:#f6eedc;opacity:0;z-index:6"><span style='color:#ffc94a'>CANCELADO</span> ✨</div>
   </div>
   <script>
     (function() {
@@ -71,8 +71,8 @@
   }
 
       const tl = gsap.timeline({ paused: true });
-tl.fromTo("#s4-card", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: .35 }, 1.49);
-      tl.to("#s4-card", { opacity: 0, duration: .3 }, 4.04);tl.fromTo("#s4-l1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: .3 }, 0.11);tl.to("#s4-l1", { opacity: 0, duration: .25 }, 1.44);tl.fromTo("#s4-b", { opacity: 0, scale: .88, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: .4, ease: "back.out(1.4)" }, 5.7);
+tl.fromTo("#s4-card", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: .35 }, 1.25);
+      tl.to("#s4-card", { opacity: 0, duration: .3 }, 3.53);tl.fromTo("#s4-l1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: .3 }, 0.05);tl.to("#s4-l1", { opacity: 0, duration: .25 }, 2.05);tl.fromTo("#s4-b", { opacity: 0, scale: .88, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: .4, ease: "back.out(1.4)" }, 4.76);
       window.__timelines["s4-tempo"] = tl;
     })();
   </script>

@@ -59,7 +59,7 @@ addSet("s5-keys", (g) => {
   const motes = dustPts(220, [-4, 4, 0.3, 6, -9, 3], 0xffe0b0, 0.025, 0.7); g.add(motes);
   // o espírito caminha até o baú (pés plantados), se inclina e abre a tampa com as duas mãos
   const sp = espDourado({ emisI: 0.5 }); sp.scale.setScalar(1.08); g.add(sp); sp.userData.glow.material.opacity = 0.08;
-  const Z0 = 1.2, Z1 = -1.62, DW = Z0 - Z1, LW = gaitFit(DW, 0.55 * 1.08) / 1.08;
+  const Z0 = -0.45, Z1 = -1.62, DW = Z0 - Z1, LW = gaitFit(DW, 0.55 * 1.08) / 1.08;
   const hinge = V3(0, 0.91 + 0.42, -2.5 - 0.28);
   const lidAng = (t) => -1.9 * E.outBack(smr(t, K.rapidinho + 0.9, K.steam - 0.1)) * 0.92;
   return {
@@ -100,7 +100,7 @@ addSet("s5-keys", (g) => {
     },
     cam(t) {
       return { ...path(t, [
-        [a, [0.2, 2.3, 7.5], [0, 1.6, -2.5], 42],
+        [a, [0.9, 2.15, 4.0], [0, 1.5, -2.4], 40],
         [K.rapidinho + 0.8, [1.7, 1.9, 1.6], [0, 1.35, -2.2], 38],
         [K.steam, [1.2, 1.65, 0.3], [0, 1.5, -2.4], 36],
         [K.bio, [0.85, 1.6, -0.4], [0, 1.7, -2.5], 36],
@@ -212,8 +212,7 @@ addSet("s6-sozinho", (g) => {
         [K.sozinho, front(4.4, 1.7, 0.6), [GP.x, 1.35, GP.z], 38],
         [K.sabe, front(2.7, 1.62, -0.2), [GP.x, 1.5, GP.z], 34],
         [K.faz + 0.2, [GP.x + 2.4, 1.8, GP.z + 2.4], [0.4, 1.25, -0.1], 38],
-        [K.seja5 + 0.4, [GP.x + 2.3, 1.75, GP.z + 2.2], [1.0, 1.3, 0.2], 38],
-        [K.dono, front(3.5, 1.6, 0.5), [GP.x - 0.3, 1.5, GP.z - 0.1], 36],
+        [K.dono + 0.15, front(3.5, 1.6, 0.5), [GP.x - 0.3, 1.5, GP.z - 0.1], 36],
         [b, front(4.2, 1.7, 0.9), [GP.x - 0.6, 1.45, GP.z - 0.4], 38],
       ]), near: 0.05 };
     },
@@ -268,7 +267,7 @@ addSet("s7-destino", (g) => {
   const br = grp(g); const ag = archGeo(16, BY - WY + 0.3, 12.5, 2.9, 4.4); const arch = mesh(ag, stone, 0, WY, 0, br); arch.rotation.y = Math.PI / 2;
   mesh(box(4.4, 0.5, 80), SM(0x8a847a, { map: rep(texCalcada([120, 112, 104], [90, 86, 80]).map.clone(), 2, 36) }), 0, BY - 0.25, 30, br);
   [-2.05, 2.05].forEach((x) => { mesh(box(0.32, 1.0, 80), stone, x, BY + 0.5, 30, br); mesh(box(0.42, 0.1, 80), SM(0xb8b0a0), x, BY + 1.03, 30, br); });
-  const posts = [-6, 0, 6, 12, 18, 24].map((z, i) => poste(br, (i % 2 ? 1 : -1) * 2.05, BY + 1.05, z, 4.2, i < 4));
+  const posts = [-6, 0, 6, 12, 18, 24].map((z, i) => poste(br, (i % 2 ? 1 : -1) * 2.05, BY + 1.05, z, 7, i < 4));
   const streaks = posts.slice(0, 4).map((p) => { const s_ = new THREE.Sprite(new THREE.SpriteMaterial({ map: rayTex, color: 0xffa050, transparent: true, opacity: 0.2, depthWrite: false, blending: ADD })); s_.scale.set(0.35, 5.5, 1); s_.position.set(p.position.x * 1.6, WY - 2.6, p.position.z); g.add(s_); return s_; });
   const mist = mistLayers(g, { y: WY + 0.3, opacity: 0.18, color: 0x3a4a6a, size: 160, n: 2 });
   // beco/rua estreita (outro lugar) para o segundo "jeito": prédios dos dois lados e o carro que vem
@@ -293,7 +292,7 @@ addSet("s7-destino", (g) => {
   return {
     bg: 0x04060c, fogExp: 0.009, fogCol: 0x141c38, dome,
     look: { exposure: 1.3, bloom: 0.75, bloomT: 0.72, bloomR: 0.7, vig: 0.5, sat: 1.02, con: 1.08, lift: [0.01, 0.015, 0.05] },
-    sun: { dir: [-0.3, 0.6, -0.8], col: 0xa8bcff, I: 1.1, c: [0, 0, 0], r: 16 }, hemi: { sky: 0x3a4a7a, ground: 0x12141c, I: 0.6 }, fill: { col: 0x7a8ac8, I: 0.45, dir: [0.5, 0.3, 0.8] }, rim: { col: 0xb8c8ff, str: 0.75 },
+    sun: { dir: [-0.3, 0.6, -0.8], col: 0xa8bcff, I: 1.1, c: [0, 0, 0], r: 16 }, hemi: { sky: 0x3a4a7a, ground: 0x12141c, I: 0.7 }, fill: { col: 0x8a9ad8, I: 0.95, dir: [0.6, 0.4, 0.7] }, rim: { col: 0xb8c8ff, str: 0.8 },
     update(t) {
       const sg = seg_(t);
       restPose(bo); idle(bo, t, 21, 1.0); const u = bo.userData;
@@ -350,7 +349,7 @@ addSet("s7-destino", (g) => {
         if (i % 3 === 0) kneelPose(p, 1); else if (i % 3 === 1) pose(p, { armR: [-1.9, 0.3, -0.5, -1.9], armL: [-1.2, 0, 0.4, -1.5], spine: [-0.15, 0, 0] }); else { p.rotateX(-0.5); pose(p, { armR: [-2.2, 0, -0.9, -0.4], armL: [-2.2, 0, 0.9, -0.4] }); }
         p.userData.holo.uniforms.uA.value = gk * (0.35 + 0.1 * Math.sin(t * 3 + i)); });
       const gs = smr(t, di - 0.2, di + 1.0); giant.visible = gs > 0.01; giant.traverse((c) => { if (c.isMesh && c.material.uniforms && c.material.uniforms.uA) c.material.uniforms.uA.value = gs * 0.55; }); giant.position.z = 95 + runD(t) * 0.0;
-      const dz = 9.5 + runD(t) * 0.985; door.position.set(0, BY, RUN0.z + dz); dm.opacity = sg === 6 ? 0.6 : 0; dh.material.opacity = sg === 6 ? 0.28 + 0.08 * Math.sin(t * 4) : 0; dL.intensity = sg === 6 ? 2.5 : 0;
+      const dz = 9.5 + runD(t) * 0.985; door.position.set(0, BY, RUN0.z + dz); dm.opacity = sg === 6 ? 0.32 : 0; dh.material.opacity = sg === 6 ? 0.28 + 0.08 * Math.sin(t * 4) : 0; dL.intensity = sg === 6 ? 2.5 : 0;
       water.material.normalMap.offset.set(t * 0.02, t * 0.004); streaks.forEach((s_, i) => (s_.material.opacity = 0.32 + 0.12 * noise1(t * 3 + i * 2))); mist(t); dome.userData.u.uOff.value.set(t * 0.002, 0);
     },
     after(t) {
@@ -438,7 +437,7 @@ addSet("s8-ninguem", (g) => {
       sp.userData.eyeM.color.setScalar(1 + 2 * smr(t, K.ninguem - 0.2, K.ninguem + 0.4) + 1.5 * palm);
       // o chefe sobe correndo; congela; volta degrau por degrau (rebobinado); no fim, de joelhos lá embaixo
       const d = dist(t); bossAt(bo, d, t);
-      const kn = act(t, K.historia - 0.4, K.historia + 0.4, 0.1, 0.05);
+      const kS = Math.max(K.historia - 0.4, cN + 1.6), kn = act(t, kS, kS + 0.8, 0.1, 0.05);
       if (t > cN + 1.6 && kn > 0) { restPose(bo); bo.position.set(0.5, 0, Z0); bo.rotation.set(0, Math.PI, 0); kneelPose(bo, clamp(kn)); pose(bo, { spine: [0.4, 0, 0], head: [-0.3, 0, 0], armR: [-0.5, 0, -0.3, -0.5], armL: [-0.5, 0, 0.3, -0.5] }); face(bo, { brow: 0.9, sad: 0.6, open: 0.3, lid: 1 }); }
       const rw = t > cN + 0.35 && t < cN + 1.6;
       gh.forEach((p, i) => { p.visible = rw; if (!rw) return; bossAt(p, Math.min(DMAX, d + (i + 1) * 0.9), t, { ghost: true }); p.userData.holo.uniforms.uA.value = 0.5 - i * 0.13; });
@@ -455,11 +454,10 @@ addSet("s8-ninguem", (g) => {
       const c0 = path(t, [
         [a, [3.0, 1.1, 8.5], [0, 4.6, -12], 40],
         [tR - 0.2, [-2.6, 2.0, Z0 + 4.6], [0.4, 1.7, Z0 - 2], 38],
-        [cN + 1.7, [-3.4, 2.2, Z0 + 4.2], [0.4, 1.3, Z0 - 1], 40],
-        [K.ninguem - 0.1, [0.4, 8.6, -24.5], [0.4, 6.4, -12], 40],
+        [cN + 1.75, [-3.4, 2.2, Z0 + 4.2], [0.4, 1.3, Z0 - 1], 40],
         [b, [0.35, 8.9, -25.4], [0.4, 6.5, -11], 40],
       ]);
-      const tr = { pos: [-3.8, yb + 2.3, zb + 4.6], look: [0.45, yb + 1.25, zb - 1.6], fov: 38 }, w = smr(t, tR - 0.4, tR + 0.3) * (1 - smr(t, cN + 1.2, cN + 1.9));
+      const tr = { pos: [-3.8, yb + 2.3, zb + 4.6], look: [0.45, yb + 1.25, zb - 1.6], fov: 38 }, w = smr(t, tR - 0.4, tR + 0.3) * (1 - smr(t, cN + 1.25, cN + 1.75));
       const c = { pos: lerp3(c0.pos, tr.pos, w), look: lerp3(c0.look, tr.look, w), fov: lerp(c0.fov, tr.fov, w), roll: 0 };
       return { ...shakeCam(c, t, impact(t, cN, 0.08, 0.7)), near: 0.05 };
     },
@@ -473,7 +471,7 @@ addSet("s9-pergunta", (g) => {
   const moon = mesh(sph(14, 40, 30), BM(0xe0e4f0, { fog: false }), 90, 140, -300, g); const mg = glowSprite(0x9aa8e0, 50, 0.12); mg.material.fog = false; moon.add(mg);
   chao(g, 300, 300, texCalcada([70, 66, 62], [50, 48, 46]), 120, 120, { y: 0 });
   const city = grp(g);
-  for (let i = 0; i < 60; i++) { const an = hash(i * 1.7) * Math.PI * 2, r = 10 + hash(i * 3.3) * 60, x = Math.sin(an) * r, z = Math.cos(an) * r - 10; if (Math.hypot(x, z + 16) < 9 || Math.hypot(x - 3, z - 13) < 10 || Math.hypot(x, z - 7) < 8) continue; palazzo(city, x, z, { w: 9 + hash(i) * 4, d: 8, floors: 3 + Math.floor(hash(i * 5) * 4), seed: i + 200, rotY: hash(i * 9) * 6.28, lit: 0.5, litI: 1.4, balc: r < 25 }); }
+  for (let i = 0; i < 60; i++) { const an = hash(i * 1.7) * Math.PI * 2, r = 10 + hash(i * 3.3) * 60, x = Math.sin(an) * r, z = Math.cos(an) * r - 10; if (Math.hypot(x, z + 16) < 9 || Math.hypot(x - 3, z - 13) < 10 || Math.hypot(x, z - 7) < 8) continue; palazzo(city, x, z, { w: 9 + hash(i) * 4, d: 8, floors: 3 + Math.floor(hash(i * 5) * 4), seed: i + 200, rotY: hash(i * 9) * 6.28, lit: 0.5, litI: 0.9, balc: r < 25 }); }
   cupula(city, -26, -40, 9, { lit: true }); cupula(city, 30, -52, 11, { lit: true, dome: 0x6a7a7a }); campanario(city, 18, -26, 3, 24, { lit: true }); campanario(city, -40, -18, 3.2, 28, { lit: true });
   // terraço onde o garoto está
   const roof = grp(g, 0, 0, 7); mesh(box(7, 10, 7), SM(0xb88a62, { map: texFachada("#b88a62", "#2a3a2a", 3, 3, 0.5, 9).map }), 0, 5, 0, roof); mesh(box(7.2, 0.2, 7.2), SM(0x8a5a3a), 0, 10.1, 0, roof); [[0, -3.5, 7, 0.2], [0, 3.5, 7, 0.2], [-3.5, 0, 0.2, 7], [3.5, 0, 0.2, 7]].forEach(([x, z, w, d]) => mesh(box(w, 0.9, d), SM(0xe0c8a0), x, 10.6, z, roof));
@@ -504,8 +502,7 @@ addSet("s9-pergunta", (g) => {
     },
     cam(t) {
       return { ...path(t, [
-        [a, [5.5, 12.4, 15.5], [0.3, 12.0, 6.0], 40],
-        [K.voce, [1.6, 11.8, 10.6], [0, 15.5, -12], 42],
+        [a, [3.6, 12.2, 13.6], [0.2, 13.5, 0.0], 42],
         [K.requiem8, [2.6, 16.5, 3.0], [0, 19.0, -14], 38],
         [K.comenta, [1.6, 19.2, -3.5], [0, 20.2, -15], 34],
         [b, [1.1, 19.6, -5.5], [0, 20.4, -15], 32],
