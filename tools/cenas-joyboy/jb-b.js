@@ -144,7 +144,7 @@ addSet("s7-fruta", (g) => {
   const [a, b] = T.sc["s7-fruta"];
   const dome = skyDome(g, { top: 0x2a3a78, mid: 0xa07a8a, midY: 0.12, hor: 0xffb070, ground: 0x1a2028, sunDir: [0.15, 0.03, -1], sunCol: 0xffc070, sunI: 0.8, disk: 3.2, cov: 0.62, cloudA: 0.9, cloudLit: 0xffc8a8, cloudSh: 0x5a5a7a, cloudScale: 0.14 });
   const SC = 9, WY = 7.2;
-  const sea = oceano(g, { y: WY, size: 520, segs: 150, deep: 0x0a2a44, crest: 0x2a6a8c, foam: 0xa8c8d8, env: envGold(), envI: 0.22, rough: 0.35, amp: 0.8 });
+  const sea = oceano(g, { y: WY, size: 520, segs: 150, deep: 0x0a2a44, crest: 0x2a6a8c, foam: 0xa8c8d8, env: envGold(), envI: 0.18, rough: 0.62, amp: 0.8 }); sea.m.material.metalness = 0;
   const el = elefante({ s: SC }); el.rotation.y = 0.35; g.add(el);
   const drums = Array.from({ length: 5 }, () => { const r = mesh(new THREE.TorusGeometry(1, 0.035, 8, 96), glowM(0xffd070, 0), 0, 0, 0, g); r.castShadow = false; return r; });
   const sunB = godRays(g, [12, 30, -150], [-0.08, -0.15, 1], { n: 10, len: 200, w: 10, spread: 40, opacity: 0, color: 0xffd090 });
@@ -230,7 +230,8 @@ addSet("s8-imu", (g) => {
       const c = path2(t, [
         [a, [0.6, 1.4, 6.5], [0, 2.4, -24], 40],
         [K.imu - 0.2, [1.0, 2.2, -1.0], [0, 3.6, -26], 38],
-        [K.herdou - 0.4, [1.6, 1.0, -8.6], [0, 0.9, -6], 38],
+        [K.herdou - 1.3, [2.6, 1.6, -4.8], [0, 1.0, -6.6], 40],
+        [K.herdou - 0.2, [1.6, 1.15, -8.5], [0, 1.0, -6], 38],
         [K.historia7, [0.9, 1.5, -8.4], [0, 1.45, -6], 34],
         [b, [0.6, 1.55, -8.0], [0, 1.5, -6], 32],
       ]);
@@ -261,6 +262,8 @@ addSet("s9-pergunta", (g) => {
       pose(jv, { spine: [s.pitch * 0.5, 0, -s.roll * 0.8], chest: [0, 0, -s.roll * 0.3] });
       const look = smr(t, K.voce - 0.2, K.voce + 0.6), point = act(t, K.terminar - 0.2, K.terminar + 0.6, 0.18, 0.06) * (1 - smr(t, K.comenta + 0.6, b));
       if (point > 0.01) pose(jv, { armR: [-1.55 * clamp(point), 0.25, -0.15, -0.15], handR: 0.3 }, clamp(point));
+      const wave = act(t, K.comenta - 0.1, K.comenta + 0.5, 0.15, 0.06) * (1 - smr(t, b - 0.6, b));
+      if (wave > 0.01) pose(jv, { armL: [-2.5 * clamp(wave), 0, 0.45 + 0.25 * Math.sin((t - K.comenta) * 9) * clamp(wave), -0.6 * clamp(wave)], handL: 0 }, clamp(wave));
       nv.updateMatrixWorld(true); const camP = nv.localToWorld(V3(0.6, 2.4, 6.4));
       lookAtW(jv, camP, look * (1 - smr(t, K.terminar - 0.3, K.terminar + 0.2)) + smr(t, K.comenta - 0.3, K.comenta + 0.2), 1.2);
       face(jv, { smile: 0.55 + 0.35 * look, brow: 0.2 * look, open: 0.15 * smr(t, K.comenta - 0.2, K.comenta + 0.3), lid: 0.92 });
@@ -275,7 +278,7 @@ addSet("s9-pergunta", (g) => {
       const P = (x, y, z) => nv.localToWorld(V3(x, y, z)).toArray();
       const c = path2(t, [
         [a, P(3.0, 2.2, 9.5), P(0, 1.6, 2.2), 40],
-        [K.riu - 0.2, P(4.5, 3.4, 10.0), P(-1.5, 7.5, -8), 46],
+        [Math.max(K.riu + 0.6, a + 1.2), P(4.5, 3.4, 10.0), P(-1.5, 7.5, -8), 46],
         [K.voce - 0.2, P(1.2, 2.3, 6.6), P(0, 1.75, 2.6), 36],
         [b, P(0.6, 2.3, 5.8), P(0, 1.8, 2.6), 32],
       ]);

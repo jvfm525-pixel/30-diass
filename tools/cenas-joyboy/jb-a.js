@@ -39,7 +39,7 @@ addSet("s1-gancho", (g) => {
   const ENDS = [[0, -4.75], [-1.35, -3.85], [1.25, -3.75], [-0.55, -3.05], [0.65, -2.95]], WALK = 4.2;
   const all = [cap, ...crew];
   const fits = all.map((_, i) => gaitFit(WALK + (i ? 0.0 : 0.25), 0.62));
-  const tW0 = a + 0.1, tW1 = Math.max(tW0 + 2.0, K.descobriu - 0.9);
+  const tW0 = a - 1.3, tW1 = Math.max(a + 0.9, K.descobriu - 0.65);
   const walkD = (i, t) => (WALK + (i ? 0 : 0.25)) * E.inOut(smr(t, tW0 + i * 0.08, tW1 + i * 0.05));
   const posOf = (i, t) => { const d = walkD(i, t), e = ENDS[i]; return [e[0], hf(e[0], e[1] + (WALK + (i ? 0 : 0.25)) - d), e[1] + (WALK + (i ? 0 : 0.25)) - d]; };
   const openK = (t) => E.inOut(smr(t, K.descobriu - 0.35, K.descobriu + 0.9));
@@ -96,7 +96,7 @@ addSet("s1-gancho", (g) => {
     cam(t) {
       const c = path2(t, [
         [a, [2.4, 1.45, 6.2], [0, 1.4, -2.0], 42],
-        [K.descobriu - 0.3, [1.5, 1.6, -0.6], [0, 1.6, -5.4], 40],
+        [K.descobriu - 0.3, [0.9, 2.35, -1.3], [0, 1.75, -5.4], 40],
         [K.rir + 0.6, [0.1, 2.35, -2.3], [0, 1.6, -4.75], 38],
         [K.quem0, [0.05, 2.05, -3.25], [0, 1.64, -4.75], 36],
         [K.fica + 0.3, [1.2, 4.0, -1.0], [0, 1.6, -4.4], 42],
@@ -204,7 +204,7 @@ addSet("s3-pirata", (g) => {
       const s = shipAt(t), bow = V3(s.x + Math.sin(SA) * 4.8, s.y + 1.9, s.z + Math.cos(SA) * 4.8);
       const c = path2(t, [
         [a, [bow.x + 2.6, 1.6, bow.z + 5.0], [bow.x, bow.y + 0.3, bow.z], 40],
-        [K.mensagem + 0.3, [bow.x + 4.0, 3.0, bow.z + 7.5], [bow.x - 1.2, bow.y + 5.5, bow.z - 6], 46],
+        [Math.max(K.mensagem + 0.9, a + 1.2), [bow.x + 4.0, 3.0, bow.z + 7.5], [bow.x - 1.2, bow.y + 5.5, bow.z - 6], 46],
         [K.primeiro - 0.1, [bow.x + 2.2, 1.9, bow.z + 3.6], [bow.x, bow.y + 0.4, bow.z], 38],
         [b, [bow.x - 2.8, 2.4, bow.z + 4.4], [bow.x, bow.y + 0.6, bow.z - 1], 40],
       ]);
@@ -229,7 +229,7 @@ addSet("s4-promessa", (g) => {
   const kelp = []; for (let i = 0; i < 40; i++) { const x = (hash(i * 7.1) - 0.5) * 34, z = (hash(i * 3.3) - 0.5) * 28 - 6; if (Math.hypot(x, z + 1) < 4.5) continue; const h = 3 + hash(i) * 5; const kg = grp(g, x, hf(x, z), z); const segs = []; let par = kg; for (let k = 0; k < 6; k++) { const s_ = grp(par, 0, k ? h / 6 : 0, 0); mesh(box(0.25, h / 6, 0.02), SM(0x3a7a3a, { side: THREE.DoubleSide, roughness: 0.8 }), 0, h / 12, 0, s_); segs.push(s_); par = s_; } kelp.push({ segs, i }); }
   for (let i = 0; i < 14; i++) rock(g, (hash(i * 9) - 0.5) * 30, 0, (hash(i * 4) - 0.5) * 24 - 4, 0.6 + hash(i) * 1.4, i + 120, { col: 0x5a6a6a });
   // a pedra do pedido de desculpas (com inscrições que acendem) e o homem de luz ajoelhado tocando-a
-  const pe = pedraEterna(g, 0, hf(0, -1.5) - 0.2, -1.5, 2.2); pe.c.rotation.y = 0.2;
+  const pe = pedraEterna(g, 0, hf(0, -1.5) - 0.2, -1.5, 1.8); pe.c.rotation.y = 0.2;
   const hl = homemLuz({ luz: 1.2, brilho: 0.95, cachecol: 2.4 }); hl.position.set(0.3, hf(0.3, 0.6), 0.65); hl.rotation.y = Math.PI + 0.15; g.add(hl);
   const fishA = cardume(g, 40, [0, 4, -4], 7, 0xc8e0f0), fishB = cardume(g, 26, [-6, 6, -10], 4, 0xffc070);
   const bub = flowPts(160, 0xd8f4ff, 0.08); g.add(bub.pts);
@@ -244,7 +244,7 @@ addSet("s4-promessa", (g) => {
       // ajoelhado diante da pedra; a mão vai até ela (antecipação) quando "deixou um pedido de desculpas"; depois abaixa a cabeça
       restPose(hl); idle(hl, t, 71, 0.4); kneelPose(hl, 1);
       const reach = act(t, K.deixou - 0.2, K.desculpas + 0.2, 0.15, 0.05);
-      if (reach > 0.01) { hl.updateMatrixWorld(true); const tgt = V3(0.15, hf(0, -1.5) + 1.25, -0.42); armIK(hl, 1, tgt, tgt.clone().add(V3(0.5, -0.8, 0.6)), clamp(reach)); pose(hl, { handL: 0 }); }
+      if (reach > 0.01) { hl.updateMatrixWorld(true); const tgt = V3(0.15, hf(0, -1.5) + 1.1, -0.62); armIK(hl, 1, tgt, tgt.clone().add(V3(0.5, -0.8, 0.6)), clamp(reach)); pose(hl, { handL: 0 }); }
       const bow = smr(t, K.conseguir - 0.2, K.promessa + 0.4);
       pose(hl, { spine: [0.35 + 0.25 * bow, 0, 0], neck: [0.2 + 0.35 * bow, 0, 0] });
       clothWind(hl, t, 0.5, [Math.sin(t * 0.7) * 0.05, 0.05, Math.cos(t * 0.6) * 0.05]);
@@ -259,9 +259,9 @@ addSet("s4-promessa", (g) => {
     cam(t) {
       return { ...path2(t, [
         [a, [3.5, 7.5, 12], [0, 2.5, -10], 46],
-        [K.deixou, [3.6, 2.2, 5.0], [0.1, 1.2, -0.8], 40],
-        [K.desculpas + 0.4, [2.6, 1.6, 3.4], [0.0, 1.1, -0.6], 38],
-        [b, [-2.4, 1.5, 3.6], [0.1, 1.0, -0.4], 38],
+        [K.deixou, [4.6, 1.7, 6.0], [0.1, 1.0, -0.6], 40],
+        [K.desculpas + 0.4, [3.4, 1.35, 4.6], [0.0, 1.0, -0.6], 38],
+        [b, [-3.2, 1.25, 4.6], [0.1, 1.0, -0.4], 38],
       ]), near: 0.05 };
     },
   };

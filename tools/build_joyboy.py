@@ -37,7 +37,8 @@ PARS = [
     "E o Roger riu do tesouro|e disse que tinha chegado cedo demais.|E pra você:|o Luffy vai terminar|o que o Joy Boy começou?|Comenta aqui.",
 ]
 FIX = {"para": ["pra"], "epara": ["e", "pra"], "epra": ["e", "pra"], "eo": ["e", "o"], "eisso": ["e", "isso"], "view": ["bio"], "isaleatorias": ["keys", "aleatorias"], "quis": ["keys"], "stim": ["steam"],
-       "joyboy": ["joy", "boy"], "oitocentos": ["800"], "ir": ["keys"]}
+       "joyboy": ["joy", "boy"], "oitocentos": ["800"], "ir": ["keys"], "rodgers": ["roger"], "rogers": ["roger"], "ena": ["e", "na"], "quiz": ["keys"],
+       "equando": ["e", "quando"], "nica": ["nika"], "zuneisha": ["zunesha"], "imun": ["imu"]}
 _TR = os.path.join(ROOT, "assets/voice/transcript.json")
 if not os.path.exists(_TR):  # sem narração ainda: tempos estimados a partir do roteiro
     _TR = os.path.join(ROOT, "assets/voice/transcript-provisorio.json")
