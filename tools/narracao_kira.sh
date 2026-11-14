@@ -12,6 +12,6 @@ ffmpeg -y -v error -i "$IN" -af "atempo=1.15,loudnorm=I=-15:TP=-1.5" -ar 48000 "
 NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt npx -y hyperframes@0.9.17 transcribe "$V/narracao-kira.wav" -d "$V" --model small --language pt --json
 if [ -f tools/build_kira.py ]; then
   python3 tools/build_kira.py
-  [ -f tools/trilha_kira.sh ] && bash tools/trilha_kira.sh && python3 tools/build_kira.py
+  python3 tools/trilha_kira.py kira/assets/music/trilha-kira.wav && python3 tools/build_kira.py
 fi
 echo "pronto: confira as palavras que não casaram (FIX em tools/build_kira.py) antes de renderizar"

@@ -5,6 +5,7 @@
 // cabelo com mola (mola + lagLocal), mãos que pegam objetos por IK, peso que passa de um pé pro outro e câmera contínua.
 const V3 = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
 const wpos = (o, v = V3()) => o.getWorldPosition(v);
+const GOLDM = () => new THREE.MeshStandardMaterial({ color: 0xe8b040, metalness: 0.92, roughness: 0.24, emissive: 0x4a2a00, emissiveIntensity: 0.35, envMap: envGold(), envMapIntensity: 1.1 });
 // câmera: posição em curva contínua (Catmull-Rom), olhar interpolado suave entre as chaves (sem chicotear)
 function path2(t, ks) {
   const c = path(t, ks), n = ks.length;
@@ -28,6 +29,7 @@ const PHOTO = {};
 const _photoLoader = new THREE.TextureLoader();
 function photoMat(key, o = {}) {
   const m = new THREE.MeshBasicMaterial({ color: o.tint ?? 0xffffff, toneMapped: o.tm ?? false, fog: o.fog ?? false, transparent: o.transparent ?? false, opacity: o.opacity ?? 1, depthWrite: o.depthWrite ?? true, side: o.side ?? THREE.FrontSide });
+  if (!(T.fotos || []).includes(key)) { m.color.set(o.fallback ?? 0x101018); return m; } // foto ainda não baixada: fica o fundo procedural
   if (!PHOTO[key]) {
     const P = (PHOTO[key] = { mats: [], tex: null });
     P.p = _photoLoader.loadAsync(`assets/img/${key}.jpg`).then((tex) => { tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; P.tex = tex; P.mats.forEach((mm) => { mm.map = tex; mm.needsUpdate = true; }); }).catch(() => { P.mats.forEach((mm) => mm.color.set(o.fallback ?? 0x101018)); });
@@ -46,7 +48,7 @@ function photoPlane(parent, key, w, h, o = {}) {
 // ---------------------------------------------------------------- o homem sem rosto (símbolo original)
 // terno cinza-azulado, camisa branca, gravata vinho lisa, cabelo escuro penteado; rosto liso de porcelana, sem traços
 const HOMEM = { hair: 0x1e1c22, hairStyle: "penteado", skin: 0xece9e4, iris: 0x222222, jacket: 0x2c3242, shirt: 0xf1eee6, pants: 0x2a3040, boots: 0x121012, belt: 0x16121a, jacketOpen: 0.26, cuff: 0xf1eee6, seed: 71, olw: 0.0042 };
-const PORC = () => { const m = new THREE.MeshStandardMaterial({ color: 0xf2f1ee, roughness: 0.34, metalness: 0.0, emissive: 0x1a1c22, emissiveIntensity: 0.3 }); rimify(m, 1.1); return m; };
+const PORC = () => { const m = new THREE.MeshStandardMaterial({ color: 0xf2f1ee, roughness: 0.34, metalness: 0.0, emissive: 0x1a1c22, emissiveIntensity: 0.18 }); rimify(m, 0.9); return m; };
 function semRosto(o = {}) {
   const p = pessoa({ ...HOMEM, ...o }), u = p.userData;
   u.eyes.forEach((e) => (e.g.visible = false)); u.brows.forEach((b) => (b.visible = false)); u.mouth.g.visible = false;
@@ -196,9 +198,9 @@ const maqTex = canvasTex(256, 512, (g, w, h) => {
 function maquinaBebidas(g, x, z, ang = 0) {
   const m = grp(g, x, 0, z); m.rotation.y = ang;
   mesh(box(1.0, 1.85, 0.75), SM(0xd8343a, { roughness: 0.5 }), 0, 0.925, 0, m);
-  const fr = mesh(new THREE.PlaneGeometry(0.86, 1.64), new THREE.MeshStandardMaterial({ map: maqTex, emissive: 0xffffff, emissiveMap: maqTex, emissiveIntensity: 1.25, roughness: 0.25 }), 0, 0.95, 0.38, m); fr.castShadow = false;
-  const L = new THREE.PointLight(0xe8f0ff, 3.2, 7, 1.6); L.position.set(0, 1.0, 0.9); m.add(L);
-  const gl = glowSprite(0xdfeaff, 2.4, 0.35); gl.position.set(0, 1.0, 0.5); m.add(gl);
+  const fr = mesh(new THREE.PlaneGeometry(0.86, 1.64), new THREE.MeshStandardMaterial({ map: maqTex, emissive: 0xffffff, emissiveMap: maqTex, emissiveIntensity: 0.72, roughness: 0.25 }), 0, 0.95, 0.38, m); fr.castShadow = false;
+  const L = new THREE.PointLight(0xe8f0ff, 2.1, 7, 1.6); L.position.set(0, 1.0, 0.9); m.add(L);
+  const gl = glowSprite(0xdfeaff, 2.0, 0.22); gl.position.set(0, 1.0, 0.5); m.add(gl);
   return { m, L };
 }
 const coneTex = canvasTex(16, 128, (c, w, h) => { const gr = c.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.35, "rgba(255,255,255,.35)"); gr.addColorStop(1, "rgba(255,255,255,0)"); c.fillStyle = gr; c.fillRect(0, 0, w, h); });

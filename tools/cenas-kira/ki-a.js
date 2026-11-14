@@ -21,7 +21,7 @@ function cidadeLonge(g, z0, n = 40, o = {}) {
   const blds = [];
   for (let i = 0; i < n; i++) {
     const w = 8 + hash(i * 3.1) * 16, h = 12 + Math.pow(hash(i * 5.7), 2) * (o.hmax ?? 70), x = (i / n - 0.5) * (o.span ?? 420) + (hash(i * 7.3) - 0.5) * 12, z = z0 - hash(i * 9.1) * 60;
-    const m = new THREE.Mesh(geo, mat.clone()); m.material.map = janelasTex.clone(); m.material.map.needsUpdate = true; m.material.map.wrapS = m.material.map.wrapT = THREE.RepeatWrapping; m.material.map.repeat.set(w / 10, h / 20); m.material.map.offset.set(hash(i), hash(i * 2));
+    const m = new THREE.Mesh(geo, mat.clone()); m.material.map = janelasTex.clone(); m.material.map.needsUpdate = true; m.material.map.wrapS = m.material.map.wrapT = THREE.RepeatWrapping; m.material.map.repeat.set(w / 18, h / 34); m.material.map.offset.set(hash(i), hash(i * 2));
     m.scale.set(w, h, w * 0.8); m.position.set(x, 0, z); g.add(m); blds.push(m);
     if (h > 50) { const red = glowSprite(0xff3030, 4, 0.8); red.position.set(x, h + 1, z); g.add(red); blds.push(red); }
   }
@@ -103,7 +103,7 @@ addSet("s1-rua", (g) => {
       // a luz da rua pisca quando a narração diz "assassino"
       const fl = t > K.assassino0 - 0.1 && t < K.assassino0 + 1.1 ? (noise1(t * 31) > 0.1 ? 1 : 0.15) * (0.6 + 0.4 * noise1(t * 9)) : 1;
       luzes[1].L.intensity = luzes[1].I * fl; luzes[1].glow.material.opacity = 0.6 * fl; luzes[1].cone.material.opacity = 0.05 * fl; luzes[1].lamp.material.color.setScalar(0.25 + 0.75 * fl);
-      maq.L.intensity = 3.2 + noise1(t * 3) * 0.2;
+      maq.L.intensity = 2.1 + noise1(t * 3) * 0.15;
       moths.forEach((m, i) => floatDust(m, t * (1.6 + i * 0.3), 0.35, 1.2));
       // a janela do quarto pulsa de leve (alguém lá dentro)
       const w = minha.wins[2]; w.m.emissiveIntensity = 0.55 + Math.sin(t * 2.1) * 0.03; winL.intensity = 1.2 + Math.sin(t * 2.1) * 0.08;
@@ -115,8 +115,8 @@ addSet("s1-rua", (g) => {
         [K.oito0 + 0.4, [0.1, 1.9, -7.6], [-1.45, 1.35, -2.2], 36],
         [K.assassino0 + 0.3, [0.25, 0.95, -8.6], [-1.42, 1.5, -4.6], 34],
         [K.normal0 + 0.3, [0.3, 1.35, -9.9], [-1.5, 1.55, -6.0], 34],
-        [K.fica + 0.25, [0.6, 1.9, -9.3], [-3.2, 2.5, -6.0], 34],
-        [b, [0.9, 1.75, -7.1], [-5.3, 2.75, -4.7], 38],
+        [K.fica + 0.25, [0.6, 1.95, -9.3], [-3.2, 2.9, -6.0], 34],
+        [b, [0.9, 2.15, -7.6], [-5.3, 4.05, -4.6], 34],
       ]);
     },
   };
@@ -212,7 +212,7 @@ addSet("s2-rotina", (g) => {
   const JK = 0x2c3243, p = semRosto({ jacket: JK }); g.add(p); const u = p.userData, jackM = TM(JK, { side: THREE.DoubleSide });
   const caseH = pasta(u.wr[0]); caseH.position.set(0, -0.11, 0.02);
   const caseF = grp(g, 1.3, 0, -0.5); const cf = pasta(caseF); cf.position.set(0, 0.43, 0); caseF.rotation.y = -Math.PI / 2; caseF.visible = false;
-  const X0 = 3.35, Z0 = -0.15, D = 1.95, L = gaitFit(D, 0.6), tIn = a + 0.75, tStop = tIn + 2.1;
+  const X0 = 2.9, Z0 = -0.15, D = 1.5, L = gaitFit(D, 0.6), tIn = a + 0.02, tStop = tIn + 1.9;
   const distF = (t) => andarAte(t, tIn, tStop, D, 1.0);
   const tBend = tStop + 0.05, tRel = tBend + 0.75, tUp = tRel + 0.55, tTie = tUp + 0.1;
   const chestPos = (tt) => { const d = distF(tt), ph = (d / (2 * L)) * Math.PI * 2, bend = Math.sin(Math.PI * smr(tt, tBend, tUp)); return [X0 - d - bend * 0.12, 1.32 + Math.cos(2 * ph) * 0.016 - bend * 0.35, Z0 + Math.sin(ph) * 0.02]; };
@@ -233,7 +233,7 @@ addSet("s2-rotina", (g) => {
       hemi.intensity = lerp(0.45, 0.12, night) * (1 - off * 0.55); sun.intensity = lerp(0.3, 0.45, night) + off * 0.75;
       clock.set(20 + (t - a) / 60 + 3 * smr(t, tSit - 0.05, tSit + 0.55));
       curtains.forEach((m, i) => { const P_ = m.geometry.attributes.position, B_ = m.geometry.userData.base; for (let k = 0; k < P_.count; k++) { const x = B_[k * 3], y = B_[k * 3 + 1]; P_.setZ(k, Math.sin(x * 26 + i) * 0.03 + Math.sin(t * 0.8 + x * 4 + i) * 0.015 * (0.75 - y / 1.5)); } P_.needsUpdate = true; m.geometry.computeVertexNormals(); });
-      door.rotation.y = 1.45 * act(t, a + 0.15, a + 0.85, 0.06, 0.05);
+      door.rotation.y = 1.45 * act(t, a - 0.45, a + 0.35, 0.06, 0.05);
       vap.upd(t, 0.9);
       restPose(p);
       caseH.visible = t < tRel; caseF.visible = t >= tRel;
@@ -430,13 +430,13 @@ addSet("s3-potes", (g) => {
     },
     cam(t) {
       return path2(t, [
-        [a, [-0.36, 2.04, -0.36], [-0.53, 1.97, -1.0], 32],
+        [a, [-0.44, 1.96, -0.26], [-0.6, 1.92, -1.0], 34],
         [K.ano83 + 0.9, [-0.05, 1.86, -0.22], [-0.32, 1.72, -1.0], 33],
         [K.assassino2 + 0.25, [0.95, 1.62, 1.45], [0.0, 1.42, -0.9], 38],
         [K.potes, [0.78, 1.52, 0.6], [-0.05, 1.32, -0.95], 36],
-        [K.cresciam, [0.8, 1.38, -0.12], [0.24, 0.82, -0.8], 36],
-        [K.bom, [0.48, 1.3, -0.38], [0.3, 0.8, -0.8], 34],
-        [b, [0.44, 1.24, -0.43], [0.3, 0.8, -0.81], 32],
+        [K.cresciam, [0.98, 1.42, -0.42], [0.3, 0.82, -0.8], 36],
+        [K.bom, [0.82, 1.33, -0.55], [0.32, 0.8, -0.82], 34],
+        [b, [0.77, 1.28, -0.6], [0.33, 0.8, -0.82], 32],
       ]);
     },
   };
@@ -477,7 +477,7 @@ addSet("s4-culpa", (g) => {
     const toalha = mesh(box(0.24, 0.5, 0.03), SM(0xc84a4a, { roughness: 0.95 }), 0.85, 1.05, MZ + 0.04, P);
     const luz = grp(P, 0, MY1 + 0.17, MZ + 0.08); mesh(box(0.5, 0.05, 0.08), SM(0xb8bcc0, { metalness: 0.7, roughness: 0.3 }), 0, 0, 0, luz);
     const bulbM = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffd8a0, emissiveIntensity: 2.2 }); mesh(sph(0.045, 12, 10), bulbM, 0, -0.06, 0.03, luz);
-    const L_ = new THREE.PointLight(0xffd8a8, 2.6, 6, 1.5); L_.position.set(0, -0.1, 0.12); luz.add(L_); const gl_ = glowSprite(0xffe0b0, 0.5, 0.5); gl_.position.set(0, -0.06, 0.05); luz.add(gl_);
+    const L_ = new THREE.PointLight(0xffd8a8, 1.0, 5, 1.6); L_.position.set(0, -0.1, 0.12); luz.add(L_); const gl_ = glowSprite(0xffe0b0, 0.5, 0.5); gl_.position.set(0, -0.06, 0.05); luz.add(gl_);
     return { L: L_, bulbM, gl: gl_ };
   };
   const R1 = room(g, false);
@@ -487,15 +487,15 @@ addSet("s4-culpa", (g) => {
   const glassP = mesh(new THREE.PlaneGeometry(MX1 - MX0, MY1 - MY0), new THREE.MeshStandardMaterial({ color: 0xa0b8c0, transparent: true, opacity: 0.08, roughness: 0.02, metalness: 0.4, depthWrite: false }), 0, (MY0 + MY1) / 2, MZ + 0.002, g); glassP.castShadow = false;
   const fC = document.createElement("canvas"); fC.width = 420; fC.height = 440; const fG = fC.getContext("2d"); const fT = new THREE.CanvasTexture(fC); fT.colorSpace = THREE.SRGBColorSpace;
   const fogP = mesh(new THREE.PlaneGeometry(MX1 - MX0, MY1 - MY0), new THREE.MeshBasicMaterial({ map: fT, transparent: true, depthWrite: false, fog: false }), 0, (MY0 + MY1) / 2, MZ + 0.006, g); fogP.castShadow = false; fogP.renderOrder = 4;
-  const noiseC = document.createElement("canvas"); noiseC.width = 420; noiseC.height = 440; { const ng = noiseC.getContext("2d"), im = ng.createImageData(420, 440); for (let y = 0; y < 440; y++) for (let x = 0; x < 420; x++) { const i = (y * 420 + x) * 4, v = fbm2(x / 40, y / 40, 4); im.data[i] = im.data[i + 1] = 236; im.data[i + 2] = 242; im.data[i + 3] = (0.5 + v * 0.35 + (hash2(x, y) - 0.5) * 0.08) * 255; } ng.putImageData(im, 0, 0); }
+  const noiseC = document.createElement("canvas"); noiseC.width = 420; noiseC.height = 440; { const ng = noiseC.getContext("2d"), im = ng.createImageData(420, 440); for (let y = 0; y < 440; y++) for (let x = 0; x < 420; x++) { const i = (y * 420 + x) * 4, v = fbm2(x / 40, y / 40, 4); im.data[i] = 196; im.data[i + 1] = 204; im.data[i + 2] = 208; im.data[i + 3] = (0.42 + v * 0.3 + (hash2(x, y) - 0.5) * 0.08) * 255; } ng.putImageData(im, 0, 0); }
   let fKey = "";
   const drawFog = (wp, dp) => {
     const key = Math.round(wp * 60) + "_" + Math.round(dp * 40); if (key === fKey) return; fKey = key;
     const c = fG; c.globalCompositeOperation = "source-over"; c.clearRect(0, 0, 420, 440); c.drawImage(noiseC, 0, 0);
-    c.globalCompositeOperation = "destination-out"; c.font = "900 92px 'Archivo Black', sans-serif"; c.textAlign = "left"; c.textBaseline = "middle";
-    const txt = "CULPA?", x0 = 26, w = c.measureText(txt).width;
-    c.save(); c.beginPath(); c.rect(0, 0, x0 + w * wp, 440); c.clip(); c.fillStyle = "rgba(0,0,0,.92)"; c.fillText(txt, x0, 170); c.restore();
-    for (let i = 0; i < 9; i++) { const dx = x0 + 18 + i * (w - 30) / 8 + hash(i) * 10, len = dp * (40 + hash(i * 3) * 150) * (dx < x0 + w * wp ? 1 : 0); if (len < 2) continue; c.fillStyle = "rgba(0,0,0,.8)"; c.beginPath(); c.roundRect(dx, 205, 5 + hash(i * 5) * 3, len, 3); c.fill(); c.beginPath(); c.arc(dx + 3.5, 205 + len, 5, 0, 7); c.fill(); }
+    c.globalCompositeOperation = "destination-out"; c.font = "900 70px 'Archivo Black', sans-serif"; c.textAlign = "left"; c.textBaseline = "middle";
+    const txt = "CULPA?", w = c.measureText(txt).width, x0 = (420 - w) / 2;
+    c.save(); c.beginPath(); c.rect(0, 0, x0 + w * wp, 440); c.clip(); c.fillStyle = "rgba(0,0,0,.92)"; c.fillText(txt, x0, 78); c.restore();
+    for (let i = 0; i < 9; i++) { const dx = x0 + 18 + i * (w - 30) / 8 + hash(i) * 10, len = dp * (40 + hash(i * 3) * 150) * (dx < x0 + w * wp ? 1 : 0); if (len < 2) continue; c.fillStyle = "rgba(0,0,0,.8)"; c.beginPath(); c.roundRect(dx, 108, 5 + hash(i * 5) * 3, len, 3); c.fill(); c.beginPath(); c.arc(dx + 3.5, 108 + len, 5, 0, 7); c.fill(); }
     fT.needsUpdate = true;
   };
   const agua = mesh(cyl(0.006, 0.009, 0.2, 10, 1, true), new THREE.MeshStandardMaterial({ color: 0xd8f0ff, transparent: true, opacity: 0.55, roughness: 0.05, emissive: 0x405060, emissiveIntensity: 0.3 }), 0, 0.82, MZ + 0.11, g);
@@ -506,10 +506,10 @@ addSet("s4-culpa", (g) => {
   const PZ = MZ + 0.58, tWash0 = K.kira3 - 0.1, tWash1 = K.culpa3b + 0.35;
   return {
     bg: 0x0a0c0c, fog: [8, 30], fogCol: 0x0a0c0c,
-    look: { exposure: 1.12, bloom: 0.55, bloomT: 0.82, vig: 0.5, sat: 0.92, con: 1.08, lift: [0.0, 0.012, 0.01], gain: [0.98, 1.02, 1.0] },
-    sun: { dir: [0.2, 1, 0.4], col: 0xc8d8d0, I: 0.25, c: [0, 1, MZ + 0.5], r: 3 }, hemi: { sky: 0xd0dcd8, ground: 0x4a5450, I: 0.35 }, fill: { col: 0xc8e0d8, I: 0.15 }, rim: { col: 0xffe8d0, str: 0.4 }, hand: 0.005,
+    look: { exposure: 0.98, bloom: 0.45, bloomT: 0.9, vig: 0.52, sat: 0.92, con: 1.08, lift: [0.0, 0.012, 0.01], gain: [0.98, 1.02, 1.0] },
+    sun: { dir: [0.2, 1, 0.4], col: 0xc8d8d0, I: 0.2, c: [0, 1, MZ + 0.5], r: 3 }, hemi: { sky: 0xd0dcd8, ground: 0x4a5450, I: 0.28 }, fill: { col: 0xc8e0d8, I: 0.15 }, rim: { col: 0xffe8d0, str: 0.4 }, hand: 0.005,
     update(t) {
-      const fl = 1 - 0.08 * Math.max(0, noise1(t * 7)); [R1, R2].forEach((R) => { R.L.intensity = 2.6 * fl; R.bulbM.emissiveIntensity = 2.2 * fl; });
+      const fl = 1 - 0.08 * Math.max(0, noise1(t * 7)); [R1, R2].forEach((R) => { R.L.intensity = 1.0 * fl; R.bulbM.emissiveIntensity = 1.4 * fl; });
       const wp = smr(t, K.culpa3 - 0.85, K.culpa3 + 0.35), dp = smr(t, K.culpa3 + 0.1, K.nao3 + 0.6);
       drawFog(wp, dp);
       fogP.material.opacity = 1 - 0.88 * smr(t, K.nao3 - 0.05, K.nao3 + 0.75);
@@ -520,7 +520,7 @@ addSet("s4-culpa", (g) => {
       agua.visible = run > 0.02; agua.scale.set(1, run, 1); agua.position.y = 0.92 - 0.1 * run;
       const dph = ((t - a) % 1.3) / 1.3; gota.visible = run < 0.02; gota.position.y = 0.92 - dph * dph * 0.2; gota.scale.setScalar(dph < 0.08 ? dph / 0.08 : 1);
       restPose(p); idle(p, t, 2, 0.5);
-      p.position.set(-0.05, 0, PZ); p.rotation.set(0, Math.PI, 0);
+      p.position.set(-0.1, 0, PZ); p.rotation.set(0, Math.PI, 0);
       // apoiado na pia, cabeça baixa; no "não" ergue a cabeça e encara o espelho; depois lava as mãos devagar
       const upK = act(t, K.nao3 - 0.15, K.nao3 + 0.45, 0.12, 0.06), wash = smr(t, tWash0 - 0.1, tWash0 + 0.35) * (1 - smr(t, tWash1 - 0.3, tWash1 + 0.1));
       pose(p, { spine: [0.32 - 0.12 * clamp(upK), 0, 0], neck: [0.32 - 0.36 * clamp(upK), 0, 0], head: [0.1 - 0.12 * clamp(upK), 0, 0] }, 1);
@@ -539,10 +539,110 @@ addSet("s4-culpa", (g) => {
     },
     cam(t) {
       return path2(t, [
-        [a, [0.62, 1.78, MZ + 1.75], [0.02, 1.5, MZ - 0.1], 42],
-        [K.nao3, [0.5, 1.72, MZ + 1.42], [0.0, 1.52, MZ - 0.2], 38],
-        [K.nunca3 + 0.3, [0.42, 1.66, MZ + 1.22], [-0.02, 1.48, MZ - 0.25], 36],
-        [b, [0.38, 1.64, MZ + 1.12], [-0.02, 1.5, MZ - 0.3], 35],
+        [a, [0.72, 1.8, MZ + 2.05], [0.02, 1.52, MZ - 0.1], 40],
+        [K.nao3, [0.6, 1.74, MZ + 1.75], [0.0, 1.52, MZ - 0.2], 37],
+        [K.nunca3 + 0.3, [0.52, 1.7, MZ + 1.55], [-0.02, 1.5, MZ - 0.25], 35],
+        [b, [0.48, 1.68, MZ + 1.45], [-0.02, 1.5, MZ - 0.3], 34],
+      ]);
+    },
+  };
+});
+
+// ---------------------------------------------------------------- 5 · sempre em 3º: palco da escola com pódio; o menino sem rosto sobe no 3º lugar; redação, corrida e violino com fita de bronze; o 1º lugar no escuro
+function texCortina(c1 = "#7a1018", c2 = "#3a060c") {
+  const k = "cort" + c1; if (TX[k]) return TX[k];
+  return (TX[k] = canvasTex(512, 256, (c, w, h) => { for (let x = 0; x < w; x++) { const v = 0.5 + 0.5 * Math.sin((x / w) * Math.PI * 2 * 9 + Math.sin(x * 0.05) * 0.6); const gr = c.createLinearGradient(0, 0, 0, h); c.fillStyle = `rgb(${lerp(58, 140, v) | 0},${lerp(6, 22, v) | 0},${lerp(12, 30, v) | 0})`; c.fillRect(x, 0, 1, h); } }));
+}
+addSet("s5-terceiro", (g) => {
+  const [a, b] = T.sc["s5-terceiro"];
+  // palco de madeira, cortinas de veludo, faixa, tela com a foto da escola, plateia de cadeiras vazias
+  const pk = texPlanks([156, 112, 70], [132, 94, 58]), stM = SM(0xffffff, { map: rep(pk.map.clone(), 4, 3), normalMap: rep(pk.normalMap.clone(), 4, 3), roughness: 0.45 }); stM.map.needsUpdate = stM.normalMap.needsUpdate = true;
+  mesh(box(9, 0.8, 5), stM, 0, -0.4, -1.5, g); mesh(box(9, 0.8, 0.06), SM(0x3a2416), 0, -0.4, 1.02, g);
+  mesh(box(30, 0.1, 20), SM(0x2a1e18, { roughness: 0.8 }), 0, -0.85, 9, g);
+  const ct = texCortina(), curM = SM(0xffffff, { map: rep(ct.clone(), 3, 1), roughness: 0.75 }); curM.map.needsUpdate = true;
+  const fundo = new THREE.PlaneGeometry(9.5, 6, 60, 1); deform(fundo, (v) => { v.z = Math.sin(v.x * 7) * 0.08; }); mesh(fundo, curM, 0, 2.6, -3.9, g);
+  [-1, 1].forEach((k) => { const sg = new THREE.PlaneGeometry(1.6, 6, 16, 1); deform(sg, (v) => { v.z = Math.sin(v.x * 9) * 0.1; }); const sd = mesh(sg, curM, k * 3.9, 2.6, -1.2, g); sd.rotation.y = -k * 0.5; });
+  const topo = new THREE.PlaneGeometry(9.5, 0.9, 40, 1); deform(topo, (v) => { v.y += Math.cos(v.x * 2.2) * 0.12; v.z = Math.sin(v.x * 9) * 0.05; }); mesh(topo, curM, 0, 5.05, -1.0, g);
+  const banner = canvasTex(1024, 128, (c, w, h) => { c.fillStyle = "#f4ead0"; c.fillRect(0, 0, w, h); c.strokeStyle = "#c8a040"; c.lineWidth = 8; c.strokeRect(6, 6, w - 12, h - 12); c.fillStyle = "#3a1a10"; c.font = "700 60px 'Archivo Black', sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText("PREMIAÇÃO ESCOLAR", w / 2, h / 2 + 3); }, { redraw: true });
+  mesh(new THREE.PlaneGeometry(4.2, 0.52), SM(0xffffff, { map: banner, roughness: 0.8 }), 0.4, 4.35, -3.82, g);
+  const escolaTex = canvasTex(768, 512, (c, w, h) => { const gr = c.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#f4b878"); gr.addColorStop(0.55, "#f8dcb0"); gr.addColorStop(0.56, "#a8a090"); gr.addColorStop(1, "#8a8070"); c.fillStyle = gr; c.fillRect(0, 0, w, h);
+    c.fillStyle = "#e8e4dc"; c.fillRect(120, 150, 540, 140); c.fillStyle = "#d8d2c8"; c.fillRect(120, 150, 540, 18); for (let fl = 0; fl < 3; fl++) for (let i = 0; i < 14; i++) { c.fillStyle = (i + fl) % 5 ? "#5a7088" : "#8aa0b8"; c.fillRect(138 + i * 37, 178 + fl * 36, 26, 22); }
+    c.fillStyle = "#e8e4dc"; c.fillRect(350, 100, 80, 60); c.fillStyle = "#fff"; c.beginPath(); c.arc(390, 128, 20, 0, 7); c.fill(); c.strokeStyle = "#222"; c.lineWidth = 3; c.beginPath(); c.moveTo(390, 128); c.lineTo(390, 114); c.moveTo(390, 128); c.lineTo(401, 133); c.stroke();
+    for (let i = 0; i < 9; i++) { const x = 40 + i * 88, y = 300; c.fillStyle = "#6a4a3a"; c.fillRect(x - 4, y - 10, 8, 50); c.fillStyle = `rgba(${240 + hash(i) * 15},${170 + hash(i * 3) * 40},${190 + hash(i * 5) * 30},.95)`; c.beginPath(); c.arc(x, y - 22, 34 + hash(i) * 10, 0, 7); c.fill(); }
+    c.fillStyle = "#c8c0b0"; c.fillRect(0, 330, w, 182); });
+  const tela = grp(g, 0.4, 2.75, -3.75); mesh(box(3.1, 2.1, 0.05), SM(0x1a1a1a), 0, 0, -0.03, tela);
+  const telaM = photoMat("escola", { fallback: 0xffffff }); if (!telaM.map) telaM.map = escolaTex;
+  const telaP = mesh(new THREE.PlaneGeometry(2.96, 1.97), telaM, 0, 0, 0.0, tela); telaP.castShadow = false;
+  const projL = new THREE.PointLight(0xffe8d0, 0.6, 4, 1.6); projL.position.set(0.4, 2.7, -3.0); g.add(projL);
+  const chairM = SM(0x4a4e58, { metalness: 0.4, roughness: 0.5 });
+  for (let r = 0; r < 4; r++) for (let i = 0; i < 9; i++) { const ch = grp(g, -4 + i * 1.0 + (r % 2) * 0.5, -0.8, 2.6 + r * 1.2); mesh(box(0.45, 0.04, 0.42), chairM, 0, 0.45, 0, ch); mesh(box(0.45, 0.45, 0.04), chairM, 0, 0.7, -0.2, ch); [[-0.2, -0.18], [0.2, -0.18], [-0.2, 0.18], [0.2, 0.18]].forEach(([x, z]) => mesh(box(0.03, 0.45, 0.03), chairM, x, 0.225, z, ch)); }
+  // pódio 1-2-3
+  const numTex = (n) => canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#f4f2ec"; c.fillRect(0, 0, w, h); c.fillStyle = n === 1 ? "#c8a040" : n === 2 ? "#9aa0a8" : "#b0683a"; c.font = "700 170px 'Archivo Black', sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(String(n), w / 2, h / 2 + 10); }, { redraw: true });
+  const BL = { 2: [0.55, 0.42], 1: [1.2, 0.62], 3: [1.85, 0.3] };
+  Object.entries(BL).forEach(([n, [x, h]]) => { const bx = grp(g, x, 0, -1.0); mesh(box(0.62, h, 0.6), SM(0xf4f2ec, { roughness: 0.5 }), 0, h / 2, 0, bx); const f = mesh(new THREE.PlaneGeometry(0.42, Math.min(0.42, h - 0.04)), SM(0xffffff, { map: numTex(+n), roughness: 0.5 }), 0, h / 2, 0.302, bx); f.castShadow = false; });
+  const trofeu = grp(g, 1.2, 0.62, -1.0); const gm = GOLDM(); mesh(lathe([[0.0, 0], [0.09, 0], [0.09, 0.03], [0.03, 0.05], [0.025, 0.16], [0.06, 0.2], [0.11, 0.34], [0.12, 0.38], [0.0, 0.38]], 24), gm, 0, 0, 0, trofeu);
+  [-1, 1].forEach((k) => { const al = mesh(new THREE.TorusGeometry(0.05, 0.008, 6, 14, Math.PI), gm, k * 0.12, 0.3, 0, trofeu); al.rotation.z = k * Math.PI / 2; });
+  // as três provas: redação (folha com carimbo 3º), corrida (barreira com medalha de bronze), violino (no suporte, fita de bronze)
+  const bronze = SM(0xb0683a, { metalness: 0.85, roughness: 0.32 });
+  const fita = (parent, x, y, z) => { const f = grp(parent, x, y, z); mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.012, 24), bronze, 0, 0, 0, f).rotation.x = Math.PI / 2; [-1, 1].forEach((k) => { const r = mesh(box(0.05, 0.16, 0.004), SM(0x8a2a2a), k * 0.03, -0.11, -0.004, f); r.rotation.z = k * 0.25; }); const lt = canvasTex(64, 64, (c, w) => { c.fillStyle = "#f0d0a0"; c.font = "700 34px 'Archivo Black', sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText("3º", w / 2, w / 2 + 2); }, { redraw: true }); mesh(new THREE.CircleGeometry(0.06, 20), new THREE.MeshBasicMaterial({ map: lt, transparent: true }), 0, 0, 0.008, f); return f; };
+  const papel = canvasTex(384, 512, (c, w, h) => { c.fillStyle = "#f6f2e6"; c.fillRect(0, 0, w, h); c.fillStyle = "#2a2a3a"; c.font = "700 26px 'Archivo Black', sans-serif"; c.fillText("REDAÇÃO", 30, 50); c.strokeStyle = "rgba(60,60,90,.55)"; c.lineWidth = 2; for (let y = 90; y < h - 40; y += 24) { c.beginPath(); c.moveTo(30, y); c.lineTo(30 + 300 * (0.6 + hash(y) * 0.4), y); c.stroke(); }
+    c.save(); c.translate(270, 400); c.rotate(-0.25); c.strokeStyle = "#c81e2a"; c.lineWidth = 7; c.beginPath(); c.arc(0, 0, 58, 0, 7); c.stroke(); c.fillStyle = "#c81e2a"; c.font = "700 54px 'Archivo Black', sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText("3º", 0, 4); c.restore(); }, { redraw: true });
+  const cav = grp(g, -2.55, 0, -1.25); [[-0.25, 0.1], [0.25, 0.1], [0, -0.3]].forEach(([x, z]) => { const l = mesh(box(0.03, 1.5, 0.03), SM(0x6a4a2a), x, 0.74, z, cav); l.rotation.x = z < 0 ? -0.2 : 0.08; });
+  const folha = mesh(new THREE.PlaneGeometry(0.42, 0.56), SM(0xffffff, { map: papel, roughness: 0.85 }), 0, 1.15, 0.13, cav); folha.rotation.x = -0.08; fita(cav, 0.22, 0.86, 0.15);
+  const bar = grp(g, -1.65, 0, -1.25); const bm = SM(0xf2f2ee, { roughness: 0.5 }), bk = SM(0x1a1a1a);
+  [-0.42, 0.42].forEach((x) => { mesh(box(0.04, 0.84, 0.04), bm, x, 0.42, 0, bar); mesh(box(0.04, 0.03, 0.5), bk, x, 0.015, 0, bar); });
+  for (let i = 0; i < 4; i++) mesh(box(0.21, 0.12, 0.02), i % 2 ? bk : bm, -0.315 + i * 0.21, 0.78, 0, bar);
+  const med = fita(bar, 0.0, 0.62, 0.03); med.scale.setScalar(1.2);
+  const vio = grp(g, -0.8, 0, -1.3); mesh(box(0.03, 0.8, 0.03), SM(0x2a2a2a, { metalness: 0.5 }), 0, 0.4, 0, vio); mesh(cyl(0.18, 0.2, 0.02, 12), SM(0x2a2a2a, { metalness: 0.5 }), 0, 0.01, 0, vio);
+  const vb = grp(vio, 0, 1.02, 0.04); vb.rotation.z = 0.12; const vw = SM(0x8a3a14, { roughness: 0.35 });
+  const vShape = new THREE.Shape(); vShape.moveTo(0, -0.18); vShape.bezierCurveTo(0.13, -0.18, 0.13, -0.05, 0.07, -0.02); vShape.bezierCurveTo(0.05, 0.0, 0.05, 0.04, 0.07, 0.06); vShape.bezierCurveTo(0.12, 0.1, 0.1, 0.18, 0, 0.18); vShape.bezierCurveTo(-0.1, 0.18, -0.12, 0.1, -0.07, 0.06); vShape.bezierCurveTo(-0.05, 0.04, -0.05, 0.0, -0.07, -0.02); vShape.bezierCurveTo(-0.13, -0.05, -0.13, -0.18, 0, -0.18);
+  const vGeo = new THREE.ExtrudeGeometry(vShape, { depth: 0.05, bevelEnabled: true, bevelSize: 0.01, bevelThickness: 0.01, bevelSegments: 3 }); vGeo.translate(0, 0, -0.025); mesh(vGeo, vw, 0, 0, 0, vb);
+  mesh(box(0.03, 0.26, 0.02), SM(0x1a1210), 0, 0.29, 0.035, vb); mesh(sph(0.025, 10, 8), vw, 0, 0.43, 0.03, vb);
+  for (let i = 0; i < 4; i++) mesh(cyl(0.0012, 0.0012, 0.56, 4), SM(0xe8e0d0, { metalness: 0.8 }), -0.012 + i * 0.008, 0.12, 0.05, vb);
+  fita(vio, 0.16, 0.7, 0.08);
+  // luzes: canhão quente no 3º lugar; o 1º no escuro até "chama atenção" (aí um canhão branco e flashes)
+  const spot = (x, col, I, ang = 0.32) => { const L_ = new THREE.SpotLight(col, I, 14, ang, 0.5, 1.4); L_.position.set(x, 6.5, 2.5); const tg = grp(g, x, 0.3, -1.0); L_.target = tg; g.add(L_); const cone = mesh(new THREE.ConeGeometry(0.9, 6.6, 28, 1, true), new THREE.MeshBasicMaterial({ color: col, map: coneTex, transparent: true, opacity: 0.08, depthWrite: false, blending: ADD, side: THREE.DoubleSide, fog: false }), 0, 0, 0, g); cone.position.set(x, 3.4, 0.75); cone.lookAt(x, 6.5, 2.5); cone.rotateX(Math.PI / 2); return { L: L_, cone, I }; };
+  const s3 = spot(1.85, 0xffc890, 18, 0.2), s1_ = spot(1.2, 0xffffff, 0, 0.17), sProv = spot(-1.65, 0xffd8a8, 18, 0.5);
+  const flashes = []; for (let i = 0; i < 9; i++) { const f = glowSprite(0xffffff, 1.6, 0); f.position.set(-3 + hash(i * 3) * 6.5, 0.4 + hash(i * 5) * 1.0, 2.8 + hash(i * 7) * 4); g.add(f); flashes.push(f); }
+  const poeira = dustPts(200, [-3, 3, 0, 5, -2.5, 2], 0xfff0d8, 0.02, 0.6); g.add(poeira);
+  // o menino sem rosto (uniforme escuro), com medalha de bronze, sobe no degrau do 3º lugar vindo de trás do pódio
+  const p = meninoSemRosto(); g.add(p); const u = p.userData;
+  const medal = grp(u.chest, 0, 0.0, 0.0); const rib = mesh(new THREE.TorusGeometry(0.11, 0.006, 4, 24, Math.PI * 1.1), SM(0x8a2a2a), 0, 0.2, 0.06, medal); rib.rotation.set(0, 0, Math.PI * 1.45); mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.008, 18), bronze, 0, 0.1, 0.135, medal).rotation.x = Math.PI / 2;
+  const hf = (x, z) => (z > -1.31 && z < -0.69 && x > 1.53 && x < 2.17 ? 0.3 : 0), hb = (x, z) => 0.3 * smr(z, -1.5, -1.12);
+  const Z0 = -2.55, D = 1.55, Lb = gaitFit(D, 0.4), tW0 = a + 0.15, tW1 = K.lugar4 - 0.1;
+  const distF = (t) => andarAte(t, tW0, tW1, D, 0.8);
+  return {
+    bg: 0x0a0606, fog: [12, 40], fogCol: 0x0a0606,
+    look: { exposure: 1.1, bloom: 0.7, bloomT: 0.72, vig: 0.55, sat: 1.06, con: 1.07, lift: [0.012, 0.006, 0.004] },
+    sun: { dir: [0.1, 0.8, 0.6], col: 0xffe0c0, I: 0.25, c: [0, 0.5, -1], r: 5 }, hemi: { sky: 0x6a4a40, ground: 0x1a0c08, I: 0.32 }, fill: { col: 0xffc8a0, I: 0.12, dir: [0, 0.3, 1] }, rim: { col: 0xffe0c0, str: 0.5 }, hand: 0.007,
+    update(t) {
+      const att = smr(t, K.primeiro - 0.1, K.primeiro + 0.15);
+      s1_.L.intensity = 38 * att; s1_.cone.material.opacity = 0.14 * att; s3.L.intensity = 18 * (1 - 0.55 * att); s3.cone.material.opacity = 0.08 * (1 - 0.5 * att);
+      sProv.L.intensity = 18 * (1 - smr(t, K.sempre - 0.2, K.sempre + 0.4)) + 4;
+      flashes.forEach((f, i) => { const tf = K.primeiro + 0.05 + i * 0.17 + hash(i) * 0.08, k = t > tf && t < tf + 0.12 ? 1 - (t - tf) / 0.12 : 0; f.material.opacity = 0.95 * k; f.scale.setScalar(1.2 + k * 1.4); });
+      floatDust(poeira, t, 0.2, 0.15);
+      restPose(p);
+      const d = distF(t);
+      gait(p, d, { from: [1.85, 0, Z0], ang: 0, step: Lb, hf, hb, amt: 0.9 });
+      idle(p, t, 11, 0.3 + 0.7 * clamp((t - tW1) / 0.5));
+      // olha para o 1º lugar no "de propósito"; recua o rosto quando a luz acende lá
+      const lk = act(t, K.proposito - 0.2, K.proposito + 0.5, 0.1, 0.06) * (1 - smr(t, K.primeiro + 0.4, K.primeiro + 0.9));
+      if (lk > 0.001) lookAtW(p, V3(1.2, 0.9, -1.0), clamp(lk), 1.3);
+      const fl = act(t, K.primeiro + 0.05, K.primeiro + 0.5, 0.05, 0.1);
+      if (fl > 0) { u.neck.rotation.y -= 0.35 * fl; u.spine.rotation.x -= 0.06 * fl; u.sh.forEach((s_) => (s_.rotation.x -= 0.05 * fl)); }
+      molaHomem(p, t, (tt) => { const dd = distF(tt); return [1.85, 0.95 + hb(1.85, Z0 + dd), Z0 + dd]; });
+    },
+    cam(t) {
+      return path2(t, [
+        [a, [0.6, 1.9, 5.2], [0.6, 1.2, -1.2], 36],
+        [K.terceiro + 0.3, [1.3, 1.45, 3.2], [1.5, 1.0, -1.1], 36],
+        [K.redacao + 0.15, [-2.35, 1.3, 0.85], [-2.5, 1.1, -1.25], 34],
+        [K.corrida + 0.15, [-1.55, 1.3, 0.95], [-1.65, 0.62, -1.25], 34],
+        [K.violino + 0.25, [-0.7, 1.25, 0.6], [-0.78, 1.0, -1.3], 34],
+        [K.sempre + 0.45, [1.55, 1.25, 1.75], [1.75, 1.1, -1.0], 34],
+        [K.proposito + 0.4, [2.2, 1.35, 1.95], [1.65, 1.0, -1.0], 33],
+        [K.primeiro + 0.3, [1.2, 1.6, 3.4], [1.45, 0.95, -1.0], 36],
+        [b, [1.0, 1.75, 4.2], [1.35, 0.95, -1.0], 38],
       ]);
     },
   };

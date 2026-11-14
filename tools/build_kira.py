@@ -167,7 +167,7 @@ def s1():
         big("s1-a", f"{g('15 ANOS', RED)}<br>SEM SER PEGO", 300, at(sc, "quinze", -.25), 112, out=at(sc, "so0", -.3)),
         big("s1-b", f"UMA VIDA<br>{g('TRANQUILA')}", 300, at(sc, "so0", -.1), 112, out=at(sc, "porque", -.3)),
         big("s1-c", f"POR QUE QUERIA<br>SER {g('NORMAL')}?", 300, at(sc, "porque", -.1), 100),
-        lbl2("s1-l2", "👀 FICA ATÉ O FINAL", 60, 560, at(sc, "fica", -.05), AMBER, 34),
+        lbl2("s1-l2", "👀 FICA ATÉ O FINAL", 60, 560, at(sc, "normal0", .15), AMBER, 34),
     ))
 
 
@@ -195,9 +195,9 @@ def s3():
     ov(sc, *join(
         big("s3-a", f"DESDE<br>{g('1983', RED)}", 300, at(sc, "desde2", -.15), 128, out=at(sc, "guardava", -.3)),
         lbl2("s3-l1", "🔪 ASSASSINO EM SÉRIE", 60, 600, at(sc, "assassino2", -.1), RED, 36, out=at(sc, "guardava", -.3)),
-        lbl2("s3-l2", "🫙 UM POTE DE UNHAS POR ANO", 40, 240, at(sc, "potes", -.2), AMBER, 34, out=at(sc, "sinal", -.35)),
-        lbl2("s3-l3", "📈 CRESCEU RÁPIDO = PERIGO", 40, 320, at(sc, "rapido", -.1), RED, 34, out=at(sc, "sinal", -.35)),
-        big("s3-b", f"UM ANO BOM<br>{g('PRA CAÇAR', RED)}", 300, at(sc, "sinal", -.15), 104),
+        lbl2("s3-l2", "🫙 UM POTE DE UNHAS POR ANO", 40, 240, at(sc, "potes", -.2), AMBER, 34, out=at(sc, "sinal", -.2)),
+        lbl2("s3-l3", "📈 CRESCEU RÁPIDO = PERIGO", 40, 320, at(sc, "cresciam", -.25), RED, 34, out=at(sc, "sinal", -.2)),
+        big("s3-b", f"UM ANO BOM<br>{g('PRA CAÇAR', RED)}", 300, at(sc, "sinal", -.05), 104),
     ))
 
 
@@ -212,7 +212,7 @@ def s4():
 def s5():
     sc = "s5-terceiro"
     ov(sc, *join(
-        big("s5-a", f"NUNCA ACIMA DO<br>{g('3º LUGAR')}", 290, at(sc, "terceiro", -.3), 96, out=at(sc, "redacao", -.3)),
+        big("s5-a", f"NUNCA ACIMA DO<br>{g('3º LUGAR')}", 290, at(sc, "crianca", -.1), 96, out=at(sc, "redacao", -.3)),
         lbl2("s5-l1", "📝 REDAÇÃO · 3º", 70, 260, at(sc, "redacao", -.1), AMBER, 40, out=at(sc, "proposito", -.35)),
         lbl2("s5-l2", "🏃 CORRIDA · 3º", 70, 345, at(sc, "corrida", -.1), AMBER, 40, out=at(sc, "proposito", -.35)),
         lbl2("s5-l3", "🎻 VIOLINO · 3º", 70, 430, at(sc, "violino", -.1), AMBER, 40, out=at(sc, "proposito", -.35)),
@@ -243,11 +243,11 @@ def s8():
     ov(sc, *join(
         big("s8-a", f"NÃO ERA<br>{g('DISFARCE', RED)}", 300, at(sc, "tranquila7", -.2), 108, out=at(sc, "objetivo", -.3)),
         big("s8-b", f"ERA O<br>{g('OBJETIVO')}", 300, at(sc, "objetivo", -.15), 120, out=at(sc, "dizia", -.25)),
-        lbl2("s8-l1", "🏆 SEM VITÓRIAS", 70, 250, at(sc, "vitorias", -.1), AMBER, 40, out=at(sc, "isso", -.35)),
-        lbl2("s8-l2", "🥀 SEM DERROTAS", 70, 335, at(sc, "derrotas", -.1), AMBER, 40, out=at(sc, "isso", -.35)),
-        lbl2("s8-l3", "⚔️ SEM INIMIGOS", 70, 420, at(sc, "inimigos", -.1), AMBER, 40, out=at(sc, "isso", -.35)),
-        big("s8-c", f"“É ISSO QUE<br>ME FAZ {g('FELIZ')}”", 300, at(sc, "isso", -.15), 92, out=at(sc, "assassinatos", -.3)),
-        lbl2("s8-l4", "🩸 OS CRIMES: ESCONDIDOS NA ROTINA", 30, 300, at(sc, "escondia", -.2), RED, 30),
+        lbl2("s8-l1", "🏆 SEM VITÓRIAS", 70, 250, at(sc, "vitorias", -.1), AMBER, 40, out=at(sc, "escondia", -.3)),
+        lbl2("s8-l2", "🥀 SEM DERROTAS", 70, 335, at(sc, "derrotas", -.1), AMBER, 40, out=at(sc, "escondia", -.3)),
+        lbl2("s8-l3", "⚔️ SEM INIMIGOS", 70, 420, at(sc, "inimigos", -.1), AMBER, 40, out=at(sc, "escondia", -.3)),
+        big("s8-c", f"“É ISSO QUE<br>ME FAZ {g('FELIZ')}”", 560, at(sc, "isso", -.15), 92, out=at(sc, "escondia", -.3)),
+        lbl2("s8-l4", "🩸 OS CRIMES: ESCONDIDOS NA ROTINA", 30, 300, at(sc, "escondia", -.15), RED, 30),
     ))
 
 
@@ -325,6 +325,7 @@ def sfx_list():
         ("whoosh.mp3", P[6] - .15, .28), ("obturador.wav", P[6] + .2, .3), ("risco.wav", k["tambem"] - .05, .45), ("error.mp3", k["tambem"] + .05, .2),
         # 8 · o objetivo
         ("whoosh.mp3", P[7] - .15, .28), ("fonte.wav", P[7], .22), ("sino.wav", k["objetivo"] - .05, .35), ("cha.wav", k["dizia"] - .3, .3),
+        ("toc.wav", k["vitorias"] - .03, .45), ("toc.wav", k["derrotas"] - .03, .45), ("toc.wav", k["inimigos"] - .03, .45),
         ("impact-bass-1.mp3", k["assassinatos"] - .1, .3), ("coracao.wav", k["escondia"], .3),
         # 9 · o rosto roubado
         ("whoosh.mp3", P[8] - .15, .28), ("sirene.wav", k["descoberto"] - .2, .2), ("impact-bass-2.mp3", k["roubou"] - .05, .4), ("porcelana.wav", k["rosto"] - .1, .4),
@@ -408,7 +409,8 @@ if __name__ == "__main__":
     for fn in (s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, caps):
         fn()
     with open(os.path.join(ROOT, "assets/timing.js"), "w") as f:
-        f.write("window.HF_T = " + json.dumps({"scenes": SCENES, "sc": SC, "k": KEYS, "total": TOTAL}) + ";\n")
+        fotos = sorted(f[:-4] for f in os.listdir(os.path.join(ROOT, "assets/img")) if f.endswith(".jpg")) if os.path.isdir(os.path.join(ROOT, "assets/img")) else []
+        f.write("window.HF_T = " + json.dumps({"scenes": SCENES, "sc": SC, "k": KEYS, "total": TOTAL, "fotos": fotos}) + ";\n")
     with open(os.path.join(ROOT, "index.html"), "w") as f:
         f.write(index())
     with open(os.path.join(ROOT, "meta.json"), "w") as f:
