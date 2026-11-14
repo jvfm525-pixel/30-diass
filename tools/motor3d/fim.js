@@ -46,6 +46,7 @@ window.__hf = window.__hf || {};
 window.__hf.buildReady = window.__hf.buildReady || {};
 window.__hf.buildReady["__ID__"] = (async () => {
   try { await document.fonts.load("700 48px 'Archivo Black'"); await document.fonts.ready; } catch (e) { /* sem fontes */ }
+  if (window.HF_PRELOAD) { try { await Promise.all(window.HF_PRELOAD); } catch (e) { /* foto que faltar fica sem textura */ } }
   REDRAW.forEach((f) => f());
   for (const k in SETS) SETS[k].group.visible = true;
   try { await renderer.compileAsync(scene, camera); } catch (e) { /* compila no primeiro quadro */ }
