@@ -1,7 +1,7 @@
 # Curiosidade 3D: "Por que o Kira queria tanto uma vida normal, mesmo sendo um assassino?"
 
 **Formato**
-- Vertical 9:16, cerca de 85 s, **60 quadros por segundo**.
+- Vertical 9:16, 92 s, **60 quadros por segundo**. A leitura da Roberta veio mais lenta, então a voz foi acelerada 15% (e não 8%).
 - Estilo do vídeo do Eren ("por que ele parou nos 80%"): tom de documentário, **fotos de licença livre** misturadas com **cenários 3D originais**, palpites errados riscados em vermelho e a resposta guardada pro final. Agora mais detalhado e bonito: motor 3D v2, cenários em camadas, luz e névoa.
 - Animação melhor que a do vídeo anterior:
   - pés plantados;
@@ -15,9 +15,7 @@
 **Visual**
 - Nada desenhado da obra: nem o Kira, nem o Stand, nem roupas ou símbolos da série. Os nomes aparecem só no texto e na narração.
 - O Kira é representado por um símbolo original: **o homem sem rosto**, um assalariado comum de terno escuro com o rosto liso, como uma máscara de porcelana. É "o homem comum que roubou um rosto".
-- Fotos de licença livre (CC BY, CC BY-SA, CC0 ou domínio público, via Openverse, Flickr e Wikimedia), com crédito na descrição. As fotos entram:
-  - como fundo e paisagem atrás do 3D (cidade à noite, céu);
-  - como quadros, fotos na parede e janelas dentro dos cenários.
+- Fotos reais: a busca no Wikimedia ficou esperando autorização, então esta versão usa só cenários 3D (cidade, céu e escola desenhados em 3D). Se as fotos forem liberadas, entram na tela da escola e nos fundos de cidade e céu, com crédito na descrição.
 
 | Cena | O que aparece | Texto na tela |
 |---|---|---|
@@ -74,8 +72,6 @@ E pra você, quem dá mais medo?
 🅱️ Dio 🧛
 
 Comenta A ou B 👇
-
-📷 Imagens de fundo: licença livre (créditos nos comentários)
 
 #jojo #jojosbizarreadventure #kira #yoshikagekira #diamondisunbreakable #anime #curiosidades #fyp
 ```
