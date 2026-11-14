@@ -133,7 +133,7 @@ def s1():
     ov(sc, *join(
         lbl2("s1-l1", "⚠️ CONTÉM SPOILERS", 60, 220, .2, RED, 32, out=at(sc, "fica", -.25)),
         big("s1-a", f"ELE COMEÇOU<br>{g('A RIR')}", 300, at(sc, "rir", -.25), 104, out=at(sc, "quem0", -.35)),
-        big("s1-b", f"QUEM É O<br>{g('JOY BOY?')}", 300, at(sc, "quem0", -.15), 118, out=at(sc, "fica", -.25)),
+        big("s1-b", f"QUEM É O<br>{g('JOY BOY?')}", 300, at(sc, "quem0", -.15), 118, out=at(sc, "ultima", -.2)),
         lbl2("s1-l2", "🔥 A ÚLTIMA REVELAÇÃO MUDA TUDO", 30, 560, at(sc, "fica"), RED, 30),
     ))
 
@@ -188,8 +188,8 @@ def s6():
 def s7():
     sc = "s7-fruta"
     ov(sc, *join(
-        lbl2("s7-l1", "🌞 A FRUTA NIKA DESPERTOU", 50, 240, at(sc, "despertou", -.25), GOLD, 36, out=at(sc, "voltou", -.45)),
-        big("s7-a", f"“O JOY BOY<br>{g('VOLTOU')}”", 300, at(sc, "voltou", -.3), 112),
+        lbl2("s7-l1", "🌞 A FRUTA NIKA DESPERTOU", 50, 240, at(sc, "despertou", -.25), GOLD, 36, out=at(sc, "disse6", -.3)),
+        big("s7-a", f"“O JOY BOY<br>{g('VOLTOU')}”", 300, at(sc, "disse6", -.1), 112),
     ))
 
 
