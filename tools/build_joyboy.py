@@ -207,7 +207,7 @@ def s8():
 def s9():
     sc = "s9-pergunta"
     l1 = lbl2("s9-l1", "😂 O ROGER: “CHEGUEI CEDO DEMAIS”", 30, 240, at(sc, "riu", -.2), GOLD, 32, out=at(sc, "voce", -.3))
-    b = big("s9-q", f"O LUFFY VAI<br>{g('TERMINAR')} O QUE<br>O JOY BOY COMEÇOU?", 260, at(sc, "voce", -.1), 84)
+    b = big("s9-q", f"O LUFFY VAI<br>{g('TERMINAR')} O QUE<br>O JOY BOY COMEÇOU?", 228, at(sc, "voce", -.1), 70)
     body = '''<div class="big" id="s9-c" style="top:1680px;font-family:'Space Mono';font-weight:700;font-size:56px;opacity:0">COMENTA 👇</div>'''
     js = f'''tl.fromTo("#s9-c", {{ opacity: 0 }}, {{ opacity: 1, duration: .4 }}, {at(sc, "comenta", -.1)});
       tl.fromTo("#s9-c", {{ y: 0 }}, {{ y: 12, duration: .4, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }}, {at(sc, "comenta", .4)});'''
