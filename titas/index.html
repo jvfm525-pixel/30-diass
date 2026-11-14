@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/timing.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0a0806; }
+      #root { width: 100%; height: 100%; position: relative; }
+      #c3d { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 0; }
+      .fontwarm { position: absolute; left: -9999px; top: 0; }
+    </style>
+  </head>
+  <body>
+    <!-- Por que os Titãs atacavam humanos se nem precisavam comer? — 3D motor v2 (gerado por tools/build_titas.py) -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="85.42" data-width="1080" data-height="1920">
+      <canvas id="c3d" width="1080" height="1920" data-layout-allow-overflow></canvas>
+      <div class="fontwarm" data-layout-allow-overflow><span style="font-family:'Archivo Black'">A</span></div>
+      <div id="s1-gancho" data-composition-id="s1-gancho" data-composition-src="compositions/s1-gancho.html" data-start="0.0" data-duration="13.50"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s2-estomago" data-composition-id="s2-estomago" data-composition-src="compositions/s2-estomago.html" data-start="13.5" data-duration="8.28"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s3-sol" data-composition-id="s3-sol" data-composition-src="compositions/s3-sol.html" data-start="21.78" data-duration="7.14"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s4-animais" data-composition-id="s4-animais" data-composition-src="compositions/s4-animais.html" data-start="28.92" data-duration="6.06"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s5-keys" data-composition-id="s5-keys" data-composition-src="compositions/s5-keys.html" data-start="34.98" data-duration="5.66"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s6-pessoas" data-composition-id="s6-pessoas" data-composition-src="compositions/s6-pessoas.html" data-start="40.64" data-duration="9.84"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s7-voltar" data-composition-id="s7-voltar" data-composition-src="compositions/s7-voltar.html" data-start="50.48" data-duration="10.76"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s8-instinto" data-composition-id="s8-instinto" data-composition-src="compositions/s8-instinto.html" data-start="61.24" data-duration="11.20"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s9-pior" data-composition-id="s9-pior" data-composition-src="compositions/s9-pior.html" data-start="72.44" data-duration="6.16"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s10-pergunta" data-composition-id="s10-pergunta" data-composition-src="compositions/s10-pergunta.html" data-start="78.6" data-duration="6.82"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="caps" data-composition-id="caps" data-composition-src="compositions/caps.html" data-start="0" data-duration="85.42"
+        data-track-index="3" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:20"></div>
+      <audio id="voz" class="clip" src="assets/voice/narracao-titas.wav" data-start="0" data-duration="83.34" data-volume="1" data-track-index="4"></audio>
+      <audio id="trilha" class="clip" src="assets/music/trilha-titas.wav" data-start="0" data-duration="85.42" data-volume="0.27" data-fade-out="2" data-track-index="5"></audio>
+      <audio id="sfx-00-vento" class="clip" src="assets/sfx/vento.wav" data-start="0" data-duration="6.0" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-01-passo" class="clip" src="assets/sfx/passo.wav" data-start="0.34" data-duration="2.6" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx-02-tremor" class="clip" src="assets/sfx/tremor.wav" data-start="0.44" data-duration="3.0" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-03-passo" class="clip" src="assets/sfx/passo.wav" data-start="3.59" data-duration="2.6" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx-04-rosnado" class="clip" src="assets/sfx/rosnado.wav" data-start="5.63" data-duration="2.4" data-volume="0.45" data-track-index="8"></audio>
+      <audio id="sfx-05-passo" class="clip" src="assets/sfx/passo.wav" data-start="7.87" data-duration="2.6" data-volume="0.55" data-track-index="6"></audio>
+      <audio id="sfx-06-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="9.03" data-duration="2.12" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-07-vapor" class="clip" src="assets/sfx/vapor.wav" data-start="9.63" data-duration="2.8" data-volume="0.35" data-track-index="8"></audio>
+      <audio id="sfx-08-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="13.5" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-09-scan" class="clip" src="assets/sfx/scan.wav" data-start="13.75" data-duration="1.6" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-10-bip" class="clip" src="assets/sfx/bip.wav" data-start="15.64" data-duration="1.0" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-11-glub" class="clip" src="assets/sfx/glub.wav" data-start="17.41" data-duration="1.0" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-12-glub" class="clip" src="assets/sfx/glub.wav" data-start="18.81" data-duration="1.0" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-13-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="19.65" data-duration="2.59" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-14-rosnado" class="clip" src="assets/sfx/rosnado.wav" data-start="20.62" data-duration="2.4" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-15-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="21.78" data-duration="0.57" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-16-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="24.34" data-duration="1.8" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-17-vento" class="clip" src="assets/sfx/vento.wav" data-start="25.23" data-duration="6.0" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-18-grilos" class="clip" src="assets/sfx/grilos.wav" data-start="27.23" data-duration="6.0" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-19-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="28.92" data-duration="0.57" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-20-passo" class="clip" src="assets/sfx/passo.wav" data-start="29.7" data-duration="2.6" data-volume="0.45" data-track-index="8"></audio>
+      <audio id="sfx-21-passo" class="clip" src="assets/sfx/passo.wav" data-start="31.63" data-duration="2.6" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-22-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="34.1" data-duration="2.12" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-23-notification" class="clip" src="assets/sfx/notification.mp3" data-start="35.13" data-duration="2.46" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-24-moedas" class="clip" src="assets/sfx/moedas.wav" data-start="36.94" data-duration="1.2" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-25-pop" class="clip" src="assets/sfx/pop.mp3" data-start="38.69" data-duration="0.72" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-26-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="38.83" data-duration="0.57" data-volume="0.25" data-track-index="7"></audio>
+      <audio id="sfx-27-trovao" class="clip" src="assets/sfx/trovao.wav" data-start="41.58" data-duration="3.0" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-28-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="41.88" data-duration="2.59" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-29-corrente" class="clip" src="assets/sfx/corrente.wav" data-start="44.38" data-duration="1.8" data-volume="0.35" data-track-index="8"></audio>
+      <audio id="sfx-30-vidro" class="clip" src="assets/sfx/vidro.wav" data-start="45.25" data-duration="1.8" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-31-trovao" class="clip" src="assets/sfx/trovao.wav" data-start="45.97" data-duration="3.0" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-32-vapor" class="clip" src="assets/sfx/vapor.wav" data-start="46.7" data-duration="2.8" data-volume="0.4" data-track-index="8"></audio>
+      <audio id="sfx-33-corrente" class="clip" src="assets/sfx/corrente.wav" data-start="47.82" data-duration="1.8" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-34-passo" class="clip" src="assets/sfx/passo.wav" data-start="49.86" data-duration="2.6" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx-35-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="50.48" data-duration="0.57" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-36-grilos" class="clip" src="assets/sfx/grilos.wav" data-start="50.63" data-duration="6.0" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-37-coracao" class="clip" src="assets/sfx/coracao.wav" data-start="53.11" data-duration="1.6" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-38-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="55.28" data-duration="1.8" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-39-previsao" class="clip" src="assets/sfx/previsao.wav" data-start="57.03" data-duration="1.4" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-40-explosao" class="clip" src="assets/sfx/explosao.wav" data-start="60.26" data-duration="2.6" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-41-vapor" class="clip" src="assets/sfx/vapor.wav" data-start="60.73" data-duration="2.8" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-42-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="61.24" data-duration="0.57" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-43-passo" class="clip" src="assets/sfx/passo.wav" data-start="62.14" data-duration="2.6" data-volume="0.45" data-track-index="8"></audio>
+      <audio id="sfx-44-passo" class="clip" src="assets/sfx/passo.wav" data-start="65.08" data-duration="2.6" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-45-coracao" class="clip" src="assets/sfx/coracao.wav" data-start="66.28" data-duration="1.6" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-46-passo" class="clip" src="assets/sfx/passo.wav" data-start="69.38" data-duration="2.6" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-47-rosnado" class="clip" src="assets/sfx/rosnado.wav" data-start="71.59" data-duration="2.4" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-48-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="72.44" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-49-vento" class="clip" src="assets/sfx/vento.wav" data-start="72.59" data-duration="6.0" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-50-passo" class="clip" src="assets/sfx/passo.wav" data-start="73.36" data-duration="2.6" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx-51-vidro" class="clip" src="assets/sfx/vidro.wav" data-start="74.76" data-duration="1.8" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-52-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="76.15" data-duration="2.59" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-53-whoosh-short" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="78.79" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-54-grilos" class="clip" src="assets/sfx/grilos.wav" data-start="78.99" data-duration="6.0" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-55-pop" class="clip" src="assets/sfx/pop.mp3" data-start="82.67" data-duration="0.72" data-volume="0.3" data-track-index="6"></audio>
+    </div>
+    <script type="module" src="assets/titas3d.js"></script>
+    <script>
+      gsap.defaults({ ease: "power3.out", duration: 0.6 });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

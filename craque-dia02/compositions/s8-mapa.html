@@ -1,0 +1,66 @@
+<template>
+  <style>
+    #root { position:absolute; inset:0; overflow:hidden; background:#2f5d3a; }
+    
+  @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/permanent-marker-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Bangers'; src: url('assets/fonts/bangers-latin-400-normal.woff2') format('woff2'); }
+  .full { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .mk { font-family:'Permanent Marker'; color:#1d1a17; line-height:1.1; }
+  .bang { font-family:'Bangers'; letter-spacing:.03em; line-height:1; }
+  .card { position:absolute; background:#fffdf3; border:10px solid #fff; box-shadow:10px 12px 0 rgba(0,0,0,.25); }
+  .strip { display:inline-block; background:#fffdf3; padding:16px 34px; box-shadow:8px 10px 0 rgba(0,0,0,.25);
+    clip-path: polygon(0% 8%, 4% 0%, 9% 6%, 15% 1%, 22% 7%, 30% 0%, 38% 6%, 46% 1%, 55% 7%, 63% 0%, 71% 6%, 79% 1%, 87% 7%, 94% 0%, 100% 6%,
+      99% 92%, 95% 100%, 88% 93%, 80% 99%, 72% 93%, 64% 100%, 56% 94%, 47% 100%, 39% 93%, 31% 99%, 23% 93%, 15% 100%, 8% 94%, 2% 100%); }
+  .onom { position:absolute; font-family:'Bangers'; letter-spacing:.04em; line-height:1; white-space:nowrap;
+    -webkit-text-stroke:10px #fff; paint-order:stroke fill; text-shadow:8px 10px 0 rgba(0,0,0,.3); }
+
+    
+  </style>
+  <div id="root" data-composition-id="s8-mapa" data-width="1080" data-height="1920">
+
+    <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore><rect width="1080" height="1920" fill="#2f5d3a"/><g stroke="#fff" stroke-width="6" fill="none" opacity=".25"><rect x="60" y="200" width="960" height="1500"/></g>
+      <path id="s8-path" d="M200 1150 C300 950 500 1050 560 850 C620 650 820 700 860 480" stroke="#fff" stroke-width="12" fill="none" stroke-dasharray="40 26" stroke-linecap="round"/>
+      <g stroke="#fff" stroke-width="16" stroke-linecap="round"><path d="M820 440 L900 520 M900 440 L820 520"/></g>
+      <circle cx="200" cy="1150" r="26" fill="#ffd23f"/></svg>
+    <div id="s8-home" data-layout-allow-overlap style="position:absolute;left:90px;top:1190px;z-index:7"><div id="s8-home-in" class="mk" style="font-size:50px;color:#fff;transform-origin:0% 50%;white-space:nowrap">casa do Biel 🏠</div></div>
+    <div id="s8-dest" data-layout-allow-overlap style="position:absolute;left:260px;top:360px;z-index:7"><div id="s8-dest-in" class="mk" style="font-size:46px;color:#fff;transform-origin:0% 50%;white-space:nowrap">CAMPO DO VILA ESPERANÇA</div></div>
+    <div id="s8-km" data-layout-allow-overlap style="position:absolute;left:500px;top:680px;z-index:7"><div id="s8-km-in" class="mk" style="font-size:110px;color:#ffd23f;transform-origin:0% 50%;white-space:nowrap">8 KM!</div></div>
+    <div id="s8-bus" data-layout-allow-overlap style="position:absolute;left:110px;top:830px;width:470px;z-index:6"><div id="s8-bus-in" class="card" style="position:relative;padding:16px 22px;background:#fff7d6"><div class="bang" style="font-size:52px;color:#1d1a17">🚌 PASSAGEM: R$ 5,00</div></div></div>
+    <div id="s8-biel" data-layout-allow-overlap style="position:absolute;left:560px;top:960px;width:380px;z-index:6"><div id="s8-biel-in" class="card" style="position:relative;padding:16px 22px;background:#fff"><div class="bang" style="font-size:52px;color:#e63946">BIEL: R$ 0,00</div></div></div>
+  </div>
+  <script>
+    (function() {
+
+  function hfHash(n) { const s = Math.sin(n * 12.9898) * 43758.5453; return s - Math.floor(s); }
+  // tremidinha de stop motion: muda a cada 1/12 s
+  function hfStop(tl, ids, dur, amp) {
+    const st = { t: 0 }; amp = amp || 1;
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      const k = Math.floor(st.t * 12);
+      ids.forEach((id, i) => gsap.set('#' + id, { x: (hfHash(k + i * 7) - .5) * 4 * amp, y: (hfHash(k + i * 7 + 50) - .5) * 4 * amp,
+        rotation: (hfHash(k + i * 7 + 99) - .5) * 1.6 * amp }));
+    } }, 0);
+  }
+  function hfPop(tl, sel, t, rot) {
+    tl.fromTo(sel, { scale: 0, rotation: (rot || 0) - 18 }, { scale: 1, rotation: rot || 0, duration: .3, ease: 'back.out(2.4)' }, t);
+  }
+  function hfSlap(tl, sel, t, rot) {  // figurinha colada: cai de cima, gira e para
+    tl.fromTo(sel, { scale: 1.6, rotation: (rot || 0) + 25, opacity: 0 }, { scale: 1, rotation: rot || 0, opacity: 1, duration: .28, ease: 'steps(4)' }, t);
+  }
+  function hfSet(tl, p, t, show, hide) {
+    hide.forEach(id => tl.set('#' + p + '-' + id, { opacity: 0 }, t));
+    show.forEach(id => tl.set('#' + p + '-' + id, { opacity: 1 }, t));
+  }
+
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#s8-path", { strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 1.2, ease: "steps(12)" }, 1.62);
+      tl.fromTo("#s8-home-in", { scale: 0 }, { scale: 1, duration: .2, ease: "steps(3)" }, .2);
+      tl.fromTo("#s8-dest-in", { scale: 0 }, { scale: 1, duration: .25, ease: "steps(3)" }, 2.5);
+      tl.fromTo("#s8-km-in", { scale: 0 }, { scale: 1, duration: .25, ease: "steps(3)" }, 3.7700000000000005);
+      hfSlap(tl, "#s8-bus-in", 5.21, -3);
+      hfSlap(tl, "#s8-biel-in", 6.12, 4);
+      window.__timelines["s8-mapa"] = tl;
+    })();
+  </script>
+</template>

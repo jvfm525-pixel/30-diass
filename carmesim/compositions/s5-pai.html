@@ -1,0 +1,84 @@
+<template>
+  <style>
+    #root { position:absolute; inset:0; overflow:hidden; background:transparent; }
+    
+  .full { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .onom { position:absolute; font-family:'Archivo Black'; letter-spacing:-.02em; line-height:1;
+           -webkit-text-stroke:12px #15122b; paint-order:stroke fill; text-shadow:10px 12px 0 #15122b; white-space:nowrap; }
+  .panel { position:absolute; overflow:hidden; border:12px solid #15122b; background:#fff; }
+  .tag { position:absolute; font-family:'Archivo Black'; font-size:46px; color:#15122b; background:#fff; border:7px solid #15122b;
+          padding:8px 22px; box-shadow:8px 8px 0 #15122b; white-space:nowrap; }
+
+    #root { background: transparent; }
+  .lbl { position:absolute; font-family:'Space Mono',monospace; font-weight:700; color:#fff; letter-spacing:.06em; text-transform:uppercase;
+    background:rgba(8,6,14,.72); border-left:8px solid #ff2a4a; padding:10px 22px; font-size:38px; }
+  .big { position:absolute; left:0; right:0; text-align:center; font-family:'Archivo Black'; color:#fff; letter-spacing:.02em; text-shadow:0 6px 24px rgba(0,0,0,.8); }
+  .tint { position:absolute; inset:0; background:radial-gradient(circle at 50% 45%, rgba(120,0,20,.15), rgba(90,0,15,.75)); mix-blend-mode:multiply; opacity:0; }
+  .scan { position:absolute; inset:0; opacity:0; background:repeating-linear-gradient(0deg, rgba(255,40,70,.18) 0 2px, rgba(0,0,0,0) 2px 7px); }
+  .clk { position:absolute; right:70px; top:200px; font-family:'Space Mono',monospace; font-weight:700; font-size:54px; color:#ff2a4a; background:rgba(8,6,14,.8); border:4px solid #ff2a4a; padding:4px 18px; opacity:0; }
+  .win { position:absolute; left:120px; top:330px; width:840px; height:560px; border:6px solid #9fd8ff; box-shadow:0 0 40px rgba(159,216,255,.6), inset 0 0 60px rgba(159,216,255,.35); opacity:0; }
+  .win .t { position:absolute; left:16px; top:10px; font-family:'Space Mono',monospace; font-weight:700; font-size:40px; color:#9fd8ff; }
+  </style>
+  <div id="root" data-composition-id="s5-pai" data-width="1080" data-height="1920">
+<div id="s5-pai-tint" class="tint" style="z-index:1"></div><div id="s5-pai-scan" class="scan" style="z-index:1"></div>
+    <div id="s5-pai-clk" class="clk" style="z-index:6">⏱ <span id="s5-pai-n">00:00</span></div><div id="s5-ap" class="big" style="top:820px;font-family:'Space Mono';font-weight:700;font-size:56px;color:#ffd7dc;opacity:0;letter-spacing:.04em">"…me desculpa, filho."</div>
+  </div>
+  <script>
+    (function() {
+
+  function hfHash(n) { const s = Math.sin(n * 12.9898) * 43758.5453; return s - Math.floor(s); }
+  // traço "fervendo" a 12 quadros por segundo + respiração
+  function hfAlive(tl, p, dur, amp) {
+    const st = { t: 0 }; amp = amp || 1;
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      const k = Math.floor(st.t * 12);
+      gsap.set('#' + p + '-rig', { x: (hfHash(k) - .5) * 2.4 * amp, y: (hfHash(k + 99) - .5) * 2.4 * amp });
+      const b = document.getElementById(p + '-body');
+      if (b) gsap.set(b, { scaleY: 1 + 0.016 * Math.sin(st.t * 2.3), transformOrigin: '50% 100%' });
+      const h = document.getElementById(p + '-head');
+      if (h) gsap.set(h, { y: 4 * Math.sin(st.t * 2.3 - .6), rotation: 1.1 * Math.sin(st.t * 1.2), transformOrigin: '50% 90%' });
+    } }, 0);
+  }
+  function hfBlink(tl, p, at) {
+    at.forEach(t => {
+      tl.fromTo(['#' + p + '-lid-l', '#' + p + '-lid-r'], { scaleY: 1 }, { scaleY: 2.2, duration: .07, ease: 'power1.in', transformOrigin: '50% 0%', immediateRender: false }, t)
+        .to(['#' + p + '-lid-l', '#' + p + '-lid-r'], { scaleY: 1, duration: .09, ease: 'power1.out' }, t + .08);
+    });
+  }
+  // troca de expressão com "take": encolhe, troca, estica, assenta
+  function hfMood(tl, p, t, show, hide) {
+    tl.to('#' + p + '-head', { scaleY: .94, scaleX: 1.04, duration: .08, ease: 'power2.in', transformOrigin: '50% 100%' }, t);
+    hide.forEach(id => tl.set('#' + p + '-' + id, { opacity: 0 }, t + .08));
+    show.forEach(id => tl.set('#' + p + '-' + id, { opacity: 1 }, t + .08));
+    tl.to('#' + p + '-head', { scaleY: 1.05, scaleX: .97, duration: .1, ease: 'power2.out' }, t + .08)
+      .to('#' + p + '-head', { scaleY: 1, scaleX: 1, duration: .3, ease: 'elastic.out(1, .5)' }, t + .18);
+  }
+  function hfFlies(tl, ids, dur, area) {
+    const st = { t: 0 };
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      ids.forEach((id, i) => {
+        const a = area[i], t = st.t, ph = i * 1.7;
+        gsap.set('#' + id, { x: a[0] + a[2] * Math.cos(t * (2.1 + i * .37) + ph) + 16 * Math.sin(t * 9 + ph),
+                            y: a[1] + a[3] * Math.sin(t * (2.9 + i * .23) + ph) + 10 * Math.cos(t * 11 + ph), rotation: 25 * Math.sin(t * 4 + ph) });
+        gsap.set('.' + id + '-w', { scaleY: (Math.floor(t * 30 + i) % 2) ? .35 : 1, transformOrigin: '50% 100%' });
+      });
+    } }, 0);
+  }
+  function hfPop(tl, sel, t, rot) {
+    tl.fromTo(sel, { scale: 0, rotation: (rot || 0) - 14 }, { scale: 1, rotation: rot || 0, duration: .32, ease: 'back.out(2.6)' }, t);
+  }
+
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(["#s5-pai-tint", "#s5-pai-scan"], { opacity: 0 }, { opacity: 1, duration: .25 }, 2.71);
+      tl.to(["#s5-pai-tint", "#s5-pai-scan"], { opacity: 0, duration: .3 }, 9.94);
+      tl.fromTo("#s5-pai-clk", { opacity: 0 }, { opacity: 1, duration: .2 }, 2.71);
+      tl.set("#s5-pai-n", { textContent: "00:11" }, 9.889999999999999);
+      tl.fromTo("#s5-pai-clk", { scale: 1 }, { scale: 1.25, duration: .12, yoyo: true, repeat: 1 }, 9.889999999999999);
+      tl.to("#s5-pai-clk", { opacity: 0, duration: .3 }, 10.84);
+      tl.fromTo("#s5-ap", { opacity: 0, filter: "blur(10px)" }, { opacity: .9, filter: "blur(0px)", duration: .8 }, 8.139999999999997);
+      tl.to("#s5-ap", { opacity: 0, filter: "blur(12px)", duration: 1 }, 9.739999999999997);
+      window.__timelines["s5-pai"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/timing.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0a0705; }
+      #root { width: 100%; height: 100%; position: relative; }
+      #c3d { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 0; }
+      .fontwarm { position: absolute; left: -9999px; top: 0; }
+    </style>
+  </head>
+  <body>
+    <!-- Por que o Muzan tem medo do Tanjiro? — 3D (gerado por tools/build_muzan.py) -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="91.64" data-width="1080" data-height="1920">
+      <canvas id="c3d" width="1080" height="1920"></canvas>
+      <div class="fontwarm"><span style="font-family:'Space Mono';font-weight:700">A</span></div>
+      <div id="s1-rua" data-composition-id="s1-rua" data-composition-src="compositions/s1-rua.html" data-start="0.0" data-duration="9.32"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s2-brinco" data-composition-id="s2-brinco" data-composition-src="compositions/s2-brinco.html" data-start="9.32" data-duration="8.28"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s3-passado" data-composition-id="s3-passado" data-composition-src="compositions/s3-passado.html" data-start="17.6" data-duration="9.00"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s4-ferida" data-composition-id="s4-ferida" data-composition-src="compositions/s4-ferida.html" data-start="26.6" data-duration="9.04"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s5-pedacos" data-composition-id="s5-pedacos" data-composition-src="compositions/s5-pedacos.html" data-start="35.64" data-duration="11.92"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s6-danca" data-composition-id="s6-danca" data-composition-src="compositions/s6-danca.html" data-start="47.56" data-duration="9.85"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s7-orgaos" data-composition-id="s7-orgaos" data-composition-src="compositions/s7-orgaos.html" data-start="57.41" data-duration="6.63"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s8-formas" data-composition-id="s8-formas" data-composition-src="compositions/s8-formas.html" data-start="64.04" data-duration="10.84"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s9-sol" data-composition-id="s9-sol" data-composition-src="compositions/s9-sol.html" data-start="74.88" data-duration="8.03"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s10-pergunta" data-composition-id="s10-pergunta" data-composition-src="compositions/s10-pergunta.html" data-start="82.91" data-duration="8.73"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="caps" data-composition-id="caps" data-composition-src="compositions/caps.html" data-start="0" data-duration="91.64"
+        data-track-index="3" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:20"></div>
+      <audio id="voz" class="clip" src="assets/voice/narracao-muzan.wav" data-start="0" data-duration="89.56" data-volume="1" data-track-index="4"></audio>
+      <audio id="trilha" class="clip" src="assets/music/trilha-carmesim.wav" data-start="0" data-duration="91.64" data-volume="0.3" data-fade-out="2" data-track-index="5"></audio>
+      <audio id="sfx-00-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="0.2" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-01-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="7.76" data-duration="2.5" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-02-previsao" class="clip" src="assets/sfx/previsao.wav" data-start="11.22" data-duration="1.4" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-03-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="16.39" data-duration="2.12" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-04-apagar" class="clip" src="assets/sfx/apagar.wav" data-start="17.55" data-duration="1.7" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-05-fogo" class="clip" src="assets/sfx/fogo.wav" data-start="20.41" data-duration="1.2" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-06-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="25.45" data-duration="2.5" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-07-fogo" class="clip" src="assets/sfx/fogo.wav" data-start="26.78" data-duration="1.2" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-08-glitch-1" class="clip" src="assets/sfx/glitch-1.mp3" data-start="34.6" data-duration="2.5" data-volume="0.25" data-track-index="6"></audio>
+      <audio id="sfx-09-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="36.82" data-duration="2.12" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx-10-crack" class="clip" src="assets/sfx/crack.wav" data-start="36.92" data-duration="0.5" data-volume="0.35" data-track-index="8"></audio>
+      <audio id="sfx-11-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="40.89" data-duration="0.57" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-12-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="41.19" data-duration="0.57" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-13-fogo" class="clip" src="assets/sfx/fogo.wav" data-start="52.24" data-duration="1.2" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-14-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="56.51" data-duration="1.8" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-15-bip" class="clip" src="assets/sfx/bip.wav" data-start="58.59" data-duration="1.0" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-16-bip" class="clip" src="assets/sfx/bip.wav" data-start="59.62" data-duration="1.0" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-17-fogo" class="clip" src="assets/sfx/fogo.wav" data-start="66.04" data-duration="1.2" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-18-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="68.54" data-duration="0.57" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-19-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="69.76" data-duration="2.12" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-20-volta" class="clip" src="assets/sfx/volta.wav" data-start="79.45" data-duration="0.7" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-21-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="86.11" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-22-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="87.45" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+    </div>
+    <script type="module" src="assets/muzan3d.js"></script>
+    <script>
+      gsap.defaults({ ease: "power3.out", duration: 0.6 });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

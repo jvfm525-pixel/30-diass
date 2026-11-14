@@ -1,0 +1,75 @@
+<template>
+  <style>
+    #root { position:absolute; inset:0; overflow:hidden; background:transparent; }
+    
+  .full { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .onom { position:absolute; font-family:'Archivo Black'; letter-spacing:-.02em; line-height:1;
+           -webkit-text-stroke:12px #15122b; paint-order:stroke fill; text-shadow:10px 12px 0 #15122b; white-space:nowrap; }
+  .panel { position:absolute; overflow:hidden; border:12px solid #15122b; background:#fff; }
+  .tag { position:absolute; font-family:'Archivo Black'; font-size:46px; color:#15122b; background:#fff; border:7px solid #15122b;
+          padding:8px 22px; box-shadow:8px 8px 0 #15122b; white-space:nowrap; }
+
+    #root { background: transparent; }
+  </style>
+  <div id="root" data-composition-id="hud" data-width="1080" data-height="1920">
+<div id="hud-box" style="position:absolute;left:70px;top:180px;width:820px;z-index:2">
+      <div id="hud-in" style="display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.92);border:7px solid #15122b;border-radius:26px;padding:10px 18px;box-shadow:8px 8px 0 #15122b">
+        <div style="font-family:'Archivo Black';font-size:30px;line-height:1;color:#15122b;text-align:center">⏳ 28<br><span style="font-size:28px">DIAS</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 18px"><div style="display:flex;align-items:center;gap:6px"><div style="font-size:34px">💰</div><div style="width:110px;height:22px;background:#1b1035;border:5px solid #15122b;border-radius:12px;overflow:hidden;position:relative">
+          <div style="width:20%;height:100%;background:#ffd23f"></div><div style="position:absolute;left:70%;top:0;width:4px;height:100%;background:#fff"></div></div></div><div style="display:flex;align-items:center;gap:6px"><div style="font-size:34px">❤️</div><div style="width:110px;height:22px;background:#1b1035;border:5px solid #15122b;border-radius:12px;overflow:hidden;position:relative">
+          <div style="width:30%;height:100%;background:#ff4d6d"></div><div style="position:absolute;left:70%;top:0;width:4px;height:100%;background:#fff"></div></div></div><div style="display:flex;align-items:center;gap:6px"><div style="font-size:34px">💘</div><div style="width:110px;height:22px;background:#1b1035;border:5px solid #15122b;border-radius:12px;overflow:hidden;position:relative">
+          <div style="width:10%;height:100%;background:#ff8fd8"></div><div style="position:absolute;left:70%;top:0;width:4px;height:100%;background:#fff"></div></div></div><div style="display:flex;align-items:center;gap:6px"><div style="font-size:34px">⭐</div><div style="width:110px;height:22px;background:#1b1035;border:5px solid #15122b;border-radius:12px;overflow:hidden;position:relative">
+          <div style="width:40%;height:100%;background:#4cc9f0"></div><div style="position:absolute;left:70%;top:0;width:4px;height:100%;background:#fff"></div></div></div></div></div></div>
+  </div>
+  <script>
+    (function() {
+
+  function hfHash(n) { const s = Math.sin(n * 12.9898) * 43758.5453; return s - Math.floor(s); }
+  // traço "fervendo" a 12 quadros por segundo + respiração
+  function hfAlive(tl, p, dur, amp) {
+    const st = { t: 0 }; amp = amp || 1;
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      const k = Math.floor(st.t * 12);
+      gsap.set('#' + p + '-rig', { x: (hfHash(k) - .5) * 2.4 * amp, y: (hfHash(k + 99) - .5) * 2.4 * amp });
+      const b = document.getElementById(p + '-body');
+      if (b) gsap.set(b, { scaleY: 1 + 0.016 * Math.sin(st.t * 2.3), transformOrigin: '50% 100%' });
+      const h = document.getElementById(p + '-head');
+      if (h) gsap.set(h, { y: 4 * Math.sin(st.t * 2.3 - .6), rotation: 1.1 * Math.sin(st.t * 1.2), transformOrigin: '50% 90%' });
+    } }, 0);
+  }
+  function hfBlink(tl, p, at) {
+    at.forEach(t => {
+      tl.fromTo(['#' + p + '-lid-l', '#' + p + '-lid-r'], { scaleY: 1 }, { scaleY: 2.2, duration: .07, ease: 'power1.in', transformOrigin: '50% 0%', immediateRender: false }, t)
+        .to(['#' + p + '-lid-l', '#' + p + '-lid-r'], { scaleY: 1, duration: .09, ease: 'power1.out' }, t + .08);
+    });
+  }
+  // troca de expressão com "take": encolhe, troca, estica, assenta
+  function hfMood(tl, p, t, show, hide) {
+    tl.to('#' + p + '-head', { scaleY: .94, scaleX: 1.04, duration: .08, ease: 'power2.in', transformOrigin: '50% 100%' }, t);
+    hide.forEach(id => tl.set('#' + p + '-' + id, { opacity: 0 }, t + .08));
+    show.forEach(id => tl.set('#' + p + '-' + id, { opacity: 1 }, t + .08));
+    tl.to('#' + p + '-head', { scaleY: 1.05, scaleX: .97, duration: .1, ease: 'power2.out' }, t + .08)
+      .to('#' + p + '-head', { scaleY: 1, scaleX: 1, duration: .3, ease: 'elastic.out(1, .5)' }, t + .18);
+  }
+  function hfFlies(tl, ids, dur, area) {
+    const st = { t: 0 };
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      ids.forEach((id, i) => {
+        const a = area[i], t = st.t, ph = i * 1.7;
+        gsap.set('#' + id, { x: a[0] + a[2] * Math.cos(t * (2.1 + i * .37) + ph) + 16 * Math.sin(t * 9 + ph),
+                            y: a[1] + a[3] * Math.sin(t * (2.9 + i * .23) + ph) + 10 * Math.cos(t * 11 + ph), rotation: 25 * Math.sin(t * 4 + ph) });
+        gsap.set('.' + id + '-w', { scaleY: (Math.floor(t * 30 + i) % 2) ? .35 : 1, transformOrigin: '50% 100%' });
+      });
+    } }, 0);
+  }
+  function hfPop(tl, sel, t, rot) {
+    tl.fromTo(sel, { scale: 0, rotation: (rot || 0) - 14 }, { scale: 1, rotation: rot || 0, duration: .32, ease: 'back.out(2.6)' }, t);
+  }
+
+      const tl = gsap.timeline({ paused: true });
+tl.fromTo("#hud-in", { y: -200 }, { y: 0, duration: .35, ease: "back.out(1.5)" }, 0);
+      tl.to("#hud-in", { y: -450, duration: .3, ease: "power2.in" }, 34.1);
+      window.__timelines["hud"] = tl;
+    })();
+  </script>
+</template>

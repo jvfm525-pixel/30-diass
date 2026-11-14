@@ -1,0 +1,73 @@
+<template>
+  <style>
+    #root { position:absolute; inset:0; overflow:hidden; background:#2f5d3a; }
+    
+  @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/permanent-marker-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Bangers'; src: url('assets/fonts/bangers-latin-400-normal.woff2') format('woff2'); }
+  .full { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .mk { font-family:'Permanent Marker'; color:#1d1a17; line-height:1.1; }
+  .bang { font-family:'Bangers'; letter-spacing:.03em; line-height:1; }
+  .card { position:absolute; background:#fffdf3; border:10px solid #fff; box-shadow:10px 12px 0 rgba(0,0,0,.25); }
+  .strip { display:inline-block; background:#fffdf3; padding:16px 34px; box-shadow:8px 10px 0 rgba(0,0,0,.25);
+    clip-path: polygon(0% 8%, 4% 0%, 9% 6%, 15% 1%, 22% 7%, 30% 0%, 38% 6%, 46% 1%, 55% 7%, 63% 0%, 71% 6%, 79% 1%, 87% 7%, 94% 0%, 100% 6%,
+      99% 92%, 95% 100%, 88% 93%, 80% 99%, 72% 93%, 64% 100%, 56% 94%, 47% 100%, 39% 93%, 31% 99%, 23% 93%, 15% 100%, 8% 94%, 2% 100%); }
+  .onom { position:absolute; font-family:'Bangers'; letter-spacing:.04em; line-height:1; white-space:nowrap;
+    -webkit-text-stroke:10px #fff; paint-order:stroke fill; text-shadow:8px 10px 0 rgba(0,0,0,.3); }
+
+    
+  </style>
+  <div id="root" data-composition-id="s10-decisao" data-width="1080" data-height="1920">
+
+    <svg class="full" viewBox="0 0 1080 1920" data-layout-ignore style="z-index:0"><rect width="1080" height="1920" fill="#2f5d3a"/>
+      <g stroke="#fff" stroke-width="6" fill="none" opacity=".35"><rect x="60" y="200" width="960" height="1500"/><line x1="60" y1="950" x2="1020" y2="950"/><circle cx="540" cy="950" r="150"/></g></svg>
+    <div id="s10-t" data-layout-allow-overlap style="position:absolute;left:120px;top:380px;z-index:6"><div id="s10-t-in" class="mk" style="font-size:70px;color:#fff;transform-origin:0% 50%;white-space:nowrap">COMO ELE CHEGA LÁ?</div></div>
+    <div id="s10-a" data-layout-allow-overlap style="position:absolute;left:90px;top:600px;width:410px;z-index:5">
+          <div id="s10-a-in" class="card" style="position:relative;padding:18px 14px;text-align:center;background:#f4a261">
+            <div class="bang" style="position:absolute;left:-28px;top:-38px;width:100px;height:100px;border-radius:50%;background:#fff;border:7px solid #1d1a17;font-size:70px;line-height:88px;color:#1d1a17">A</div>
+            <div style="font-size:120px;line-height:1.2">🏃</div>
+            <div class="bang" style="font-size:58px;color:#fff;text-shadow:4px 4px 0 #1d1a17;line-height:1">IR CORRENDO<br>8 KM</div>
+            <div class="mk" style="margin-top:12px;background:#fff;border:5px solid #1d1a17;border-radius:14px;padding:6px 10px;font-size:34px">MEXE COM: 💪 ⚽</div></div></div>
+    <div id="s10-b" data-layout-allow-overlap style="position:absolute;left:570px;top:600px;width:410px;z-index:5">
+          <div id="s10-b-in" class="card" style="position:relative;padding:18px 14px;text-align:center;background:#3a86ff">
+            <div class="bang" style="position:absolute;left:-28px;top:-38px;width:100px;height:100px;border-radius:50%;background:#fff;border:7px solid #1d1a17;font-size:70px;line-height:88px;color:#1d1a17">B</div>
+            <div style="font-size:120px;line-height:1.2">🚗</div>
+            <div class="bang" style="font-size:58px;color:#fff;text-shadow:4px 4px 0 #1d1a17;line-height:1">CARONA COM<br>O KAUÃ</div>
+            <div class="mk" style="margin-top:12px;background:#fff;border:5px solid #1d1a17;border-radius:14px;padding:6px 10px;font-size:34px">MEXE COM: 🧠 ⚽</div></div></div>
+    <div style="position:absolute;left:0;right:0;top:1120px;text-align:center;z-index:8"><div id="s10-com-in" class="strip bang" style="font-size:80px;color:#1d1a17">COMENTA <span style="color:#e76f00">A</span> OU <span style="color:#1d4ed8">B</span> 👇</div></div>
+  </div>
+  <script>
+    (function() {
+
+  function hfHash(n) { const s = Math.sin(n * 12.9898) * 43758.5453; return s - Math.floor(s); }
+  // tremidinha de stop motion: muda a cada 1/12 s
+  function hfStop(tl, ids, dur, amp) {
+    const st = { t: 0 }; amp = amp || 1;
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      const k = Math.floor(st.t * 12);
+      ids.forEach((id, i) => gsap.set('#' + id, { x: (hfHash(k + i * 7) - .5) * 4 * amp, y: (hfHash(k + i * 7 + 50) - .5) * 4 * amp,
+        rotation: (hfHash(k + i * 7 + 99) - .5) * 1.6 * amp }));
+    } }, 0);
+  }
+  function hfPop(tl, sel, t, rot) {
+    tl.fromTo(sel, { scale: 0, rotation: (rot || 0) - 18 }, { scale: 1, rotation: rot || 0, duration: .3, ease: 'back.out(2.4)' }, t);
+  }
+  function hfSlap(tl, sel, t, rot) {  // figurinha colada: cai de cima, gira e para
+    tl.fromTo(sel, { scale: 1.6, rotation: (rot || 0) + 25, opacity: 0 }, { scale: 1, rotation: rot || 0, opacity: 1, duration: .28, ease: 'steps(4)' }, t);
+  }
+  function hfSet(tl, p, t, show, hide) {
+    hide.forEach(id => tl.set('#' + p + '-' + id, { opacity: 0 }, t));
+    show.forEach(id => tl.set('#' + p + '-' + id, { opacity: 1 }, t));
+  }
+
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#s10-t-in", { scale: 0 }, { scale: 1, duration: .25, ease: "steps(3)" }, 1.19);
+      hfSlap(tl, "#s10-a-in", 2.92, -3);
+      hfSlap(tl, "#s10-b-in", 4.51, 3);
+      tl.fromTo("#s10-a-in", { y: 0 }, { y: -16, duration: .18, repeat: 3, yoyo: true, ease: "steps(2)", immediateRender: false }, 6.98);
+      tl.fromTo("#s10-b-in", { y: 0 }, { y: -16, duration: .18, repeat: 3, yoyo: true, ease: "steps(2)", immediateRender: false }, 8.34);
+      tl.fromTo("#s10-com-in", { scale: 0, rotation: -8 }, { scale: 1, rotation: -2, duration: .3, ease: "back.out(2.5)" }, 10.31);
+      window.__timelines["s10-decisao"] = tl;
+    })();
+  </script>
+</template>
