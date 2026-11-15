@@ -3,41 +3,43 @@
 **Formato**
 - Vertical 9:16, cerca de 85 s, 60 qps.
 - Feito com os três juntos:
-  - **Three.js**: motor 3D, personagens e cenários originais.
-  - **Remotion**: renderiza a camada 3D.
+  - **Three.js**: motor 3D, personagens e cenários;
+  - **Remotion**: renderiza a camada 3D;
   - **HyperFrames**: textos, legenda, áudio, checagem e render final.
-- Estilo novo (GUIA-ROTEIRO-ESTILO.md):
-  - a 1ª frase é o título falado;
-  - tom de conversa, sem muletas repetidas;
-  - uma pergunta no meio, respondida na hora;
-  - uma piada seca;
-  - final com frase de impacto (sem pergunta A/B).
-- Montagem: um ângulo ou plano novo a cada 1–2 s. A imagem mostra o que a frase diz.
-- Legenda: **uma palavra por vez**, grande, amarela com contorno preto.
+- **Estilo: o da animação de referência** (GUIA-ANIMACAO-ESTILO.md), como um vídeo-ensaio:
+  - 3D low-poly, câmera lenta e contínua (planos de 3–8 s, quase sem corte seco);
+  - um **mundo de cor por capítulo**;
+  - transições com motivo na história (entrar no olho, roupa que muda de cor de baixo pra cima, flash branco, chicote);
+  - luz: contraluz, bloom, raios, anéis no chão, linhas de luz que se desenham;
+  - legenda **por frase**, em serifa itálica branca no terço de cima, com mancha escura desfocada atrás;
+  - cabeçalhos de capítulo em versalete ("— A JAULA —"), nome de quem fala em lilás e fichas de citação ("Jujutsu Kaisen · cap. 213");
+  - trilha contínua e suave, poucos efeitos sonoros, silêncio na última frase;
+  - **fechamento circular**: termina na mesma imagem do começo.
 - Keys da Steam no meio, numa frase curta.
 - Contém spoilers do mangá (caps. 212–236).
 
-**Visual: os personagens da obra em 3D low-poly** (estilo do GUIA-ANIMACAO-ESTILO.md; desenho próprio, nada de arte oficial)
-- **Yuji:** cabelo rosa espetado com raiz escura e franja, olhos castanho-âmbar, uniforme azul-marinho de gola alta com capuz vermelho.
-- **Sukuna no corpo do Yuji:** o cabelo vai pra trás, olhos vermelhos, o segundo par de olhos embaixo e as marcas pretas no rosto. Sorriso largo.
-- **Megumi:** cabelo preto espetado pra todo lado, olhos azul-esverdeados, uniforme azul-marinho de gola alta com botões dourados.
-- **Sukuna no corpo do Megumi:** o mesmo Megumi com olhos vermelhos e as marcas pretas do Sukuna.
-- **Gojo:** cabelo branco pra cima, venda preta nos olhos, uniforme escuro; olhos azuis quando tira a venda.
-- **Mahoraga:** gigante branco e musculoso com a roda de oito raios em cima da cabeça, que gira e trava a cada adaptação.
-- **Tsumiki/Yorozu:** a irmã do Megumi.
-- **Cães divinos:** os lobos de sombra do Megumi (um branco e um preto).
+**Personagens da obra em 3D low-poly** (desenho próprio, nada de arte oficial)
+- **Yuji:** cabelo rosa com laterais escuras, olhos castanho-âmbar, uniforme azul-marinho com capuz vermelho.
+- **Sukuna no corpo do Yuji:** cabelo penteado pra trás, olhos vermelhos, segundo par de olhos e marcas pretas.
+- **Megumi:** cabelo preto espetado, olhos azul-esverdeados, uniforme azul-marinho com botões dourados.
+- **Sukuna no corpo do Megumi:** o Megumi com olhos vermelhos e as marcas.
+- **Gojo:** cabelo branco pra cima e venda preta.
+- **Mahoraga:** gigante branco com a roda de oito raios em cima da cabeça, que gira e trava a cada adaptação.
+- **Tsumiki:** a irmã do Megumi.
+- **Cães divinos:** um lobo branco e um preto, que saem da sombra.
 
-| Tempo aprox. | O que aparece |
-|---|---|
-| Gancho | Close no rosto do Sukuna no corpo do Megumi (olhos vermelhos, marcas). Recua até o Yuji, pequeno, de costas, ao longe. |
-| Reformatório | Pátio de concreto alagado, à noite e com chuva. O Sukuna (no corpo do Yuji, sorrindo) encara o Megumi. Os cães divinos saem da sombra dele. |
-| A jaula | Mundo preto e dourado: o Yuji de pé; atrás dele, o Sukuna preso atrás de grades de luz vermelha. |
-| Por que o Megumi? | O Megumi faz o sinal com as mãos. A sombra vira os lobos, e o Mahoraga surge com a roda girando. |
-| Keys | Baú de pedra num templo com cartões de keys. |
-| Cap. 212 | Uma boca abre na bochecha do Yuji ("Enchain") e um relógio de 1 minuto aparece. O Sukuna arranca o dedo e o Megumi engole. Flash, e os olhos do Megumi ficam vermelhos. |
-| A irmã | O "banho": o Megumi afunda numa água escura. A Tsumiki/Yorozu aparece e some. |
-| O manual | A roda do Mahoraga trava, clique. O Gojo (com a venda) dentro do Infinito. O corte parte a tela ao meio. |
-| Fim | O Yuji atrás das grades, de um lado; o Megumi com olhos vermelhos, do outro. Uma chave de luz gira. |
+| Capítulo (tela) | Mundo de cor | O que aparece | Transição de saída |
+|---|---|---|---|
+| Capa (0,7 s) + título | — | Quadro de capa; título "Por que o / SUKUNA / escolheu o **MEGUMI**" (MEGUMI maior, em lilás). | flash branco |
+| Abertura | Vazio preto e vermelho | O Yuji pequeno, de costas, ao longe; o Megumi do outro lado. Um orbe vermelho (o Sukuna) flutua entre os dois. A câmera avança devagar até o rosto do Megumi. | a câmera **entra no olho** |
+| — O PRIMEIRO OLHAR — | Noite azul com chuva | Pátio alagado do reformatório. O Sukuna (no corpo do Yuji) sorri; o Megumi faz o sinal e os cães saem da sombra dele. Close dos olhos vermelhos que não saem do garoto. | a roupa do Yuji **fica dourada de baixo pra cima** |
+| — A JAULA — | Preto e dourado | Linhas de luz desenham uma casa em volta do Yuji, e a casa vira **jaula**. O Sukuna preso atrás das grades vermelhas. Ficha *Jujutsu Kaisen · cap. 213*. | a sombra cobre a tela |
+| — AS DEZ SOMBRAS — | Sombra azul e violeta | O Megumi faz o sinal; a sombra se espalha em **anéis no chão**; o Mahoraga sobe com a roda girando e trava a cada ataque. | chicote |
+| (keys) | Templo dourado | Baú de pedra que se abre com cartões de luz. | chicote |
+| — O PACTO — | Pôr do sol laranja e roxo | Ficha *cap. 212*. Uma boca abre na bochecha do Yuji; **veias de raio** e o relógio de 1 minuto. Um **orbe de luz** sai do peito do Yuji e entra no Megumi; os olhos dele ficam vermelhos. | flash branco |
+| — O BANHO — | Água escura com raios de luz | O Megumi afunda devagar. A Tsumiki aparece em luz clara e se desfaz em partículas. | a superfície da água vira **nuvem de fumaça** |
+| — O MANUAL — | Lilás e marrom, fogo no horizonte | A roda do Mahoraga trava, clique a clique. O Gojo no Infinito, com anéis azuis. Uma **linha branca corta a tela**. **SUKUNA:** "Eu tinha um ótimo manual." (ficha *cap. 236*) | flash branco |
+| Fechamento | Vazio preto e vermelho (o mesmo do começo) | O Yuji atrás das grades de um lado, o Megumi de olhos vermelhos do outro. Uma **chave de luz** gira e trava. Silêncio na última frase. | fim |
 
 ## Narração para o ElevenLabs (v4)
 
