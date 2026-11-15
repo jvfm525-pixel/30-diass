@@ -25,7 +25,7 @@ function olhoTex(iris, o = {}) {
     const cx = w / 2, cy = h * 0.56, rx = w * 0.4, ry = h * 0.34;
     c.save(); c.beginPath(); c.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2); c.clip();
     c.fillStyle = o.esclera ?? "#fbf7f2"; c.fillRect(0, 0, w, h);
-    const ix = cx + (o.dx ?? 0), irx = w * (o.irisR ?? 0.23), iry = h * 0.36;
+    const ix = cx + (o.dx ?? 0), irx = w * (o.irisR ?? 0.28), iry = h * 0.4;
     const g = c.createLinearGradient(0, cy - iry, 0, cy + iry); g.addColorStop(0, corCSS(iris, -0.26)); g.addColorStop(0.55, corCSS(iris)); g.addColorStop(1, corCSS(iris, 0.2));
     c.fillStyle = g; c.beginPath(); c.ellipse(ix, cy + h * 0.03, irx, iry, 0, 0, Math.PI * 2); c.fill();
     c.fillStyle = "#120a0c"; c.beginPath();
@@ -44,16 +44,14 @@ const BOCAT = {};
 function bocaTex(tipo) {
   if (BOCAT[tipo]) return BOCAT[tipo];
   return (BOCAT[tipo] = canvasTex(256, 128, (c, w, h) => {
-    c.clearRect(0, 0, w, h); c.lineCap = "round"; const cx = w / 2, cy = h / 2;
-    if (tipo === "linha") { c.strokeStyle = "#5a2626"; c.lineWidth = 12; c.beginPath(); c.moveTo(cx - 32, cy); c.quadraticCurveTo(cx, cy + 3, cx + 32, cy); c.stroke(); }
-    else if (tipo === "sorriso") { c.strokeStyle = "#5a2626"; c.lineWidth = 12; c.beginPath(); c.moveTo(cx - 38, cy - 8); c.quadraticCurveTo(cx, cy + 16, cx + 38, cy - 8); c.stroke(); }
-    else if (tipo === "triste") { c.strokeStyle = "#5a2626"; c.lineWidth = 8; c.beginPath(); c.moveTo(cx - 28, cy + 6); c.quadraticCurveTo(cx, cy - 8, cx + 28, cy + 6); c.stroke(); }
-    else if (tipo === "aberta") { c.fillStyle = "#4a1418"; c.beginPath(); c.ellipse(cx, cy + 4, 28, 22, 0, 0, Math.PI * 2); c.fill(); c.fillStyle = "#c8586a"; c.beginPath(); c.ellipse(cx, cy + 16, 17, 8, 0, 0, Math.PI * 2); c.fill(); c.fillStyle = "#f4f0ea"; c.fillRect(cx - 18, cy - 15, 36, 7); }
-    else if (tipo === "risada") { // sorriso enorme com dentes (Sukuna)
-      const L = cx - 96, R = cx + 96, Y = cy - 22;
-      c.fillStyle = "#3a0c10"; c.beginPath(); c.moveTo(L, Y); c.quadraticCurveTo(cx, cy + 56, R, Y); c.quadraticCurveTo(cx, cy + 2, L, Y); c.fill();
-      c.save(); c.clip(); c.fillStyle = "#f6f2ea"; for (let i = 0; i < 12; i++) c.fillRect(cx - 88 + i * 15, cy - 22, 12, 15); for (let i = 0; i < 10; i++) c.fillRect(cx - 72 + i * 15, cy + 14, 12, 14); c.restore();
-      c.strokeStyle = "#1a0608"; c.lineWidth = 5; c.beginPath(); c.moveTo(L, Y); c.quadraticCurveTo(cx, cy + 56, R, Y); c.stroke(); c.beginPath(); c.moveTo(L, Y); c.quadraticCurveTo(cx, cy + 2, R, Y); c.stroke();
+    c.clearRect(0, 0, w, h); c.lineCap = "round"; c.lineJoin = "round"; const cx = w / 2, cy = h / 2, cor = "#6e2a28";
+    if (tipo === "linha") { c.fillStyle = cor; c.beginPath(); c.roundRect(cx - 52, cy - 7, 104, 14, 4); c.fill(); }
+    else if (tipo === "sorriso") { c.strokeStyle = cor; c.lineWidth = 14; c.beginPath(); c.moveTo(cx - 58, cy - 9); c.quadraticCurveTo(cx - 40, cy + 4, cx, cy + 5); c.quadraticCurveTo(cx + 40, cy + 4, cx + 58, cy - 9); c.stroke(); }
+    else if (tipo === "triste") { c.strokeStyle = cor; c.lineWidth = 13; c.beginPath(); c.moveTo(cx - 48, cy + 8); c.quadraticCurveTo(cx, cy - 8, cx + 48, cy + 8); c.stroke(); }
+    else if (tipo === "aberta") { c.fillStyle = "#3a0e12"; c.beginPath(); c.ellipse(cx, cy + 2, 34, 22, 0, 0, Math.PI * 2); c.fill(); c.fillStyle = "#b8485a"; c.beginPath(); c.ellipse(cx, cy + 14, 22, 9, 0, 0, Math.PI * 2); c.fill(); c.fillStyle = "#f2ede6"; c.beginPath(); c.roundRect(cx - 22, cy - 18, 44, 8, 3); c.fill(); }
+    else if (tipo === "risada") { // sorriso de canto a canto do Sukuna, fino, com a fileira de dentes
+      c.fillStyle = "#2a0a0e"; c.beginPath(); c.moveTo(cx - 96, cy - 14); c.quadraticCurveTo(cx, cy + 34, cx + 96, cy - 14); c.quadraticCurveTo(cx, cy + 6, cx - 96, cy - 14); c.fill();
+      c.save(); c.clip(); c.fillStyle = "#f4efe6"; for (let i = 0; i < 13; i++) c.fillRect(cx - 90 + i * 14, cy - 12, 11, 14); c.restore();
     }
   }));
 }
@@ -65,16 +63,30 @@ const bochechaTex = canvasTex(256, 128, (c, w, h) => { c.clearRect(0, 0, w, h); 
 const testaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#16090c"; c.beginPath(); c.moveTo(14, 20); c.lineTo(w / 2 - 22, 22); c.lineTo(w / 2, 58); c.lineTo(w / 2 + 22, 22); c.lineTo(w - 14, 20); c.lineTo(w - 14, 30); c.lineTo(w / 2 + 16, 32); c.lineTo(w / 2, 48); c.lineTo(w / 2 - 16, 32); c.lineTo(14, 30); c.closePath(); c.fill(); });
 
 // ---------------------------------------------------------------- cabeça e cabelo
-function headGeoLP(o = {}) {
-  const g = new THREE.SphereGeometry(1, o.ws ?? 36, o.hs ?? 26);
-  const jaw = o.jaw ?? 0.38, chin = o.chin ?? 0.08;
-  deform(g, (v) => { if (v.y < 0) { const k = Math.pow(-v.y, 1.3); v.x *= 1 - jaw * k; v.z += chin * k * Math.max(0, v.z); } if (v.z < 0) v.z *= 1.05; });
-  g.scale(o.sx ?? 0.083, o.sy ?? 0.1, o.sz ?? 0.095); g.translate(0, o.cy ?? 0.11, 0); g.computeVertexNormals(); return g;
+// cabeça no formato da referência: quadrado arredondado (superelipsoide), frente reta, laterais retas e
+// mandíbula que afina num queixo rombudo (escudo). Facetada: a frente quase plana parece lisa, as laterais mostram os cortes.
+const HEAD = { a: 0.078, b: 0.106, c: 0.088, n: 2.9, cy: 0.11, jawY: -0.1, jaw: 0.5, frente: 0.86 };
+function superDir(d, n) { const s_ = Math.pow(Math.pow(Math.abs(d.x), n) + Math.pow(Math.abs(d.y), n) + Math.pow(Math.abs(d.z), n), -1 / n); return d.multiplyScalar(s_); }
+function headUnit(v, H = HEAD) { // ponto unitário da cabeça (antes da escala), com a mandíbula em escudo
+  superDir(v.normalize(), H.n);
+  if (v.z > H.frente) v.z = H.frente; // frente do rosto plana (olhos, nariz e boca num plano só, como na referência)
+  if (v.y < H.jawY) { const k = (H.jawY - v.y) / (1 + H.jawY); v.x *= 1 - H.jaw * Math.pow(k, 1.15); if (v.z < 0) v.z *= 1 - 0.3 * k; else v.z *= 1 - 0.08 * k; }
+  if (v.z < 0) v.z *= 1.04;
+  return v;
 }
-function espeto(parent, base, dir, len, r, mat) {
-  const geo = new THREE.ConeGeometry(r, len, 4, 1); geo.translate(0, len / 2, 0);
+function headGeoLP(o = {}) {
+  const H = { ...HEAD, ...o }, g = new THREE.SphereGeometry(1, o.ws ?? 14, o.hs ?? 12);
+  deform(g, (v) => { headUnit(v, H); v.set(v.x * H.a, H.cy + v.y * H.b, v.z * H.c); });
+  return g;
+}
+function espeto(parent, base, dir, len, r, mat, centro = null) {
+  const geo = new THREE.ConeGeometry(r, len, 6, 1); geo.translate(0, len / 2, 0);
   const m = mesh(geo, mat, base.x, base.y, base.z, parent);
-  m.quaternion.setFromUnitVectors(V3_(0, 1, 0), dir); m.rotateY(hash(base.x * 97.1 + base.z * 31.7) * 3);
+  m.quaternion.setFromUnitVectors(V3_(0, 1, 0), dir);
+  if (centro) { // chapa: o lado largo fica tangente à cabeça (a mecha deita em vez de virar espinho)
+    const rad = base.clone().sub(centro).normalize(), t = V3_().crossVectors(dir, rad); if (t.lengthSq() > 1e-6) { t.normalize(); const xw = V3_(1, 0, 0).applyQuaternion(m.quaternion); m.rotateY(Math.atan2(V3_().crossVectors(xw, t).dot(dir), xw.dot(t)) + Math.PI / 4); }
+    m.scale.set(1.45, 1, 0.55);
+  } else m.rotateY(hash(base.x * 97.1 + base.z * 31.7) * 3);
   return m;
 }
 function estiloDir(estilo, nrm, r) {
@@ -87,22 +99,32 @@ function estiloDir(estilo, nrm, r) {
   return v.normalize();
 }
 function cabeloLP(head, o) {
-  const ax = 0.086, ay = 0.108, az = 0.099, cy = 0.11, seed = o.seed ?? 0;
+  const H = HEAD, cy = H.cy, seed = o.seed ?? 0, fo = o.fofo ?? 1.05;
   const hg = grp(head, 0, cy, 0), hr = grp(hg, 0, -cy, 0); head.userData.hairG = hg; head.userData.hairLong = false;
-  const m = LPmat(o.cor, { rim: 1.2 }), m2 = o.raiz != null ? LPmat(o.raiz, { rim: 1 }) : m;
-  const capG = new THREE.SphereGeometry(1, 12, 7, 0, Math.PI * 2, 0, Math.PI * (o.capA ?? 0.44)); capG.scale(ax, ay, az);
-  const capM = mesh(capG, m, 0, cy, -0.003, hr); capM.rotation.x = o.capTilt ?? -0.4;
-  const P = (th, ph, k = 1) => V3_(Math.sin(th) * Math.sin(ph) * ax * k, cy + Math.cos(th) * ay * k, Math.sin(th) * Math.cos(ph) * az * k);
-  const n = o.n ?? 40, thMin = o.thMin ?? 0.06, thMax = o.thMax ?? 0.44;
-  for (let i = 0; i < n; i++) {
+  const m = LPmat(o.cor, { rim: 1.2, liso: true }), m2 = o.raiz != null ? LPmat(o.raiz, { rim: 1, liso: true }) : m;
+  const lf = o.linhaFrente ?? 0.4, lt = o.linhaTras ?? -0.4, acima = (u) => u.y > (lf + lt) / 2 + ((lf - lt) / 2) * u.z;
+  const toW = (u, k = 1) => V3_(u.x * H.a * k, cy + u.y * H.b * k, u.z * H.c * k);
+  // calota: a própria superfície da cabeça, um pouco maior, só acima da linha do cabelo
+  const cg = new THREE.SphereGeometry(1, 20, 16), pos = cg.attributes.position, U = [];
+  for (let i = 0; i < pos.count; i++) { const u = headUnit(V3_(pos.getX(i), pos.getY(i), pos.getZ(i))); U.push(u.clone()); const w = toW(u, fo); pos.setXYZ(i, w.x, w.y, w.z); }
+  const idx = cg.index.array, keep = [];
+  for (let i = 0; i < idx.length; i += 3) if (acima(U[idx[i]]) && acima(U[idx[i + 1]]) && acima(U[idx[i + 2]])) keep.push(idx[i], idx[i + 1], idx[i + 2]);
+  cg.setIndex(keep); cg.computeVertexNormals(); mesh(cg, LPmat(o.cor, { rim: 1.2, side: THREE.DoubleSide, liso: true }), 0, 0, 0, hr);
+  // espetos facetados nascendo da calota
+  const n = o.n ?? 40, thMin = o.thMin ?? 0.06, thMax = o.thMax ?? 0.5;
+  let made = 0;
+  for (let i = 0; i < n * 4 && made < n; i++) {
     const r1 = hash(i * 3.7 + seed), r2 = hash(i * 5.3 + seed), r3 = hash(i * 9.1 + seed);
-    const ph = (i / n) * Math.PI * 2 * 2.618 + (r1 - 0.5) * 0.5, front = Math.cos(ph) > 0.45;
-    const th = (thMin + r2 * (thMax - thMin) * (front ? o.frontK ?? 0.55 : 1)) * Math.PI;
-    const base = P(th, ph, 0.96), nrm = base.clone().sub(V3_(0, cy, 0)).normalize();
-    const len = (o.len ?? 0.07) * (0.7 + r3 * 0.6), rad = (o.r ?? 0.03) * (0.75 + r1 * 0.5);
-    espeto(hr, base, estiloDir(o.estilo, nrm, r3), len, rad, o.raiz != null && th > 0.33 * Math.PI && !front ? m2 : m);
+    const ph = i * 2.39996 + (r1 - 0.5) * 0.4, th = (thMin + r2 * (thMax - thMin)) * Math.PI;
+    const u = headUnit(V3_(Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph)));
+    if (!acima(u)) continue;
+    made++;
+    const front = u.z > 0.55, base = toW(u, fo * 0.98), nrm = u.clone().normalize();
+    const len = (o.len ?? 0.07) * (0.7 + r3 * 0.6) * (front ? o.frontLen ?? 1 : 1), rad = (o.r ?? 0.03) * (0.75 + r1 * 0.5);
+    espeto(hr, base, estiloDir(o.estilo, nrm, r3), len, rad, o.raiz != null && u.y < 0.15 && !front ? m2 : m, o.chapa === false ? null : V3_(0, cy, 0));
   }
-  (o.franja || []).forEach(([ph, len, lado]) => { const base = P(0.27 * Math.PI, ph, 0.98); espeto(hr, base, V3_(Math.sin(ph) * 0.6 + lado, -1, 0.5).normalize(), len, o.rFranja ?? 0.026, m); });
+  // franja: mechas caindo na testa
+  (o.franja || []).forEach(([ph, len, lado]) => { const u = headUnit(V3_(Math.sin(0.26 * Math.PI) * Math.sin(ph), Math.cos(0.26 * Math.PI), Math.sin(0.26 * Math.PI) * Math.cos(ph))); espeto(hr, toW(u, fo), V3_(Math.sin(ph) * 0.6 + lado, -1, 0.45).normalize(), len, o.rFranja ?? 0.026, m, o.chapa === false ? null : V3_(0, cy, 0)); });
   return hg;
 }
 
@@ -111,7 +133,7 @@ function perfilR(pts, y) { for (let i = 0; i < pts.length - 1; i++) if (y <= pts
 function pessoaLP(o = {}) {
   const P = { pele: 0xf2c8a6, olho: "#3a5a6a", roupa: 0x1b2232, calca: 0x1b2232, sapato: 0x141418, sola: 0xe4e0d8, botao: 0xd4aa50, seed: 1, scale: 1, ...o };
   const S = skeleton({ ...HUMANO, ...(o.dims || {}) });
-  const skin = LPmat(P.pele, { rim: 0.5, liso: true }), roupa = LPmat(P.roupa, { rim: 1 }), roupa2 = LPmat(P.roupa, { rim: 1, side: THREE.DoubleSide }), calca = LPmat(P.calca), sapato = LPmat(P.sapato, { rough: 0.5 }), botao = LPmat(P.botao, { metal: 0.6, rough: 0.35, rim: 0.4 });
+  const skin = LPmat(P.pele, { rim: 0.5, liso: true }), skinF = LPmat(P.pele, { rim: 0.5 }), roupa = LPmat(P.roupa, { rim: 1 }), roupa2 = LPmat(P.roupa, { rim: 1, side: THREE.DoubleSide }), calca = LPmat(P.calca), sapato = LPmat(P.sapato, { rough: 0.5 }), botao = LPmat(P.botao, { metal: 0.6, rough: 0.35, rim: 0.4 });
   const R = 12;
   // quadril, pernas e tênis
   mesh(sph(1, R, 6), calca, 0, -0.01, 0, S.hips).scale.set(0.15, 0.11, 0.11);
@@ -149,24 +171,24 @@ function pessoaLP(o = {}) {
   mesh(cyl(0.042, 0.048, 0.1, R), skin, 0, 0.03, 0, S.neck);
   const headM = mesh(headGeoLP(P.cabeca || {}), skin, 0, 0, 0);
   const zAt = (x, y) => surfZ(headM, x, y);
-  [-1, 1].forEach((k) => { const ea = mesh(sph(1, 6, 5), skin, k * 0.079, 0.104, -0.006); ea.scale.set(0.013, 0.026, 0.018); S.head.add(ea); });
+  [-1, 1].forEach((k) => { const ea = mesh(sph(1, 8, 6), skin, k * 0.078, 0.098, -0.012); ea.scale.set(0.009, 0.02, 0.013); S.head.add(ea); });
   // rosto: olhos (decalque), sobrancelhas, nariz, bocas
-  const EX = 0.035, EY = 0.1;
-  const olhos = P.venda ? [] : [-1, 1].map((k) => { const g = grp(S.head, k * EX, EY, zAt(k * EX, EY) + 0.003); g.rotation.set(0, k * 0.34, k * (P.olhoInc ?? 0)); decal(g, olhoTex(P.olho, { fenda: P.fenda }), 0.055, 0.041 * (P.olhoAlt ?? 1), 0, 0, 0); return g; });
-  const brows = [-1, 1].map((k) => { const y = EY + 0.035, rz0 = k * -0.1; const b = mesh(box(0.034, 0.0075, 0.006), LPmat(P.sobrancelha ?? (P.cabelo ? P.cabelo.cor : 0x222222)), k * EX, y, zAt(k * EX, y) + 0.002); b.rotation.set(0, k * 0.32, rz0); b.userData = { y0: y, rz0 }; S.head.add(b); b.visible = !P.venda; return b; });
-  decal(S.head, narizTex, 0.016, 0.018, 0, 0.076, zAt(0, 0.076) + 0.004);
-  const MY = 0.052, mz = zAt(0, MY) + 0.003;
+  const EX = 0.031, EY = 0.1;
+  const olhos = P.venda ? [] : [-1, 1].map((k) => { const g = grp(S.head, k * EX, EY, zAt(k * EX, EY) + 0.003); g.rotation.set(0, 0, k * (P.olhoInc ?? 0)); decal(g, olhoTex(P.olho, { fenda: P.fenda }), 0.054, 0.042 * (P.olhoAlt ?? 1), 0, 0, 0); return g; });
+  const brows = [-1, 1].map((k) => { const y = EY + 0.034, rz0 = k * -(0.1 + (P.brava ?? 0) * 0.25); const b = mesh(box(0.037, 0.0115, 0.006), LPmat(P.sobrancelha ?? (P.cabelo ? P.cabelo.cor : 0x222222)), k * EX, y, zAt(k * EX, y) + 0.002); b.rotation.set(0, 0, rz0); b.userData = { y0: y, rz0 }; S.head.add(b); b.visible = !P.venda; return b; });
+  decal(S.head, narizTex, 0.013, 0.015, 0, 0.064, zAt(0, 0.064) + 0.004);
+  const MY = 0.038, mz = zAt(0, MY) + 0.003;
   const bocas = {};
-  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decal(S.head, bocaTex(t), 0.058, 0.029, 0, MY, mz)));
-  bocas.risada = decal(S.head, bocaTex("risada"), 0.086, 0.043, 0, MY - 0.002, mz + 0.001);
+  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decal(S.head, bocaTex(t), 0.04, 0.02, 0, MY, mz)));
+  bocas.risada = decal(S.head, bocaTex("risada"), 0.062, 0.031, 0, MY, mz + 0.001);
   let extras = null;
   if (P.sukuna) { // marcas do Sukuna
-    extras = [-1, 1].map((k) => { const y = EY - 0.03, g = grp(S.head, k * 0.036, y, zAt(k * 0.036, y) + 0.003); g.rotation.set(0, k * 0.4, k * 0.12); decal(g, olhoExtraTex, 0.034, 0.013, 0, 0, 0); return g; });
-    [-1, 1].forEach((k) => { const g = grp(S.head, k * 0.057, 0.064, zAt(k * 0.057, 0.064) + 0.004); g.rotation.set(0, k * 0.62, 0); g.scale.x = k; decal(g, bochechaTex, 0.04, 0.02, 0, 0, 0); });
+    extras = [-1, 1].map((k) => { const y = EY - 0.03, g = grp(S.head, k * 0.035, y, zAt(k * 0.035, y) + 0.003); g.rotation.set(0, 0, k * 0.12); decal(g, olhoExtraTex, 0.034, 0.013, 0, 0, 0); return g; });
+    [-1, 1].forEach((k) => { const g = grp(S.head, k * 0.052, 0.058, zAt(k * 0.052, 0.058) + 0.004); g.rotation.set(0, k * 0.45, 0); g.scale.x = k; decal(g, bochechaTex, 0.04, 0.02, 0, 0, 0); });
     decal(S.head, testaTex, 0.07, 0.017, 0, EY + 0.052, zAt(0, EY + 0.052) + 0.004);
   }
   S.head.add(headM);
-  if (P.venda) { const v = mesh(new THREE.CylinderGeometry(1, 1, 0.046, 18, 1, true), LPmat(0x121216, { side: THREE.DoubleSide, rim: 0.6 }), 0, EY + 0.004, 0, S.head); v.scale.set(0.088, 1, 0.103); }
+  if (P.venda) { const vg = new THREE.CylinderGeometry(1, 1, 0.048, 28, 1, true); deform(vg, (v) => { const d = V3_(v.x, 0, v.z).normalize(), k_ = Math.pow(Math.pow(Math.abs(d.x), HEAD.n) + Math.pow(Math.abs(d.z), HEAD.n), -1 / HEAD.n); v.x = d.x * k_ * HEAD.a * 1.07; v.z = d.z * k_ * HEAD.c * (d.z < 0 ? 1.12 : 1.08); }); mesh(vg, LPmat(0x121216, { side: THREE.DoubleSide, rim: 0.6 }), 0, EY + 0.004, 0, S.head); }
   if (P.cabelo) cabeloLP(S.head, P.cabelo);
   S.head.scale.setScalar(P.cabecaEscala ?? 1.12); // cabeça um pouco maior (proporção de anime)
   S.root.scale.setScalar(P.scale);
@@ -192,7 +214,7 @@ function rostoLP(p, t, f = {}) {
 // ---------------------------------------------------------------- elenco: Jujutsu Kaisen (desenho próprio low-poly)
 const JJK = { navy: 0x232b3e, navy2: 0x181e2c, botao: 0xd4aa50 };
 function yujiLP(o = {}) { return pessoaLP({ seed: 11, pele: 0xf3c8a6, olho: "#a8642e", capuz: 0xb3262c, roupa: JJK.navy, calca: JJK.navy, sobrancelha: 0x6a3a40, cabelo: { cor: 0xe8909c, raiz: 0x5a2c34, estilo: "curto", n: 60, len: 0.042, r: 0.028, thMax: 0.5, franja: [[-0.24, 0.058, -0.12], [0.24, 0.058, 0.12]], seed: 3 }, ...o }); }
-function sukunaYujiLP(o = {}) { return yujiLP({ seed: 12, olho: "#c41e2a", olhoAlt: 0.85, olhoInc: 0.08, sukuna: true, cabelo: { cor: 0xe8909c, raiz: 0x5a2c34, estilo: "pratras", n: 44, len: 0.075, r: 0.03, capTilt: -0.55, seed: 4 }, ...o }); }
-function megumiLP(o = {}) { return pessoaLP({ seed: 21, pele: 0xf1c6a4, olho: "#2f5a66", olhoAlt: 0.86, roupa: JJK.navy, calca: JJK.navy, sobrancelha: 0x101216, cabelo: { cor: 0x101216, estilo: "ourico", n: 52, len: 0.085, r: 0.032, thMax: 0.5, franja: [[-0.18, 0.07, -0.22], [0.08, 0.064, 0.12], [0.34, 0.056, 0.3]], seed: 7 }, ...o }); }
+function sukunaYujiLP(o = {}) { return yujiLP({ seed: 12, olho: "#c41e2a", olhoAlt: 0.85, olhoInc: 0.08, sukuna: true, cabelo: { cor: 0xe8909c, raiz: 0x5a2c34, estilo: "pratras", n: 44, len: 0.075, r: 0.03, linhaFrente: 0.58, seed: 4 }, ...o }); }
+function megumiLP(o = {}) { return pessoaLP({ seed: 21, pele: 0xf1c6a4, olho: "#2f5a66", olhoAlt: 0.86, brava: 0.5, roupa: JJK.navy, calca: JJK.navy, sobrancelha: 0x101216, cabelo: { cor: 0x101216, estilo: "ourico", n: 52, len: 0.085, r: 0.032, thMax: 0.5, franja: [[-0.18, 0.07, -0.22], [0.08, 0.064, 0.12], [0.34, 0.056, 0.3]], seed: 7 }, ...o }); }
 function sukunaMegumiLP(o = {}) { return megumiLP({ seed: 22, olho: "#c41e2a", olhoInc: 0.08, sukuna: true, ...o }); }
 function gojoLP(o = {}) { return pessoaLP({ seed: 31, pele: 0xf4d0b4, venda: true, roupa: JJK.navy2, calca: JJK.navy2, scale: 1.08, cabelo: { cor: 0xf0f2f6, estilo: "pracima", n: 54, len: 0.09, r: 0.03, franja: [[-0.22, 0.07, -0.25], [0.0, 0.074, 0], [0.24, 0.068, 0.25]], seed: 9 }, ...o }); }

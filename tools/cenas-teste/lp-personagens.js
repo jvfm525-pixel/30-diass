@@ -19,7 +19,7 @@ addSet("teste", (g) => {
     cam() {
       const c = Math.max(1, window.TEST_CAM | 0), i = Math.floor((c - 1) / 2), x = X[Math.min(4, i)], sc = i === 4 ? 1.08 : 1;
       if ((c - 1) % 2 === 0) return { pos: [x + 0.4, 1.0 * sc, 3.5], look: [x, 0.96 * sc, 0], fov: 36 };
-      return { pos: [x + 0.13, 1.72 * sc, 0.7], look: [x, 1.7 * sc, 0], fov: 28, near: 0.02 };
+      return { pos: [x + 0.16, 1.74 * sc, 1.05], look: [x, 1.66 * sc, 0], fov: 30, near: 0.02 };
     },
   };
 });
