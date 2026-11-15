@@ -1,10 +1,10 @@
-// ================================================================ personagens low-poly v3 (estilo da animação de referência, GUIA-ANIMACAO-ESTILO.md)
-// Calibrado reconstruindo um personagem da própria animação e comparando lado a lado.
-// Rosto:
-//   - cabeça de poucos polígonos com sombreado suave e quinas marcadas (normais com vinco) e frente quase plana;
-//   - olhos largos e baixos: pálpebra de cima grossa cobrindo o alto da íris, íris grande com contorno escuro;
-//   - sobrancelhas grossas, nariz de triângulo em dois tons, boca pequena vermelho-escura, blush nos mais novos.
-// Cabelo: lâminas largas e finas (franja até as sobrancelhas, laterais cobrindo as orelhas, volume no topo).
+// ================================================================ personagens low-poly v7 (estilo da animação de referência, GUIA-ANIMACAO-ESTILO.md)
+// Calibrado reconstruindo o Eren criança da própria animação e comparando lado a lado, no mesmo ângulo dos quadros de 9 s e 12 s.
+// Rosto: BLOCO RETANGULAR arredondado (laterais retas, queixo largo e reto, frente plana, quinas marcadas), medido nos rostos
+//   de frente do vídeo (Kruger, Eren adulto, Eren criança, Armin). Olhos grandes de anime, nariz em pirâmide 3D, sobrancelhas
+//   grossas, boca curta, blush. Os traços são decalques curvos que acompanham a pele.
+// Cabelo: uma touca justa feita de MECHAS em triângulo com aresta no meio, saindo do redemoinho no topo e terminando em dentes
+//   (franja, têmporas, nuca), mais alguns tufos largos no alto. Pouco volume, como no vídeo.
 // Usa o mesmo esqueleto do motor: pose, idle, gait, standFeet e IK continuam funcionando.
 const LPM = {};
 function LPmat(color, o = {}) {
@@ -125,33 +125,48 @@ const olhoExtraTex = canvasTex(256, 96, (c, w, h) => { c.clearRect(0, 0, w, h); 
 const bochechaTex = canvasTex(256, 128, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#16090c"; [[30, 34], [44, 74]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x, y); c.lineTo(w - 26, y - 14); c.lineTo(w - 32, y - 2); c.lineTo(x + 6, y + 12); c.closePath(); c.fill(); }); });
 const testaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#16090c"; c.beginPath(); c.moveTo(14, 20); c.lineTo(w / 2 - 22, 22); c.lineTo(w / 2, 58); c.lineTo(w / 2 + 22, 22); c.lineTo(w - 14, 20); c.lineTo(w - 14, 30); c.lineTo(w / 2 + 16, 32); c.lineTo(w / 2, 48); c.lineTo(w / 2 - 16, 32); c.lineTo(14, 30); c.closePath(); c.fill(); });
 
-// ---------------------------------------------------------------- cabeça
-// cabeça medida no Eren criança da referência: crânio arredondado em cima; embaixo um bloco mais "cheio" (expoente maior),
-// frente plana descendo até o queixo, bochechas retas até a altura da boca e queixo largo em U
-const HEAD = { a: 0.077, b: 0.132, bBaixo: 0.156, c: 0.088, n: 2.6, nBaixo: 3.0, cy: 0.103, frente: 0.9, jawY: -0.18, jaw: 0.42 };
-const yCab = (uy, H) => H.cy + uy * (uy < 0 ? H.bBaixo ?? H.b : H.b); // metade de baixo mais comprida (queixo longo como na referência)
-function superDir(d, n, m = n) { // superelipsoide com expoente n em x/z e m em y: acha t com |tx|^n + |ty|^m + |tz|^n = 1
-  const f = (t) => Math.pow(Math.abs(d.x * t), n) + Math.pow(Math.abs(d.y * t), m) + Math.pow(Math.abs(d.z * t), n) - 1;
-  let lo = 0, hi = 2; for (let i = 0; i < 30; i++) { const mid = (lo + hi) / 2; if (f(mid) > 0) hi = mid; else lo = mid; }
-  return d.multiplyScalar((lo + hi) / 2);
+// ---------------------------------------------------------------- cabeça (v7)
+// Medida nos rostos de frente da referência (Kruger, Eren adulto, Eren criança, Armin): um BLOCO RETANGULAR arredondado.
+// Unidade u = meia-largura do rosto na linha dos olhos (CAB.HW, em metros); y em u a partir da linha dos olhos (EY).
+//   - laterais retas desde a testa até logo abaixo do nariz; na boca o rosto ainda tem ~90% da largura;
+//   - mandíbula curta que fecha num queixo LARGO e reto (~50% da largura), a ~1,56 u abaixo dos olhos;
+//   - frente plana (testa, olhos, bochechas), quinas marcadas entre a frente e os lados (low-poly);
+//   - crânio arredondado em cima, ~1,8 u acima dos olhos.
+const CAB = {
+  HW: 0.075, EY: 0.093, nF: 3.4, nT: 2.3,
+  larg: [[-1.6, 0], [-1.585, 0.4], [-1.52, 0.54], [-1.32, 0.72], [-1.02, 0.89], [-0.62, 0.99], [-0.3, 1.0], [0.7, 1.0], [1.1, 0.96], [1.42, 0.84], [1.66, 0.56], [1.78, 0.24], [1.8, 0]],
+  frente: [[-1.6, 0.56], [-1.52, 0.7], [-1.0, 0.84], [-0.3, 0.9], [0.5, 0.92], [1.05, 0.88], [1.42, 0.72], [1.66, 0.44], [1.8, 0]],
+  tras: [[-1.6, -0.36], [-1.3, -0.1], [-0.9, 0.4], [-0.4, 0.95], [0.3, 1.26], [0.95, 1.28], [1.4, 1.06], [1.68, 0.6], [1.8, 0]],
+  Y: [-1.6, -1.585, -1.52, -1.42, -1.32, -1.18, -1.02, -0.82, -0.62, -0.3, 0.1, 0.45, 0.8, 1.1, 1.3, 1.48, 1.62, 1.72, 1.8],
+};
+function perfilY(pts, y) { if (y <= pts[0][0]) return pts[0][1]; for (let i = 0; i < pts.length - 1; i++) if (y <= pts[i + 1][0]) return lerp(pts[i][1], pts[i + 1][1], (y - pts[i][0]) / (pts[i + 1][0] - pts[i][0])); return pts[pts.length - 1][1]; }
+// ponto da superfície da cabeça (metros, espaço da cabeça) no ângulo ph (0 = frente, ±π/2 = lados, π = nuca) e altura y (u)
+function supCab(ph, y, ext = 0, out = V3_()) {
+  const H = CAB, s_ = Math.sin(ph), c_ = Math.cos(ph), fr = c_ >= 0, n = fr ? H.nF : H.nT;
+  const w = perfilY(H.larg, y), d = fr ? perfilY(H.frente, y) : perfilY(H.tras, y);
+  out.set(Math.sign(s_) * Math.pow(Math.abs(s_), 2 / n) * w, y, Math.sign(c_) * Math.pow(Math.abs(c_), 2 / n) * d);
+  if (ext) { const nn = nrmCab(ph, y); out.addScaledVector(nn, ext / H.HW); }
+  return out.set(out.x * H.HW, H.EY + out.y * H.HW, out.z * H.HW);
 }
-function headUnit(v, H = HEAD) {
-  v.normalize(); const baixo = v.y < 0;
-  superDir(v, baixo ? (H.nBaixo ?? H.n) : H.n, baixo ? (H.nBaixo ?? H.n) : H.n);
-  if (v.z > H.frente) v.z = H.frente;
-  if (v.y < H.jawY) { const k = sm(clamp((H.jawY - v.y) / (1 + H.jawY))); v.x *= 1 - H.jaw * k; v.z *= v.z < 0 ? 1 - 0.3 * k : 1 - 0.14 * k; }
-  if (v.z < 0) v.z *= 1.05;
-  return v;
+function nrmCab(ph, y) { // normal (aprox.) por diferenças finitas, no espaço u
+  const e = 0.01, H = CAB, f = (a, b) => { const s_ = Math.sin(a), c_ = Math.cos(a), n = c_ >= 0 ? H.nF : H.nT, w = perfilY(H.larg, b), d = c_ >= 0 ? perfilY(H.frente, b) : perfilY(H.tras, b); return V3_(Math.sign(s_) * Math.pow(Math.abs(s_), 2 / n) * w, b, Math.sign(c_) * Math.pow(Math.abs(c_), 2 / n) * d); };
+  const p0 = f(ph, y), tu = f(ph + e, y).sub(f(ph - e, y)), tv = f(ph, Math.min(1.8, y + e)).sub(f(ph, Math.max(-1.6, y - e)));
+  const n = V3_().crossVectors(tu, tv); if (n.lengthSq() < 1e-12) n.copy(p0).setY(y > 0 ? 1 : -1); n.normalize();
+  if (n.dot(V3_(p0.x, y > 1.7 ? 1 : y < -1.55 ? -1 : 0, p0.z)) < 0) n.negate();
+  return n;
 }
 function headGeoLP(o = {}) {
-  const H = { ...HEAD, ...o }, g = new THREE.SphereGeometry(1, o.ws ?? 16, o.hs ?? 14);
-  deform(g, (v) => { headUnit(v, H); v.set(v.x * H.a, yCab(v.y, H), v.z * H.c); });
-  return vincoNormais(g, 1.3);
+  const NS = o.ns ?? 20, Y = CAB.Y, pos = [], idx = [];
+  for (let i = 0; i < Y.length; i++) for (let j = 0; j <= NS; j++) { const v = supCab((j / NS) * Math.PI * 2, Y[i]); pos.push(v.x, v.y, v.z); }
+  for (let i = 0; i < Y.length - 1; i++) for (let j = 0; j < NS; j++) { const a = i * (NS + 1) + j, b = a + NS + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx);
+  return vincoNormais(g, o.vinco ?? 0.62);
 }
 
-// ---------------------------------------------------------------- cabelo
-// mecha: tufo largo que afina até a ponta. Eixo Y = comprimento, X = largura, Z = espessura (aponta pra fora da cabeça).
-// esp = espessura total em relação à largura (0.16 = lâmina fina, 0.5 = tufo grosso); curva > 0 levanta a ponta, < 0 deita sobre a cabeça.
+// ---------------------------------------------------------------- cabelo (v7)
+// Como na referência: uma TOUCA justa no crânio (pouco volume), com a borda cortada em dentes triangulares (franja até perto
+// das sobrancelhas, laterais nas têmporas, nuca) e só algumas pontas curtas no alto. Nada de tufos pra todo lado.
+// mecha/ponta: lâmina grossa que afina até a ponta. Eixo Y = comprimento, X = largura, Z = espessura.
 function laminaGeo(L, W, curva = -0.2, seg = 5, esp = 0.32) {
   const pos = [], idx = [];
   for (let i = 0; i <= seg; i++) {
@@ -169,76 +184,44 @@ function lamina(parent, base, dir, radial, L, W, mat, curva, esp, giro = 0) {
   const m = mesh(laminaGeo(L, W, curva, 5, esp), mat, base.x, base.y, base.z, parent); m.quaternion.setFromRotationMatrix(_mb.makeBasis(x, y, z)); m.castShadow = true;
   return m;
 }
-// capacete de cabelo: a superfície da cabeça inflada (mais no topo), com a borda em zigue-zague:
-// franja até as sobrancelhas, laterais cobrindo as orelhas, nuca. As pontas viram as mechas da borda.
-function bordaCabelo(o, ph) { const f = Math.cos(ph); return f > 0 ? lerp(o.bordaLado ?? 0.62, o.bordaFrente ?? 0.44, Math.pow(f, 1.6)) : lerp(o.bordaLado ?? 0.62, o.bordaTras ?? 0.68, Math.pow(-f, 1.2)); }
-function inflaCabelo(o, i01) { return lerp(o.volume ?? 1.15, o.volBorda ?? 1.035, Math.pow(i01, 1.3)); }
-function capaceteGeo(o, H) {
-  const NT = o.dentes ?? 24, SV = 12, SH = NT * 2, pos = [], idx = [], seed = o.seed ?? 0;
+// altura (u) da borda da touca no ângulo ph: franja na frente, lados, nuca (interpolados)
+function bordaY(o, ph) { const f = Math.cos(ph); return f > 0 ? lerp(o.ladoY ?? 0.2, o.franjaY ?? 0.75, Math.pow(f, o.franjaK ?? 2.2)) : lerp(o.ladoY ?? 0.2, o.nucaY ?? -0.55, Math.pow(-f, 1.1)); }
+// touca de MECHAS (como no vídeo): mechas compridas em triângulo saindo do redemoinho no alto da cabeça e descendo até a borda.
+// Cada mecha tem uma aresta no meio (crista), então mostra um lado claro e um escuro; as pontas formam os dentes da franja.
+// Feito numa malha só: colunas alternam crista (mais alta, vai até a ponta do dente) e vale (mais baixa, termina no entalhe).
+function toucaGeo(o) {
+  const NT = o.dentes ?? 18, SH = NT * 2, SV = 12, seed = o.seed ?? 0, pos = [], idx = [];
+  const topo = 1.8, espTopo = o.esp ?? 0.0075, espBorda = o.espBorda ?? 0.0032, dente = o.dente ?? 0.34, varia = o.varia ?? 0.1, crista = o.crista ?? 0.0034;
   for (let j = 0; j <= SH; j++) {
-    const ph = (j / SH) * Math.PI * 2, ponta = j % 2 === 0, jj = j % SH;
-    const thE = (bordaCabelo(o, ph) + (ponta ? (hash(jj * 1.7 + seed) - 0.5) * (o.varia ?? 0.06) : -(o.entalhe ?? 0.1))) * Math.PI;
+    const jj = j % SH, ph = (jj / SH) * Math.PI * 2 + (o.giro ?? 0), ponta = jj % 2 === 0, fr = Math.cos(ph);
+    const yE = bordaY(o, ph) + (ponta ? -(dente * (fr > 0.35 ? (o.denteFranja ?? 1) : 1) * (0.8 + hash(jj * 1.7 + seed) * 0.4)) : (hash(jj * 2.3 + seed) - 0.5) * varia);
     for (let i = 0; i <= SV; i++) {
-      const th = (i / SV) * thE, u = headUnit(V3_(Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph)), H), inf = inflaCabelo(o, i / SV);
-      pos.push(u.x * H.a * inf, H.cy + (yCab(u.y, H) - H.cy) * inf, u.z * H.c * inf);
+      const f = i / SV, y = lerp(topo, yE, Math.pow(f, 0.9));
+      const e = lerp(espTopo, espBorda, Math.pow(f, 1.2)) + (ponta ? crista * sm(clamp(f * 6)) * (1 - 0.45 * f) : 0);
+      const v = supCab(ph, y, e); pos.push(v.x, v.y, v.z);
     }
   }
   for (let j = 0; j < SH; j++) for (let i = 0; i < SV; i++) { const a = j * (SV + 1) + i, b = a + SV + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx);
-  return vincoNormais(g, 0.9);
+  return vincoNormais(g, o.vinco ?? 0.42);
 }
-// anéis de mechas: cada anel = [th, n, ph0, ph1, kr, ky, kb, L, W, curva, esp, kl]
-//   th, ph em frações de π (th 0 = topo, 0.5 = altura das orelhas; ph 0 = testa, ±0.5 = lados, 1 = nuca);
-//   direção = radial·kr + cima·ky + trás·kb + (pra fora do rosto, de lado)·kl
-function aneisMechas(o) {
-  const out = [], seed = o.seed ?? 0;
-  (o.aneis || []).forEach((A, ai) => {
-    const [th, n, ph0, ph1, kr, ky, kb, L, W, curva = 0.12, esp = 0.45, kl = 0] = A, fechado = Math.abs(ph1 - ph0) >= 1.999;
-    for (let i = 0; i < n; i++) {
-      const r1 = hash(ai * 31 + i * 3.7 + seed), r2 = hash(ai * 17 + i * 5.3 + seed), r3 = hash(ai * 7 + i * 9.1 + seed);
-      const f = fechado ? (i + 0.5 * (ai % 2)) / n : n === 1 ? 0.5 : i / (n - 1);
-      out.push({ th: th + (r1 - 0.5) * 0.05, ph: lerp(ph0, ph1, f) + (r2 - 0.5) * (fechado ? 1.2 / n : 0.3 / n), kr, ky: ky + (r3 - 0.5) * 0.25, kb, kl, L: L * (0.85 + r1 * 0.3), W: W * (0.88 + r2 * 0.24), curva, esp, giro: (r3 - 0.5) * 0.5 });
-    }
-  });
-  return out.concat(o.mechas || []);
-}
-// mechas grossas avulsas (como na referência): franja de triângulos grossos até as sobrancelhas, mechas laterais,
-// topete espetado e nuca. Cada mecha: { th, ph (frações de π), L, W, esp, curva, kd (desce pela cabeça), kr (pra fora),
-// ky (pra cima), kb (pra trás), giro }
-function franjaMechas(n, ph0, ph1, th, L, W, x = {}) { const out = []; for (let i = 0; i < n; i++) { const f = n === 1 ? 0.5 : i / (n - 1), r = hash(i * 7.3 + (x.seed ?? 0)); out.push({ th: th + (r - 0.5) * 0.03, ph: lerp(ph0, ph1, f), L: L * (0.9 + r * 0.2), W, esp: x.esp ?? 0.4, curva: x.curva ?? -0.12, kd: x.kd ?? 1, kr: x.kr ?? 0.12, ky: x.ky ?? 0, kb: x.kb ?? 0, kl: x.kl ?? 0, giro: (r - 0.5) * (x.giro ?? 0.5) }); } return out; }
+// ponto na casca da touca (y em u, ph em rad) e a normal pra fora
+function naTouca(o, y, ph, ext = 0) { const fy = clamp((1.8 - y) / Math.max(0.01, 1.8 - bordaY(o, ph))), e = lerp(o.esp ?? 0.0075, o.espBorda ?? 0.0032, Math.pow(fy, 1.2)); return { w: supCab(ph, y, e + ext), n: nrmCab(ph, y) }; }
+// pontas: [y (u), ph (frações de π), comprimento (u), largura (u), sobe (0 = deitada na cabeça, 1 = em pé), pra trás, curva]
 function cabeloLP(head, o) {
-  const H = HEAD, cy = H.cy;
+  const cy = CAB.EY + 0.5 * CAB.HW;
   const hg = grp(head, 0, cy, 0), hr = grp(hg, 0, -cy, 0); head.userData.hairG = hg; head.userData.hairLong = false;
-  const m = LPmat(o.cor, { rim: 1.1, liso: true, side: THREE.DoubleSide, rough: 0.78 });
-  const mf = LPmat(o.cor, { rim: 1.1, side: THREE.DoubleSide, rough: 0.82 }); // mechas facetadas (sombreado chapado, como na referência)
-  if (o.baixo) mesh(capaceteGeo({ ...o, ...o.baixo }, H), LPmat(o.baixo.cor, { rim: 0.9, liso: true, side: THREE.DoubleSide, rough: 0.85 }), 0, 0, 0, hr); // camada de baixo (undercut escuro)
-  mesh(capaceteGeo(o, H), m, 0, 0, 0, hr);
-  const pt = (th, ph, inf) => { const u = headUnit(V3_(Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph)), H); return { u, w: V3_(u.x * H.a * inf, cy + (yCab(u.y, H) - cy) * inf, u.z * H.c * inf) }; };
-  const naCasca = (th, ph, ext = 0.012) => { const thE = bordaCabelo(o, ph) * Math.PI, inf = inflaCabelo(o, clamp(th / thE)) + ext; return pt(th, ph, inf); };
-  // pétalas largas deitadas, escorrendo do topo (dão as camadas do cabelo)
-  const np = o.petalas ?? 0, seed = o.seed ?? 0;
-  for (let i = 0; i < np; i++) {
-    const ph = (i / np) * Math.PI * 2 + (hash(i + seed) - 0.5) * 0.5, th = (0.1 + hash(i * 3 + seed) * 0.2) * Math.PI;
-    const A = naCasca(th, ph, 0.006), Bp = naCasca(th + 0.08, ph, 0.006), dir = Bp.w.clone().sub(A.w).normalize();
-    lamina(hr, A.w, dir, A.u.clone().normalize(), (o.petalaLen ?? 0.07) * (0.8 + hash(i * 5 + seed) * 0.4), (o.petalaLarg ?? 0.06) * (0.85 + hash(i * 7 + seed) * 0.3), o.petalaFacetada ? mf : m, o.petalaCurva ?? -0.55);
-  }
-  // mechas em anéis (cabelo espetado, pra cima ou pra trás): saem de dentro do capacete, largas na base
-  aneisMechas(o).forEach((q) => {
-    const A = naCasca(q.th * Math.PI, q.ph * Math.PI, -(q.fundo ?? 0.006)), r = A.u.clone().normalize();
-    const lado = V3_(r.x, 0, 0).normalize().multiplyScalar(q.kl || 0);
-    const d = r.clone().multiplyScalar(q.kr).add(V3_(0, q.ky, -q.kb)).add(lado).normalize();
-    lamina(hr, A.w, d, r, q.L, q.W, mf, q.curva, q.esp, q.giro || 0);
+  const m = LPmat(o.cor, { rim: 1.0, liso: true, side: THREE.DoubleSide, rough: 0.8 });
+  if (o.baixo) mesh(toucaGeo({ ...o, ...o.baixo }), LPmat(o.baixo.cor, { rim: 0.9, liso: true, side: THREE.DoubleSide, rough: 0.85 }), 0, 0, 0, hr); // camada de baixo (undercut)
+  mesh(toucaGeo(o), m, 0, 0, 0, hr);
+  const mp = o.pontaFacetada ? LPmat(o.cor, { rim: 1.0, side: THREE.DoubleSide, rough: 0.82 }) : m; // pontas com o mesmo sombreado da touca (se misturam ao cabelo)
+  (o.pontas || []).forEach(([y, phf, L, W, sobe = 0.4, tras = 0, curva = 0.15, esp = 0.5, contra = 0], i) => {
+    const ph = phf * Math.PI, A = naTouca(o, y, ph, -0.002), up = V3_(0, 1, 0);
+    // direção: desce pela superfície (tangente) misturada com a normal (sobe) e pra trás
+    const t = supCab(ph, y - 0.05).sub(supCab(ph, y + 0.05)).normalize(); if (contra) t.negate(); // contra = sobe pela cabeça (penteado pra trás)
+    const d = t.multiplyScalar(1 - sobe).addScaledVector(A.n, sobe * 1.2).add(V3_(0, 0, -tras)).normalize();
+    const lm = lamina(hr, A.w, d, A.n, L * CAB.HW, W * CAB.HW, mp, curva, esp, (hash(i * 3.1 + (o.seed ?? 0)) - 0.5) * 0.6); lm.geometry = vincoNormais(lm.geometry, 0.9);
   });
-  // mechas grossas avulsas: descem pela superfície (kd), com um pouco pra fora (kr), pra cima (ky) ou pra trás (kb)
-  const mg = LPmat(o.cor, { rim: 0.8, liso: true, side: THREE.DoubleSide, rough: 0.95 });
-  (o.grossas || []).forEach((q) => {
-    const A = naCasca(q.th * Math.PI, q.ph * Math.PI, -(q.fundo ?? 0.004)), A2 = naCasca((q.th + 0.04) * Math.PI, q.ph * Math.PI, -(q.fundo ?? 0.004)), r = A.u.clone().normalize();
-    const desce = A2.w.clone().sub(A.w).normalize(), lado = V3_(r.x, 0, 0).normalize().multiplyScalar(q.kl || 0);
-    const d = desce.multiplyScalar(q.kd ?? 1).addScaledVector(r, q.kr ?? 0.12).add(V3_(0, q.ky ?? 0, -(q.kb ?? 0))).add(lado).normalize();
-    const m = lamina(hr, A.w, d, r, q.L, q.W, mg, q.curva ?? -0.12, q.esp ?? 0.4, q.giro || 0); m.geometry = vincoNormais(m.geometry, 0.55);
-  });
-  // franja extra: lâminas grandes caindo na testa (assimetria)
-  (o.franjaExtra || []).forEach(([ph, len, lado, larg]) => { const A = naCasca(0.3 * Math.PI, ph, 0.01); lamina(hr, A.w, V3_(lado, -1, 0.42).normalize(), A.u.clone().normalize(), len, larg ?? 0.055, mf, -0.25, 0.3); });
   return hg;
 }
 
@@ -286,10 +269,10 @@ function pessoaLP(o = {}) {
   // pescoço, cabeça, orelhas
   mesh(cyl(0.036, 0.042, 0.1, R), skin, 0, 0.03, 0, S.neck);
   const headM = mesh(headGeoLP(P.cabeca || {}), skin, 0, 0, 0);
-  const zAt = (x, y) => { let z = surfZ(headM, x, y); if (z === 0) z = surfZ(headM, Math.sign(x) * Math.min(Math.abs(x), HEAD.a * 0.9), y) - 0.006; return z; };
-  [-1, 1].forEach((k) => { const ea = mesh(sph(1, 8, 6), skin, k * 0.078, 0.078, -0.012); ea.scale.set(0.013, 0.028, 0.017); S.head.add(ea); });
+  const zAt = (x, y) => { let z = surfZ(headM, x, y); if (z === 0) z = surfZ(headM, Math.sign(x) * Math.min(Math.abs(x), CAB.HW * 0.9), y) - 0.006; return z; };
+  [-1, 1].forEach((k) => { const ea = mesh(sph(1, 7, 5), skin, k * 0.074, 0.081, -0.008); ea.scale.set(0.011, 0.023, 0.016); ea.rotation.y = k * 0.25; S.head.add(ea); });
   // rosto: olhos largos e baixos, sobrancelhas grossas, nariz em dois tons, bocas, blush
-  const EX = 0.0385, EY = 0.093, OW = 0.064 * (P.olhoTam ?? 1), OH = OW * 200 / 256;
+  const EX = 0.036, EY = CAB.EY, OW = 0.058 * (P.olhoTam ?? 1), OH = OW * 200 / 256;
   const olhos = [], fechados = [];
   if (!P.venda) [-1, 1].forEach((k) => {
     const g = grp(S.head, k * EX, EY, 0); g.rotation.set(0, 0, k * (P.olhoInc ?? 0));
@@ -297,21 +280,27 @@ function pessoaLP(o = {}) {
     const f = decalSup(S.head, olhoFechadoTex, OW, OH, k * EX, EY - 0.002, zAt, { espelho: k < 0, dz: 0.0032 }); f.visible = false;
     olhos.push(g); fechados.push(f);
   });
-  const brows = [-1, 1].map((k) => { const y = EY + 0.047, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24), bx = k * (EX + 0.001); const g = grp(S.head, bx, y, 0); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decalSup(g, sobrancelhaTex, 0.074, 0.02, 0, 0, (x, yy) => zAt(bx + x, y + yy), { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18, dz: 0.0036 }); g.visible = !P.venda; return g; });
-  mesh(narizGeo(0.0145, 0.022, 0.009), LPmat(P.pele, { rim: 0.3, rough: 0.7 }), 0, 0.062, zAt(0, 0.062) - 0.0014, S.head); // nariz 3D
-  const MY = 0.004, mz = zAt(0, MY) + 0.003;
+  const brows = [-1, 1].map((k) => { const y = EY + 0.04, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24), bx = k * (EX + 0.001); const g = grp(S.head, bx, y, 0); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decalSup(g, sobrancelhaTex, 0.064, 0.019, 0, 0, (x, yy) => zAt(bx + x, y + yy), { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18, dz: 0.0036 }); g.visible = !P.venda; return g; });
+  mesh(narizGeo(0.0135, 0.024, 0.0085), LPmat(P.pele, { rim: 0.3, rough: 0.7 }), 0, 0.06, zAt(0, 0.06) - 0.0012, S.head); // nariz 3D
+  const MY = 0.018, mz = zAt(0, MY) + 0.003;
   const bocas = {};
   ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 })));
   bocas.risada = decalSup(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
-  if (P.blush) [-1, 1].forEach((k) => decal(S.head, blushTex, 0.046, 0.024, k * 0.046, 0.066, zAt(k * 0.046, 0.066) + 0.003, k * 0.3, 0, { suave: true }));
+  if (P.blush) [-1, 1].forEach((k) => decal(S.head, blushTex, 0.042, 0.022, k * 0.045, 0.061, zAt(k * 0.045, 0.061) + 0.003, k * 0.15, 0, { suave: true }));
   let extras = null;
   if (P.sukuna) { // marcas do Sukuna
-    extras = [-1, 1].map((k) => { const y = EY - 0.027, g = grp(S.head, k * 0.037, y, zAt(k * 0.036, y) + 0.003); g.rotation.set(0, 0, k * 0.1); decal(g, olhoExtraTex, 0.032, 0.012, 0, 0, 0); return g; });
-    [-1, 1].forEach((k) => { const g = grp(S.head, k * 0.05, 0.05, zAt(k * 0.05, 0.05) + 0.004); g.rotation.set(0, k * 0.4, 0); decal(g, bochechaTex, 0.034, 0.017, 0, 0, 0, 0, 0, { espelho: k < 0 }); });
-    decal(S.head, testaTex, 0.062, 0.015, 0, EY + 0.054, zAt(0, EY + 0.054) + 0.004);
+    extras = [-1, 1].map((k) => { const y = EY - 0.026, g = grp(S.head, k * 0.037, y, zAt(k * 0.037, y) + 0.003); g.rotation.set(0, 0, k * 0.1); decal(g, olhoExtraTex, 0.032, 0.012, 0, 0, 0); return g; });
+    [-1, 1].forEach((k) => { const g = grp(S.head, k * 0.052, 0.048, zAt(k * 0.052, 0.048) + 0.004); g.rotation.set(0, k * 0.3, 0); decal(g, bochechaTex, 0.034, 0.017, 0, 0, 0, 0, 0, { espelho: k < 0 }); });
+    decal(S.head, testaTex, 0.058, 0.014, 0, EY + 0.056, zAt(0, EY + 0.056) + 0.004);
   }
   S.head.add(headM);
-  if (P.venda) { const vg = new THREE.CylinderGeometry(1, 1, 0.058, 28, 1, true); deform(vg, (v) => { const d = V3_(v.x, 0, v.z).normalize(), k_ = Math.pow(Math.pow(Math.abs(d.x), HEAD.n) + Math.pow(Math.abs(d.z), HEAD.n), -1 / HEAD.n); v.x = d.x * k_ * HEAD.a * 1.07; v.z = Math.min(d.z * k_, HEAD.frente) * HEAD.c * (d.z < 0 ? 1.12 : 1.08); }); mesh(vg, LPmat(0x121216, { side: THREE.DoubleSide, rim: 0.6, liso: true }), 0, EY + 0.012, 0, S.head); }
+  if (P.venda) { // venda do Gojo: faixa que acompanha o bloco da cabeça na linha dos olhos
+    const NS = 28, pos = [], idx = [], Yv = [-0.42, 0.44];
+    for (let r = 0; r < 2; r++) for (let j2 = 0; j2 <= NS; j2++) { const v = supCab((j2 / NS) * Math.PI * 2, Yv[r], 0.0035); pos.push(v.x, v.y, v.z); }
+    for (let j2 = 0; j2 < NS; j2++) { const a = j2, b = j2 + NS + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
+    const vg = new THREE.BufferGeometry(); vg.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); vg.setIndex(idx); vg.computeVertexNormals();
+    mesh(vg, LPmat(0x121216, { side: THREE.DoubleSide, rim: 0.6, liso: true }), 0, 0, 0, S.head);
+  }
   if (P.cabelo) cabeloLP(S.head, P.cabelo);
   S.head.scale.setScalar(P.cabecaEscala ?? 1.35); // cabeça grande como na referência (≈70% da largura dos ombros)
   S.root.scale.setScalar(P.scale);
@@ -336,68 +325,34 @@ function rostoLP(p, t, f = {}) {
   for (const k in L.bocas) L.bocas[k].visible = k === tipo;
 }
 
-// ---------------------------------------------------------------- calibração: o Eren da animação de referência (para comparar o estilo lado a lado)
-function erenRefLP(o = {}) { return pessoaLP({ seed: 5, pele: 0xf2d6bc, olho: "#1f8f80", olhoAlt: 0.9, roupa: 0x2a2a30, calca: 0x2a2a30, botoes: false, sobrancelha: 0x2a1a14, cabelo: { cor: 0x4a2e20, dentes: 22, bordaFrente: 0.45, bordaLado: 0.64, bordaTras: 0.7, volume: 1.16, petalas: 12, seed: 2 }, ...o }); }
-
-// ---------------------------------------------------------------- elenco: Jujutsu Kaisen
+// ---------------------------------------------------------------- elenco (v7): rosto em bloco retangular + touca justa com dentes
+// touca: franjaY / ladoY / nucaY = altura (u) da borda na testa, nos lados e na nuca; dente = profundidade dos dentes (u);
+// dentes = quantos em volta da cabeça; esp / espBorda = espessura (m) no alto e na borda (pouco volume, como no vídeo).
+// pontas: [y (u), ph (frações de π: 0 testa, ±0,5 lados, 1 nuca), comprimento (u), largura (u), sobe (0 deitada, 1 em pé), pra trás, curva]
+// anel de placas largas em volta da cabeça na altura y: n placas, comprimento L e largura W (u), sobe, pra trás;
+// ph0/arco em frações de π (padrão: volta inteira começando na testa)
+function coroa(n, y, L, W, sobe, tras, ph0 = 0, arco = 2, curva = 0.25, esp = 0.35) { const out = []; for (let i = 0; i < n; i++) { const f = arco >= 2 ? i / n : n === 1 ? 0.5 : i / (n - 1); out.push([y + (hash(i * 2.7 + y) - 0.5) * 0.06, ph0 + f * arco, L * (0.9 + hash(i * 1.3 + y) * 0.2), W, sobe, tras, curva, esp]); } return out; }
 const JJK = { navy: 0x2f3b58, navy2: 0x222a3e, botao: 0xd4aa50 };
-// cabelos do elenco: capacete liso + mechas grossas (como o Eren criança da referência)
-// tufos = mechas espetadas pra fora/cima saindo do topo; franja = mechas caindo na testa
-const tufos = (n, ph0, ph1, th, L, W, kr, ky, kb, x = {}) => franjaMechas(n, ph0, ph1, th, L, W, { kd: 0, kr, ky, kb, curva: x.curva ?? 0.2, esp: x.esp ?? 0.45, giro: x.giro ?? 0.6, seed: x.seed ?? 0 });
-const camadaTopo = (seed, L = 0.074, W = 0.078) => franjaMechas(8, -1, 0.75, 0.07, L, W, { seed, curva: -0.4, esp: 0.3, kr: 0.02, giro: 0.4 });
-const CAB = {
-  undercut: { cor: 0x3e2226, bordaFrente: 0.28, bordaLado: 0.56, bordaTras: 0.6, volume: 1.05, volBorda: 1.03, dentes: 26, entalhe: 0.03, varia: 0.02 },
-  yuji: { cor: 0xf09aa8, dentes: 16, bordaFrente: 0.32, bordaLado: 0.36, bordaTras: 0.42, volume: 1.12, volBorda: 1.065, entalhe: 0.06, varia: 0.05, petalas: 0, seed: 3,
-    grossas: [
-      ...camadaTopo(11),
-      ...tufos(5, -0.2, 0.2, 0.25, 0.06, 0.042, 0.7, 0.85, -0.15, { seed: 12 }),        // franja espetada pra cima e pra frente
-      ...franjaMechas(2, -0.08, 0.06, 0.27, 0.058, 0.034, { seed: 13, giro: 0.6 }),    // duas mechas caindo no meio da testa
-      ...tufos(7, -0.85, 0.85, 0.12, 0.06, 0.05, 0.8, 0.7, 0.35, { seed: 14 }),        // topo espetado
-      ...tufos(5, 0.6, 1.4, 0.24, 0.05, 0.048, 0.8, 0.4, 0.5, { seed: 15 }),           // trás
-    ] },
-  sukunaYuji: { cor: 0xf09aa8, dentes: 22, bordaFrente: 0.3, bordaLado: 0.36, bordaTras: 0.42, volume: 1.1, volBorda: 1.065, entalhe: 0.03, varia: 0.02, petalas: 0, seed: 4,
-    grossas: [
-      ...franjaMechas(6, -0.3, 0.3, 0.27, 0.12, 0.062, { seed: 21, kd: -1, kr: 0.16, kb: 0.5, curva: 0.28, esp: 0.36, giro: 0.4 }), // penteado pra trás
-      ...franjaMechas(3, 0.34, 0.5, 0.26, 0.1, 0.055, { seed: 22, kd: -1, kr: 0.12, kb: 0.6, curva: 0.25, esp: 0.36 }),
-      ...franjaMechas(3, -0.5, -0.34, 0.26, 0.1, 0.055, { seed: 23, kd: -1, kr: 0.12, kb: 0.6, curva: 0.25, esp: 0.36 }),
-      ...tufos(7, 0.6, 1.4, 0.2, 0.062, 0.052, 0.8, 0.5, 0.7, { seed: 24 }),           // pontas espetadas atrás
-    ] },
-  megumi: { cor: 0x3a4052, dentes: 18, bordaFrente: 0.3, bordaLado: 0.55, bordaTras: 0.64, volume: 1.2, entalhe: 0.06, varia: 0.05, petalas: 0, seed: 7,
-    grossas: [
-      ...camadaTopo(31, 0.08, 0.07),
-      ...franjaMechas(6, -0.24, 0.24, 0.25, 0.07, 0.038, { seed: 32, giro: 0.9 }),     // franja espetada caindo na testa
-      ...franjaMechas(2, 0.32, 0.45, 0.3, 0.07, 0.046, { seed: 33, kl: 0.25 }),
-      ...franjaMechas(2, -0.45, -0.32, 0.3, 0.07, 0.046, { seed: 34, kl: 0.25 }),
-      ...tufos(6, -1, 0.66, 0.05, 0.085, 0.058, 0.6, 1.0, 0.2, { seed: 35 }),          // espetado pra cima
-      ...tufos(9, -1, 0.78, 0.17, 0.08, 0.056, 1.0, 0.7, 0.25, { seed: 36 }),          // espetado pra fora
-      ...tufos(5, 0.6, 1.4, 0.32, 0.065, 0.05, 0.9, 0.2, 0.5, { seed: 37 }),           // nuca
-    ] },
-  gojo: { cor: 0xe6eaf0, dentes: 18, bordaFrente: 0.3, bordaLado: 0.5, bordaTras: 0.6, volume: 1.16, entalhe: 0.05, varia: 0.04, petalas: 0, seed: 9,
-    grossas: [
-      ...tufos(6, -1, 0.66, 0.05, 0.09, 0.06, 0.4, 1.0, 0.15, { seed: 41 }),           // pra cima
-      ...tufos(10, -1, 0.8, 0.17, 0.085, 0.058, 0.8, 0.9, 0.2, { seed: 42 }),          // pra cima e pra fora
-      ...tufos(5, -0.24, 0.24, 0.26, 0.07, 0.045, 0.6, 0.9, -0.1, { seed: 43 }),       // franja levantada
-      ...franjaMechas(3, -0.12, 0.12, 0.27, 0.06, 0.032, { seed: 44, giro: 0.8 }),     // fios caindo sobre a venda
-      ...tufos(5, 0.6, 1.4, 0.3, 0.065, 0.05, 0.8, 0.4, 0.5, { seed: 45 }),
-    ] },
+const CABELOS = {
+  erenCrianca: { cor: 0x3a2618, dentes: 16, dente: 0.42, crista: 0.005, franjaY: 0.98, ladoY: 0.12, nucaY: -0.75, esp: 0.008, espBorda: 0.0034, varia: 0.08, seed: 2,
+    // topo serrilhado: placas largas e baixas (não chifres), sobrepostas como escamas, com a ponta levantando um pouco
+    pontas: coroa(7, 1.6, 0.36, 0.5, 0.55, 0.12, 0.08, 2, 0.05, 0.6) },
+  undercut: { cor: 0x3e2226, dentes: 28, dente: 0.1, varia: 0.04, franjaY: 1.2, ladoY: 0.1, nucaY: -0.75, esp: 0.0026, espBorda: 0.0018 },
+  yuji: { cor: 0xf09aa8, dentes: 14, dente: 0.3, crista: 0.0045, franjaY: 1.2, ladoY: 0.85, nucaY: 0.35, esp: 0.009, espBorda: 0.004, varia: 0.08, seed: 3,
+    pontas: [[1.22, -0.06, 0.5, 0.34, -0.05, 0, -0.15, 0.5], [1.22, 0.08, 0.46, 0.32, -0.05, 0, -0.15, 0.5], // as duas mechas da franja caindo no meio da testa
+      ...coroa(6, 1.42, 0.46, 0.46, 0.88, -0.12, -0.42, 0.84, 0.04, 0.6), ...coroa(5, 1.3, 0.4, 0.5, 0.45, 0.35, 0.58, 0.84, 0.06, 0.6)] }, // frente espetada pra cima; trás
+  sukunaYuji: { cor: 0xf09aa8, dentes: 14, dente: 0.22, denteFranja: 0.2, crista: 0.0045, franjaY: 1.3, ladoY: 0.85, nucaY: 0.35, esp: 0.009, espBorda: 0.004, varia: 0.05, seed: 4,
+    pontas: [...coroa(5, 1.2, 1.0, 0.6, 0.0, 0.75, -0.3, 0.6, -0.4, 0.45).map((q) => [...q, 1]), // penteado pra trás: mechas largas deitadas subindo da testa e dobrando pra trás
+      ...coroa(5, 1.3, 0.4, 0.5, 0.45, 0.35, 0.58, 0.84, 0.06, 0.6)] },
+  megumi: { cor: 0x2a2e3a, dentes: 14, dente: 0.46, crista: 0.005, franjaY: 1.0, ladoY: 0.2, nucaY: -0.55, esp: 0.01, espBorda: 0.0036, varia: 0.12, seed: 7,
+    pontas: [...coroa(8, 1.5, 0.5, 0.56, 0.72, 0.04, 0.06, 2, 0.06, 0.6), ...coroa(6, 1.18, 0.46, 0.54, 0.55, 0.15, 0.3, 1.4, 0.06, 0.6)] }, // espetado pra todo lado, em tufos largos
+  gojo: { cor: 0xe6eaf0, dentes: 14, dente: 0.38, crista: 0.0045, franjaY: 0.95, ladoY: 0.3, nucaY: -0.4, esp: 0.01, espBorda: 0.0036, varia: 0.1, seed: 9,
+    pontas: [...coroa(8, 1.5, 0.5, 0.56, 0.85, 0.0, 0.06, 2, 0.06, 0.6), ...coroa(6, 1.25, 0.46, 0.52, 0.7, 0.1, 0.25, 1.5, 0.06, 0.6)] }, // pra cima
 };
-function yujiLP(o = {}) { return pessoaLP({ seed: 11, pele: 0xffe2b8, olho: "#b06a34", olhoAlt: 0.9, olhoTam: 0.92, capuz: 0xb3262c, roupa: JJK.navy, calca: JJK.navy, blush: true, sobrancelha: 0x4a2228, cabelo: { ...CAB.yuji, baixo: CAB.undercut }, ...o }); }
-function sukunaYujiLP(o = {}) { return yujiLP({ seed: 12, olho: "#c41e2a", olhoAlt: 0.8, olhoInc: 0.05, blush: false, sukuna: true, brava: 0.6, cabelo: { ...CAB.sukunaYuji, baixo: CAB.undercut }, ...o }); }
-function megumiLP(o = {}) { return pessoaLP({ seed: 21, pele: 0xfde0b6, olho: "#2f6070", olhoAlt: 0.8, olhoTam: 0.92, brava: 0.35, roupa: JJK.navy, calca: JJK.navy, sobrancelha: 0x14161c, cabelo: CAB.megumi, ...o }); }
+function yujiLP(o = {}) { return pessoaLP({ seed: 11, pele: 0xffe2b8, olho: "#b06a34", olhoAlt: 0.9, olhoTam: 0.96, capuz: 0xb3262c, roupa: JJK.navy, calca: JJK.navy, blush: true, sobrancelha: 0x4a2228, cabelo: { ...CABELOS.yuji, baixo: CABELOS.undercut }, ...o }); }
+function sukunaYujiLP(o = {}) { return yujiLP({ seed: 12, olho: "#c41e2a", olhoAlt: 0.8, olhoInc: 0.05, blush: false, sukuna: true, brava: 0.6, cabelo: { ...CABELOS.sukunaYuji, baixo: CABELOS.undercut }, ...o }); }
+function megumiLP(o = {}) { return pessoaLP({ seed: 21, pele: 0xfde0b6, olho: "#2f6070", olhoAlt: 0.8, olhoTam: 0.96, brava: 0.35, roupa: JJK.navy, calca: JJK.navy, sobrancelha: 0x14161c, cabelo: CABELOS.megumi, ...o }); }
 function sukunaMegumiLP(o = {}) { return megumiLP({ seed: 22, olho: "#c41e2a", olhoInc: 0.05, sukuna: true, brava: 0.65, ...o }); }
-function gojoLP(o = {}) { return pessoaLP({ seed: 31, pele: 0xffe6c8, venda: true, roupa: JJK.navy2, calca: JJK.navy2, scale: 1.08, cabelo: CAB.gojo, ...o }); }
-// calibração 2: o Eren criança da referência (cena da árvore), pra comparar rosto e cabelo lado a lado
-function erenCriancaLP(o = {}) {
-  const topete = (th, ph, L, kr, ky, kb) => ({ th, ph, L, W: 0.062, esp: 0.45, curva: 0.22, kd: 0.2, kr, ky, kb });
-  return pessoaLP({ seed: 6, pele: 0xffdcaa, olho: "#2a9a88", olhoAlt: 0.94, blush: true, roupa: 0x5c7a46, calca: 0x4a5a3a, botoes: false, sobrancelha: 0x2e1e14,
-    cabelo: { cor: 0x4a3020, dentes: 16, bordaFrente: 0.3, bordaLado: 0.56, bordaTras: 0.64, volume: 1.12, volBorda: 1.14, entalhe: 0.05, varia: 0.04, petalas: 0, seed: 2,
-      grossas: [
-        ...franjaMechas(8, -1, 0.75, 0.07, 0.074, 0.078, { seed: 5, curva: -0.4, esp: 0.3, kr: 0.02, giro: 0.4 }), // camada de cima: poucas mechas largas cobrindo o topo
-        ...franjaMechas(7, -0.24, 0.24, 0.25, 0.066, 0.038, { seed: 1, giro: 0.7 }),        // franja: triângulos grossos até perto das sobrancelhas
-        ...franjaMechas(2, 0.32, 0.5, 0.3, 0.062, 0.064, { seed: 2, kl: 0.16 }),             // laterais curtas e largas sobre as têmporas
-        ...franjaMechas(2, -0.5, -0.32, 0.3, 0.062, 0.064, { seed: 3, kl: 0.16 }),
-        ...franjaMechas(5, 0.62, 1.38, 0.42, 0.062, 0.042, { seed: 4 }),                    // nuca
-        ...tufos(9, -1, 0.78, 0.17, 0.04, 0.054, 1.0, 0.3, 0.25, { seed: 8, curva: 0.2 }),    // topo: várias pontas pequenas abrindo pros lados (silhueta serrilhada)
-        topete(0.06, 0.6, 0.034, 0.8, 0.5, 0.4), topete(0.06, -0.6, 0.034, 0.8, 0.5, 0.4),
-      ] }, ...o });
-}
+function gojoLP(o = {}) { return pessoaLP({ seed: 31, pele: 0xffe6c8, venda: true, roupa: JJK.navy2, calca: JJK.navy2, scale: 1.08, cabelo: CABELOS.gojo, ...o }); }
+// calibração: o Eren criança da referência (cena da árvore), pra comparar rosto e cabelo lado a lado
+function erenCriancaLP(o = {}) { return pessoaLP({ seed: 6, pele: 0xffdcaa, olho: "#2a9a88", olhoAlt: 0.94, blush: true, roupa: 0x5c7a46, calca: 0x4a5a3a, botoes: false, sobrancelha: 0x2e1e14, cabelo: CABELOS.erenCrianca, ...o }); }
