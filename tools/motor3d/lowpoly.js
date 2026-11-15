@@ -24,6 +24,15 @@ function decal(parent, tex, w, h, x, y, z, ry = 0, rz = 0, o = {}) {
   const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), decalMat(o.espelho ? espelho(tex) : tex, o)); m.position.set(x, y, z); m.rotation.set(0, ry, rz);
   m.castShadow = false; m.receiveShadow = false; m.userData.isDecal = true; m.renderOrder = o.suave ? 3 : 2; parent.add(m); return m;
 }
+// decal curvo: a malha acompanha a superfície (zFn(x, y) = z da pele no espaço do pai), assim nada "entra" na pele
+// quando o rosto é curvo. (x0, y0) = posição do decal no pai.
+function decalSup(parent, tex, w, h, x0, y0, zFn, o = {}) {
+  const g = new THREE.PlaneGeometry(w, h, o.sx ?? 12, o.sy ?? 4), pa = g.attributes.position, dz = o.dz ?? 0.0028;
+  for (let i = 0; i < pa.count; i++) pa.setZ(i, zFn(x0 + pa.getX(i), y0 + pa.getY(i)) + dz);
+  pa.needsUpdate = true; g.computeVertexNormals();
+  const m = new THREE.Mesh(g, decalMat(o.espelho ? espelho(tex) : tex, o)); m.position.set(x0, y0, 0);
+  m.castShadow = false; m.receiveShadow = false; m.userData.isDecal = true; m.renderOrder = o.suave ? 3 : 2; parent.add(m); return m;
+}
 // normais com vinco: suaves entre faces parecidas, quebradas nas quinas (o "low-poly liso" da referência)
 function vincoNormais(geo, ang = 0.6) {
   const g = geo.index ? geo.toNonIndexed() : geo.clone(), pos = g.attributes.position, n = pos.count, fn = [], mapa = new Map();
@@ -119,7 +128,7 @@ const testaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fi
 // ---------------------------------------------------------------- cabeça
 // cabeça medida no Eren criança da referência: crânio arredondado em cima; embaixo um bloco mais "cheio" (expoente maior),
 // frente plana descendo até o queixo, bochechas retas até a altura da boca e queixo largo em U
-const HEAD = { a: 0.092, b: 0.132, bBaixo: 0.158, c: 0.092, n: 2.6, nBaixo: 3.6, cy: 0.103, frente: 0.9, jawY: -0.46, jaw: 0.42 };
+const HEAD = { a: 0.077, b: 0.132, bBaixo: 0.156, c: 0.088, n: 2.6, nBaixo: 3.0, cy: 0.103, frente: 0.9, jawY: -0.18, jaw: 0.42 };
 const yCab = (uy, H) => H.cy + uy * (uy < 0 ? H.bBaixo ?? H.b : H.b); // metade de baixo mais comprida (queixo longo como na referência)
 function superDir(d, n, m = n) { // superelipsoide com expoente n em x/z e m em y: acha t com |tx|^n + |ty|^m + |tz|^n = 1
   const f = (t) => Math.pow(Math.abs(d.x * t), n) + Math.pow(Math.abs(d.y * t), m) + Math.pow(Math.abs(d.z * t), n) - 1;
@@ -277,28 +286,28 @@ function pessoaLP(o = {}) {
   // pescoço, cabeça, orelhas
   mesh(cyl(0.036, 0.042, 0.1, R), skin, 0, 0.03, 0, S.neck);
   const headM = mesh(headGeoLP(P.cabeca || {}), skin, 0, 0, 0);
-  const zAt = (x, y) => surfZ(headM, x, y);
-  [-1, 1].forEach((k) => { const ea = mesh(sph(1, 8, 6), skin, k * 0.087, 0.078, -0.012); ea.scale.set(0.013, 0.028, 0.017); S.head.add(ea); });
+  const zAt = (x, y) => { let z = surfZ(headM, x, y); if (z === 0) z = surfZ(headM, Math.sign(x) * Math.min(Math.abs(x), HEAD.a * 0.9), y) - 0.006; return z; };
+  [-1, 1].forEach((k) => { const ea = mesh(sph(1, 8, 6), skin, k * 0.078, 0.078, -0.012); ea.scale.set(0.013, 0.028, 0.017); S.head.add(ea); });
   // rosto: olhos largos e baixos, sobrancelhas grossas, nariz em dois tons, bocas, blush
-  const EX = 0.042, EY = 0.093, OW = 0.066 * (P.olhoTam ?? 1), OH = OW * 200 / 256;
+  const EX = 0.0385, EY = 0.093, OW = 0.064 * (P.olhoTam ?? 1), OH = OW * 200 / 256;
   const olhos = [], fechados = [];
   if (!P.venda) [-1, 1].forEach((k) => {
-    const g = grp(S.head, k * EX, EY, zAt(k * EX, EY) + 0.003); g.rotation.set(0, 0, k * (P.olhoInc ?? 0));
-    decal(g, olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1 }), OW, OH, 0, 0, 0, 0, 0, { espelho: k < 0, ei: 0.28 });
-    const f = decal(S.head, olhoFechadoTex, OW, OH, k * EX, EY - 0.002, zAt(k * EX, EY) + 0.0035, 0, 0, { espelho: k < 0 }); f.visible = false;
+    const g = grp(S.head, k * EX, EY, 0); g.rotation.set(0, 0, k * (P.olhoInc ?? 0));
+    decalSup(g, olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1 }), OW, OH, 0, 0, (x, y) => zAt(k * EX + x, EY + y), { espelho: k < 0, ei: 0.28, dz: 0.0028 });
+    const f = decalSup(S.head, olhoFechadoTex, OW, OH, k * EX, EY - 0.002, zAt, { espelho: k < 0, dz: 0.0032 }); f.visible = false;
     olhos.push(g); fechados.push(f);
   });
-  const brows = [-1, 1].map((k) => { const y = EY + 0.047, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24); const g = grp(S.head, k * (EX + 0.001), y, zAt(k * EX, y) + 0.0034); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decal(g, sobrancelhaTex, 0.074, 0.02, 0, 0, 0, 0, 0, { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18 }); g.visible = !P.venda; return g; });
+  const brows = [-1, 1].map((k) => { const y = EY + 0.047, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24), bx = k * (EX + 0.001); const g = grp(S.head, bx, y, 0); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decalSup(g, sobrancelhaTex, 0.074, 0.02, 0, 0, (x, yy) => zAt(bx + x, y + yy), { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18, dz: 0.0036 }); g.visible = !P.venda; return g; });
   mesh(narizGeo(0.0145, 0.022, 0.009), LPmat(P.pele, { rim: 0.3, rough: 0.7 }), 0, 0.062, zAt(0, 0.062) - 0.0014, S.head); // nariz 3D
   const MY = 0.004, mz = zAt(0, MY) + 0.003;
   const bocas = {};
-  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decal(S.head, bocaTex(t), 0.056, 0.028, 0, MY, mz)));
-  bocas.risada = decal(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, mz + 0.001);
-  if (P.blush) [-1, 1].forEach((k) => decal(S.head, blushTex, 0.05, 0.026, k * 0.05, 0.066, zAt(k * 0.05, 0.066) + 0.003, k * 0.3, 0, { suave: true }));
+  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 })));
+  bocas.risada = decalSup(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
+  if (P.blush) [-1, 1].forEach((k) => decal(S.head, blushTex, 0.046, 0.024, k * 0.046, 0.066, zAt(k * 0.046, 0.066) + 0.003, k * 0.3, 0, { suave: true }));
   let extras = null;
   if (P.sukuna) { // marcas do Sukuna
     extras = [-1, 1].map((k) => { const y = EY - 0.027, g = grp(S.head, k * 0.037, y, zAt(k * 0.036, y) + 0.003); g.rotation.set(0, 0, k * 0.1); decal(g, olhoExtraTex, 0.032, 0.012, 0, 0, 0); return g; });
-    [-1, 1].forEach((k) => { const g = grp(S.head, k * 0.054, 0.05, zAt(k * 0.054, 0.05) + 0.004); g.rotation.set(0, k * 0.4, 0); decal(g, bochechaTex, 0.034, 0.017, 0, 0, 0, 0, 0, { espelho: k < 0 }); });
+    [-1, 1].forEach((k) => { const g = grp(S.head, k * 0.05, 0.05, zAt(k * 0.05, 0.05) + 0.004); g.rotation.set(0, k * 0.4, 0); decal(g, bochechaTex, 0.034, 0.017, 0, 0, 0, 0, 0, { espelho: k < 0 }); });
     decal(S.head, testaTex, 0.062, 0.015, 0, EY + 0.054, zAt(0, EY + 0.054) + 0.004);
   }
   S.head.add(headM);
@@ -381,14 +390,14 @@ function gojoLP(o = {}) { return pessoaLP({ seed: 31, pele: 0xffe6c8, venda: tru
 function erenCriancaLP(o = {}) {
   const topete = (th, ph, L, kr, ky, kb) => ({ th, ph, L, W: 0.062, esp: 0.45, curva: 0.22, kd: 0.2, kr, ky, kb });
   return pessoaLP({ seed: 6, pele: 0xffdcaa, olho: "#2a9a88", olhoAlt: 0.94, blush: true, roupa: 0x5c7a46, calca: 0x4a5a3a, botoes: false, sobrancelha: 0x2e1e14,
-    cabelo: { cor: 0x4a3020, dentes: 16, bordaFrente: 0.3, bordaLado: 0.56, bordaTras: 0.64, volume: 1.26, volBorda: 1.08, entalhe: 0.05, varia: 0.04, petalas: 0, seed: 2,
+    cabelo: { cor: 0x4a3020, dentes: 16, bordaFrente: 0.3, bordaLado: 0.56, bordaTras: 0.64, volume: 1.12, volBorda: 1.14, entalhe: 0.05, varia: 0.04, petalas: 0, seed: 2,
       grossas: [
         ...franjaMechas(8, -1, 0.75, 0.07, 0.074, 0.078, { seed: 5, curva: -0.4, esp: 0.3, kr: 0.02, giro: 0.4 }), // camada de cima: poucas mechas largas cobrindo o topo
         ...franjaMechas(7, -0.24, 0.24, 0.25, 0.066, 0.038, { seed: 1, giro: 0.7 }),        // franja: triângulos grossos até perto das sobrancelhas
         ...franjaMechas(2, 0.32, 0.5, 0.3, 0.062, 0.064, { seed: 2, kl: 0.16 }),             // laterais curtas e largas sobre as têmporas
         ...franjaMechas(2, -0.5, -0.32, 0.3, 0.062, 0.064, { seed: 3, kl: 0.16 }),
         ...franjaMechas(5, 0.62, 1.38, 0.42, 0.062, 0.042, { seed: 4 }),                    // nuca
-        ...tufos(8, -1, 0.75, 0.13, 0.046, 0.052, 0.9, 0.5, 0.3, { seed: 8, curva: 0.18 }),     // topo: várias pontas pequenas espalhadas (silhueta serrilhada)
-        topete(0.03, 0.1, 0.046, 0.5, 0.85, 0.3),
+        ...tufos(9, -1, 0.78, 0.17, 0.04, 0.054, 1.0, 0.3, 0.25, { seed: 8, curva: 0.2 }),    // topo: várias pontas pequenas abrindo pros lados (silhueta serrilhada)
+        topete(0.06, 0.6, 0.034, 0.8, 0.5, 0.4), topete(0.06, -0.6, 0.034, 0.8, 0.5, 0.4),
       ] }, ...o });
 }
