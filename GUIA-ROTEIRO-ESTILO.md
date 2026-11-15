@@ -17,6 +17,8 @@ Os quatro seguem o mesmo esqueleto, falado como conversa com fã, não como docu
 
 ## Regras de escrita (frase a frase)
 
+0. **Não repetir as mesmas muletas em todo vídeo** ("galera", "a gente", "Só que", "Ou seja"). Use no máximo uma vez por roteiro e varie entre vídeos. O tom de conversa vem da naturalidade, não de palavras fixas.
+
 1. **A 1ª frase é o título falado.** Nada de "Fala, galera" nem "Fica até o final" antes.
 2. **Tom de conversa com fã**:
    - usa "galera", "a gente", "vocês", "beleza", "olha só que interessante";
