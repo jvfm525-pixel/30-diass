@@ -1,21 +1,19 @@
-// calibração do estilo: o Eren da animação de referência, de frente e de três-quartos, com luz parecida (pôr do sol suave)
+// folha do elenco: o Eren criança da referência (calibração) + Jujutsu Kaisen, com luz de dia parecida com a da referência
+// câmeras (window.TEST_CAM): i = de frente, 10+i = três-quartos, 20+i = perfil, 30+i = costas (i = índice do personagem)
 addSet("teste", (g) => {
-  const dome = skyDome(g, { top: 0x3a2a48, mid: 0x9a6070, hor: 0xf0a878, ground: 0x3a2a2a, exp: 0.6, sunDir: [0.4, 0.1, -1], sunCol: 0xffc890, sunI: 1.1, disk: 2.6, cov: 0.6, cloudA: 0.4, cloudLit: 0xffd0b0, cloudSh: 0x6a4a5a, midY: 0.12 });
-  mesh(new THREE.PlaneGeometry(60, 60), LPmat(0x7a5a4a, { rim: 0.2 }), 0, 0, 0, g).rotation.x = -Math.PI / 2;
-  const P = [erenRefLP(), yujiLP(), megumiLP(), sukunaYujiLP(), gojoLP(), sukunaMegumiLP()], X = [0, 3, 6, 9, 12, 15];
+  const dome = skyDome(g, { top: 0x5a86c8, mid: 0x9cc0e8, hor: 0xdfe8ee, ground: 0x6a8a4a, exp: 0.7, sunDir: [-0.5, 0.6, 0.6], sunCol: 0xfff4e0, sunI: 0.6, disk: 1.2, cov: 0.5, cloudA: 0.35, cloudLit: 0xffffff, cloudSh: 0xb0c0d8, midY: 0.15 });
+  mesh(new THREE.PlaneGeometry(60, 60), LPmat(0x6a9a40, { rim: 0.2 }), 0, 0, 0, g).rotation.x = -Math.PI / 2;
+  const P = [erenCriancaLP(), yujiLP(), megumiLP(), sukunaYujiLP(), gojoLP(), sukunaMegumiLP()], X = [0, 3, 6, 9, 12, 15];
   P.forEach((p) => g.add(p));
-  const F = [{ boca: "linha", triste: 0.3 }, { boca: "sorriso", sobe: 0.3 }, { boca: "linha", bravo: 0.2 }, { boca: "risada", bravo: 0.6 }, { boca: "sorriso" }, { boca: "risada", bravo: 0.7 }];
+  const F = [{ boca: "triste", triste: 0.5 }, { boca: "sorriso", sobe: 0.3 }, { boca: "linha", bravo: 0.2 }, { boca: "risada", bravo: 0.6 }, { boca: "sorriso" }, { boca: "risada", bravo: 0.7 }];
   return {
-    bg: 0x3a2a3a, fog: [30, 120], fogCol: 0x8a6060, dome, hand: 0,
-    look: { exposure: 1.05, bloom: 0.4, bloomT: 0.88, vig: 0.35, sat: 1.04, con: 1.03 },
-    sun: { dir: [-0.3, 0.65, 0.95], col: 0xffe6cc, I: 1.1, c: [0, 1.6, 0], r: 6 }, hemi: { sky: 0xe0d0e4, ground: 0x7a5a4a, I: 1.45 }, fill: { col: 0xffb080, I: 0.8, dir: [0.7, 0.3, -0.6] }, rim: { col: 0xffd0a0, str: 0.5 },
-    update(t) { P.forEach((p, i) => { restPose(p); p.position.set(X[i], 0, 0); p.rotation.set(0, 0, 0); idle(p, t, i * 5, 0.25); standFeet(p); rostoLP(p, 1.0, F[i]); }); },
+    bg: 0x9cc0e8, fog: [20, 90], fogCol: 0xc8d8e8, dome, hand: 0,
+    look: { exposure: 1.32, bloom: 0.18, bloomT: 0.94, vig: 0.2, sat: 1.06, con: 1.02 },
+    sun: { dir: [-0.75, 0.55, 0.45], col: 0xfff0d8, I: 2.4, c: [7.5, 1.6, 0], r: 10 }, hemi: { sky: 0xfff2e6, ground: 0x9a9a72, I: 1.05 }, fill: { col: 0xd0e0ff, I: 0.35, dir: [0.7, 0.2, 0.5] }, rim: { col: 0xffffff, str: 0.35 },
+    update(t) { P.forEach((p, i) => { restPose(p); p.position.set(X[i], 0, 0); p.rotation.set(0, 0, 0); standFeet(p); rostoLP(p, 1.0, F[i]); }); },
     cam() {
-      const c = window.TEST_CAM | 0, i = c % 10, x = X[i], sc = i === 4 ? 1.08 : 1;
-      if (c >= 30) return { pos: [x - 0.62, 1.78 * sc, -0.8], look: [x, 1.68 * sc, 0], fov: 30, near: 0.02 }; // costas (três-quartos)
-      if (c >= 20) return { pos: [x + 1.0, 1.72 * sc, 0.04], look: [x, 1.68 * sc, 0], fov: 30, near: 0.02 };  // perfil
-      if (c >= 10) return { pos: [x + 0.62, 1.72 * sc, 0.82], look: [x, 1.68 * sc, 0], fov: 30, near: 0.02 }; // três-quartos
-      return { pos: [x + 0.04, 1.75 * sc, 1.1], look: [x, 1.69 * sc, 0], fov: 30, near: 0.02 };             // frente
+      const c = window.TEST_CAM | 0, i = c % 10, x = X[i], sc = i === 4 ? 1.08 : 1, v = Math.floor(c / 10), A = [0, 0.62, 1.57, 2.6][v] ?? 0, d = 1.3;
+      return { pos: [x + Math.sin(A) * d, 1.78 * sc, Math.cos(A) * d], look: [x, 1.75 * sc, 0], fov: 26, near: 0.02 };
     },
   };
 });
