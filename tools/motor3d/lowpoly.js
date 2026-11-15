@@ -1,6 +1,6 @@
 // ================================================================ personagens low-poly v7 (estilo da animação de referência, GUIA-ANIMACAO-ESTILO.md)
 // Calibrado reconstruindo o Eren criança da própria animação e comparando lado a lado, no mesmo ângulo dos quadros de 9 s e 12 s.
-// Rosto: BLOCO RETANGULAR arredondado (laterais retas, queixo largo e reto, frente plana, quinas marcadas), medido nos rostos
+// Rosto: retângulo em cima (laterais retas até o nariz) que afina num "U" comprido até um queixo estreito; frente plana e quinas marcadas. Medido nos rostos
 //   de frente do vídeo (Kruger, Eren adulto, Eren criança, Armin). Olhos grandes de anime, nariz em pirâmide 3D, sobrancelhas
 //   grossas, boca curta, blush. Os traços são decalques curvos que acompanham a pele.
 // Cabelo: uma touca justa feita de MECHAS em triângulo com aresta no meio, saindo do redemoinho no topo e terminando em dentes
@@ -128,16 +128,17 @@ const testaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fi
 // ---------------------------------------------------------------- cabeça (v7)
 // Medida nos rostos de frente da referência (Kruger, Eren adulto, Eren criança, Armin): um BLOCO RETANGULAR arredondado.
 // Unidade u = meia-largura do rosto na linha dos olhos (CAB.HW, em metros); y em u a partir da linha dos olhos (EY).
-//   - laterais retas desde a testa até logo abaixo do nariz; na boca o rosto ainda tem ~90% da largura;
-//   - mandíbula curta que fecha num queixo LARGO e reto (~50% da largura), a ~1,56 u abaixo dos olhos;
+//   - laterais retas desde a testa até o nariz; na boca o rosto tem ~80% da largura;
+//   - depois afina num "U" comprido até um queixo estreito e arredondado (~27% da largura), a ~1,72 u abaixo dos olhos;
 //   - frente plana (testa, olhos, bochechas), quinas marcadas entre a frente e os lados (low-poly);
 //   - crânio arredondado em cima, ~1,8 u acima dos olhos.
 const CAB = {
   HW: 0.075, EY: 0.093, nF: 3.4, nT: 2.3,
-  larg: [[-1.6, 0], [-1.585, 0.4], [-1.52, 0.54], [-1.32, 0.72], [-1.02, 0.89], [-0.62, 0.99], [-0.3, 1.0], [0.7, 1.0], [1.1, 0.96], [1.42, 0.84], [1.66, 0.56], [1.78, 0.24], [1.8, 0]],
-  frente: [[-1.6, 0.56], [-1.52, 0.7], [-1.0, 0.84], [-0.3, 0.9], [0.5, 0.92], [1.05, 0.88], [1.42, 0.72], [1.66, 0.44], [1.8, 0]],
-  tras: [[-1.6, -0.36], [-1.3, -0.1], [-0.9, 0.4], [-0.4, 0.95], [0.3, 1.26], [0.95, 1.28], [1.4, 1.06], [1.68, 0.6], [1.8, 0]],
-  Y: [-1.6, -1.585, -1.52, -1.42, -1.32, -1.18, -1.02, -0.82, -0.62, -0.3, 0.1, 0.45, 0.8, 1.1, 1.3, 1.48, 1.62, 1.72, 1.8],
+  // medido de frente no Kruger e no pai do Eren: reto até o nariz, depois afina num "U" comprido até um queixo estreito (~27%)
+  larg: [[-1.72, 0], [-1.71, 0.2], [-1.68, 0.3], [-1.62, 0.39], [-1.56, 0.45], [-1.48, 0.52], [-1.36, 0.62], [-1.24, 0.71], [-1.12, 0.79], [-0.95, 0.86], [-0.75, 0.92], [-0.55, 0.96], [-0.3, 0.99], [0.0, 1.0], [0.7, 1.0], [1.1, 0.96], [1.42, 0.84], [1.66, 0.56], [1.78, 0.24], [1.8, 0]],
+  frente: [[-1.72, 0.5], [-1.66, 0.62], [-1.5, 0.74], [-1.1, 0.84], [-0.3, 0.9], [0.5, 0.92], [1.05, 0.88], [1.42, 0.72], [1.66, 0.44], [1.8, 0]],
+  tras: [[-1.72, -0.3], [-1.45, -0.1], [-1.0, 0.4], [-0.45, 0.95], [0.3, 1.26], [0.95, 1.28], [1.4, 1.06], [1.68, 0.6], [1.8, 0]],
+  Y: [-1.72, -1.71, -1.68, -1.62, -1.56, -1.48, -1.36, -1.24, -1.12, -0.95, -0.75, -0.5, -0.2, 0.15, 0.5, 0.8, 1.1, 1.3, 1.48, 1.62, 1.72, 1.8],
 };
 function perfilY(pts, y) { if (y <= pts[0][0]) return pts[0][1]; for (let i = 0; i < pts.length - 1; i++) if (y <= pts[i + 1][0]) return lerp(pts[i][1], pts[i + 1][1], (y - pts[i][0]) / (pts[i + 1][0] - pts[i][0])); return pts[pts.length - 1][1]; }
 // ponto da superfície da cabeça (metros, espaço da cabeça) no ângulo ph (0 = frente, ±π/2 = lados, π = nuca) e altura y (u)
@@ -150,14 +151,14 @@ function supCab(ph, y, ext = 0, out = V3_()) {
 }
 function nrmCab(ph, y) { // normal (aprox.) por diferenças finitas, no espaço u
   const e = 0.01, H = CAB, f = (a, b) => { const s_ = Math.sin(a), c_ = Math.cos(a), n = c_ >= 0 ? H.nF : H.nT, w = perfilY(H.larg, b), d = c_ >= 0 ? perfilY(H.frente, b) : perfilY(H.tras, b); return V3_(Math.sign(s_) * Math.pow(Math.abs(s_), 2 / n) * w, b, Math.sign(c_) * Math.pow(Math.abs(c_), 2 / n) * d); };
-  const p0 = f(ph, y), tu = f(ph + e, y).sub(f(ph - e, y)), tv = f(ph, Math.min(1.8, y + e)).sub(f(ph, Math.max(-1.6, y - e)));
+  const p0 = f(ph, y), tu = f(ph + e, y).sub(f(ph - e, y)), tv = f(ph, Math.min(1.8, y + e)).sub(f(ph, Math.max(-1.72, y - e)));
   const n = V3_().crossVectors(tu, tv); if (n.lengthSq() < 1e-12) n.copy(p0).setY(y > 0 ? 1 : -1); n.normalize();
-  if (n.dot(V3_(p0.x, y > 1.7 ? 1 : y < -1.55 ? -1 : 0, p0.z)) < 0) n.negate();
+  if (n.dot(V3_(p0.x, y > 1.7 ? 1 : y < -1.68 ? -1 : 0, p0.z)) < 0) n.negate();
   return n;
 }
 function headGeoLP(o = {}) {
-  const NS = o.ns ?? 20, Y = CAB.Y, pos = [], idx = [];
-  for (let i = 0; i < Y.length; i++) for (let j = 0; j <= NS; j++) { const v = supCab((j / NS) * Math.PI * 2, Y[i]); pos.push(v.x, v.y, v.z); }
+  const NS = o.ns ?? 24, Y = CAB.Y, pos = [], idx = [], ph0 = Math.PI / NS; // meia volta de deslocamento: o meio do rosto cai numa face plana (sem risco no meio)
+  for (let i = 0; i < Y.length; i++) for (let j = 0; j <= NS; j++) { const v = supCab(ph0 + (j / NS) * Math.PI * 2, Y[i]); pos.push(v.x, v.y, v.z); }
   for (let i = 0; i < Y.length - 1; i++) for (let j = 0; j < NS; j++) { const a = i * (NS + 1) + j, b = a + NS + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx);
   return vincoNormais(g, o.vinco ?? 0.62);
@@ -282,7 +283,7 @@ function pessoaLP(o = {}) {
   });
   const brows = [-1, 1].map((k) => { const y = EY + 0.04, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24), bx = k * (EX + 0.001); const g = grp(S.head, bx, y, 0); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decalSup(g, sobrancelhaTex, 0.064, 0.019, 0, 0, (x, yy) => zAt(bx + x, y + yy), { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18, dz: 0.0036 }); g.visible = !P.venda; return g; });
   mesh(narizGeo(0.0135, 0.024, 0.0085), LPmat(P.pele, { rim: 0.3, rough: 0.7 }), 0, 0.06, zAt(0, 0.06) - 0.0012, S.head); // nariz 3D
-  const MY = 0.018, mz = zAt(0, MY) + 0.003;
+  const MY = 0.009, mz = zAt(0, MY) + 0.003;
   const bocas = {};
   ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 })));
   bocas.risada = decalSup(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
