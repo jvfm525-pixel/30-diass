@@ -13,7 +13,7 @@ addSet("teste", (g) => {
     update(t) { P.forEach((p, i) => { restPose(p); p.position.set(X[i], 0, 0); p.rotation.set(0, 0, 0); standFeet(p); rostoLP(p, 1.0, F[i]); }); },
     cam() {
       const c = window.TEST_CAM | 0, i = c % 10, x = X[i], sc = i === 4 ? 1.08 : 1, v = Math.floor(c / 10), A = [0, 0.62, 1.57, 2.6][v] ?? 0, d = 1.3;
-      return { pos: [x + Math.sin(A) * d, 1.78 * sc, Math.cos(A) * d], look: [x, 1.75 * sc, 0], fov: 26, near: 0.02 };
+      return { pos: [x + Math.sin(A) * 1.45, 1.76 * sc, Math.cos(A) * 1.45], look: [x, 1.72 * sc, 0], fov: 26, near: 0.02 };
     },
   };
 });

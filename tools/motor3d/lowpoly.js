@@ -47,49 +47,61 @@ function vincoNormais(geo, ang = 0.6) {
 
 // ---------------------------------------------------------------- texturas do rosto
 const EYT = {};
-// olho de anime da referência (o Eren criança): olho alto e arredondado, íris enorme e redonda que ocupa quase toda a altura,
-// contorno escuro na íris, pupila, dois brilhos; cílio de cima em arco preto grosso passando do canto; linha de baixo fina
-// e o vinco da pálpebra (arco fino acima). alt < 1 deixa o olho mais baixo (adultos).
+// olho de anime da referência (o Eren criança, medido quadro a quadro): abertura alta e redonda; o traço de cima é um arco
+// alto e grosso que desce pelos dois cantos (o externo desce mais, em gancho); íris enorme (~70% da largura) com o topo
+// escondido sob o traço, anel escuro, raios claros, pupila e dois brilhos; linha de baixo fina e o vinco fino acima do olho.
+// alt < 1 deixa o olho mais baixo (adultos, olhar sério).
 function olhoTex(iris, o = {}) {
   const k = iris + JSON.stringify(o); if (EYT[k]) return EYT[k];
   return (EYT[k] = canvasTex(256, 200, (c, w, h) => {
     c.clearRect(0, 0, w, h);
-    const al = o.alt ?? 1, L = 24, R = 234, yL = 112, yR = 98, T = 102 - 72 * al, B = 102 + 64 * al;
-    const cima = () => { c.moveTo(L, yL); c.bezierCurveTo(L + 18, T + 4, R - 72, T - 8, R, yR); };
-    const baixo = () => { c.bezierCurveTo(R - 14, B - 6, L + 60, B + 8, L, yL); };
-    c.save(); c.beginPath(); cima(); baixo(); c.closePath(); c.clip();
-    c.fillStyle = o.esclera ?? "#f7f4f0"; c.fillRect(0, 0, w, h);
-    const ix = 128 + (o.dx ?? 0), iy = 106, ir = 66 * Math.min(1.04, Math.max(0.72, al));
-    const g = c.createRadialGradient(ix, iy + ir * 0.35, ir * 0.08, ix, iy, ir);
-    g.addColorStop(0, corCSS(iris, 0.2)); g.addColorStop(0.55, corCSS(iris, 0.04)); g.addColorStop(1, corCSS(iris, -0.16));
+    const al = o.alt ?? 1, L = 32, R = 224, T = 104 - 66 * al, B = 104 + 62 * al;
+    const arco = () => { c.moveTo(L, 122); c.bezierCurveTo(L + 4, T + 18, L + 44, T, 128, T); c.bezierCurveTo(R - 34, T, R + 2, T + 22, R + 2, 112); };
+    const abertura = () => { arco(); c.bezierCurveTo(R - 6, B - 10, 170, B + 2, 128, B + 2); c.bezierCurveTo(84, B + 2, L + 6, B - 18, L, 122); };
+    c.save(); c.beginPath(); abertura(); c.closePath(); c.clip();
+    c.fillStyle = o.esclera ?? "#f8f6f2"; c.fillRect(0, 0, w, h);
+    const ix = 130 + (o.dx ?? 0), iy = 106, ir = 68 * Math.min(1.02, Math.max(0.7, al));
+    const g = c.createRadialGradient(ix, iy + ir * 0.4, ir * 0.1, ix, iy, ir);
+    g.addColorStop(0, corCSS(iris, 0.22)); g.addColorStop(0.6, corCSS(iris, 0.04)); g.addColorStop(1, corCSS(iris, -0.14));
     c.fillStyle = g; c.beginPath(); c.arc(ix, iy, ir, 0, Math.PI * 2); c.fill();
-    c.strokeStyle = corCSS(iris, -0.36); c.lineWidth = 8; c.beginPath(); c.arc(ix, iy, ir - 4, 0, Math.PI * 2); c.stroke();
-    c.fillStyle = "#0b0809"; c.beginPath(); if (o.fenda) c.ellipse(ix, iy, ir * 0.14, ir * 0.6, 0, 0, Math.PI * 2); else c.arc(ix, iy, ir * 0.38, 0, Math.PI * 2); c.fill();
-    c.fillStyle = "#ffffff"; c.beginPath(); c.ellipse(ix + ir * 0.3, iy - ir * 0.34, ir * 0.27, ir * 0.24, -0.5, 0, Math.PI * 2); c.fill();
-    c.globalAlpha = 0.9; c.beginPath(); c.arc(ix - ir * 0.38, iy + ir * 0.34, ir * 0.11, 0, Math.PI * 2); c.fill(); c.globalAlpha = 1;
-    const sh = c.createLinearGradient(0, T, 0, T + 40); sh.addColorStop(0, "rgba(70,50,50,.45)"); sh.addColorStop(1, "rgba(70,50,50,0)"); c.fillStyle = sh; c.fillRect(0, 0, w, h);
+    c.strokeStyle = "rgba(255,255,255,.16)"; c.lineWidth = 3; for (let i = 0; i < 14; i++) { const an = (i / 14) * Math.PI * 2; c.beginPath(); c.moveTo(ix + Math.cos(an) * ir * 0.4, iy + Math.sin(an) * ir * 0.4); c.lineTo(ix + Math.cos(an) * ir * 0.86, iy + Math.sin(an) * ir * 0.86); c.stroke(); }
+    c.strokeStyle = corCSS(iris, -0.34); c.lineWidth = 7; c.beginPath(); c.arc(ix, iy, ir - 3.5, 0, Math.PI * 2); c.stroke();
+    c.fillStyle = "#0b0809"; c.beginPath(); if (o.fenda) c.ellipse(ix, iy - 4, ir * 0.13, ir * 0.58, 0, 0, Math.PI * 2); else c.ellipse(ix + 2, iy - 6, ir * 0.33, ir * 0.37, 0, 0, Math.PI * 2); c.fill();
+    c.fillStyle = "#ffffff"; c.beginPath(); c.ellipse(ix + ir * 0.3, iy - ir * 0.42, ir * 0.24, ir * 0.2, -0.3, 0, Math.PI * 2); c.fill();
+    c.globalAlpha = 0.85; c.beginPath(); c.arc(ix - ir * 0.36, iy + ir * 0.42, ir * 0.1, 0, Math.PI * 2); c.fill(); c.globalAlpha = 1;
+    const sh = c.createLinearGradient(0, T, 0, T + 44); sh.addColorStop(0, "rgba(60,40,40,.5)"); sh.addColorStop(1, "rgba(60,40,40,0)"); c.fillStyle = sh; c.fillRect(0, 0, w, h);
     c.restore();
     c.lineCap = "round"; c.lineJoin = "round";
-    c.strokeStyle = "rgba(150,100,90,.75)"; c.lineWidth = 4; c.beginPath(); c.moveTo(L + 70, B + 2); c.bezierCurveTo(L + 110, B + 6, R - 50, B, R - 18, B - 18); c.stroke(); // linha de baixo
-    c.strokeStyle = "rgba(150,100,90,.6)"; c.lineWidth = 3.5; c.beginPath(); c.moveTo(L + 40, T + 2); c.bezierCurveTo(L + 70, T - 22, R - 60, T - 26, R - 26, T - 6); c.stroke(); // vinco da pálpebra
-    c.strokeStyle = o.cilio ?? "#141010"; c.lineWidth = 15; c.beginPath(); cima(); c.quadraticCurveTo(R + 8, yR - 2, R + 16, yR - 14); c.stroke(); // cílio de cima
+    c.strokeStyle = "rgba(140,96,84,.6)"; c.lineWidth = 3.5; c.beginPath(); c.moveTo(70, B - 2); c.bezierCurveTo(100, B + 6, 180, B + 2, R - 14, B - 22); c.stroke();        // linha de baixo
+    c.strokeStyle = "rgba(140,96,84,.55)"; c.lineWidth = 3.5; c.beginPath(); c.moveTo(96, T - 14); c.bezierCurveTo(150, T - 22, R - 6, T - 14, R + 8, T + 18); c.stroke(); // vinco
+    // traço de cima: fita de espessura variável seguindo o arco (fino no canto de dentro, grosso no alto e no canto de fora)
+    const pts = []; { const P0 = [L + 6, 112], P1 = [L + 8, T + 16], P2 = [L + 44, T], P3 = [128, T], Q1 = [R - 34, T], Q2 = [R + 2, T + 22], Q3 = [R + 2, 112], Q4 = [R - 4, 136];
+      const bz = (a, b_, c_, d_, t) => { const u = 1 - t; return [u * u * u * a[0] + 3 * u * u * t * b_[0] + 3 * u * t * t * c_[0] + t * t * t * d_[0], u * u * u * a[1] + 3 * u * u * t * b_[1] + 3 * u * t * t * c_[1] + t * t * t * d_[1]]; };
+      for (let i = 0; i <= 20; i++) pts.push(bz(P0, P1, P2, P3, i / 20)); for (let i = 1; i <= 20; i++) pts.push(bz(P3, Q1, Q2, Q3, i / 20)); for (let i = 1; i <= 6; i++) { const t = i / 6; pts.push([Q3[0] + (Q4[0] - Q3[0]) * t, Q3[1] + (Q4[1] - Q3[1]) * t]); } }
+    const esp = (i) => { const f = i / (pts.length - 1); return f < 0.4 ? lerp(1.5, 9, sm(f / 0.4)) : f < 0.85 ? 9 : lerp(9, 6, (f - 0.85) / 0.15); };
+    const nrm = (i) => { const a_ = pts[Math.max(0, i - 1)], b_ = pts[Math.min(pts.length - 1, i + 1)], dx = b_[0] - a_[0], dy = b_[1] - a_[1], l = Math.hypot(dx, dy) || 1; return [-dy / l, dx / l]; };
+    c.fillStyle = o.cilio ?? "#141010"; c.beginPath();
+    pts.forEach((q, i) => { const [nx, ny] = nrm(i), e = esp(i); i ? c.lineTo(q[0] + nx * e, q[1] + ny * e) : c.moveTo(q[0] + nx * e, q[1] + ny * e); });
+    for (let i = pts.length - 1; i >= 0; i--) { const [nx, ny] = nrm(i), e = esp(i); c.lineTo(pts[i][0] - nx * e * 0.6, pts[i][1] - ny * e * 0.6); }
+    c.closePath(); c.fill();
   }));
 }
-// olho fechado: arco escuro curvado pra baixo com cílios no canto (como o Eren dormindo na referência)
-const olhoFechadoTex = canvasTex(256, 200, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = "#141010"; c.lineCap = "round"; c.lineWidth = 12; c.beginPath(); c.moveTo(26, 104); c.quadraticCurveTo(128, 150, 232, 100); c.stroke(); c.lineWidth = 6; [[176, 128], [204, 118], [226, 106]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x, y); c.lineTo(x + 8, y + 14); c.stroke(); }); });
-const sobrancelhaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#ffffff"; c.beginPath(); c.moveTo(10, 44); c.bezierCurveTo(50, 6, 180, 2, 246, 24); c.bezierCurveTo(254, 28, 252, 46, 242, 46); c.bezierCurveTo(180, 30, 70, 38, 22, 62); c.bezierCurveTo(8, 64, 2, 52, 10, 44); c.closePath(); c.fill(); });
+// olho fechado (medido no Eren dormindo): arco escuro grosso curvado pra baixo, com cílios curtos embaixo
+const olhoFechadoTex = canvasTex(256, 200, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = "#141010"; c.lineCap = "round"; c.lineWidth = 13; c.beginPath(); c.moveTo(28, 104); c.bezierCurveTo(70, 140, 180, 146, 228, 100); c.stroke(); c.lineWidth = 5; [[80, 130], [110, 136], [140, 137], [170, 133], [198, 122]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x, y); c.lineTo(x + 3, y + 15); c.stroke(); }); });
+// sobrancelha: barra comprida e grossa, mais grossa na ponta de dentro, arco suave e pontas arredondadas
+const sobrancelhaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#ffffff"; c.beginPath(); c.moveTo(14, 26); c.bezierCurveTo(70, 4, 170, 4, 240, 26); c.bezierCurveTo(252, 30, 250, 46, 238, 44); c.bezierCurveTo(170, 28, 80, 30, 20, 58); c.bezierCurveTo(4, 62, 2, 34, 14, 26); c.closePath(); c.fill(); });
 const BOCAT = {};
 function bocaTex(tipo) {
   if (BOCAT[tipo]) return BOCAT[tipo];
   return (BOCAT[tipo] = canvasTex(256, 128, (c, w, h) => {
-    c.clearRect(0, 0, w, h); c.lineCap = "round"; c.lineJoin = "round"; const cx = w / 2, cy = h / 2, cor = "#7a2a26";
-    if (tipo === "linha") { c.fillStyle = cor; c.beginPath(); c.roundRect(cx - 44, cy - 8, 88, 16, 6); c.fill(); }
-    else if (tipo === "sorriso") { c.strokeStyle = cor; c.lineWidth = 15; c.beginPath(); c.moveTo(cx - 50, cy - 8); c.quadraticCurveTo(cx, cy + 14, cx + 50, cy - 8); c.stroke(); }
-    else if (tipo === "triste") { c.strokeStyle = cor; c.lineWidth = 13; c.beginPath(); c.moveTo(cx - 46, cy + 6); c.lineTo(cx - 22, cy - 6); c.lineTo(cx, cy + 2); c.lineTo(cx + 22, cy - 6); c.lineTo(cx + 46, cy + 6); c.stroke(); }
-    else if (tipo === "aberta") { c.fillStyle = "#5a1014"; c.beginPath(); c.ellipse(cx, cy, 26, 20, 0, 0, Math.PI * 2); c.fill(); c.fillStyle = "#a83a3e"; c.beginPath(); c.ellipse(cx, cy + 9, 16, 8, 0, 0, Math.PI * 2); c.fill(); }
-    else if (tipo === "risada") { // sorriso de canto a canto do Sukuna, fino, com a fileira de dentes
-      c.fillStyle = "#2a0a0e"; c.beginPath(); c.moveTo(cx - 96, cy - 14); c.quadraticCurveTo(cx, cy + 34, cx + 96, cy - 14); c.quadraticCurveTo(cx, cy + 6, cx - 96, cy - 14); c.fill();
-      c.save(); c.clip(); c.fillStyle = "#f4efe6"; for (let i = 0; i < 13; i++) c.fillRect(cx - 90 + i * 14, cy - 12, 11, 14); c.restore();
+    c.clearRect(0, 0, w, h); c.lineCap = "round"; c.lineJoin = "round"; const cx = w / 2, cy = h / 2, cor = "#86402f";
+    if (tipo === "linha") { c.fillStyle = cor; c.beginPath(); c.roundRect(cx - 60, cy - 11, 120, 22, 9); c.fill(); }
+    else if (tipo === "sorriso") { c.strokeStyle = cor; c.lineWidth = 20; c.beginPath(); c.moveTo(cx - 58, cy - 10); c.quadraticCurveTo(cx, cy + 22, cx + 58, cy - 10); c.stroke(); }
+    else if (tipo === "triste") { c.strokeStyle = cor; c.lineWidth = 20; c.beginPath(); c.moveTo(cx - 56, cy + 12); c.quadraticCurveTo(cx, cy - 18, cx + 56, cy + 12); c.stroke(); }
+    else if (tipo === "aberta") { c.fillStyle = "#3a0c10"; c.beginPath(); c.ellipse(cx, cy, 34, 26, 0, 0, Math.PI * 2); c.fill(); c.fillStyle = "#b8343a"; c.beginPath(); c.ellipse(cx, cy + 12, 22, 11, 0, 0, Math.PI * 2); c.fill(); }
+    else if (tipo === "risada") { // sorriso de canto a canto do Sukuna, com a fileira de dentes
+      c.fillStyle = "#2a0a0e"; c.beginPath(); c.moveTo(cx - 110, cy - 16); c.quadraticCurveTo(cx, cy + 40, cx + 110, cy - 16); c.quadraticCurveTo(cx, cy + 8, cx - 110, cy - 16); c.fill();
+      c.save(); c.clip(); c.fillStyle = "#f4efe6"; for (let i = 0; i < 15; i++) c.fillRect(cx - 104 + i * 14, cy - 14, 11, 16); c.restore();
     }
   }));
 }
@@ -97,7 +109,7 @@ function narizGeo(w, hh, p) {
   const T = [0, hh * 0.62, 0], E = [-w / 2, -hh * 0.38, 0], D = [w / 2, -hh * 0.38, 0], P = [0, -hh * 0.3, p];
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute([...T, ...E, ...P, ...T, ...P, ...D, ...E, ...D, ...P], 3)); g.computeVertexNormals(); return g;
 }
-const blushTex = canvasTex(128, 64, (c, w, h) => { c.clearRect(0, 0, w, h); const g = c.createRadialGradient(w / 2, h / 2, 2, w / 2, h / 2, w / 2); g.addColorStop(0, "rgba(240,120,120,.55)"); g.addColorStop(1, "rgba(240,120,120,0)"); c.fillStyle = g; c.beginPath(); c.ellipse(w / 2, h / 2, w / 2, h / 2, 0, 0, Math.PI * 2); c.fill(); });
+const blushTex = canvasTex(128, 64, (c, w, h) => { c.clearRect(0, 0, w, h); const g = c.createRadialGradient(w / 2, h / 2, 2, w / 2, h / 2, w / 2); g.addColorStop(0, "rgba(242,128,120,.5)"); g.addColorStop(0.55, "rgba(242,128,120,.28)"); g.addColorStop(1, "rgba(242,128,120,0)"); c.fillStyle = g; c.save(); c.scale(1, h / w); c.beginPath(); c.arc(w / 2, w / 2, w / 2, 0, Math.PI * 2); c.restore(); c.fill(); });
 // marcas do Sukuna: o segundo par de olhos, as listras das bochechas e a marca da testa
 const olhoExtraTex = canvasTex(256, 96, (c, w, h) => { c.clearRect(0, 0, w, h); const cx = w / 2, cy = h / 2; c.fillStyle = "#140a0c"; c.beginPath(); c.moveTo(cx - 116, cy + 4); c.quadraticCurveTo(cx, cy - 44, cx + 116, cy - 6); c.quadraticCurveTo(cx, cy + 40, cx - 116, cy + 4); c.fill();
   c.fillStyle = "#d8202c"; c.beginPath(); c.ellipse(cx, cy, 28, 20, 0, 0, 7); c.fill(); c.fillStyle = "#2a0606"; c.beginPath(); c.ellipse(cx, cy, 9, 18, 0, 0, 7); c.fill(); c.fillStyle = "#fff"; c.beginPath(); c.arc(cx - 9, cy - 7, 5, 0, 7); c.fill(); });
@@ -105,20 +117,27 @@ const bochechaTex = canvasTex(256, 128, (c, w, h) => { c.clearRect(0, 0, w, h); 
 const testaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#16090c"; c.beginPath(); c.moveTo(14, 20); c.lineTo(w / 2 - 22, 22); c.lineTo(w / 2, 58); c.lineTo(w / 2 + 22, 22); c.lineTo(w - 14, 20); c.lineTo(w - 14, 30); c.lineTo(w / 2 + 16, 32); c.lineTo(w / 2, 48); c.lineTo(w / 2 - 16, 32); c.lineTo(14, 30); c.closePath(); c.fill(); });
 
 // ---------------------------------------------------------------- cabeça
-// quadrado arredondado (superelipsoide) com a frente quase plana; afina numa mandíbula comprida e queixo arredondado
-const HEAD = { a: 0.087, b: 0.124, c: 0.092, n: 2.9, cy: 0.105, frente: 0.9, jawY: -0.3, jaw: 0.5 };
-function superDir(d, n) { const s_ = Math.pow(Math.pow(Math.abs(d.x), n) + Math.pow(Math.abs(d.y), n) + Math.pow(Math.abs(d.z), n), -1 / n); return d.multiplyScalar(s_); }
+// cabeça medida no Eren criança da referência: crânio arredondado em cima; embaixo um bloco mais "cheio" (expoente maior),
+// frente plana descendo até o queixo, bochechas retas até a altura da boca e queixo largo em U
+const HEAD = { a: 0.092, b: 0.132, bBaixo: 0.158, c: 0.092, n: 2.6, nBaixo: 3.6, cy: 0.103, frente: 0.9, jawY: -0.46, jaw: 0.42 };
+const yCab = (uy, H) => H.cy + uy * (uy < 0 ? H.bBaixo ?? H.b : H.b); // metade de baixo mais comprida (queixo longo como na referência)
+function superDir(d, n, m = n) { // superelipsoide com expoente n em x/z e m em y: acha t com |tx|^n + |ty|^m + |tz|^n = 1
+  const f = (t) => Math.pow(Math.abs(d.x * t), n) + Math.pow(Math.abs(d.y * t), m) + Math.pow(Math.abs(d.z * t), n) - 1;
+  let lo = 0, hi = 2; for (let i = 0; i < 30; i++) { const mid = (lo + hi) / 2; if (f(mid) > 0) hi = mid; else lo = mid; }
+  return d.multiplyScalar((lo + hi) / 2);
+}
 function headUnit(v, H = HEAD) {
-  superDir(v.normalize(), H.n);
+  v.normalize(); const baixo = v.y < 0;
+  superDir(v, baixo ? (H.nBaixo ?? H.n) : H.n, baixo ? (H.nBaixo ?? H.n) : H.n);
   if (v.z > H.frente) v.z = H.frente;
-  if (v.y < H.jawY) { const k = sm(clamp((H.jawY - v.y) / (1 + H.jawY))); v.x *= 1 - H.jaw * k; v.z *= v.z < 0 ? 1 - 0.35 * k : 1 - 0.1 * k; }
+  if (v.y < H.jawY) { const k = sm(clamp((H.jawY - v.y) / (1 + H.jawY))); v.x *= 1 - H.jaw * k; v.z *= v.z < 0 ? 1 - 0.3 * k : 1 - 0.14 * k; }
   if (v.z < 0) v.z *= 1.05;
   return v;
 }
 function headGeoLP(o = {}) {
   const H = { ...HEAD, ...o }, g = new THREE.SphereGeometry(1, o.ws ?? 16, o.hs ?? 14);
-  deform(g, (v) => { headUnit(v, H); v.set(v.x * H.a, H.cy + v.y * H.b, v.z * H.c); });
-  return vincoNormais(g, 1.05);
+  deform(g, (v) => { headUnit(v, H); v.set(v.x * H.a, yCab(v.y, H), v.z * H.c); });
+  return vincoNormais(g, 1.3);
 }
 
 // ---------------------------------------------------------------- cabelo
@@ -152,7 +171,7 @@ function capaceteGeo(o, H) {
     const thE = (bordaCabelo(o, ph) + (ponta ? (hash(jj * 1.7 + seed) - 0.5) * (o.varia ?? 0.06) : -(o.entalhe ?? 0.1))) * Math.PI;
     for (let i = 0; i <= SV; i++) {
       const th = (i / SV) * thE, u = headUnit(V3_(Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph)), H), inf = inflaCabelo(o, i / SV);
-      pos.push(u.x * H.a * inf, H.cy + u.y * H.b * inf, u.z * H.c * inf);
+      pos.push(u.x * H.a * inf, H.cy + (yCab(u.y, H) - H.cy) * inf, u.z * H.c * inf);
     }
   }
   for (let j = 0; j < SH; j++) for (let i = 0; i < SV; i++) { const a = j * (SV + 1) + i, b = a + SV + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
@@ -185,7 +204,7 @@ function cabeloLP(head, o) {
   const mf = LPmat(o.cor, { rim: 1.1, side: THREE.DoubleSide, rough: 0.82 }); // mechas facetadas (sombreado chapado, como na referência)
   if (o.baixo) mesh(capaceteGeo({ ...o, ...o.baixo }, H), LPmat(o.baixo.cor, { rim: 0.9, liso: true, side: THREE.DoubleSide, rough: 0.85 }), 0, 0, 0, hr); // camada de baixo (undercut escuro)
   mesh(capaceteGeo(o, H), m, 0, 0, 0, hr);
-  const pt = (th, ph, inf) => { const u = headUnit(V3_(Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph)), H); return { u, w: V3_(u.x * H.a * inf, cy + u.y * H.b * inf, u.z * H.c * inf) }; };
+  const pt = (th, ph, inf) => { const u = headUnit(V3_(Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph)), H); return { u, w: V3_(u.x * H.a * inf, cy + (yCab(u.y, H) - cy) * inf, u.z * H.c * inf) }; };
   const naCasca = (th, ph, ext = 0.012) => { const thE = bordaCabelo(o, ph) * Math.PI, inf = inflaCabelo(o, clamp(th / thE)) + ext; return pt(th, ph, inf); };
   // pétalas largas deitadas, escorrendo do topo (dão as camadas do cabelo)
   const np = o.petalas ?? 0, seed = o.seed ?? 0;
@@ -236,7 +255,7 @@ function pessoaLP(o = {}) {
   const chP = [[0.001, -0.02], [0.138, -0.02], [0.16, 0.06], [0.176, 0.15], [0.174, 0.22], [0.148, 0.27], [0.086, 0.305], [0.001, 0.31]];
   const ch = mesh(lathe(chP, R + 2), roupa, 0, 0, 0, S.chest); ch.scale.z = 0.72;
   const hem = mesh(lathe([[0.152, 0.07], [0.16, -0.03], [0.172, -0.13]], R + 2), roupa2, 0, 0, 0, S.hips); hem.scale.z = 0.84;
-  const gola = mesh(new THREE.CylinderGeometry(0.056, 0.07, 0.085, R + 2, 1, true), roupa2, 0, 0.34, -0.004, S.chest); gola.scale.z = 0.94;
+  const gola = mesh(new THREE.CylinderGeometry(0.058, 0.07, 0.06, R + 2, 1, true), roupa2, 0, 0.326, -0.004, S.chest); gola.scale.z = 0.94;
   if (P.botoes !== false) {
     [0.07, 0.15, 0.23].forEach((y) => { const b = mesh(cyl(0.012, 0.012, 0.006, 8), botao, 0, y, perfilR(chP.slice(1), y) * 0.72 + 0.002, S.chest); b.rotation.x = Math.PI / 2; });
     [0.04, 0.13].forEach((y) => { const b = mesh(cyl(0.012, 0.012, 0.006, 8), botao, 0, y, 0.137 * 0.76 + 0.002, S.spine); b.rotation.x = Math.PI / 2; });
@@ -259,9 +278,9 @@ function pessoaLP(o = {}) {
   mesh(cyl(0.036, 0.042, 0.1, R), skin, 0, 0.03, 0, S.neck);
   const headM = mesh(headGeoLP(P.cabeca || {}), skin, 0, 0, 0);
   const zAt = (x, y) => surfZ(headM, x, y);
-  [-1, 1].forEach((k) => { const ea = mesh(sph(1, 8, 6), skin, k * 0.085, 0.088, -0.012); ea.scale.set(0.011, 0.022, 0.015); S.head.add(ea); });
+  [-1, 1].forEach((k) => { const ea = mesh(sph(1, 8, 6), skin, k * 0.087, 0.078, -0.012); ea.scale.set(0.013, 0.028, 0.017); S.head.add(ea); });
   // rosto: olhos largos e baixos, sobrancelhas grossas, nariz em dois tons, bocas, blush
-  const EX = 0.0345, EY = 0.093, OW = 0.054 * (P.olhoTam ?? 1), OH = OW * 200 / 256;
+  const EX = 0.042, EY = 0.093, OW = 0.066 * (P.olhoTam ?? 1), OH = OW * 200 / 256;
   const olhos = [], fechados = [];
   if (!P.venda) [-1, 1].forEach((k) => {
     const g = grp(S.head, k * EX, EY, zAt(k * EX, EY) + 0.003); g.rotation.set(0, 0, k * (P.olhoInc ?? 0));
@@ -269,13 +288,13 @@ function pessoaLP(o = {}) {
     const f = decal(S.head, olhoFechadoTex, OW, OH, k * EX, EY - 0.002, zAt(k * EX, EY) + 0.0035, 0, 0, { espelho: k < 0 }); f.visible = false;
     olhos.push(g); fechados.push(f);
   });
-  const brows = [-1, 1].map((k) => { const y = EY + 0.034, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24); const g = grp(S.head, k * (EX + 0.001), y, zAt(k * EX, y) + 0.0034); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decal(g, sobrancelhaTex, 0.062, 0.02, 0, 0, 0, 0, 0, { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18 }); g.visible = !P.venda; return g; });
-  mesh(narizGeo(0.012, 0.017, 0.0075), LPmat(P.pele, { rim: 0.3, rough: 0.7 }), 0, 0.064, zAt(0, 0.064) - 0.0012, S.head); // nariz 3D
-  const MY = 0.015, mz = zAt(0, MY) + 0.003;
+  const brows = [-1, 1].map((k) => { const y = EY + 0.047, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24); const g = grp(S.head, k * (EX + 0.001), y, zAt(k * EX, y) + 0.0034); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decal(g, sobrancelhaTex, 0.074, 0.02, 0, 0, 0, 0, 0, { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18 }); g.visible = !P.venda; return g; });
+  mesh(narizGeo(0.0145, 0.022, 0.009), LPmat(P.pele, { rim: 0.3, rough: 0.7 }), 0, 0.062, zAt(0, 0.062) - 0.0014, S.head); // nariz 3D
+  const MY = 0.004, mz = zAt(0, MY) + 0.003;
   const bocas = {};
-  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decal(S.head, bocaTex(t), 0.042, 0.021, 0, MY, mz)));
-  bocas.risada = decal(S.head, bocaTex("risada"), 0.058, 0.029, 0, MY, mz + 0.001);
-  if (P.blush) [-1, 1].forEach((k) => decal(S.head, blushTex, 0.036, 0.02, k * 0.047, 0.07, zAt(k * 0.047, 0.07) + 0.003, k * 0.25, 0, { suave: true }));
+  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decal(S.head, bocaTex(t), 0.056, 0.028, 0, MY, mz)));
+  bocas.risada = decal(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, mz + 0.001);
+  if (P.blush) [-1, 1].forEach((k) => decal(S.head, blushTex, 0.05, 0.026, k * 0.05, 0.066, zAt(k * 0.05, 0.066) + 0.003, k * 0.3, 0, { suave: true }));
   let extras = null;
   if (P.sukuna) { // marcas do Sukuna
     extras = [-1, 1].map((k) => { const y = EY - 0.027, g = grp(S.head, k * 0.037, y, zAt(k * 0.036, y) + 0.003); g.rotation.set(0, 0, k * 0.1); decal(g, olhoExtraTex, 0.032, 0.012, 0, 0, 0); return g; });
@@ -316,7 +335,7 @@ const JJK = { navy: 0x2f3b58, navy2: 0x222a3e, botao: 0xd4aa50 };
 // cabelos do elenco: capacete liso + mechas grossas (como o Eren criança da referência)
 // tufos = mechas espetadas pra fora/cima saindo do topo; franja = mechas caindo na testa
 const tufos = (n, ph0, ph1, th, L, W, kr, ky, kb, x = {}) => franjaMechas(n, ph0, ph1, th, L, W, { kd: 0, kr, ky, kb, curva: x.curva ?? 0.2, esp: x.esp ?? 0.45, giro: x.giro ?? 0.6, seed: x.seed ?? 0 });
-const camadaTopo = (seed, L = 0.072, W = 0.066) => franjaMechas(10, -1, 0.8, 0.07, L, W, { seed, curva: -0.4, esp: 0.32, kr: 0.02, giro: 0.4 });
+const camadaTopo = (seed, L = 0.074, W = 0.078) => franjaMechas(8, -1, 0.75, 0.07, L, W, { seed, curva: -0.4, esp: 0.3, kr: 0.02, giro: 0.4 });
 const CAB = {
   undercut: { cor: 0x3e2226, bordaFrente: 0.28, bordaLado: 0.56, bordaTras: 0.6, volume: 1.05, volBorda: 1.03, dentes: 26, entalhe: 0.03, varia: 0.02 },
   yuji: { cor: 0xf09aa8, dentes: 16, bordaFrente: 0.32, bordaLado: 0.36, bordaTras: 0.42, volume: 1.12, volBorda: 1.065, entalhe: 0.06, varia: 0.05, petalas: 0, seed: 3,
@@ -353,23 +372,23 @@ const CAB = {
       ...tufos(5, 0.6, 1.4, 0.3, 0.065, 0.05, 0.8, 0.4, 0.5, { seed: 45 }),
     ] },
 };
-function yujiLP(o = {}) { return pessoaLP({ seed: 11, pele: 0xffe2b8, olho: "#b06a34", olhoAlt: 0.92, capuz: 0xb3262c, roupa: JJK.navy, calca: JJK.navy, blush: true, sobrancelha: 0x4a2228, cabelo: { ...CAB.yuji, baixo: CAB.undercut }, ...o }); }
+function yujiLP(o = {}) { return pessoaLP({ seed: 11, pele: 0xffe2b8, olho: "#b06a34", olhoAlt: 0.9, olhoTam: 0.92, capuz: 0xb3262c, roupa: JJK.navy, calca: JJK.navy, blush: true, sobrancelha: 0x4a2228, cabelo: { ...CAB.yuji, baixo: CAB.undercut }, ...o }); }
 function sukunaYujiLP(o = {}) { return yujiLP({ seed: 12, olho: "#c41e2a", olhoAlt: 0.8, olhoInc: 0.05, blush: false, sukuna: true, brava: 0.6, cabelo: { ...CAB.sukunaYuji, baixo: CAB.undercut }, ...o }); }
-function megumiLP(o = {}) { return pessoaLP({ seed: 21, pele: 0xfde0b6, olho: "#2f6070", olhoAlt: 0.82, brava: 0.35, roupa: JJK.navy, calca: JJK.navy, sobrancelha: 0x14161c, cabelo: CAB.megumi, ...o }); }
+function megumiLP(o = {}) { return pessoaLP({ seed: 21, pele: 0xfde0b6, olho: "#2f6070", olhoAlt: 0.8, olhoTam: 0.92, brava: 0.35, roupa: JJK.navy, calca: JJK.navy, sobrancelha: 0x14161c, cabelo: CAB.megumi, ...o }); }
 function sukunaMegumiLP(o = {}) { return megumiLP({ seed: 22, olho: "#c41e2a", olhoInc: 0.05, sukuna: true, brava: 0.65, ...o }); }
 function gojoLP(o = {}) { return pessoaLP({ seed: 31, pele: 0xffe6c8, venda: true, roupa: JJK.navy2, calca: JJK.navy2, scale: 1.08, cabelo: CAB.gojo, ...o }); }
 // calibração 2: o Eren criança da referência (cena da árvore), pra comparar rosto e cabelo lado a lado
 function erenCriancaLP(o = {}) {
-  const topete = (th, ph, L, kr, ky, kb) => ({ th, ph, L, W: 0.05, esp: 0.45, curva: 0.22, kd: 0.2, kr, ky, kb });
-  return pessoaLP({ seed: 6, pele: 0xffe4b8, olho: "#2a9a88", olhoAlt: 0.94, blush: true, roupa: 0x5c7a46, calca: 0x4a5a3a, botoes: false, sobrancelha: 0x2e1e14,
-    cabelo: { cor: 0x4a3020, dentes: 16, bordaFrente: 0.3, bordaLado: 0.56, bordaTras: 0.64, volume: 1.17, entalhe: 0.05, varia: 0.04, petalas: 0, seed: 2,
+  const topete = (th, ph, L, kr, ky, kb) => ({ th, ph, L, W: 0.062, esp: 0.45, curva: 0.22, kd: 0.2, kr, ky, kb });
+  return pessoaLP({ seed: 6, pele: 0xffdcaa, olho: "#2a9a88", olhoAlt: 0.94, blush: true, roupa: 0x5c7a46, calca: 0x4a5a3a, botoes: false, sobrancelha: 0x2e1e14,
+    cabelo: { cor: 0x4a3020, dentes: 16, bordaFrente: 0.3, bordaLado: 0.56, bordaTras: 0.64, volume: 1.26, volBorda: 1.08, entalhe: 0.05, varia: 0.04, petalas: 0, seed: 2,
       grossas: [
-        ...franjaMechas(10, -1, 0.8, 0.07, 0.072, 0.066, { seed: 5, curva: -0.4, esp: 0.32, kr: 0.02, giro: 0.4 }), // camada de cima: cobre o topo
-        ...franjaMechas(7, -0.24, 0.24, 0.25, 0.066, 0.034, { seed: 1, giro: 0.7 }),        // franja: triângulos grossos até as sobrancelhas
-        ...franjaMechas(3, 0.3, 0.5, 0.3, 0.074, 0.05, { seed: 2, kl: 0.2 }),               // laterais cobrindo as têmporas
-        ...franjaMechas(3, -0.5, -0.3, 0.3, 0.074, 0.05, { seed: 3, kl: 0.2 }),
+        ...franjaMechas(8, -1, 0.75, 0.07, 0.074, 0.078, { seed: 5, curva: -0.4, esp: 0.3, kr: 0.02, giro: 0.4 }), // camada de cima: poucas mechas largas cobrindo o topo
+        ...franjaMechas(7, -0.24, 0.24, 0.25, 0.066, 0.038, { seed: 1, giro: 0.7 }),        // franja: triângulos grossos até perto das sobrancelhas
+        ...franjaMechas(2, 0.32, 0.5, 0.3, 0.062, 0.064, { seed: 2, kl: 0.16 }),             // laterais curtas e largas sobre as têmporas
+        ...franjaMechas(2, -0.5, -0.32, 0.3, 0.062, 0.064, { seed: 3, kl: 0.16 }),
         ...franjaMechas(5, 0.62, 1.38, 0.42, 0.062, 0.042, { seed: 4 }),                    // nuca
-        topete(0.04, 0.15, 0.055, 0.5, 0.9, 0.35), topete(0.14, -0.3, 0.052, 1.0, 0.55, 0.2), topete(0.14, 0.36, 0.054, 1.0, 0.55, 0.25), topete(0.2, -0.55, 0.05, 1.0, 0.35, 0.3),
-        topete(0.2, 0.62, 0.05, 1.0, 0.35, 0.3), topete(0.12, 0.95, 0.05, 0.8, 0.5, 0.45), topete(0.1, -0.85, 0.05, 0.8, 0.55, 0.45), topete(0.06, 1.3, 0.05, 0.6, 0.8, 0.5),
+        ...tufos(8, -1, 0.75, 0.13, 0.046, 0.052, 0.9, 0.5, 0.3, { seed: 8, curva: 0.18 }),     // topo: várias pontas pequenas espalhadas (silhueta serrilhada)
+        topete(0.03, 0.1, 0.046, 0.5, 0.85, 0.3),
       ] }, ...o });
 }
