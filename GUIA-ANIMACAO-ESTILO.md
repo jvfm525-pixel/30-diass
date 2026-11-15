@@ -201,4 +201,4 @@ Regra geral: **toda transição tem motivo na história** (entrar na memória, v
   - checagem e render final.
 - Fontes: serifa itálica para a legenda (Cormorant Garamond ou EB Garamond, via @fontsource) e versalete para os cabeçalhos (Cinzel, que já temos).
 
-**O que NÃO copiar**: esse vídeo desenha os próprios personagens do anime (Eren, Mikasa, Armin) em low-poly. Pela nossa regra, continuamos com **personagens e símbolos originais**, e os nomes só no texto e na narração.
+**Personagens (regra nova, 15/11/2026)**: como nessa animação, desenhamos **os próprios personagens da obra** em 3D low-poly, com os traços que identificam cada um (cabelo, olhos, roupa, marcas). O desenho é sempre nosso: nada de prints, trechos ou arte oficial.

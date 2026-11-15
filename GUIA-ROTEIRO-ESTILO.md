@@ -51,4 +51,4 @@ Os quatro seguem o mesmo esqueleto, falado como conversa com fã, não como docu
 - **Roteiro**: seguir a estrutura acima. Abrir com o título falado, mudar o tom para conversa ("galera", "a gente"), pôr a pergunta retórica no meio e terminar com frase de impacto ou teoria. O anúncio das keys continua no meio, curto.
 - **Legenda**: trocar a legenda em bloco por **uma palavra por vez, grande, amarela com contorno** (no estilo deles), mantendo a palavra-chave destacada.
 - **Montagem**: um plano ou ângulo novo a cada 1–2 s, com a câmera 3D cortando entre ângulos em vez de um movimento longo, e a cena mostrando literalmente o que a frase diz.
-- **Personagens**: continuam originais (nada desenhado da obra); os nomes vão no texto e na narração.
+- **Personagens**: os da própria obra, redesenhados em 3D low-poly no estilo do GUIA-ANIMACAO-ESTILO.md (regra nova de 15/11/2026).

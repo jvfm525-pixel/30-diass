@@ -17,24 +17,27 @@
 - Keys da Steam no meio, numa frase curta.
 - Contém spoilers do mangá (caps. 212–236).
 
-**Visual (nada desenhado da obra; nomes só na narração e no texto)**
-- **Sukuna:** fumaça carmesim com olhos de fenda brilhando, um rei-sombra sem rosto definido (símbolo original).
-- **O garoto-jaula (Yuji):** rapaz de uniforme escuro com uma gaiola de luz vermelha presa por dentro do peito.
-- **O garoto das sombras (Megumi):** rapaz de uniforme escuro cuja sombra no chão vira lobos e aves de tinta preta.
-- **A sombra que se adapta (Mahoraga):** colosso de sombra com um anel de luz nas costas que gira e "clica" a cada adaptação.
-- **O Infinito (Gojo):** esfera de espaço desacelerado, com o ar parado em volta. O corte é uma rachadura que parte a própria tela.
+**Visual: os personagens da obra em 3D low-poly** (estilo do GUIA-ANIMACAO-ESTILO.md; desenho próprio, nada de arte oficial)
+- **Yuji:** cabelo rosa espetado com raiz escura e franja, olhos castanho-âmbar, uniforme azul-marinho de gola alta com capuz vermelho.
+- **Sukuna no corpo do Yuji:** o cabelo vai pra trás, olhos vermelhos, o segundo par de olhos embaixo e as marcas pretas no rosto. Sorriso largo.
+- **Megumi:** cabelo preto espetado pra todo lado, olhos azul-esverdeados, uniforme azul-marinho de gola alta com botões dourados.
+- **Sukuna no corpo do Megumi:** o mesmo Megumi com olhos vermelhos e as marcas pretas do Sukuna.
+- **Gojo:** cabelo branco pra cima, venda preta nos olhos, uniforme escuro; olhos azuis quando tira a venda.
+- **Mahoraga:** gigante branco e musculoso com a roda de oito raios em cima da cabeça, que gira e trava a cada adaptação.
+- **Tsumiki/Yorozu:** a irmã do Megumi.
+- **Cães divinos:** os lobos de sombra do Megumi (um branco e um preto).
 
 | Tempo aprox. | O que aparece |
 |---|---|
-| Gancho | Close nos olhos de fenda na fumaça vermelha. Corte para os dois rapazes de costas, um de cada lado. |
-| Reformatório | Corredor de concreto alagado à noite. A fumaça sai do garoto-jaula e encara o garoto das sombras. |
-| A jaula | A gaiola de luz no peito se fecha; a fumaça bate nas grades. |
-| Por que o Megumi? | A sombra do Megumi vira lobos; o anel do colosso gira. |
+| Gancho | Close no rosto do Sukuna no corpo do Megumi (olhos vermelhos, marcas). Recua até o Yuji, pequeno, de costas, ao longe. |
+| Reformatório | Pátio de concreto alagado, à noite e com chuva. O Sukuna (no corpo do Yuji, sorrindo) encara o Megumi. Os cães divinos saem da sombra dele. |
+| A jaula | Mundo preto e dourado: o Yuji de pé; atrás dele, o Sukuna preso atrás de grades de luz vermelha. |
+| Por que o Megumi? | O Megumi faz o sinal com as mãos. A sombra vira os lobos, e o Mahoraga surge com a roda girando. |
 | Keys | Baú de pedra num templo com cartões de keys. |
-| Cap. 212 | Ponteiro de relógio de 1 minuto, um dedo cortado e a fumaça passando de um corpo pro outro. |
-| A irmã | Banheira escura (o "banho") onde a alma afunda; silhueta de uma garota sumindo na água. |
-| O manual | O colosso se adapta, clique; a esfera do Infinito; o corte parte a tela. |
-| Fim | Chave de luz girando numa fechadura em forma de rosto de sombra. |
+| Cap. 212 | Uma boca abre na bochecha do Yuji ("Enchain") e um relógio de 1 minuto aparece. O Sukuna arranca o dedo e o Megumi engole. Flash, e os olhos do Megumi ficam vermelhos. |
+| A irmã | O "banho": o Megumi afunda numa água escura. A Tsumiki/Yorozu aparece e some. |
+| O manual | A roda do Mahoraga trava, clique. O Gojo (com a venda) dentro do Infinito. O corte parte a tela ao meio. |
+| Fim | O Yuji atrás das grades, de um lado; o Megumi com olhos vermelhos, do outro. Uma chave de luz gira. |
 
 ## Narração para o ElevenLabs (v4)
 
@@ -74,7 +77,7 @@ Não foi acaso: ele planejava isso desde o primeiro encontro dos dois. A jaula, 
 #jujutsukaisen #sukuna #megumi #yuji #gojo #anime #curiosidades #fyp
 ```
 
-**Thumb**: "POR QUE O SUKUNA / ESCOLHEU O / **MEGUMI**?", com MEGUMI em vermelho, sobre os olhos de fenda na fumaça.
+**Thumb**: "POR QUE O SUKUNA / ESCOLHEU O / **MEGUMI**?", com MEGUMI em vermelho, sobre o rosto do Megumi com os olhos vermelhos do Sukuna.
 
 ## Fatos conferidos
 

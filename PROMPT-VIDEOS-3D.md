@@ -26,9 +26,9 @@ Entregue:
 4. Ideia de thumb: título curto em 3 linhas, com uma palavra em destaque.
 
 Regras visuais:
-- NÃO desenhar personagens, logos ou designs de anime, filme ou jogo.
-- Representar os personagens por SÍMBOLOS ORIGINAIS: silhuetas, objetos, cores, luz.
-- O nome dos personagens pode aparecer em texto e na narração.
+- **Personagens da obra podem ser desenhados** (regra nova do criador, 15/11/2026): em 3D **low-poly estilizado**, no estilo do GUIA-ANIMACAO-ESTILO.md (facetado, olhos grandes, traços marcantes de cada um: cabelo, roupa, marcas).
+- Desenho próprio em 3D: nunca copiar quadros, cenas ou arte oficial (prints, trechos do anime).
+- Logos e marcas oficiais continuam de fora.
 ```
 
 ---
@@ -82,4 +82,4 @@ Entrega:
   - câmera com movimento contínuo.
   Personagens e cenários seguem o estilo atual. Não refazer vídeos já entregues sem pedido.
 - **Viralizar:** gancho + pergunta no meio + resposta guardada pro final + A/B nos comentários.
-- **Direitos autorais:** citar e analisar uma obra pode; copiar o desenho dos personagens não. O TikTok também derruba trechos oficiais de anime.
+- **Direitos autorais:** citar, analisar e redesenhar os personagens em 3D próprio (fan art low-poly) pode; usar trechos, prints ou arte oficial não. O TikTok derruba trechos oficiais de anime.
