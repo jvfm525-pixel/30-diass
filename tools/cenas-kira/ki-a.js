@@ -109,6 +109,15 @@ addSet("s1-rua", (g) => {
       const w = minha.wins[2]; w.m.emissiveIntensity = 0.55 + Math.sin(t * 2.1) * 0.03; winL.intensity = 1.2 + Math.sin(t * 2.1) * 0.08;
     },
     cam(t) {
+      if (T.cortes) { // estilo novo: um ângulo diferente a cada ~1,5 s, cada um com leve empurrão
+        const z = Z0 - distF(t), S = [
+          [0, [0.4, 1.0, z - 2.6], [-1.45, 1.55, z], 34], [1.6, [-0.3, 7.5, z - 9], [-1.4, 0.8, z + 3], 38], [3.0, [0.9, 0.5, z - 1.5], [-1.45, 1.7, z], 40],
+          [4.6, [-2.3, 1.7, z - 1.2], [-1.45, 1.55, z], 30], [6.1, [0.35, 0.8, z - 1.4], [-1.45, 1.65, z], 28], [7.6, [-0.2, 2.2, z + 2.4], [-1.45, 1.4, z - 1], 36],
+          [8.8, [0.9, 2.15, -7.6], [-5.3, 4.05, -4.6], 34]];
+        let i = 0; while (i < S.length - 1 && t >= S[i + 1][0]) i++;
+        const k = seg(t, S[i][0], (S[i + 1] || [S[i][0] + 1.5])[0]), c = S[i];
+        return { pos: lerp3(c[1], lerp3(c[1], c[2], 0.12), k), look: c[2], fov: c[3] - 2 * k };
+      }
       return path2(t, [
         [a, [-0.3, 9.0, -16.0], [-1.3, 0.8, 2.5], 38],
         [K.so0 + 0.2, [-0.6, 4.0, -9.5], [-1.4, 1.2, 0.6], 36],
