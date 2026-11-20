@@ -1,0 +1,46 @@
+<!doctype html><html><head><meta charset="utf-8"><script src="assets/gsap.min.js"></script>
+<style>html,body{margin:0;background:#000}#r{position:relative;width:1080px;height:1920px;overflow:hidden}canvas{position:absolute;inset:0}
+.tt{position:absolute;left:0;right:0;top:300px;text-align:center;font:italic 900 150px/1 Impact,'Arial Black',sans-serif;letter-spacing:4px;
+background:linear-gradient(#7ad8ff 0%,#fff 48%,#6a3aa0 52%,#ff6ab0 75%,#ffd860 100%);-webkit-background-clip:text;color:transparent;
+-webkit-text-stroke:3px #2a0a3a;filter:drop-shadow(0 0 18px #ff4ab0) drop-shadow(0 0 40px #ff8a30);opacity:0}
+.sub{position:absolute;left:60px;right:60px;bottom:260px;text-align:center;font:600 54px Arial,sans-serif;color:#fff2b0;-webkit-text-stroke:2px #1a0a20;opacity:0}
+.crt{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 2px,transparent 2px 4px),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.65) 100%)}
+</style></head><body>
+<div id="r" data-composition-id="main" data-width="1080" data-height="1920" data-start="0" data-duration="8">
+<canvas id="c" class="clip" width="1080" height="1920" data-start="0" data-duration="8"></canvas>
+<div id="t" class="tt clip" data-start="0" data-duration="8">ELE<br>PARTIU</div>
+<div id="s" class="sub clip" data-start="0" data-duration="8">E nunca olhou pra trás.</div>
+<div class="crt clip" data-start="0" data-duration="8"></div></div>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d'),W=1080,H=1920;
+function rnd(i){const s=Math.sin(i*127.1)*43758.5;return s-Math.floor(s)}
+// fundo pintado uma vez (céu airbrush, mar, sol)
+const bg=document.createElement('canvas');bg.width=W;bg.height=H;const b=bg.getContext('2d');
+let g=b.createLinearGradient(0,0,0,1150);g.addColorStop(0,'#1a1040');g.addColorStop(.45,'#7a2a7a');g.addColorStop(.8,'#ff6a5a');g.addColorStop(1,'#ffc070');b.fillStyle=g;b.fillRect(0,0,W,1150);
+for(let i=0;i<9;i++){const y=250+i*95,cx=rnd(i)*W;const cg=b.createRadialGradient(cx,y,10,cx,y,260);cg.addColorStop(0,'rgba(255,160,180,.45)');cg.addColorStop(1,'rgba(255,160,180,0)');b.fillStyle=cg;b.beginPath();b.ellipse(cx,y,320,60,0,0,7);b.fill()}
+const sg=b.createRadialGradient(540,1100,20,540,1100,260);sg.addColorStop(0,'#fff6d0');sg.addColorStop(.3,'#ffb060');sg.addColorStop(1,'rgba(255,120,80,0)');b.fillStyle=sg;b.fillRect(0,800,W,400);
+g=b.createLinearGradient(0,1150,0,H);g.addColorStop(0,'#5a2a5a');g.addColorStop(1,'#120a24');b.fillStyle=g;b.fillRect(0,1150,W,H);
+for(let i=0;i<40;i++){b.fillStyle=`rgba(255,${180+rnd(i)*60|0},120,${.25+rnd(i+3)*.4})`;const y=1160+i*i*0.45;b.fillRect(540-(30+i*6)*rnd(i+9),y,(60+i*12)*rnd(i+5),3)}
+function draw(t){x.drawImage(bg,0,-t*6);
+ // cais (cel chapado, sombra dura)
+ x.fillStyle='#3a1a2a';x.beginPath();x.moveTo(380,H);x.lineTo(500,1160);x.lineTo(580,1160);x.lineTo(700,H);x.fill();
+ x.fillStyle='#5a2a3a';x.beginPath();x.moveTo(540,H);x.lineTo(540,1160);x.lineTo(580,1160);x.lineTo(700,H);x.fill();
+ // silhueta andando (12 qps): encolhe com a distância, rim light neon
+ const tt=Math.floor(t*12)/12,k=Math.min(1,tt/7),s=1-.75*k,px=540,py=1900-700*k,ph=Math.sin(tt*9);
+ x.save();x.translate(px,py);x.scale(s,s);
+ x.fillStyle='#1a0a1e';x.strokeStyle='#ff6ab0';x.lineWidth=6;
+ const body=()=>{x.beginPath();x.ellipse(0,-560,55,65,0,0,7);x.moveTo(-70,-480);x.lineTo(70,-480);x.lineTo(60,-220);x.lineTo(-60,-220);x.closePath();
+  x.moveTo(-50,-230);x.lineTo(-50+ph*30,0);x.lineTo(-15+ph*30,0);x.lineTo(-5,-230);x.moveTo(5,-230);x.lineTo(15-ph*30,0);x.lineTo(50-ph*30,0);x.lineTo(50,-230);
+  x.moveTo(-70,-470);x.lineTo(-95-ph*15,-260);x.lineTo(-70-ph*15,-255);x.lineTo(-55,-440);x.moveTo(70,-470);x.lineTo(95+ph*15,-260);x.lineTo(70+ph*15,-255);x.lineTo(55,-440);
+  for(let i=0;i<7;i++){x.moveTo(-55+i*18,-600);x.lineTo(-60+i*20,-660-rnd(i)*40);x.lineTo(-40+i*18,-605)}};
+ body();x.stroke();body();x.fill();x.restore();
+ // brilho do sol pulsando
+ x.globalCompositeOperation='lighter';const fl=x.createRadialGradient(540,1100,0,540,1100,500);fl.addColorStop(0,`rgba(255,140,90,${.25+.05*Math.sin(t*3)})`);fl.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=fl;x.fillRect(0,600,W,1000);x.globalCompositeOperation='source-over';
+ // ruído de fita
+ for(let i=0;i<120;i++){const r=rnd(i+Math.floor(t*24)*131);x.fillStyle=`rgba(255,255,255,${r*.06})`;x.fillRect(rnd(i*7+t)*W,rnd(i*3+Math.floor(t*24))*H,2,1)}}
+const st={t:0};const tl=gsap.timeline({paused:true});
+tl.to(st,{t:8,duration:8,ease:'none',onUpdate:()=>draw(st.t)},0);
+tl.to('#t',{opacity:1,duration:.01},.8).fromTo('#t',{scale:1.15},{scale:1,duration:.5,ease:'steps(6)'},.8);
+tl.to('#s',{opacity:1,duration:.2},3.2);tl.to(['#t','#s'],{opacity:0,duration:.4},7.4);
+draw(0);window.__timelines={main:tl};
+</script></body></html>
