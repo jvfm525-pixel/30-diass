@@ -116,7 +116,7 @@ function chuva(g, o = {}) {
 }
 function respingos(g, n, area, cor = 0xa8c0e8) {
   const rs = []; for (let i = 0; i < n; i++) { const r = mesh(new THREE.RingGeometry(0.85, 1, 20), glowM(cor, 0), lerp(area[0], area[1], hash(i * 1.9)), 0.012, lerp(area[2], area[3], hash(i * 4.3)), g); r.rotation.x = -Math.PI / 2; r.castShadow = r.receiveShadow = false; rs.push(r); }
-  return { update(t) { rs.forEach((r, i) => { const ph = (t * 1.6 + hash(i * 7.3)) % 1; r.scale.setScalar(0.02 + ph * 0.16); r.material.opacity = (1 - ph) * 0.5; }); } };
+  return { update(t) { rs.forEach((r, i) => { const ph = (t * 1.6 + hash(i * 7.3)) % 1; r.scale.setScalar(0.02 + ph * 0.16); r.material.opacity = (1 - ph) * 0.22; }); } };
 }
 
 // ---------------------------------------------------------------- bolhas subindo (água)
@@ -256,7 +256,7 @@ function chaveLuz(g, o = {}) {
   const c = grp(g), cor = o.cor ?? 0xffd27a, r = o.r ?? 0.03;
   const ls = [linhaLuz(c, circuloPts(0.22, 40, 0, 0, 0).map(([x, y, z]) => [x, z + 0.55, 0]), { r, cor, seg: 60 }), linhaLuz(c, [[0, 0.33, 0], [0, -0.75, 0]], { r, cor, seg: 30 }), linhaLuz(c, [[0, -0.5, 0], [0.18, -0.5, 0], [0.18, -0.6, 0]], { r, cor, seg: 20 }), linhaLuz(c, [[0, -0.7, 0], [0.24, -0.7, 0], [0.24, -0.78, 0]], { r, cor, seg: 20 })];
   const halo = glowSprite(cor, 1.6, 0); c.add(halo); const L = new THREE.PointLight(cor, 0, 5, 2); c.add(L);
-  return { c, set(k, t = 0) { ls.forEach((l, i) => l.set(clamp(k * 1.5 - i * 0.15))); halo.material.opacity = 0.5 * k; L.intensity = 3 * k; } };
+  return { c, set(k, t = 0) { ls.forEach((l, i) => l.set(clamp(k * 1.5 - i * 0.15))); halo.material.opacity = 0.25 * k; L.intensity = 3 * k; } };
 }
 // relógio de 1 minuto (holograma vermelho): anel com marcas e um ponteiro que dá a volta
 function relogioLuz(g, o = {}) {
@@ -289,3 +289,4 @@ function bocaBochecha(p, lado = 1) {
   const m = decal(gg, bocaBochechaTex, 0.05, 0.025, 0, 0, 0, 0, 0, {}); gg.scale.set(1, 0.001, 1);
   return { set(k) { gg.scale.set(0.6 + 0.4 * k, Math.max(0.001, k), 1); gg.visible = k > 0.01; } };
 }
+const GOLDM = () => new THREE.MeshStandardMaterial({ color: 0xe8b040, metalness: 0.92, roughness: 0.24, emissive: 0x4a2a00, emissiveIntensity: 0.35, envMap: envGold(), envMapIntensity: 1.1 });
