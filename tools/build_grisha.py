@@ -43,11 +43,11 @@ def add(html, script=""):
 # título (0,75 → pouco antes da 2ª frase)
 import sys as _s; _s.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import grisha_texto as GT
 N1 = 1
-t0, t1 = 0.75, min(T["legendas"][N1][0] - 0.1, K["pior"] - 0.3)
+t0, t1 = 0.75, K["pior"] - 0.3
 add(f'''<div id="titulo" class="clip titulo" data-start="{t0}" data-duration="{t1 - t0:.2f}">
   <div class="tl1">Por que o</div><div class="tl2">GRISHA</div><div class="tl3">COMEU</div><div class="tl1">a família real?</div></div>''',
     f'tl.fromTo("#titulo",{{opacity:0,y:20}},{{opacity:1,y:0,duration:.6,ease:"power2.out"}},{t0});'
-    f'tl.fromTo("#titulo .tl3",{{opacity:0,scale:.9}},{{opacity:1,scale:1,duration:.5,ease:"power2.out"}},{K["pai"] - 0.1:.2f});'
+    f'tl.fromTo("#titulo .tl3",{{opacity:0,scale:1.3}},{{opacity:1,scale:1,duration:.45,ease:"back.out(2)"}},{t0 + 0.3:.2f});'
     f'tl.to("#titulo",{{opacity:0,duration:.35}},{t1 - 0.35:.2f});')
 
 # cabeçalhos de capítulo
@@ -76,7 +76,7 @@ for i, (a, b, f) in enumerate(T["legendas"]):
         txt = '“' + txt + '”'
     top = 330 if em_capitulo(a) else 250
     add(f'<div id="lg{i}" class="clip leg" data-start="{a:.2f}" data-duration="{b - a:.2f}" style="top:{top}px"><div class="mancha"></div><div class="lt">{fala}{txt}</div></div>',
-        f'tl.fromTo("#lg{i}",{{opacity:0}},{{opacity:1,duration:.25}},{a:.2f});tl.to("#lg{i}",{{opacity:0,duration:.25}},{max(a + 0.3, b - 0.25):.2f});')
+        f'tl.fromTo("#lg{i}",{{opacity:0}},{{opacity:1,duration:.25}},{(max(a, t1 - 0.05) if i == N1 else a):.2f});tl.to("#lg{i}",{{opacity:0,duration:.25}},{max(a + 0.3, b - 0.25):.2f});')
 
 # fichas de citação (etiqueta de museu)
 fichas = [
