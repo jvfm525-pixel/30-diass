@@ -93,3 +93,23 @@ function quartoLight(g) {
 // cartões do Discord (keys) e claquete (aulas)
 const keyTex = canvasTex(256, 160, (c, w, h) => { const gr = c.createLinearGradient(0, 0, w, h); gr.addColorStop(0, "#2a2050"); gr.addColorStop(1, "#7a5ad8"); c.fillStyle = gr; c.fillRect(0, 0, w, h); c.strokeStyle = "rgba(255,240,255,.9)"; c.lineWidth = 8; c.strokeRect(8, 8, w - 16, h - 16); c.fillStyle = "#fff"; c.font = "bold 54px 'Archivo Black', sans-serif"; c.textAlign = "center"; c.fillText("KEY", w / 2, 82); c.font = "bold 22px sans-serif"; c.fillText("XXXX-XXXX-XXXX", w / 2, 122); });
 const claqTex = canvasTex(256, 192, (c, w, h) => { c.fillStyle = "#1a1a1e"; c.fillRect(0, 0, w, h); c.fillStyle = "#f2f2f2"; for (let i = 0; i < 6; i++) { c.save(); c.translate(i * 48, 0); c.beginPath(); c.moveTo(0, 0); c.lineTo(24, 0); c.lineTo(48, 44); c.lineTo(24, 44); c.fill(); c.restore(); } c.font = "bold 30px sans-serif"; c.textAlign = "center"; c.fillText("AULA", w / 2, 110); c.font = "bold 22px sans-serif"; c.fillText("COMO FAZER", w / 2, 150); });
+
+// ---------------------------------------------------------------- mãos e gestos (v2)
+// objeto preso no punho fechado: o eixo z do objeto vai do mindinho ao polegar; dx empurra pra palma
+function naMao(p, i, obj, o = {}) { const w = p.userData.wr[i], k = i ? -1 : 1; w.add(obj); obj.position.set(k * (o.dx ?? 0.012), o.dy ?? -0.07, o.dz ?? 0.0); obj.rotation.set(...(o.rot || [0, 0, 0])); const s = 1 / p.scale.x; obj.scale.setScalar((o.s ?? 1) * s); return obj; }
+// pontos do corpo no mundo
+function bocaW(p, fz = 0.03) { p.updateMatrixWorld(true); return p.userData.head.localToWorld(V3(0, 0.009, CAB.HW + fz)); }
+function corpoW(p, osso, x, y, z) { p.updateMatrixWorld(true); return p.userData[osso].localToWorld(V3(x, y, z)); }
+// ponto à frente do personagem (no referencial do corpo: x direita do personagem, y altura, z frente)
+function frenteW(p, x, y, z) { const a = p.rotation.y, s = p.scale.x; return V3(p.position.x + (Math.cos(a) * -x + Math.sin(a) * z) * s, p.position.y + y * s, p.position.z + (Math.sin(a) * x + Math.cos(a) * z) * s); }
+// mão i até o alvo (mundo), cotovelo pra fora e pra baixo
+function maoEm(p, i, alvo, k = 1, o = {}) { if (k <= 0) return; const lado = i ? -1 : 1; const pole = frenteW(p, lado * (o.abre ?? 0.6), o.poleY ?? 0.4, o.poleZ ?? -0.3); armIK(p, i, alvo, pole, clamp(k)); }
+const mixV = (a, b, k) => a.clone().lerp(b, clamp(k));
+// mordida: 0 → mão no peito, 1 → na boca (com antecipação e volta)
+function mordidas(t, ts, dur = 0.9) { let m = 0; ts.forEach((t0) => { const u = seg(t, t0, t0 + dur); if (u > 0 && u < 1) m = Math.max(m, Math.sin(u * Math.PI) ** 0.6); }); return m; }
+// barra de chocolate (eixo longo em z) e caneta
+function chocolate() { const c = grp(null); mesh(box(0.05, 0.014, 0.15), LPmat(0x4a2414, { rough: 0.5 }), 0, 0, 0.03, c); mesh(box(0.054, 0.018, 0.09), LPmat(0xc8ccd4, { metal: 0.8, rough: 0.25, rim: 0.8 }), 0, 0, -0.035, c); return c; }
+function caneta(cor = 0x101012) { const c = grp(null); mesh(cyl(0.006, 0.006, 0.15, 6), LPmat(cor, { metal: 0.4, rough: 0.3 }), 0, 0, 0, c).rotation.x = Math.PI / 2; mesh(new THREE.ConeGeometry(0.006, 0.02, 6), LPmat(0xc0c0c8, { metal: 0.8 }), 0, 0, 0.085, c).rotation.x = Math.PI / 2; return c; }
+// objeto solto no mundo, preso à mão i e apontando pra um alvo (ex.: a barra de chocolate apontando pra boca)
+const _Z = new THREE.Vector3(0, 0, 1);
+function apontaDaMao(obj, p, i, alvo, off = 0.05) { p.updateMatrixWorld(true); const k = i ? -1 : 1, s = p.scale.x; const de = p.userData.wr[i].localToWorld(V3(k * 0.02, -0.075, 0)); const d = alvo.clone().sub(de).normalize(); obj.position.copy(de).addScaledVector(d, off * s); obj.quaternion.setFromUnitVectors(_Z, d); return de; }

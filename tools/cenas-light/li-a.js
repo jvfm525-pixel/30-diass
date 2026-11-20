@@ -17,21 +17,29 @@ addSet("s0-capa", (g) => {
 addSet("s1-abertura", (g) => {
   const [a, b] = T.sc["s1-abertura"];
   const Q = quartoLight(g);
-  const li = lightLP(); g.add(li); li.position.set(0, 0, -0.85); li.rotation.y = Math.PI;
+  const li = lightLP(); g.add(li); li.position.set(0.05, 0, -0.92); li.rotation.y = Math.PI;
   const ry = ryukLP(); g.add(ry); ry.position.set(1.3, 0, -0.4); ry.rotation.y = -2.4;
-  const mc = maca(g, 1.2);
+  const mc = naMao(ry, 0, maca(null, 1.2), { dx: 0.062, dy: -0.09 });
+  const pen = naMao(li, 0, caneta(), { dx: 0.006, dy: -0.075, rot: [1.2, 0, 0] });
   const cd = caderno(g); cd.c.position.set(0.3, 0.79, -1.6);
   const tb = tabuleiro(g, 0.35); tb.position.set(-0.15, 0.79, -1.55);
   const rei = peca(tb, "rei", 0xe8e0d0), pN = peca(tb, "peao", 0xf4f4f6), pM = peca(tb, "peao", 0x1a1a1e);
+  const morde = [K.resposta + 0.7, K.dois1 + 0.2];
   return {
     bg: 0x05060c, fog: [5, 25], fogCol: 0x0a0c18, hand: 0,
     look: { exposure: 1.2, bloom: 0.55, bloomT: 0.78, vig: 0.55, sat: 1.0, con: 1.06 },
     sun: { dir: [0.4, 0.6, -1], col: 0x6a80c0, I: 0.6, c: [0, 1, -1], r: 4 }, hemi: { sky: 0x5a6080, ground: 0x0a0a10, I: 0.85 }, fill: { col: 0xffc890, I: 0.8, dir: [-0.8, 0.5, -0.6] }, rim: { col: 0xa0b8ff, str: 0.9 },
     update(t) {
       flash(t, a, 0.001, 0.45);
-      vive(li, t, 61, { boca: "linha" }, 0.3); pose(li, { spine: [0.25, 0, 0], armR: [-0.9, 0, 0.1, -1.2], armL: [-0.8, 0, -0.1, -1.3] }, 1);
-      vive(ry, t, 66, { boca: "risada" }, 0.3); pose(ry, { spine: [0.2, 0, 0], armR: [-1.3, 0, 0.3, -1.8], handR: 1 }, 1);
-      ry.updateMatrixWorld(true); mc.position.copy(ry.userData.wr[0].localToWorld(V3(0, -0.09, 0.03)));
+      // o Light sentado escrevendo: a caneta corre na página, a outra mão apoiada na mesa
+      restPose(li); idle(li, t, 61, 0.25); sitPose(li, 1, { seatY: 0.56, lean: 0.3 }); pose(li, { neck: [0.35, 0, 0], handR: 0.85, handL: 0.4 }, 1); rostoLP(li, t, { boca: "linha", bravo: 0.25 });
+      const esc = Math.sin(t * 7.5) * 0.025, linha = ((t * 0.35) % 1) * 0.08;
+      maoEm(li, 0, V3(0.27 + esc, 0.9, -1.5 - linha), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.1 });
+      maoEm(li, 1, V3(-0.12, 0.85, -1.3), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.1 });
+      // o Ryuk atrás, rindo, morde a maçã
+      vive(ry, t, 66, { boca: mordidas(t, morde) > 0.6 ? "aberta" : "risada" }, 0.3); pose(ry, { spine: [0.15, 0, 0], handR: 0.5 }, 1);
+      const md = mordidas(t, morde, 1.0), base = frenteW(ry, 0.16, 1.28, 0.34), boca = bocaW(ry, 0.07).add(V3(0, 0.01, 0));
+      maoEm(ry, 0, mixV(base, boca, md), 1, { abre: 0.7, poleY: 0.2, poleZ: -0.4 });
       cd.abrir(1);
       // o rei sozinho; os dois peões entram ao ouvir os nomes e se juntam no "ao mesmo tempo"
       rei.position.set(0, 0, 0.12); rei.scale.setScalar(0.35);
@@ -63,7 +71,9 @@ addSet("s2-herdeiros", (g) => {
   const nr = nearLP(); g.add(nr); nr.position.set(-0.9, 0, 0.3); nr.rotation.y = 0.5;
   const pz = puzzle(g, 26, 0.7); pz.forEach((p) => (p.position.x -= 0.9));
   const ml = melloLP(); g.add(ml); ml.position.set(1.0, 0, -0.1); ml.rotation.y = -0.5;
-  const choc = mesh(box(0.05, 0.14, 0.012), LPmat(0x4a2a18), 0, 0, 0, g);
+  const choc = chocolate(); g.add(choc);
+  const peq = naMao(nr, 0, mesh(box(0.1, 0.012, 0.1), LPmat(0xf4f4f6, { rim: 0.5 })), { dx: 0.03, dy: -0.1 });
+  const mordeM = [K.mello2 + 0.45, K.impulsivo + 0.2];
   // o L de luz que se parte: metade branca (Near) e metade preta/dourada (Mello)
   const Lg = grp(g, 0, 2.2, -1.2), Lv = linhaLuz(Lg, [[-0.35, 0.7, 0], [-0.35, -0.6, 0]], { r: 0.03, cor: 0xe8f0ff, seg: 30 }), Lh = linhaLuz(Lg, [[-0.35, -0.6, 0], [0.45, -0.6, 0]], { r: 0.03, cor: 0xffd060, seg: 30 });
   const LT = glowSprite(0xffffff, 2.2, 0); Lg.add(LT);
@@ -73,9 +83,15 @@ addSet("s2-herdeiros", (g) => {
     sun: { dir: [0, 0.5, -1], col: 0xd8e4f0, I: 1.8, c: [0, 1, 0], r: 6 }, hemi: { sky: 0xc8d4e4, ground: 0x4a4038, I: 0.9 }, fill: { col: 0xffd8b0, I: 0.4, dir: [0.4, 0.3, 1] }, rim: { col: 0xd8e8ff, str: 0.8 },
     update(t) {
       chicote(t, a, 0.22, 1);
-      vive(nr, t, 62, { boca: "linha" }, 0.2); kneelPose(nr, 1); pose(nr, { spine: [0.4, 0, 0], neck: [0.3, 0, 0], armR: [-0.9, 0, 0.2, -0.6], handR: 0.6 }, 1);
-      vive(ml, t, 63, { boca: "linha", bravo: 0.55 }, 0.35); pose(ml, { armR: [-1.4, 0, 0.35, -1.9], handR: 1 }, 1);
-      ml.updateMatrixWorld(true); choc.position.copy(ml.userData.wr[0].localToWorld(V3(0, -0.1, 0.02))); choc.rotation.set(0.3, -0.5, 0.2);
+      // o Near ajoelhado: enrola o cabelo com a esquerda e encaixa peças com a direita
+      vive(nr, t, 62, { boca: "linha" }, 0.2); kneelPose(nr, 1); pose(nr, { spine: [0.5, 0, 0], neck: [0.35, 0, 0], handR: 0.5, handL: 0.6 }, 1);
+      const cic = ((t - a) % 2.6) / 2.6, desce = Math.sin(clamp(cic / 0.8) * Math.PI);
+      maoEm(nr, 0, mixV(frenteW(nr, 0.14, 0.42, 0.22), frenteW(nr, 0.08, 0.06, 0.42), desce), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.2 });
+      const giro = t * 4; maoEm(nr, 1, corpoW(nr, "head", 0.11 + Math.cos(giro) * 0.012, 0.06 + Math.sin(giro) * 0.015, 0.03), 1, { abre: 0.8, poleY: -0.2, poleZ: -0.1 });
+      // o Mello em pé, morde a barra de chocolate
+      const mm = mordidas(t, mordeM, 1.0);
+      vive(ml, t, 63, { boca: mm > 0.6 ? "aberta" : "linha", bravo: 0.55 }, 0.35); pose(ml, { handR: 0.9 }, 1);
+      maoEm(ml, 0, mixV(frenteW(ml, 0.12, 1.2, 0.3), bocaW(ml, 0.1).add(V3(0, -0.1, 0)), mm), 1, { abre: 0.7, poleY: 0.2, poleZ: -0.4 }); apontaDaMao(choc, ml, 0, bocaW(ml, 0.02), 0.04);
       const ap = smr(t, K.l2 - 0.2, K.herdeiros), sep = E.inOut(smr(t, K.separados - 0.1, K.separados + 0.8));
       Lv.set(ap); Lh.set(ap); LT.material.opacity = 0.2 * ap * (1 - sep);
       Lv.m.position.x = -0.6 * sep; Lh.m.position.set(0.6 * sep, -0.3 * sep, 0);
@@ -99,10 +115,11 @@ addSet("s3-erro", (g) => {
   const chao = mesh(new THREE.PlaneGeometry(30, 30), new THREE.MeshStandardMaterial({ color: 0x0c0e14, roughness: 0.25, metalness: 0.6 }), 0, 0, 0, g); chao.rotation.x = -Math.PI / 2;
   mesh(box(14, 6, 0.2), LPmat(0x10121a), 0, 3, -3.2, g);
   const telas = paredeTelas(g, 0, -3.05, 6, 4, { y0: 0.9, txts: ["KIRA", "L", "?", "N"], cor: "#7ad0ff" });
-  const li = lightLP(); g.add(li); li.position.set(-0.7, 0, 0.2); li.rotation.y = 0.55;
-  const mk = mikamiLP(); g.add(mk); mk.position.set(0.9, 0, -0.6); mk.rotation.y = -0.5;
+  const li = lightLP(); g.add(li); li.position.set(-0.5, 0, 0.05);
+  const mk = mikamiLP(); g.add(mk); mk.position.set(0.5, 0, -0.3);
   const cd = caderno(g);
-  const caneta = mesh(cyl(0.005, 0.005, 0.14, 5), LPmat(0x101012), 0, 0, 0, g);
+  const luzCd = new THREE.PointLight(0xc8e8ff, 0, 1.6, 1.5); g.add(luzCd);
+  const pen = naMao(mk, 0, caneta(), { dx: 0.006, dy: -0.075, rot: [1.2, 0, 0] });
   const fio = linhaLuz(g, [[-0.5, 1.6, 0.2], [0.2, 1.9, -0.3], [0.8, 1.5, -0.5]], { curva: true, r: 0.008, cor: 0xff3030, seg: 40 });
   const telaVerm = new THREE.Color(0xff3030);
   return {
@@ -111,17 +128,26 @@ addSet("s3-erro", (g) => {
     sun: { dir: [0, 0.3, -1], col: 0x7ad0ff, I: 1.4, c: [0, 1, -1], r: 6 }, hemi: { sky: 0x2a4a6a, ground: 0x040608, I: 0.5 }, fill: { col: 0xffc8a0, I: 0.4, dir: [0.5, 0.4, 1] }, rim: { col: 0x7ad0ff, str: 1.1 },
     update(t) {
       flash(t, a, 0.001, 0.4);
+      // o Light vira pro Mikami e estende o caderno; o Mikami pega, vira pra frente e escreve sozinho, cada vez mais rápido
+      const vira = E.inOut(smr(t, K.maos - 0.4, K.caderno3 - 0.4)), volta = E.inOut(smr(t, K.mikami3 + 0.8, K.sozinho - 0.8));
+      li.rotation.y = lerp(0.45, 1.75, vira) - 0.9 * volta; mk.rotation.y = lerp(-0.5, -1.3, vira) + 0.85 * volta;
       vive(li, t, 61, { boca: t < K.confiou ? "linha" : "sorriso", bravo: 0.2 }, 0.3);
-      const entrega = smr(t, K.caderno3 - 0.6, K.caderno3) * (1 - smr(t, K.mikami3 + 0.6, K.mikami3 + 1.0));
-      if (entrega > 0) pose(li, { armR: [-1.2 * entrega, 0.4, 0.2, -0.3], handR: 0.5 }, 1);
-      vive(mk, t, 64, { boca: "linha", bravo: 0.5 }, 0.3);
-      const escreve = smr(t, K.sozinho - 0.6, K.sozinho);
-      pose(mk, { spine: [0.35 * escreve, 0, 0], armR: [-0.9 * escreve, 0, 0.1, -1.4 * escreve], armL: [-0.7 * escreve, 0, -0.1, -1.4 * escreve] }, 1);
-      li.updateMatrixWorld(true); mk.updateMatrixWorld(true);
-      const pL = li.userData.wr[0].localToWorld(V3(0, -0.1, 0.04)), pM = mk.userData.chest.localToWorld(V3(0, 0.0, 0.35));
-      const vai = smr(t, K.caderno3, K.mikami3 + 0.6);
-      cd.c.position.lerpVectors(pL, pM, E.inOut(vai)); cd.c.rotation.set(-0.4 * (1 - escreve), -0.5, 0); cd.abrir(escreve);
-      const mao = mk.userData.wr[0].localToWorld(V3(0, -0.1, 0.02)); caneta.position.copy(mao); caneta.position.x += Math.sin(t * 14) * 0.02 * escreve; caneta.rotation.set(0.5, 0, 0.3); caneta.visible = escreve > 0.2;
+      vive(mk, t, 64, { boca: "linha", bravo: 0.5 + 0.3 * smr(t, K.plano, K.controlava) }, 0.3);
+      const estende = act(t, K.caderno3 - 0.7, K.caderno3 + 0.1) * (1 - E.inOut(smr(t, K.mikami3 + 0.3, K.mikami3 + 0.9)));
+      const pega = smr(t, K.caderno3 + 0.1, K.caderno3 + 0.5), escreve = smr(t, K.sozinho - 0.7, K.sozinho - 0.1);
+      const meio = li.position.clone().lerp(mk.position, 0.5).setY(1.12);
+      const pL = mixV(frenteW(li, 0.18, 0.9, 0.12), meio, estende);
+      maoEm(li, 0, pL, Math.min(1, estende * 3), { abre: 0.5, poleY: 0.0, poleZ: -0.4 }); pose(li, { handR: 0.6 * estende }, 1);
+      // o caderno: na mão do Light → entre os dois → no peito do Mikami, aberto e inclinado
+      const peitoM = frenteW(mk, -0.02, 1.08, 0.32), q = new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.4, mk.rotation.y, 0, "YXZ")), qL = new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.25, li.rotation.y, 0, "YXZ"));
+      const vai = E.inOut(smr(t, K.caderno3 + 0.1, K.mikami3 + 0.6));
+      const gL = li.userData.wr[0].localToWorld(V3(0.02, -0.08, 0)).add(mk.position.clone().sub(li.position).setY(0).normalize().multiplyScalar(0.12)); cd.c.position.copy(mixV(gL, peitoM, vai)); cd.c.quaternion.copy(qL).slerp(q, vai); cd.abrir(escreve); luzCd.position.copy(cd.c.localToWorld(V3(0, 0.25, 0.05))); luzCd.intensity = 2.2 * escreve;
+      // o Mikami: a esquerda segura o caderno, a direita escreve (o rabisco acelera no "não controlava")
+      const pg = cd.c.localToWorld(V3(-0.1, 0.0, 0.05)), rab = 7 + 9 * smr(t, K.plano, K.controlava);
+      maoEm(mk, 1, mixV(frenteW(mk, -0.2, 0.85, 0.05), pg, pega), 1, { abre: 0.6, poleY: 0.0, poleZ: -0.3 }); pose(mk, { handL: 0.7 * pega, handR: 0.85 }, 1);
+      const pt = cd.c.localToWorld(V3(0.04 + Math.sin(t * rab) * 0.05, 0.1, ((t * 0.4) % 1) * 0.2 - 0.1));
+      maoEm(mk, 0, mixV(frenteW(mk, 0.2, 0.85, 0.05), pt, escreve), 1, { abre: 0.6, poleY: 0.0, poleZ: -0.3 });
+      pose(mk, { neck: [0.35 * escreve, 0, 0], head: [0.15 * escreve, 0, 0] }, 1);
       fio.set(smr(t, K.plano - 0.3, K.plano + 0.4)); fio.m.material.opacity = 0.6 + 0.4 * Math.sin(t * 20) * smr(t, K.controlava, K.controlava + 0.3);
       const ver = smr(t, K.controlava - 0.2, K.controlava + 0.5); telas.forEach((s, i) => { s.material.emissive.setRGB(1, 1, 1).lerp(telaVerm, ver * (hash(i) > 0.3 ? 1 : 0.4)); s.material.emissiveIntensity = 1.1 + 0.3 * noise1(t * 3 + i); });
     },
@@ -129,8 +155,8 @@ addSet("s3-erro", (g) => {
       return planos(t, [
         [a, mov([0.4, 1.7, 4.4], [0.1, 1.6, 3.6], [0, 1.6, -1.2], [0, 1.5, -1.0], 40, 38)],
         [K.confiou - 0.2, (tt, u) => ({ ...closeRosto(li, lerp(1.0, 0.75, E.inOut(u)), 0.2, 0, 32) })],
-        [K.caderno3 - 0.3, mov([0.1, 1.35, 1.9], [0.15, 1.3, 1.6], [0.1, 1.2, -0.2], [0.3, 1.2, -0.4], 38, 36)],
-        [K.sozinho - 0.4, (tt, u) => ({ ...closeRosto(mk, lerp(1.0, 0.8, E.inOut(u)), -0.25, 0.05, 32) })],
+        [K.maos - 0.3, mov([0.15, 1.5, 3.5], [0.05, 1.45, 3.1], [0, 1.2, -0.15], [0, 1.15, -0.15], 40, 38)],
+        [K.sozinho - 0.4, (tt, u) => { const e = olhosW(mk), c = cd.c.position, f = frenteW(mk, -0.6, 1.3, lerp(1.6, 1.4, E.inOut(u))); return { pos: [f.x, f.y + 0.1, f.z], look: [lerp(e.x, c.x, 0.4), lerp(e.y, c.y, 0.45), lerp(e.z, c.z, 0.4)], fov: 34, near: 0.02 }; }],
         [K.plano - 0.2, mov([2.6, 2.4, 3.4], [1.6, 2.0, 3.0], [0.1, 1.4, -0.4], [0.1, 1.5, -0.5], 40, 38)],
       ], b);
     },
