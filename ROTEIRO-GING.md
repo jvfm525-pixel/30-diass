@@ -10,7 +10,7 @@ cenários redesenhados por nós em low-poly (nada de print ou arte oficial). Spo
 | — O PAI LENDÁRIO — | Ruína antiga na selva | O Ging de turbante descobrindo uma ruína; duas estrelas de Hunter brilhando. |
 | (Os cinco maiores) | Céu escuro com cinco luzes de aura | Cinco silhuetas de aura; a do Ging acende mais forte. |
 | — A ILHA BALEIA — | Casa da Mito e floresta | O Gon criança encontra o Kite; o Kite fala do Ging. |
-| (Discord) | Biblioteca dourada | Baú com keys, itens e uma claquete. |
+| (Discord) | Biblioteca dourada | Ícone rápido do Discord, 1 s. |
 | — A CAIXA — | Quarto do Gon | A caixa trancada abrindo com a aura do Gon: fita, anel e cartão de memória. |
 | — A FITA — | Mesa com gravador | A fita toca; a voz se apaga sozinha. |
 | — GREED ISLAND — | Ilha flutuante feita de cartas | A ilha inteira que o Ging construiu com os amigos. |
@@ -20,24 +20,24 @@ cenários redesenhados por nós em low-poly (nada de print ou arte oficial). Spo
 ## Narração para o ElevenLabs (v4)
 
 ```
-[serious] Por que o Ging abandonou o Gon, se ele é um dos maiores Hunters do mundo? [pause] A resposta é mais estranha do que parece... e mais bonita também.
+[serious] Por que o Ging abandonou o Gon, se ele é um dos maiores Hunters do mundo? [pause] E não, não foi falta de amor.
 
-[mysterious] O Ging virou Hunter com doze anos, achou ruínas que ninguém encontrava e ganhou duas estrelas. O próprio Netero colocava ele entre os cinco maiores usuários de Nen do planeta. E mesmo assim, ele deixou o filho ainda bebê com a prima, a Mito, na Ilha Baleia... e sumiu.
+[mysterious] Pra entender, você precisa saber quem é o Ging. Ele passou no exame Hunter com doze anos, restaurou ruínas que ninguém conseguia achar e virou Hunter de duas estrelas. O próprio Netero dizia que ele estava entre os cinco maiores usuários de Nen do mundo. E mesmo assim, deixou o filho ainda bebê com a prima, a Mito, na Ilha Baleia... e sumiu.
 
 [sarcastic] O Ging não foi comprar cigarro. Ele foi construir uma ilha inteira.
 
-[casual] Rapidinho: no meu servidor do Discord tem keys aleatórias, vários outros itens, e eu ainda ensino a fazer vídeos como este. O link tá na bio.
+[mysterious] Anos depois, o Gon conhece o Kite, aluno do pai, que conta quem ele era de verdade. E na casa da Mito, o Gon acha uma caixa que só abria com a aura dele. Dentro, uma fita, um anel e o cartão de memória do Greed Island, o jogo que o Ging criou com os amigos. [pause] Na fita, o Ging diz que não quer encontrar o filho. E quando tentaram ouvir o resto, a voz dele se apagou sozinha, com Nen.
 
-[mysterious] Agora, liga os pontos. Ele deixou pra trás uma caixa que só abria com a aura do Gon. Dentro, uma fita, um anel e o cartão de memória do Greed Island, o jogo que ele mesmo criou. [pause] Na fita, ele pergunta se o Gon ainda quer ser Hunter. E quando tentaram ouvir o resto, a voz dele se apagou sozinha, com Nen.
+[casual] Link do meu Discord tá na bio.
 
-[serious] Então por que ir embora? [pause] Porque o Ging nunca soube ser pai. Ele só sabia ser Hunter. Em vez de criar o filho, ele deixou uma trilha pra ser seguida.
+[serious] Então por que fugir? [pause] Porque o Ging não sabe ser pai. Ele só sabe ser Hunter. Em vez de ficar, ele deixou um caminho de pistas, e cada uma obrigava o Gon a ficar mais forte.
 
-[sad] Quando os dois finalmente se encontram, no topo da Árvore do Mundo, o Ging não pede desculpa. Ele diz pro Gon aproveitar os desvios do caminho... porque é ali que estão as coisas que valem mais do que o objetivo.
+[sad] Quando os dois finalmente se encontram, no topo da Árvore do Mundo, o Ging não pede desculpa. Ele pergunta se o Gon quer saber quem é a mãe. E o Gon responde que a mãe dele é a Mito. [pause] Aí o Ging fala pra ele aproveitar os desvios do caminho, porque é ali que estão as coisas mais valiosas.
 
-[dramatic] O Ging não queria ser o pai que ficou. [pause] Ele queria ser o motivo do Gon partir.
+[dramatic] O Ging nunca quis ser o destino do Gon. [pause] Ele queria ser o motivo dele partir.
 ```
 
-Voz: "Roberta" (ElevenLabs, pt-BR, modelo v4). ~245 palavras, ~85 s.
+Voz: "Roberta" (ElevenLabs, pt-BR, modelo v4). ~280 palavras, ~90 s.
 
 ## Descrição pra postar
 
@@ -48,7 +48,7 @@ Ele não sumiu por descuido. Cada coisa que ele deixou pra trás era uma pista �
 
 ⚠️ Contém spoilers de Hunter x Hunter
 
-🎮 No meu servidor do Discord tem keys aleatórias, vários itens e aulas de como fazer esse tipo de vídeo. Link na bio!
+🎮 Link do Discord na bio!
 
 #hunterxhunter #hxh #ging #gon #anime #curiosidades #fyp
 ```
@@ -63,6 +63,7 @@ e o Gon pequeno olhando ele ir.
 - O Gon foi criado na Ilha Baleia pela Mito, prima do Ging.
 - O Kite, discípulo do Ging, encontra o Gon na floresta e conta quem é o pai dele.
 - A caixa do Ging só abre com o Nen do Gon; dentro há uma fita, um anel e um cartão de memória do Greed Island.
+- Na Árvore do Mundo, o Ging pergunta se o Gon quer saber da mãe, e o Gon diz que a mãe dele é a Mito.
 - O Greed Island foi criado pelo Ging junto com amigos.
 - Na fita, a segunda parte da gravação se apaga por causa do Nen do Ging.
 - No topo da Árvore do Mundo, o Ging fala pro Gon aproveitar os desvios, porque é neles que se encontram coisas mais valiosas do que o objetivo.
