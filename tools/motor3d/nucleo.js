@@ -100,6 +100,8 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, W / H, 0.1, 2000);
 scene.add(camera);
+// luz de rosto: presa na câmera, quente e suave (look.rosto), pra pele nunca ficar cinza/azulada nos closes
+const luzRosto = new THREE.PointLight(0xffe4d2, 0, 3.5, 2); luzRosto.position.set(0.35, 0.25, 0.1); camera.add(luzRosto);
 
 const rt0 = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: window.HF_MSAA ?? 4 });
 const composer = new EffectComposer(renderer, rt0);

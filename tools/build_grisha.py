@@ -91,10 +91,6 @@ a, b = K["link"] - 0.1, SC_["s6-discord"][1] + 0.2
 add(f'<div id="disc" class="clip disc" data-start="{a:.2f}" data-duration="{b - a:.2f}"><div class="d1">DISCORD</div><div class="d3">link na bio</div></div>',
     f'tl.fromTo("#disc",{{opacity:0,scale:.92}},{{opacity:1,scale:1,duration:.35,ease:"back.out(1.6)"}},{a:.2f});tl.to("#disc",{{opacity:0,duration:.25}},{b - 0.25:.2f});')
 
-a, b = K["comenta"] - 0.1, TOTAL - 0.2
-add(f'<div id="bal" class="clip bal" data-start="{a:.2f}" data-duration="{b - a:.2f}">Comenta aí</div>',
-    f'tl.fromTo("#bal",{{opacity:0,scale:.8}},{{opacity:1,scale:1,duration:.35,ease:"back.out(2)"}},{a:.2f});tl.to("#bal",{{opacity:0,duration:.3}},{b - 0.3:.2f});')
-
 texto = f'''<template>
   <style>
     @font-face {{ font-family: "EB Garamond"; src: url("../assets/fonts/EBGaramond-400.woff2") format("woff2"); font-weight: 400; }}

@@ -37,27 +37,33 @@ function ventoAbas(p, t, f = 1) { (p.userData.abas || []).forEach((m) => m.userD
 const barbaTex = canvasTex(128, 64, (c, w, h) => { const g_ = c.createRadialGradient(w / 2, h * 0.72, 3, w / 2, h * 0.66, w * 0.42); g_.addColorStop(0, "rgba(40,30,26,.42)"); g_.addColorStop(0.6, "rgba(40,30,26,.22)"); g_.addColorStop(1, "rgba(40,30,26,0)"); c.fillStyle = g_; c.fillRect(0, 0, w, h); c.clearRect(w * 0.34, h * 0.36, w * 0.32, h * 0.2); });
 function barba(p) { const u = p.userData; const zAt = (x, y) => surfZ(u.headM, x, y); decal(u.head, barbaTex, 0.13, 0.06, 0, -0.005, zAt(0, -0.005) + 0.004, 0, 0, { suave: true }); }
 const CABELOS_AOT = {
-  grisha: { cor: 0x3a2618, dentes: 24, dente: 0.14, crista: 0.003, franjaY: 1.1, ladoY: -0.6, nucaY: -1.0, esp: 0.009, espBorda: 0.004, varia: 0.05, seed: 91, pontas: [] },
-  kruger: { cor: 0x1a1a1e, dentes: 16, dente: 0.36, crista: 0.004, franjaY: 0.98, ladoY: 0.1, nucaY: -0.7, esp: 0.009, espBorda: 0.0036, varia: 0.1, seed: 92, pontas: [] },
-  frieda: { cor: 0x141418, dentes: 26, dente: 0.12, crista: 0.003, franjaY: 1.0, ladoY: -0.7, nucaY: -0.95, esp: 0.009, espBorda: 0.004, varia: 0.04, seed: 93, pontas: [] },
-  rod: { cor: 0x8a7050, dentes: 18, dente: 0.2, crista: 0.003, franjaY: 1.3, ladoY: 0.0, nucaY: -0.6, esp: 0.007, espBorda: 0.003, varia: 0.05, seed: 94, pontas: [] },
-  erenAdulto: { cor: 0x2e1e14, dentes: 22, dente: 0.16, crista: 0.003, franjaY: 1.0, ladoY: -0.75, nucaY: -0.9, esp: 0.009, espBorda: 0.004, varia: 0.06, seed: 95,
-    pontas: [[1.75, 3.14, 0.18, 0.5, 0.3, 0.6, 0.2, 0.6]] },
+  // Grisha: cabelo até o ombro preso atrás, repartido no meio, mechas caindo dos lados do rosto
+  grisha: { cor: 0x3a2618, dentes: 22, dente: 0.2, crista: 0.003, franjaY: 0.92, ladoY: -0.95, nucaY: -1.0, esp: 0.009, espBorda: 0.004, varia: 0.06, seed: 91,
+    pontas: [[1.05, 0.95, 0.6, 0.32, -0.75, 0.05, -0.1, 0.5], [1.05, -0.95, 0.6, 0.32, -0.75, 0.05, -0.1, 0.5], [1.22, 0.32, 0.42, 0.3, -0.45, 0.0, -0.15, 0.5], [1.22, -0.3, 0.4, 0.3, -0.5, 0.0, -0.15, 0.5]] },
+  // Kruger: preto, bagunçado, mechas caindo na testa
+  kruger: { cor: 0x1a1a1e, dentes: 18, dente: 0.3, crista: 0.004, franjaY: 0.95, ladoY: 0.05, nucaY: -0.7, esp: 0.009, espBorda: 0.0036, varia: 0.12, seed: 92,
+    pontas: [...coroa(6, 1.28, 0.42, 0.4, -0.3, 0.05, -0.65, 1.3, -0.15, 0.5), ...coroa(5, 1.5, 0.36, 0.42, 0.3, 0.35, 0.6, 1.2, 0.05, 0.6)] },
+  // Frieda: chanel preto com franja reta
+  frieda: { cor: 0x141418, dentes: 30, dente: 0.1, crista: 0.003, franjaY: 0.86, ladoY: -0.62, nucaY: -0.9, esp: 0.009, espBorda: 0.004, varia: 0.03, seed: 93, pontas: [] },
+  rod: { cor: 0x8a7050, dentes: 18, dente: 0.2, crista: 0.003, franjaY: 1.25, ladoY: 0.0, nucaY: -0.6, esp: 0.007, espBorda: 0.003, varia: 0.05, seed: 94, pontas: coroa(4, 1.45, 0.4, 0.45, 0.2, 0.5, -0.3, 0.6, 0.1, 0.5) },
+  // Eren adulto: cabelo comprido até o queixo, repartido, meio coque
+  erenAdulto: { cor: 0x2e1e14, dentes: 22, dente: 0.18, crista: 0.003, franjaY: 0.95, ladoY: -1.05, nucaY: -0.95, esp: 0.009, espBorda: 0.004, varia: 0.07, seed: 95,
+    pontas: [[1.05, 1.0, 0.7, 0.34, -0.8, 0.05, -0.1, 0.5], [1.05, -1.0, 0.7, 0.34, -0.8, 0.05, -0.1, 0.5], [1.25, 0.3, 0.5, 0.3, -0.55, 0.0, -0.15, 0.5], [1.25, -0.28, 0.48, 0.3, -0.6, 0.0, -0.15, 0.5]] },
 };
 // óculos redondos do Grisha
-function oculosRedondos(p) { const u = p.userData, m = LPmat(0x2a2620, { metal: 0.7, rough: 0.3 }); [-1, 1].forEach((k) => { const r = mesh(new THREE.TorusGeometry(0.023, 0.0028, 4, 14), m, k * 0.037, CAB.EY, surfZ(u.headM, k * 0.037, CAB.EY) + 0.007, u.head); }); mesh(box(0.024, 0.003, 0.003), m, 0, CAB.EY + 0.003, surfZ(u.headM, 0, CAB.EY) + 0.008, u.head); }
+function oculosRedondos(p) { const u = p.userData, m = LPmat(0x8a6a3a, { metal: 0.8, rough: 0.25, rim: 0.3, liso: true }); [-1, 1].forEach((k) => { mesh(new THREE.TorusGeometry(0.0205, 0.0013, 6, 32), m, k * 0.036, CAB.EY - 0.002, surfZ(u.headM, k * 0.036, CAB.EY) + 0.008, u.head); mesh(box(0.012, 0.0014, 0.0014), m, k * 0.062, CAB.EY + 0.004, surfZ(u.headM, k * 0.062, CAB.EY) + 0.002, u.head); }); mesh(box(0.016, 0.0014, 0.0014), m, 0, CAB.EY + 0.004, surfZ(u.headM, 0, CAB.EY) + 0.009, u.head); }
 // coque/rabo de cavalo
 function rabo(p, cor, y = 0.06, z = -0.1, L = 0.12) { const u = p.userData, m = LPmat(cor, { rim: 0.5 }); const r = mesh(new THREE.ConeGeometry(0.03, L, 5), m, 0, y - L / 2, z, u.head); r.rotation.x = Math.PI - 0.25; return r; }
 function coque(p, cor) { const u = p.userData; mesh(sph(0.04, 7, 5), LPmat(cor, { rim: 0.5 }), 0, 0.16, -0.08, u.head); }
 function casacoLongo(p, cor, L = 0.62) { const u = p.userData; const c = mesh(new THREE.CylinderGeometry(0.165, 0.25, L, 12, 1, true), LPmat(cor, { rim: 0.8, side: THREE.DoubleSide }), 0, -L / 2 + 0.06, -0.005, u.hips); c.scale.z = 0.82; abaVento(p, "hips", 0.2, L * 0.9, cor, [0.09, -0.04, -0.14], [0.1, 0, 0]); abaVento(p, "hips", 0.2, L * 0.9, cor, [-0.09, -0.04, -0.14], [0.1, 0, 0]); return c; }
-function grishaLP(o = {}) { const p = pessoaLP({ seed: 101, pele: 0xf4d0aa, olho: "#3a3020", olhoAlt: 0.82, olhoTam: 0.92, brava: 0.1, roupa: 0x6a5238, calca: 0x3a3028, sapato: 0x2a1e14, sola: 0x2a1e14, botoes: false, sobrancelha: 0x3a2618, cabelo: CABELOS_AOT.grisha, ...o });
+function grishaLP(o = {}) { const p = pessoaLP({ seed: 101, pele: 0xf4d0aa, olho: "#4a3a24", olhoAlt: 0.76, olhoTam: 0.9, brava: 0.0, rugas: 0.28, browW: 0.06, roupa: 0x6a5238, calca: 0x3a3028, sapato: 0x2a1e14, sola: 0x2a1e14, botoes: false, sobrancelha: 0x3a2618, cabelo: CABELOS_AOT.grisha, ...o });
   oculosRedondos(p); rabo(p, 0x3a2618); casacoLongo(p, 0x6a5238); return p; }
-function krugerLP(o = {}) { const p = pessoaLP({ seed: 102, pele: 0xf0cca4, olho: "#2a2a2e", olhoAlt: 0.78, brava: 0.45, roupa: 0x16161a, calca: 0x16161a, botoes: true, botao: 0xb89a50, sobrancelha: 0x16161a, cabelo: CABELOS_AOT.kruger, ...o }); casacoLongo(p, 0x16161a, 0.7); return p; }
-function friedaLP(o = {}) { const p = pessoaLP({ seed: 103, pele: 0xf8e0c8, olho: "#4a5a7a", olhoAlt: 0.92, olhoTam: 1.04, roupa: 0xe8e2d4, calca: 0xe8e2d4, sapato: 0x3a2a24, botoes: false, sobrancelha: 0x141418, cabelo: CABELOS_AOT.frieda, scale: 0.94, ...o });
+function krugerLP(o = {}) { const p = pessoaLP({ seed: 102, pele: 0xf0cca4, olho: "#3a3a40", olhoAlt: 0.6, brava: 0.6, rugas: 0.5, queixo: 0.8, roupa: 0x16161a, calca: 0x16161a, botoes: true, botao: 0xb89a50, sobrancelha: 0x16161a, cabelo: CABELOS_AOT.kruger, ...o }); casacoLongo(p, 0x16161a, 0.7); return p; }
+function friedaLP(o = {}) { const p = pessoaLP({ seed: 103, pele: 0xf8e0c8, olho: "#4a5a8a", olhoAlt: 0.95, olhoTam: 1.04, browW: 0.056, queixo: 0.68, roupa: 0xe8e2d4, calca: 0xe8e2d4, sapato: 0x3a2a24, botoes: false, sobrancelha: 0x141418, cabelo: CABELOS_AOT.frieda, scale: 0.94, ...o });
   const u = p.userData; const s = mesh(new THREE.CylinderGeometry(0.16, 0.3, 0.75, 14, 1, true), LPmat(0xe8e2d4, { rim: 0.8, side: THREE.DoubleSide }), 0, -0.38, 0, u.hips); s.scale.z = 0.85; abaVento(p, "hips", 0.3, 0.6, 0xe8e2d4, [0, -0.08, -0.16], [0.08, 0, 0], { tras: 0.08 }); return p; }
-function rodLP(o = {}) { const p = pessoaLP({ seed: 104, pele: 0xf0cca8, olho: "#4a4030", olhoAlt: 0.75, brava: 0.0, roupa: 0x3a2a3a, calca: 0x2a2028, botoes: true, botao: 0xd8b860, sobrancelha: 0x8a7050, cabelo: CABELOS_AOT.rod, ...o }); casacoLongo(p, 0x3a2a3a, 0.6); return p; }
+function rodLP(o = {}) { const p = pessoaLP({ seed: 104, pele: 0xf0cca8, olho: "#5a4a30", olhoAlt: 0.7, brava: -0.1, rugas: 0.8, barba3d: 0x8a7050, roupa: 0x3a2a3a, calca: 0x2a2028, botoes: true, botao: 0xd8b860, sobrancelha: 0x8a7050, cabelo: CABELOS_AOT.rod, ...o }); casacoLongo(p, 0x3a2a3a, 0.6); return p; }
 function criancaLP(i, o = {}) { const cab = [0x8a6a40, 0x3a2a20, 0xc8a060, 0x5a3a28][i % 4]; return pessoaLP({ seed: 110 + i, pele: 0xf8dcc0, olho: "#4a5a6a", olhoAlt: 1.0, olhoTam: 1.1, blush: true, roupa: [0x5a6a8a, 0x8a5a4a, 0x6a7a5a, 0x7a6a8a][i % 4], calca: 0x3a3a44, botoes: false, sobrancelha: cab, cabelo: { ...CABELOS_AOT.kruger, cor: cab, seed: 120 + i }, scale: 0.62 + (i % 2) * 0.06, ...o }); }
-function erenAdultoLP(o = {}) { const p = pessoaLP({ seed: 105, pele: 0xf2d2ae, olho: "#2a9a88", olhoAlt: 0.78, brava: 0.35, roupa: 0x1e1e24, calca: 0x1e1e24, botoes: false, sobrancelha: 0x2e1e14, cabelo: CABELOS_AOT.erenAdulto, ...o }); coque(p, 0x2e1e14); casacoLongo(p, 0x1e1e24, 0.72); return p; }
+function erenAdultoLP(o = {}) { const p = pessoaLP({ seed: 105, pele: 0xf2d2ae, olho: "#2a9a88", olhoAlt: 0.66, brava: 0.5, queixo: 0.78, roupa: 0x1e1e24, calca: 0x1e1e24, botoes: false, sobrancelha: 0x2e1e14, cabelo: CABELOS_AOT.erenAdulto, ...o }); coque(p, 0x2e1e14); casacoLongo(p, 0x1e1e24, 0.72); return p; }
 function erenKidLP(o = {}) { return erenCriancaLP({ scale: 0.72, ...o }); }
 
 // ---------------------------------------------------------------- cenários de Attack on Titan
@@ -73,14 +79,15 @@ function muralha(g, R = 60, H = 50, o = {}) { const m = grp(g, ...(o.c ?? [0, 0,
     mesh(box(len, 1.0, esp * 1.1), SM(0x8a8478), 0, H + 0.4, 0, s); for (let k = 0; k < Math.floor(len / 3); k++) mesh(box(1.6, 1.8, 0.8), SM(0x9a948a), -len / 2 + 1.5 + k * 3, H + 1.6, esp * 0.5, s);
     if (o.portao && Math.abs(a) < (a1 - a0) / n / 2 + 1e-3) { const pt = mesh(new THREE.CylinderGeometry(7, 7, esp + 0.4, 16, 1, false, 0, Math.PI), SM(0x1a1612), 0, 9, 0, s); pt.rotation.x = Math.PI / 2; pt.rotation.z = Math.PI / 2 * 0; mesh(box(14, 9, esp + 0.4), SM(0x1a1612), 0, 4.5, 0, s); } }
   return m; }
-// Titã Colossal: cabeça sem pele (músculos vermelhos em faixas), dentes à mostra, olhos fundos, vapor
-function colossal(g, s = 1) { const c = grp(g), mus = LPmat(0xb8463a, { rim: 0.9, rough: 0.6 }), mus2 = LPmat(0x8a2a24, { rim: 0.6 }), osso = LPmat(0xf0e4c8, { rim: 0.5 });
-  const cab = mesh(new THREE.IcosahedronGeometry(9 * s, 2), mus, 0, 0, 0, c); cab.scale.set(0.9, 1.15, 0.95); deform(cab.geometry, (v) => { v.x *= 1 + 0.06 * Math.sin(v.y * 0.9); v.z += Math.max(0, -v.y) * 0.08; });
-  for (let i = 0; i < 7; i++) { const f = mesh(new THREE.TorusGeometry(7.6 * s, 0.35 * s, 4, 12, 1.2), mus2, 0, 0, 0, c); f.rotation.set(0, (i - 3) * 0.32, Math.PI / 2 - 0.6); }
-  mesh(box(7 * s, 3 * s, 2 * s), mus2, 0, -6 * s, 6.6 * s, c);
-  for (let i = 0; i < 12; i++) { const d = mesh(box(0.9 * s, 1.8 * s, 0.6 * s), osso, (i - 5.5) * 0.95 * s, -5.2 * s + (i % 2) * 0.1, 8.2 * s - Math.abs(i - 5.5) * 0.35 * s, c); d.rotation.y = (i - 5.5) * 0.1; }
-  for (let i = 0; i < 12; i++) { const d = mesh(box(0.9 * s, 1.6 * s, 0.6 * s), osso, (i - 5.5) * 0.95 * s, -7.0 * s, 7.6 * s - Math.abs(i - 5.5) * 0.35 * s, c); d.rotation.y = (i - 5.5) * 0.1; }
-  [-1, 1].forEach((k) => { mesh(sph(1.6 * s, 8, 6), LPmat(0x1a0a08), k * 3.2 * s, 2.5 * s, 7.4 * s, c); const ol = glowSprite(0xffd8a0, 2.2 * s, 0.35); ol.position.set(k * 3.2 * s, 2.5 * s, 8.6 * s); c.add(ol); });
+// Titã Colossal: cabeça sem pele (fibras de músculo vermelhas), sem lábios, fileiras de dentes, olhos fundos, vapor
+const musculoTex = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#a83a30"; c.fillRect(0, 0, w, h); for (let i = 0; i < 140; i++) { const x = hash(i) * w, lw = 1 + hash(i * 3) * 4, v = hash(i * 7); c.strokeStyle = v > 0.55 ? `rgba(240,140,120,${0.25 + v * 0.3})` : `rgba(90,20,18,${0.3 + v * 0.3})`; c.lineWidth = lw; c.beginPath(); c.moveTo(x, 0); c.bezierCurveTo(x + 8, h * 0.3, x - 8, h * 0.7, x + 4, h); c.stroke(); } });
+function colossal(g, s = 1) { const c = grp(g), mus = new THREE.MeshStandardMaterial({ map: musculoTex, roughness: 0.55, color: 0xffffff, emissive: 0x3a0806, emissiveIntensity: 0.4 }), osso = LPmat(0xf0e4c8, { rim: 0.5, liso: true }), escuro = LPmat(0x1a0604);
+  const cab = mesh(new THREE.SphereGeometry(9 * s, 28, 20), mus, 0, 0, 0, c); cab.scale.set(0.85, 1.12, 0.92); deform(cab.geometry, (v) => { v.x *= 1 + 0.08 * Math.sin(v.y * 0.6); if (v.z > 3 && v.y < -1) v.z += 0.6; if (v.z > 4 && Math.abs(v.x) < 2.2 && v.y > -1 && v.y < 2) v.z -= 0.9; });
+  [-1, 1].forEach((k) => { const ma = mesh(new THREE.SphereGeometry(2.4 * s, 12, 10), mus, k * 4.6 * s, -3.4 * s, 6.0 * s, c); ma.scale.set(0.7, 1.4, 0.55); });
+  const boca = mesh(box(8.4 * s, 4.6 * s, 2 * s), escuro, 0, -6.2 * s, 6.6 * s, c);
+  for (let i = 0; i < 14; i++) { const x = (i - 6.5) * 0.62 * s, z = 7.7 * s - Math.abs(i - 6.5) * 0.22 * s; mesh(box(0.55 * s, 1.5 * s, 0.5 * s), osso, x, -4.5 * s, z, c); mesh(box(0.55 * s, 1.3 * s, 0.5 * s), osso, x, -7.6 * s, z - 0.2 * s, c); }
+  [-1, 1].forEach((k) => { mesh(new THREE.SphereGeometry(1.7 * s, 12, 10), escuro, k * 3.0 * s, 2.4 * s, 6.9 * s, c); const ol = mesh(new THREE.SphereGeometry(0.85 * s, 12, 10), LPmat(0xf4ece0, { liso: true }), k * 3.0 * s, 2.3 * s, 7.6 * s, c); mesh(new THREE.SphereGeometry(0.32 * s, 8, 6), LPmat(0x1a1210, { liso: true }), k * 3.0 * s, 2.3 * s, 8.4 * s, c); });
+  mesh(new THREE.ConeGeometry(0.9 * s, 1.4 * s, 4), escuro, 0, -0.2 * s, 8.2 * s, c).rotation.x = Math.PI;
   return c; }
 // casa de enxaimel (paredes claras com vigas escuras) e telhado vermelho: Shiganshina
 function casaEnx(g, x, z, o = {}) { const h = grp(g, x, 0, z); h.rotation.y = o.ry ?? 0; const W = o.w ?? 4, D = o.d ?? 4, A = o.h ?? 5; const pl = texPlaster(), rf = texRoof();

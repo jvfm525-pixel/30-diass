@@ -102,6 +102,8 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, W / H, 0.1, 2000);
 scene.add(camera);
+// luz de rosto: presa na câmera, quente e suave (look.rosto), pra pele nunca ficar cinza/azulada nos closes
+const luzRosto = new THREE.PointLight(0xffe4d2, 0, 3.5, 2); luzRosto.position.set(0.35, 0.25, 0.1); camera.add(luzRosto);
 
 const rt0 = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: window.HF_MSAA ?? 4 });
 const composer = new EffectComposer(renderer, rt0);
@@ -1516,6 +1518,13 @@ function olhoTex(iris, o = {}) {
 // olho fechado (medido no Eren dormindo): arco escuro grosso curvado pra baixo, com cílios curtos embaixo
 const olhoFechadoTex = canvasTex(256, 200, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = "#141010"; c.lineCap = "round"; c.lineWidth = 13; c.beginPath(); c.moveTo(28, 104); c.bezierCurveTo(70, 140, 180, 146, 228, 100); c.stroke(); c.lineWidth = 5; [[80, 130], [110, 136], [140, 137], [170, 133], [198, 122]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x, y); c.lineTo(x + 3, y + 15); c.stroke(); }); });
 // sobrancelha: barra comprida e grossa, mais grossa na ponta de dentro, arco suave e pontas arredondadas
+const sobrancelha2Tex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#ffffff"; c.beginPath(); c.moveTo(10, 34); c.bezierCurveTo(60, 12, 150, 8, 246, 30); c.bezierCurveTo(250, 33, 246, 37, 240, 36); c.bezierCurveTo(160, 24, 80, 30, 18, 52); c.bezierCurveTo(8, 54, 4, 42, 10, 34); c.fill();
+  c.strokeStyle = "rgba(255,255,255,.9)"; c.lineWidth = 3; for (let i = 0; i < 9; i++) { const x = 30 + i * 22; c.beginPath(); c.moveTo(x, 40 - i * 1.2); c.lineTo(x + 18, 24 - i * 0.6); c.stroke(); } });
+// rugas e olheiras (homens mais velhos): linhas finas, sem borda retangular
+const rugasTex = canvasTex(256, 192, (c, w, h) => { c.clearRect(0, 0, w, h); c.lineCap = "round"; c.strokeStyle = "rgba(120,70,60,.55)"; c.lineWidth = 3;
+  [-1, 1].forEach((k) => { const cx = 128 + k * 62; c.beginPath(); c.moveTo(cx - 26, 70); c.quadraticCurveTo(cx, 84, cx + 24, 70); c.stroke(); c.globalAlpha = 0.6; c.beginPath(); c.moveTo(cx - 18, 82); c.quadraticCurveTo(cx, 92, cx + 16, 82); c.stroke(); c.globalAlpha = 1;
+    c.beginPath(); c.moveTo(128 + k * 30, 104); c.quadraticCurveTo(128 + k * 42, 128, 128 + k * 36, 150); c.stroke();
+    c.globalAlpha = 0.5; c.beginPath(); c.moveTo(cx + k * 34, 44); c.lineTo(cx + k * 46, 38); c.moveTo(cx + k * 34, 52); c.lineTo(cx + k * 47, 54); c.stroke(); c.globalAlpha = 1; }); });
 const sobrancelhaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#ffffff"; c.beginPath(); c.moveTo(14, 26); c.bezierCurveTo(70, 4, 170, 4, 240, 26); c.bezierCurveTo(252, 30, 250, 46, 238, 44); c.bezierCurveTo(170, 28, 80, 30, 20, 58); c.bezierCurveTo(4, 62, 2, 34, 14, 26); c.closePath(); c.fill(); });
 // sombra de anime sobre a testa e os olhos (olhar ameaçador), gota de suor e lágrimas
 const sombraTex = canvasTex(128, 128, (c, w, h) => { const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(8,2,8,.97)"); g.addColorStop(0.62, "rgba(8,2,8,.85)"); g.addColorStop(1, "rgba(8,2,8,0)"); c.fillStyle = g; c.fillRect(0, 0, w, h); c.globalCompositeOperation = "destination-in"; const gx = c.createLinearGradient(0, 0, w, 0); gx.addColorStop(0, "rgba(0,0,0,0)"); gx.addColorStop(0.18, "rgba(0,0,0,1)"); gx.addColorStop(0.82, "rgba(0,0,0,1)"); gx.addColorStop(1, "rgba(0,0,0,0)"); c.fillStyle = gx; c.fillRect(0, 0, w, h); });
@@ -1591,6 +1600,7 @@ function headGeoLP(o = {}) {
   const NS = o.ns ?? 24, Y = CAB.Y, pos = [], idx = [], ph0 = Math.PI / NS; // meia volta de deslocamento: o meio do rosto cai numa face plana (sem risco no meio)
   for (let i = 0; i < Y.length; i++) for (let j = 0; j <= NS; j++) { const v = supCab(ph0 + (j / NS) * Math.PI * 2, Y[i]); pos.push(v.x, v.y, v.z); }
   for (let i = 0; i < Y.length - 1; i++) for (let j = 0; j < NS; j++) { const a = i * (NS + 1) + j, b = a + NS + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
+  const q = o.queixo ?? 1; if (q !== 1) for (let i = 0; i < pos.length; i += 3) { const y = pos[i + 1], z = pos[i + 2]; if (y < 0.062) { const f = 1 + (q - 1) * Math.min(1, Math.max(0, (z + 0.01) / 0.07)); pos[i + 1] = 0.062 + (y - 0.062) * f; } }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx);
   return vincoNormais(g, o.vinco ?? 0.62);
 }
@@ -1700,7 +1710,8 @@ function pessoaLP(o = {}) {
   });
   // pescoço, cabeça, orelhas
   mesh(cyl(0.036, 0.042, 0.1, R), skin, 0, 0.03, 0, S.neck);
-  const headM = mesh(headGeoLP(P.cabeca || {}), skin, 0, 0, 0);
+  const V2 = P.rosto !== 1; // rosto v2: queixo mais curto, boca perto do nariz, sobrancelha afinando, rugas opcionais
+  const headM = mesh(headGeoLP({ queixo: V2 ? (P.queixo ?? 0.7) : 1, ...(P.cabeca || {}) }), skin, 0, 0, 0);
   const zAt = (x, y) => { let z = surfZ(headM, x, y); if (z === 0) z = surfZ(headM, Math.sign(x) * Math.min(Math.abs(x), CAB.HW * 0.9), y) - 0.006; return z; };
   [-1, 1].forEach((k) => { const ea = mesh(sph(1, 7, 5), skin, k * 0.074, 0.081, -0.008); ea.scale.set(0.011, 0.023, 0.016); ea.rotation.y = k * 0.25; S.head.add(ea); });
   // rosto: olhos largos e baixos, sobrancelhas grossas, nariz em dois tons, bocas, blush
@@ -1712,11 +1723,14 @@ function pessoaLP(o = {}) {
     const f = decalSup(S.head, olhoFechadoTex, OW, OH, k * EX, EY - 0.002, zAt, { espelho: k < 0, dz: 0.0032 }); f.visible = false;
     olhos.push(g); fechados.push(f);
   });
-  const brows = [-1, 1].map((k) => { const y = EY + 0.04, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24), bx = k * (EX + 0.001); const g = grp(S.head, bx, y, 0); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decalSup(g, sobrancelhaTex, 0.064, 0.019, 0, 0, (x, yy) => zAt(bx + x, y + yy), { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18, dz: 0.0036 }); g.visible = !P.venda; return g; });
+  const brows = [-1, 1].map((k) => { const y = EY + 0.04, rz0 = -k * (0.02 + (P.brava ?? 0) * 0.24), bx = k * (EX + 0.001); const g = grp(S.head, bx, y, 0); g.rotation.z = rz0; g.userData = { y0: y, rz0 }; decalSup(g, V2 ? sobrancelha2Tex : sobrancelhaTex, P.browW ?? 0.064, V2 ? 0.021 : 0.019, 0, 0, (x, yy) => zAt(bx + x, y + yy), { espelho: k < 0, basico: true, cor: P.sobrancelha ?? 0x2a1c18, dz: 0.0036 }); g.visible = !P.venda; return g; });
   mesh(narizGeo(0.0135, 0.024, 0.0085), LPmat(P.pele, { rim: 0.3, rough: 0.7 }), 0, 0.06, zAt(0, 0.06) - 0.0012, S.head); // nariz 3D
-  const MY = 0.009, mz = zAt(0, MY) + 0.003;
+  const MY = V2 ? (P.bocaY ?? 0.03) : 0.009, mz = zAt(0, MY) + 0.003;
+  if (P.rugas) { const r = decalSup(S.head, rugasTex, 0.15, 0.1125, 0, 0.058, zAt, { dz: 0.0026, suave: true }); r.material.opacity = Math.min(1, P.rugas); }
+  if (P.barba3d != null) { const bm = LPmat(P.barba3d, { rim: 0.6 }); const zc = zAt(0, -0.02); const b = mesh(new THREE.ConeGeometry(0.03, 0.07, 5), bm, 0, -0.045, zc - 0.012, S.head); b.rotation.x = Math.PI + 0.35; b.scale.z = 0.7;
+    [-1, 1].forEach((k) => { const m = mesh(box(0.034, 0.008, 0.012), bm, k * 0.019, MY + 0.011, zAt(k * 0.019, MY + 0.011) + 0.002, S.head); m.rotation.z = -k * 0.32; }); }
   const bocas = {};
-  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 })));
+  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), V2 && t === "linha" ? 0.044 : 0.056, V2 && t === "linha" ? 0.022 : 0.028, 0, MY, zAt, { dz: 0.003 })));
   bocas.risada = decalSup(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
   ["smirk", "mastiga"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 }))); ["dentes", "grito"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.07, 0.036, 0, MY - 0.002, zAt, { dz: 0.0034 })));
   if (P.bocaRyuk) bocas.ryuk = decalSup(S.head, bocaTex("ryuk"), 0.12, 0.06, 0, MY + 0.004, zAt, { dz: 0.0034 });
@@ -2269,27 +2283,33 @@ function ventoAbas(p, t, f = 1) { (p.userData.abas || []).forEach((m) => m.userD
 const barbaTex = canvasTex(128, 64, (c, w, h) => { const g_ = c.createRadialGradient(w / 2, h * 0.72, 3, w / 2, h * 0.66, w * 0.42); g_.addColorStop(0, "rgba(40,30,26,.42)"); g_.addColorStop(0.6, "rgba(40,30,26,.22)"); g_.addColorStop(1, "rgba(40,30,26,0)"); c.fillStyle = g_; c.fillRect(0, 0, w, h); c.clearRect(w * 0.34, h * 0.36, w * 0.32, h * 0.2); });
 function barba(p) { const u = p.userData; const zAt = (x, y) => surfZ(u.headM, x, y); decal(u.head, barbaTex, 0.13, 0.06, 0, -0.005, zAt(0, -0.005) + 0.004, 0, 0, { suave: true }); }
 const CABELOS_AOT = {
-  grisha: { cor: 0x3a2618, dentes: 24, dente: 0.14, crista: 0.003, franjaY: 1.1, ladoY: -0.6, nucaY: -1.0, esp: 0.009, espBorda: 0.004, varia: 0.05, seed: 91, pontas: [] },
-  kruger: { cor: 0x1a1a1e, dentes: 16, dente: 0.36, crista: 0.004, franjaY: 0.98, ladoY: 0.1, nucaY: -0.7, esp: 0.009, espBorda: 0.0036, varia: 0.1, seed: 92, pontas: [] },
-  frieda: { cor: 0x141418, dentes: 26, dente: 0.12, crista: 0.003, franjaY: 1.0, ladoY: -0.7, nucaY: -0.95, esp: 0.009, espBorda: 0.004, varia: 0.04, seed: 93, pontas: [] },
-  rod: { cor: 0x8a7050, dentes: 18, dente: 0.2, crista: 0.003, franjaY: 1.3, ladoY: 0.0, nucaY: -0.6, esp: 0.007, espBorda: 0.003, varia: 0.05, seed: 94, pontas: [] },
-  erenAdulto: { cor: 0x2e1e14, dentes: 22, dente: 0.16, crista: 0.003, franjaY: 1.0, ladoY: -0.75, nucaY: -0.9, esp: 0.009, espBorda: 0.004, varia: 0.06, seed: 95,
-    pontas: [[1.75, 3.14, 0.18, 0.5, 0.3, 0.6, 0.2, 0.6]] },
+  // Grisha: cabelo até o ombro preso atrás, repartido no meio, mechas caindo dos lados do rosto
+  grisha: { cor: 0x3a2618, dentes: 22, dente: 0.2, crista: 0.003, franjaY: 0.92, ladoY: -0.95, nucaY: -1.0, esp: 0.009, espBorda: 0.004, varia: 0.06, seed: 91,
+    pontas: [[1.05, 0.95, 0.6, 0.32, -0.75, 0.05, -0.1, 0.5], [1.05, -0.95, 0.6, 0.32, -0.75, 0.05, -0.1, 0.5], [1.22, 0.32, 0.42, 0.3, -0.45, 0.0, -0.15, 0.5], [1.22, -0.3, 0.4, 0.3, -0.5, 0.0, -0.15, 0.5]] },
+  // Kruger: preto, bagunçado, mechas caindo na testa
+  kruger: { cor: 0x1a1a1e, dentes: 18, dente: 0.3, crista: 0.004, franjaY: 0.95, ladoY: 0.05, nucaY: -0.7, esp: 0.009, espBorda: 0.0036, varia: 0.12, seed: 92,
+    pontas: [...coroa(6, 1.28, 0.42, 0.4, -0.3, 0.05, -0.65, 1.3, -0.15, 0.5), ...coroa(5, 1.5, 0.36, 0.42, 0.3, 0.35, 0.6, 1.2, 0.05, 0.6)] },
+  // Frieda: chanel preto com franja reta
+  frieda: { cor: 0x141418, dentes: 30, dente: 0.1, crista: 0.003, franjaY: 0.86, ladoY: -0.62, nucaY: -0.9, esp: 0.009, espBorda: 0.004, varia: 0.03, seed: 93, pontas: [] },
+  rod: { cor: 0x8a7050, dentes: 18, dente: 0.2, crista: 0.003, franjaY: 1.25, ladoY: 0.0, nucaY: -0.6, esp: 0.007, espBorda: 0.003, varia: 0.05, seed: 94, pontas: coroa(4, 1.45, 0.4, 0.45, 0.2, 0.5, -0.3, 0.6, 0.1, 0.5) },
+  // Eren adulto: cabelo comprido até o queixo, repartido, meio coque
+  erenAdulto: { cor: 0x2e1e14, dentes: 22, dente: 0.18, crista: 0.003, franjaY: 0.95, ladoY: -1.05, nucaY: -0.95, esp: 0.009, espBorda: 0.004, varia: 0.07, seed: 95,
+    pontas: [[1.05, 1.0, 0.7, 0.34, -0.8, 0.05, -0.1, 0.5], [1.05, -1.0, 0.7, 0.34, -0.8, 0.05, -0.1, 0.5], [1.25, 0.3, 0.5, 0.3, -0.55, 0.0, -0.15, 0.5], [1.25, -0.28, 0.48, 0.3, -0.6, 0.0, -0.15, 0.5]] },
 };
 // óculos redondos do Grisha
-function oculosRedondos(p) { const u = p.userData, m = LPmat(0x2a2620, { metal: 0.7, rough: 0.3 }); [-1, 1].forEach((k) => { const r = mesh(new THREE.TorusGeometry(0.023, 0.0028, 4, 14), m, k * 0.037, CAB.EY, surfZ(u.headM, k * 0.037, CAB.EY) + 0.007, u.head); }); mesh(box(0.024, 0.003, 0.003), m, 0, CAB.EY + 0.003, surfZ(u.headM, 0, CAB.EY) + 0.008, u.head); }
+function oculosRedondos(p) { const u = p.userData, m = LPmat(0x8a6a3a, { metal: 0.8, rough: 0.25, rim: 0.3, liso: true }); [-1, 1].forEach((k) => { mesh(new THREE.TorusGeometry(0.0205, 0.0013, 6, 32), m, k * 0.036, CAB.EY - 0.002, surfZ(u.headM, k * 0.036, CAB.EY) + 0.008, u.head); mesh(box(0.012, 0.0014, 0.0014), m, k * 0.062, CAB.EY + 0.004, surfZ(u.headM, k * 0.062, CAB.EY) + 0.002, u.head); }); mesh(box(0.016, 0.0014, 0.0014), m, 0, CAB.EY + 0.004, surfZ(u.headM, 0, CAB.EY) + 0.009, u.head); }
 // coque/rabo de cavalo
 function rabo(p, cor, y = 0.06, z = -0.1, L = 0.12) { const u = p.userData, m = LPmat(cor, { rim: 0.5 }); const r = mesh(new THREE.ConeGeometry(0.03, L, 5), m, 0, y - L / 2, z, u.head); r.rotation.x = Math.PI - 0.25; return r; }
 function coque(p, cor) { const u = p.userData; mesh(sph(0.04, 7, 5), LPmat(cor, { rim: 0.5 }), 0, 0.16, -0.08, u.head); }
 function casacoLongo(p, cor, L = 0.62) { const u = p.userData; const c = mesh(new THREE.CylinderGeometry(0.165, 0.25, L, 12, 1, true), LPmat(cor, { rim: 0.8, side: THREE.DoubleSide }), 0, -L / 2 + 0.06, -0.005, u.hips); c.scale.z = 0.82; abaVento(p, "hips", 0.2, L * 0.9, cor, [0.09, -0.04, -0.14], [0.1, 0, 0]); abaVento(p, "hips", 0.2, L * 0.9, cor, [-0.09, -0.04, -0.14], [0.1, 0, 0]); return c; }
-function grishaLP(o = {}) { const p = pessoaLP({ seed: 101, pele: 0xf4d0aa, olho: "#3a3020", olhoAlt: 0.82, olhoTam: 0.92, brava: 0.1, roupa: 0x6a5238, calca: 0x3a3028, sapato: 0x2a1e14, sola: 0x2a1e14, botoes: false, sobrancelha: 0x3a2618, cabelo: CABELOS_AOT.grisha, ...o });
+function grishaLP(o = {}) { const p = pessoaLP({ seed: 101, pele: 0xf4d0aa, olho: "#4a3a24", olhoAlt: 0.76, olhoTam: 0.9, brava: 0.0, rugas: 0.28, browW: 0.06, roupa: 0x6a5238, calca: 0x3a3028, sapato: 0x2a1e14, sola: 0x2a1e14, botoes: false, sobrancelha: 0x3a2618, cabelo: CABELOS_AOT.grisha, ...o });
   oculosRedondos(p); rabo(p, 0x3a2618); casacoLongo(p, 0x6a5238); return p; }
-function krugerLP(o = {}) { const p = pessoaLP({ seed: 102, pele: 0xf0cca4, olho: "#2a2a2e", olhoAlt: 0.78, brava: 0.45, roupa: 0x16161a, calca: 0x16161a, botoes: true, botao: 0xb89a50, sobrancelha: 0x16161a, cabelo: CABELOS_AOT.kruger, ...o }); casacoLongo(p, 0x16161a, 0.7); return p; }
-function friedaLP(o = {}) { const p = pessoaLP({ seed: 103, pele: 0xf8e0c8, olho: "#4a5a7a", olhoAlt: 0.92, olhoTam: 1.04, roupa: 0xe8e2d4, calca: 0xe8e2d4, sapato: 0x3a2a24, botoes: false, sobrancelha: 0x141418, cabelo: CABELOS_AOT.frieda, scale: 0.94, ...o });
+function krugerLP(o = {}) { const p = pessoaLP({ seed: 102, pele: 0xf0cca4, olho: "#3a3a40", olhoAlt: 0.6, brava: 0.6, rugas: 0.5, queixo: 0.8, roupa: 0x16161a, calca: 0x16161a, botoes: true, botao: 0xb89a50, sobrancelha: 0x16161a, cabelo: CABELOS_AOT.kruger, ...o }); casacoLongo(p, 0x16161a, 0.7); return p; }
+function friedaLP(o = {}) { const p = pessoaLP({ seed: 103, pele: 0xf8e0c8, olho: "#4a5a8a", olhoAlt: 0.95, olhoTam: 1.04, browW: 0.056, queixo: 0.68, roupa: 0xe8e2d4, calca: 0xe8e2d4, sapato: 0x3a2a24, botoes: false, sobrancelha: 0x141418, cabelo: CABELOS_AOT.frieda, scale: 0.94, ...o });
   const u = p.userData; const s = mesh(new THREE.CylinderGeometry(0.16, 0.3, 0.75, 14, 1, true), LPmat(0xe8e2d4, { rim: 0.8, side: THREE.DoubleSide }), 0, -0.38, 0, u.hips); s.scale.z = 0.85; abaVento(p, "hips", 0.3, 0.6, 0xe8e2d4, [0, -0.08, -0.16], [0.08, 0, 0], { tras: 0.08 }); return p; }
-function rodLP(o = {}) { const p = pessoaLP({ seed: 104, pele: 0xf0cca8, olho: "#4a4030", olhoAlt: 0.75, brava: 0.0, roupa: 0x3a2a3a, calca: 0x2a2028, botoes: true, botao: 0xd8b860, sobrancelha: 0x8a7050, cabelo: CABELOS_AOT.rod, ...o }); casacoLongo(p, 0x3a2a3a, 0.6); return p; }
+function rodLP(o = {}) { const p = pessoaLP({ seed: 104, pele: 0xf0cca8, olho: "#5a4a30", olhoAlt: 0.7, brava: -0.1, rugas: 0.8, barba3d: 0x8a7050, roupa: 0x3a2a3a, calca: 0x2a2028, botoes: true, botao: 0xd8b860, sobrancelha: 0x8a7050, cabelo: CABELOS_AOT.rod, ...o }); casacoLongo(p, 0x3a2a3a, 0.6); return p; }
 function criancaLP(i, o = {}) { const cab = [0x8a6a40, 0x3a2a20, 0xc8a060, 0x5a3a28][i % 4]; return pessoaLP({ seed: 110 + i, pele: 0xf8dcc0, olho: "#4a5a6a", olhoAlt: 1.0, olhoTam: 1.1, blush: true, roupa: [0x5a6a8a, 0x8a5a4a, 0x6a7a5a, 0x7a6a8a][i % 4], calca: 0x3a3a44, botoes: false, sobrancelha: cab, cabelo: { ...CABELOS_AOT.kruger, cor: cab, seed: 120 + i }, scale: 0.62 + (i % 2) * 0.06, ...o }); }
-function erenAdultoLP(o = {}) { const p = pessoaLP({ seed: 105, pele: 0xf2d2ae, olho: "#2a9a88", olhoAlt: 0.78, brava: 0.35, roupa: 0x1e1e24, calca: 0x1e1e24, botoes: false, sobrancelha: 0x2e1e14, cabelo: CABELOS_AOT.erenAdulto, ...o }); coque(p, 0x2e1e14); casacoLongo(p, 0x1e1e24, 0.72); return p; }
+function erenAdultoLP(o = {}) { const p = pessoaLP({ seed: 105, pele: 0xf2d2ae, olho: "#2a9a88", olhoAlt: 0.66, brava: 0.5, queixo: 0.78, roupa: 0x1e1e24, calca: 0x1e1e24, botoes: false, sobrancelha: 0x2e1e14, cabelo: CABELOS_AOT.erenAdulto, ...o }); coque(p, 0x2e1e14); casacoLongo(p, 0x1e1e24, 0.72); return p; }
 function erenKidLP(o = {}) { return erenCriancaLP({ scale: 0.72, ...o }); }
 
 // ---------------------------------------------------------------- cenários de Attack on Titan
@@ -2305,14 +2325,15 @@ function muralha(g, R = 60, H = 50, o = {}) { const m = grp(g, ...(o.c ?? [0, 0,
     mesh(box(len, 1.0, esp * 1.1), SM(0x8a8478), 0, H + 0.4, 0, s); for (let k = 0; k < Math.floor(len / 3); k++) mesh(box(1.6, 1.8, 0.8), SM(0x9a948a), -len / 2 + 1.5 + k * 3, H + 1.6, esp * 0.5, s);
     if (o.portao && Math.abs(a) < (a1 - a0) / n / 2 + 1e-3) { const pt = mesh(new THREE.CylinderGeometry(7, 7, esp + 0.4, 16, 1, false, 0, Math.PI), SM(0x1a1612), 0, 9, 0, s); pt.rotation.x = Math.PI / 2; pt.rotation.z = Math.PI / 2 * 0; mesh(box(14, 9, esp + 0.4), SM(0x1a1612), 0, 4.5, 0, s); } }
   return m; }
-// Titã Colossal: cabeça sem pele (músculos vermelhos em faixas), dentes à mostra, olhos fundos, vapor
-function colossal(g, s = 1) { const c = grp(g), mus = LPmat(0xb8463a, { rim: 0.9, rough: 0.6 }), mus2 = LPmat(0x8a2a24, { rim: 0.6 }), osso = LPmat(0xf0e4c8, { rim: 0.5 });
-  const cab = mesh(new THREE.IcosahedronGeometry(9 * s, 2), mus, 0, 0, 0, c); cab.scale.set(0.9, 1.15, 0.95); deform(cab.geometry, (v) => { v.x *= 1 + 0.06 * Math.sin(v.y * 0.9); v.z += Math.max(0, -v.y) * 0.08; });
-  for (let i = 0; i < 7; i++) { const f = mesh(new THREE.TorusGeometry(7.6 * s, 0.35 * s, 4, 12, 1.2), mus2, 0, 0, 0, c); f.rotation.set(0, (i - 3) * 0.32, Math.PI / 2 - 0.6); }
-  mesh(box(7 * s, 3 * s, 2 * s), mus2, 0, -6 * s, 6.6 * s, c);
-  for (let i = 0; i < 12; i++) { const d = mesh(box(0.9 * s, 1.8 * s, 0.6 * s), osso, (i - 5.5) * 0.95 * s, -5.2 * s + (i % 2) * 0.1, 8.2 * s - Math.abs(i - 5.5) * 0.35 * s, c); d.rotation.y = (i - 5.5) * 0.1; }
-  for (let i = 0; i < 12; i++) { const d = mesh(box(0.9 * s, 1.6 * s, 0.6 * s), osso, (i - 5.5) * 0.95 * s, -7.0 * s, 7.6 * s - Math.abs(i - 5.5) * 0.35 * s, c); d.rotation.y = (i - 5.5) * 0.1; }
-  [-1, 1].forEach((k) => { mesh(sph(1.6 * s, 8, 6), LPmat(0x1a0a08), k * 3.2 * s, 2.5 * s, 7.4 * s, c); const ol = glowSprite(0xffd8a0, 2.2 * s, 0.35); ol.position.set(k * 3.2 * s, 2.5 * s, 8.6 * s); c.add(ol); });
+// Titã Colossal: cabeça sem pele (fibras de músculo vermelhas), sem lábios, fileiras de dentes, olhos fundos, vapor
+const musculoTex = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#a83a30"; c.fillRect(0, 0, w, h); for (let i = 0; i < 140; i++) { const x = hash(i) * w, lw = 1 + hash(i * 3) * 4, v = hash(i * 7); c.strokeStyle = v > 0.55 ? `rgba(240,140,120,${0.25 + v * 0.3})` : `rgba(90,20,18,${0.3 + v * 0.3})`; c.lineWidth = lw; c.beginPath(); c.moveTo(x, 0); c.bezierCurveTo(x + 8, h * 0.3, x - 8, h * 0.7, x + 4, h); c.stroke(); } });
+function colossal(g, s = 1) { const c = grp(g), mus = new THREE.MeshStandardMaterial({ map: musculoTex, roughness: 0.55, color: 0xffffff, emissive: 0x3a0806, emissiveIntensity: 0.4 }), osso = LPmat(0xf0e4c8, { rim: 0.5, liso: true }), escuro = LPmat(0x1a0604);
+  const cab = mesh(new THREE.SphereGeometry(9 * s, 28, 20), mus, 0, 0, 0, c); cab.scale.set(0.85, 1.12, 0.92); deform(cab.geometry, (v) => { v.x *= 1 + 0.08 * Math.sin(v.y * 0.6); if (v.z > 3 && v.y < -1) v.z += 0.6; if (v.z > 4 && Math.abs(v.x) < 2.2 && v.y > -1 && v.y < 2) v.z -= 0.9; });
+  [-1, 1].forEach((k) => { const ma = mesh(new THREE.SphereGeometry(2.4 * s, 12, 10), mus, k * 4.6 * s, -3.4 * s, 6.0 * s, c); ma.scale.set(0.7, 1.4, 0.55); });
+  const boca = mesh(box(8.4 * s, 4.6 * s, 2 * s), escuro, 0, -6.2 * s, 6.6 * s, c);
+  for (let i = 0; i < 14; i++) { const x = (i - 6.5) * 0.62 * s, z = 7.7 * s - Math.abs(i - 6.5) * 0.22 * s; mesh(box(0.55 * s, 1.5 * s, 0.5 * s), osso, x, -4.5 * s, z, c); mesh(box(0.55 * s, 1.3 * s, 0.5 * s), osso, x, -7.6 * s, z - 0.2 * s, c); }
+  [-1, 1].forEach((k) => { mesh(new THREE.SphereGeometry(1.7 * s, 12, 10), escuro, k * 3.0 * s, 2.4 * s, 6.9 * s, c); const ol = mesh(new THREE.SphereGeometry(0.85 * s, 12, 10), LPmat(0xf4ece0, { liso: true }), k * 3.0 * s, 2.3 * s, 7.6 * s, c); mesh(new THREE.SphereGeometry(0.32 * s, 8, 6), LPmat(0x1a1210, { liso: true }), k * 3.0 * s, 2.3 * s, 8.4 * s, c); });
+  mesh(new THREE.ConeGeometry(0.9 * s, 1.4 * s, 4), escuro, 0, -0.2 * s, 8.2 * s, c).rotation.x = Math.PI;
   return c; }
 // casa de enxaimel (paredes claras com vigas escuras) e telhado vermelho: Shiganshina
 function casaEnx(g, x, z, o = {}) { const h = grp(g, x, 0, z); h.rotation.y = o.ry ?? 0; const W = o.w ?? 4, D = o.d ?? 4, A = o.h ?? 5; const pl = texPlaster(), rf = texRoof();
@@ -2495,12 +2516,92 @@ function choque(g, pos, cor = 0xffe8c0) { const r = mesh(new THREE.RingGeometry(
   const x = new THREE.Sprite(new THREE.SpriteMaterial({ map: estrelaTex, color: cor, transparent: true, blending: ADD, depthWrite: false, opacity: 0 })); x.position.set(pos[0], pos[1] + 3, pos[2]); g.add(x);
   return (t, t0) => { const k = seg(t, t0, t0 + 1.2); r.scale.setScalar(0.5 + 26 * E.out(k)); r.material.opacity = k > 0 && k < 1 ? 0.9 * (1 - k) : 0; const kx = seg(t, t0 - 0.05, t0 + 0.6); x.material.opacity = kx > 0 && kx < 1 ? Math.sin(kx * Math.PI) : 0; x.scale.setScalar(4 + 30 * kx); }; }
 
+// ================================================================ locais de Attack on Titan (desenho nosso, sem copiar a referência)
+// porão dos Yeager, porto de Liberio à noite, floresta na chuva, Shiganshina ao amanhecer, titãs de corpo inteiro.
+
+// ---------------------------------------------------------------- texturas
+const pedraPoraoTex = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#5a5048"; c.fillRect(0, 0, w, h); for (let r = 0; r < 8; r++) { const off = (r % 2) * 32; for (let k = -1; k < 5; k++) { const v = 90 + hash(r * 9 + k) * 40; c.fillStyle = `rgb(${v + 10},${v},${v - 10})`; c.fillRect(k * 64 + off + 2, r * 32 + 2, 60, 28); } } for (let i = 0; i < 40; i++) { c.fillStyle = `rgba(20,15,10,${0.05 + hash(i) * 0.1})`; c.fillRect(hash(i * 3) * w, hash(i * 5) * h, 10 + hash(i * 7) * 30, 6 + hash(i * 9) * 20); } });
+const madeiraTex = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#6a4428"; c.fillRect(0, 0, w, h); for (let i = 0; i < 60; i++) { c.strokeStyle = `rgba(${hash(i) > 0.5 ? "40,24,12" : "140,96,60"},${0.15 + hash(i * 3) * 0.2})`; c.lineWidth = 1 + hash(i * 5) * 2; c.beginPath(); const y = hash(i * 7) * h; c.moveTo(0, y); c.bezierCurveTo(w * 0.3, y + 6, w * 0.6, y - 6, w, y + 3); c.stroke(); } });
+const tijoloTex = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#3a2a24"; c.fillRect(0, 0, w, h); for (let r = 0; r < 16; r++) { const off = (r % 2) * 16; for (let k = -1; k < 9; k++) { const v = 0.75 + hash(r * 13 + k) * 0.35; c.fillStyle = `rgb(${(120 * v) | 0},${(60 * v) | 0},${(44 * v) | 0})`; c.fillRect(k * 32 + off + 1, r * 16 + 1, 30, 14); } } });
+const fotoTex = canvasTex(128, 96, (c, w, h) => { const g_ = c.createLinearGradient(0, 0, 0, h); g_.addColorStop(0, "#d8c8a0"); g_.addColorStop(1, "#a89070"); c.fillStyle = g_; c.fillRect(0, 0, w, h); c.fillStyle = "rgba(60,40,24,.75)"; [[40, 56, 12], [64, 50, 14], [88, 60, 9]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y - r * 1.4, r * 0.55, 0, 7); c.fill(); c.fillRect(x - r * 0.6, y - r * 0.8, r * 1.2, r * 2.4); }); c.strokeStyle = "#f0e8d8"; c.lineWidth = 6; c.strokeRect(0, 0, w, h); });
+const capaLivroTex = (cor) => canvasTex(64, 96, (c, w, h) => { c.fillStyle = cor; c.fillRect(0, 0, w, h); c.strokeStyle = "rgba(220,190,120,.8)"; c.lineWidth = 2; c.strokeRect(6, 6, w - 12, h - 12); c.fillStyle = "rgba(220,190,120,.8)"; c.fillRect(14, 40, w - 28, 4); });
+const bracadeiraTex = canvasTex(128, 32, (c, w, h) => { c.fillStyle = "#e8c840"; c.fillRect(0, 0, w, h); c.strokeStyle = "#2a2a6a"; c.lineWidth = 2.5; const cx = w / 2, cy = h / 2; c.beginPath(); for (let i = 0; i <= 9; i++) { const a = -Math.PI / 2 + i * (Math.PI * 4 / 9), r = 12; i ? c.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r) : c.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); } c.stroke(); });
+
+// ---------------------------------------------------------------- objetos
+function vela(g, x, y, z) { const v = grp(g, x, y, z); mesh(cyl(0.025, 0.028, 0.12, 8), LPmat(0xf0e8d8, { rim: 0.4 }), 0, 0.06, 0, v); mesh(cyl(0.05, 0.06, 0.012, 10), LPmat(0x8a6a3a, { metal: 0.6 }), 0, 0.006, 0, v); const ch = glowSprite(0xffb050, 0.12, 0.95); ch.position.y = 0.15; v.add(ch); const ch2 = glowSprite(0xffd890, 0.035, 1); ch2.position.y = 0.145; v.add(ch2); const L = new THREE.PointLight(0xffb060, 2.2, 6, 1.6); L.position.y = 0.2; L.castShadow = true; L.shadow.mapSize.set(1024, 1024); v.add(L); return { v, ch, L, upd(t) { const f = 0.85 + 0.15 * noise1(t * 9) + 0.05 * Math.sin(t * 23); L.intensity = 2.2 * f; ch.scale.setScalar(0.12 * (0.9 + 0.2 * noise1(t * 11))); } }; }
+function livro(g, cor, x, y, z, ry = 0, aberto = false) { const l = grp(g, x, y, z); l.rotation.y = ry; const capa = new THREE.MeshStandardMaterial({ map: capaLivroTex(cor), roughness: 0.7 }); if (!aberto) { mesh(box(0.16, 0.04, 0.22), [LPmat(0xe8dcc0), LPmat(0xe8dcc0), capa, LPmat(0x2a1a10), LPmat(0xe8dcc0), LPmat(0xe8dcc0)], 0, 0.02, 0, l); } else { [-1, 1].forEach((k) => { const pg = mesh(box(0.15, 0.012, 0.22), LPmat(0xeee4cc, { rim: 0.2 }), k * 0.077, 0.012, 0, l); pg.rotation.z = -k * 0.06; }); } return l; }
+function chave(g) { const c = grp(g); const m = LPmat(0xb89a50, { metal: 0.85, rough: 0.3, liso: true }); mesh(new THREE.TorusGeometry(0.022, 0.006, 6, 16), m, 0, 0.05, 0, c); mesh(cyl(0.005, 0.005, 0.07, 6), m, 0, 0.0, 0, c); mesh(box(0.016, 0.01, 0.005), m, 0.008, -0.025, 0, c); mesh(box(0.012, 0.008, 0.005), m, 0.006, -0.012, 0, c); return c; }
+function seringa(g) { const s = grp(g); mesh(cyl(0.012, 0.012, 0.11, 10), new THREE.MeshStandardMaterial({ color: 0xd8f0e8, transparent: true, opacity: 0.55, roughness: 0.1 }), 0, 0, 0, s); const liq = mesh(cyl(0.009, 0.009, 0.07, 10), new THREE.MeshStandardMaterial({ color: 0x9aff9a, emissive: 0x5aff7a, emissiveIntensity: 1.4 }), 0, -0.012, 0, s); mesh(cyl(0.002, 0.002, 0.05, 4), LPmat(0xd0d0d8, { metal: 0.9 }), 0, -0.08, 0, s); mesh(cyl(0.016, 0.016, 0.006, 10), LPmat(0x9a9aa0, { metal: 0.7 }), 0, 0.058, 0, s); const gl = glowSprite(0x9aff9a, 0.12, 0.5); s.add(gl); return { s, liq, gl }; }
+function lampiao(g, x, z, h = 3.2) { const l = grp(g, x, 0, z), ferro = LPmat(0x1a1a1e, { metal: 0.6 }); mesh(cyl(0.05, 0.07, h, 6), ferro, 0, h / 2, 0, l); mesh(box(0.26, 0.34, 0.26), new THREE.MeshStandardMaterial({ color: 0xffe0a0, emissive: 0xffc060, emissiveIntensity: 1.6 }), 0, h + 0.17, 0, l); mesh(new THREE.ConeGeometry(0.22, 0.16, 4), ferro, 0, h + 0.42, 0, l).rotation.y = Math.PI / 4; const L = new THREE.PointLight(0xffb860, 3.5, 12, 1.6); L.position.y = h + 0.1; l.add(L); const gl = glowSprite(0xffc070, 1.6, 0.55); gl.position.y = h + 0.17; l.add(gl); return l; }
+function bracadeira(p) { const u = p.userData; const b = mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.07, 14, 1, true), new THREE.MeshStandardMaterial({ map: bracadeiraTex, side: THREE.DoubleSide, roughness: 0.8 }), 0, -0.13, 0, u.sh[1]); return b; }
+function quepe(p, cor = 0x3a3a2e) { const u = p.userData, m = LPmat(cor, { rim: 0.6 }); const cp = mesh(cyl(0.118, 0.095, 0.045, 14), m, 0, 0.21, -0.01, u.head); cp.rotation.x = -0.12; const aba = mesh(cyl(0.09, 0.09, 0.008, 14, 1, false, -Math.PI / 2, Math.PI), LPmat(0x141414, { rim: 0.3 }), 0, 0.19, 0.03, u.head); aba.scale.z = 1.2; mesh(cyl(0.101, 0.101, 0.016, 14), LPmat(0xb89a50, { metal: 0.6 }), 0, 0.19, -0.01, u.head); }
+// titã de corpo inteiro = pessoa low-poly gigante e nua (pele no lugar da roupa), com sorriso de dentes e vapor
+function titaLP(o = {}) { const pele = o.pele ?? 0xd8a888; const p = pessoaLP({ seed: o.seed ?? 130, pele, roupa: pele, calca: pele, sapato: pele, sola: pele, botoes: false, olho: o.olho ?? "#4a8a6a", olhoAlt: o.olhoAlt ?? 0.75, brava: o.brava ?? 0.5, sobrancelha: o.sob ?? 0x2a2018, cabelo: o.cabelo, bocaRyuk: true, scale: o.s ?? 9, queixo: 0.82 });
+  const u = p.userData; if (o.orelhas) [-1, 1].forEach((k) => { const e = mesh(new THREE.ConeGeometry(0.018, 0.05, 4), LPmat(pele, { rim: 0.6 }), k * 0.078, 0.11, -0.01, u.head); e.rotation.z = -k * 1.2; });
+  // marcas de músculo no rosto (linhas das bochechas, como os titãs da obra)
+  if (o.marcas !== false) [-1, 1].forEach((k) => { const m = mesh(box(0.004, 0.05, 0.004), LPmat(0x8a4a3a), k * 0.05, 0.035, surfZ(u.headM, k * 0.05, 0.035) - 0.001, u.head); m.rotation.z = k * 0.4; });
+  return p; }
+
+// ---------------------------------------------------------------- porão dos Yeager (o segredo do Grisha): pedra, vigas, escada com a porta lá em cima, mesa com vela, os três livros, a foto, a chave, estantes de médico
+function porao(g) { const P = grp(g), pm = new THREE.MeshStandardMaterial({ map: rep(pedraPoraoTex.clone(), 3, 1.5), roughness: 0.95 }); pm.map.needsUpdate = true; const mad = new THREE.MeshStandardMaterial({ map: rep(madeiraTex.clone(), 2, 1), roughness: 0.8 }); mad.map.needsUpdate = true;
+  const chao = mesh(new THREE.PlaneGeometry(7, 7), new THREE.MeshStandardMaterial({ map: rep(madeiraTex.clone(), 4, 4), color: 0x9a8070, roughness: 0.85 }), 0, 0, 0, P); chao.rotation.x = -Math.PI / 2; chao.material.map.needsUpdate = true;
+  mesh(box(7, 3, 0.3), pm, 0, 1.5, -2.6, P); [-1, 1].forEach((k) => mesh(box(0.3, 3, 7), pm, k * 3.2, 1.5, 0, P)); mesh(box(7, 0.2, 7), mad, 0, 3.0, 0, P);
+  for (let i = 0; i < 5; i++) mesh(box(0.22, 0.26, 7), mad, -2.6 + i * 1.3, 2.8, 0, P);
+  // escada subindo para a porta (luz do dia entrando)
+  for (let i = 0; i < 9; i++) mesh(box(1.1, 0.12, 0.32), mad, 2.4, 0.1 + i * 0.3, 1.6 - i * 0.32, P); const porta = mesh(box(1.0, 1.9, 0.08), new THREE.MeshBasicMaterial({ color: 0xfff0d0 }), 2.4, 3.6, -1.3, P); porta.castShadow = false;
+  const raios = godRays(P, [2.4, 3.6, -1.1], [-0.35, -0.75, 0.55], { color: 0xffe8c0, n: 5, len: 5, w: 0.7, opacity: 0.08, spread: 0.8 });
+  // mesa, cadeira, estantes com frascos
+  const mesa = grp(P, -0.6, 0, -1.5); mesh(box(1.6, 0.06, 0.8), mad, 0, 0.76, 0, mesa); [[-0.74, -0.34], [0.74, -0.34], [-0.74, 0.34], [0.74, 0.34]].forEach(([x, z]) => mesh(box(0.07, 0.76, 0.07), mad, x, 0.38, z, mesa)); mesh(box(1.5, 0.3, 0.6), mad, 0, 0.58, -0.05, mesa);
+  const cad = grp(P, -0.6, 0, -0.85); mesh(box(0.46, 0.05, 0.46), mad, 0, 0.48, 0, cad); mesh(box(0.46, 0.55, 0.05), mad, 0, 0.78, 0.22, cad); [[-0.2, -0.2], [0.2, -0.2], [-0.2, 0.2], [0.2, 0.2]].forEach(([x, z]) => mesh(box(0.04, 0.48, 0.04), mad, x, 0.24, z, cad));
+  [-2.9, 2.9].forEach((x, k) => { if (k) return; for (let j = 0; j < 4; j++) { mesh(box(0.35, 0.04, 2.4), mad, x, 0.5 + j * 0.55, -0.5, P); for (let i = 0; i < 9; i++) { const vid = new THREE.MeshStandardMaterial({ color: [0x5a8a5a, 0x8a5a3a, 0x3a5a8a, 0xb89a50][(i + j) % 4], transparent: true, opacity: 0.75, roughness: 0.15, metalness: 0.2 }); mesh(cyl(0.05, 0.05, 0.16 + hash(i + j * 9) * 0.12, 8), vid, x + 0.02, 0.6 + j * 0.55 + 0.07, -1.5 + i * 0.25, P); } } });
+  const vl = vela(P, -1.05, 0.79, -1.55);
+  const livros = [livro(P, "#4a2a1a", -0.25, 0.79, -1.6, 0.2), livro(P, "#2a3a4a", -0.24, 0.83, -1.6, 0.25), livro(P, "#3a2a3a", -0.26, 0.87, -1.62, 0.15), livro(P, "#4a3a2a", -0.65, 0.79, -1.35, 0, true)];
+  const foto = mesh(new THREE.PlaneGeometry(0.16, 0.12), new THREE.MeshStandardMaterial({ map: fotoTex, roughness: 0.6 }), -1.25, 0.95, -1.82, P); foto.rotation.x = -0.25; mesh(box(0.18, 0.14, 0.01), LPmat(0x3a2414), -1.25, 0.948, -1.826, P).rotation.x = -0.25;
+  const ch = chave(P); ch.position.set(-0.95, 0.8, -1.25); ch.rotation.set(Math.PI / 2, 0, 0.6);
+  const poeira = dustPts(240, [-2.5, 2.5, 0.2, 2.8, -2.4, 2], 0xffe0b0, 0.03, 0.75); P.add(poeira);
+  return { P, vl, livros, ch, poeira, raios, mesa, cad }; }
+
+// ---------------------------------------------------------------- porto de Liberio à noite (Marley): armazéns de tijolo, lampiões, cais, navios, mar ao luar e a ilha de Paradis no horizonte
+function portoLiberio(g) { const L = grp(g); skyDome(L, { top: 0x060a1c, mid: 0x14204a, hor: 0x3a4a7a, ground: 0x0a0c14, sunDir: [-0.3, 0.35, -1], sunCol: 0xd8e4ff, sunI: 0.9, disk: 1.0, cov: 0.35, cloudLit: 0x8a9ac8, cloudSh: 0x141a30, stars: 1.2, midY: 0.18 });
+  const lua = glowSprite(0xe8eeff, 14, 0.45); lua.position.set(-80, 120, -400); L.add(lua); const lua2 = glowSprite(0xffffff, 5, 1); lua2.position.copy(lua.position); L.add(lua2);
+  const mar = mesh(new THREE.PlaneGeometry(3000, 3000, 80, 80), new THREE.MeshStandardMaterial({ color: 0x0e1a34, roughness: 0.25, metalness: 0.6, flatShading: true }), 0, -1.2, -1500, L); mar.rotation.x = -Math.PI / 2; deform(mar.geometry, (v) => { v.z = Math.sin(v.x * 0.3) * 0.15 + Math.cos(v.y * 0.25) * 0.12; });
+  const rastro = mesh(new THREE.PlaneGeometry(6, 400), new THREE.MeshBasicMaterial({ color: 0xbfd0ff, transparent: true, opacity: 0.18, blending: ADD, depthWrite: false }), -12, -1.1, -220, L); rastro.rotation.x = -Math.PI / 2; rastro.rotation.z = 0.2;
+  const ilha = mesh(new THREE.ConeGeometry(130, 30, 9), new THREE.MeshStandardMaterial({ color: 0x1a2240, roughness: 1, flatShading: true }), 25, -2, -440, L); ilha.scale.z = 0.25;
+  const cais = mesh(box(14, 0.4, 40), new THREE.MeshStandardMaterial({ map: rep(madeiraTex.clone(), 6, 18), roughness: 0.8 }), 0, -0.2, -6, L); cais.material.map.needsUpdate = true;
+  for (let i = 0; i < 8; i++) [-1, 1].forEach((k) => mesh(cyl(0.18, 0.2, 2.4, 6), LPmat(0x2a1e14), k * 6.8, -1.3, -24 + i * 5, L));
+  const tij = new THREE.MeshStandardMaterial({ map: rep(tijoloTex.clone(), 4, 2), roughness: 0.9 }); tij.map.needsUpdate = true;
+  for (let i = 0; i < 5; i++) { const a = grp(L, -11, 0, 10 - i * 9); mesh(box(8, 7 + hash(i) * 3, 8), tij, 0, 4, 0, a); mesh(box(8.4, 0.4, 8.4), LPmat(0x2a2020), 0, 8.2 + hash(i) * 3, 0, a); for (let j = 0; j < 3; j++) mesh(box(0.06, 1.0, 0.7), new THREE.MeshStandardMaterial({ color: 0x1a1410, emissive: hash(i * 3 + j) > 0.5 ? 0xffb860 : 0x000000, emissiveIntensity: 1.2 }), 4.03, 2.5 + j * 2, -2.5 + j * 2.2, a); }
+  const lamps = [[-5.5, 2], [-5.5, -8], [5.5, -4], [5.5, -14]].map(([x, z]) => lampiao(L, x, z));
+  const navio = grp(L, 14, -1.2, -20); mesh(box(4, 2.2, 22), LPmat(0x1a1612), 0, 1.1, 0, navio); mesh(box(3.4, 2.6, 6), LPmat(0x2a2420), 0, 3.4, 3, navio); mesh(cyl(0.5, 0.6, 5, 8), LPmat(0x3a2a24), 0, 6.5, 2, navio); [-3, 0, 3].forEach((z) => mesh(box(0.1, 0.5, 0.5), new THREE.MeshBasicMaterial({ color: 0xffd890 }), -2.02, 1.5, z, navio));
+  const fumaca = steam(L, { origin: [14, 8.5, -18], n: 18, size: 2.5, spread: 1, rise: 1.5, opacity: 0.25, color: 0x3a3a48, wind: [-0.4, 0, 0] });
+  return { L, lamps, fumaca, ilha }; }
+
+// ---------------------------------------------------------------- floresta à noite, chuva
+function florestaChuva(g) { const F = grp(g); skyDome(F, { top: 0x04060c, mid: 0x0a1018, hor: 0x1a2230, ground: 0x06080a, sunDir: [0, 0.3, -1], sunI: 0, cov: 0.8, cloudLit: 0x2a3040, cloudSh: 0x0a0c10 });
+  const hf = (x, z) => Math.sin(x * 0.2) * 0.25 + Math.cos(z * 0.18) * 0.2;
+  terrain(F, { size: 120, segs: 70, h: hf, grassA: 0x1a2a1a, grassB: 0x24321e, dirt: 0x2a2418, rock: 0x2a2a2a });
+  grassField(F, 2500, [-10, 10, -10, 8], hf, { s: 0.7, colA: 0x1e3a1e, colB: 0x2e4a24 });
+  forestInst(F, 120, 30, hf, { leaf: 0x16281a }); [[-2.2, -2.6], [2.4, -3.2], [-3.4, 0.6], [3.2, 1.5]].forEach(([x, z], i) => tree(F, x, hf(x, z), z, { s: 0.55, seed: 20 + i }));
+  const chuva_ = chuva(F, { n: 1600, area: [-6, 6, 0, 8, -6, 6], cor: 0xa8c0e0, op: 0.4, vel: 12, vento: -0.6 });
+  const lan = grp(F, 0.5, hf(0.5, 0.6), 0.6); mesh(box(0.16, 0.22, 0.16), new THREE.MeshStandardMaterial({ color: 0xffd090, emissive: 0xffa040, emissiveIntensity: 1.5 }), 0, 0.11, 0, lan); const LL = new THREE.PointLight(0xffb060, 3, 8, 1.6); LL.position.y = 0.3; LL.castShadow = true; lan.add(LL); const lg = glowSprite(0xffb060, 1.2, 0.5); lg.position.y = 0.12; lan.add(lg);
+  return { F, hf, chuva_, LL }; }
+
+// ---------------------------------------------------------------- Shiganshina ao amanhecer, vista de cima (telhados, a Muralha Maria, pássaros)
+function shiganshinaAlto(g) { const S = grp(g); skyDome(S, { top: 0x3a5a9a, mid: 0xe8a07a, hor: 0xffd8a8, ground: 0x4a4038, sunDir: [0.6, 0.06, -0.8], sunCol: 0xfff0c8, sunI: 1.0, disk: 1.8, cov: 0.4, cloudLit: 0xffc8a0, cloudSh: 0x7a6a8a, midY: 0.2 });
+  const ch = mesh(new THREE.PlaneGeometry(800, 800), LPmat(0x6a6a4a), 0, -0.02, 0, S); ch.rotation.x = -Math.PI / 2;
+  // quarteirões em grade com ruas (como uma cidade de verdade), praça no meio
+  let n_ = 0; for (let gx = -7; gx <= 7; gx++) for (let gz = -7; gz <= 7; gz++) { const cx = gx * 11, cz = gz * 11; if (Math.hypot(cx, cz) > 82 || (Math.abs(gx) < 1 && Math.abs(gz) < 1)) continue; if (gx === 0 || gz === 0) continue;
+    for (let k = 0; k < 4; k++) { const ox = (k % 2 ? 2.6 : -2.6), oz = (k < 2 ? 2.6 : -2.6), i = n_++; casaEnx(S, cx + ox, cz + oz, { ry: (k % 2 ? 0 : Math.PI) + (hash(i) > 0.5 ? Math.PI / 2 : 0), w: 4.4, d: 4.4, h: 4 + hash(i * 3) * 4, luz: hash(i * 7) > 0.75, chamine: hash(i * 9) > 0.5, janelas: 1 }); } }
+  [0, Math.PI / 2].forEach((r) => { const rua = ruaPedra(S, 7, 170, 85); rua.rotation.z = r; });
+  muralhaV2(S, 95, 50, { c: [0, 0, 0], a0: -3.14, a1: 3.14, n: 40, canhoes: 24 });
+  const aves = birds(S, 9, { center: [0, 30, -20], rx: 30, rz: 12 });
+  return { S, aves }; }
+
 // ================================================================ vídeo: Grisha · cenas 0–4 (capa, morro, Shiganshina, missão, Frieda)
 const _sp4 = [];
 const DOF_CLOSE = { ap: 0.008, max: 0.014 }, DOF_MED = { ap: 0.005, max: 0.012 };
 const CORES_OURO = [0xffd890, 0xffb860, 0xffe8b8, 0xffc070];
 
-// ---------------------------------------------------------------- 0 · capa: Shiganshina ao entardecer; o Colossal agarrado no topo da Muralha Maria, vapor, sol atrás
 function cenaShiganshina(g, o = {}) {
   skyDome(g, { top: 0x2a2048, mid: 0xc06048, hor: 0xffb070, ground: 0x2a2020, sunDir: [0.25, 0.1, -1], sunCol: 0xffd090, sunI: 0.9, disk: 1.6, cov: 0.5, cloudLit: 0xffb080, cloudSh: 0x5a3a4a, midY: 0.2 });
   const ch = mesh(new THREE.PlaneGeometry(600, 600), LPmat(0x4a4038), 0, -0.01, 0, g); ch.rotation.x = -Math.PI / 2;
@@ -2508,10 +2609,10 @@ function cenaShiganshina(g, o = {}) {
   for (let i = 0; i < 11; i++) [-1, 1].forEach((k) => casaEnx(g, k * (6.2 + hash(i * 3 + k) * 0.8), 24 - i * 6.5, { ry: k > 0 ? -Math.PI / 2 : Math.PI / 2, w: 5.5, d: 4.5, h: 5 + hash(i + k) * 3, luz: hash(i * 7 + k * 3) > 0.45 }));
   for (let i = 0; i < 26; i++) { const k = i % 2 ? 1 : -1; casaEnx(g, k * (14 + hash(i) * 20), 20 - hash(i * 3) * 60, { ry: hash(i * 5) * 6, w: 5, d: 5, h: 5 + hash(i * 7) * 4, luz: hash(i) > 0.6 }); }
   muralhaV2(g, 330, 50, { c: [0, 0, 260], a0: -0.16, a1: 0.16, n: 7, portao: true, canhoes: 10 });
-  const co = colossal(g, 1); co.position.set(0, 50, -68); co.rotation.x = 0.12;
+  const co = colossal(g, 1); co.position.set(0, 58, -70); co.rotation.x = 0.28;
   // as mãos do Colossal agarrando o topo da muralha
   const mus = LPmat(0xb8463a, { rim: 0.9 }); [-1, 1].forEach((k) => { const m = grp(g, k * 11, 49.5, -70.5); for (let f = 0; f < 4; f++) { const d = mesh(cap(0.9, 3.6, 3, 6), mus, (f - 1.5) * 2.0, 0.2, 2.2, m); d.rotation.x = 1.25; } mesh(box(8.5, 3, 4), mus, 0, 0.6, -0.6, m); });
-  const vap = steam(g, { origin: [0, 46, -66], n: 36, size: 12, spread: 14, rise: 7, grow: 2.4, opacity: 0.45, life: 4, color: 0xf2dcd0 });
+  const vap = steam(g, { origin: [10, 50, -66], n: 30, size: 10, spread: 16, rise: 7, grow: 2.2, opacity: 0.28, life: 4, color: 0xf2dcd0, wind: [1.2, 0, 0] });
   const fum = steam(g, { origin: [0, 3, -56], n: 26, size: 9, spread: 10, rise: 5, opacity: 0.35, color: 0x5a4a44, wind: [1.2, 0, 0] });
   const sol = solFlare(g, [60, 70, -320], 1.6, 0xffe0b0);
   const pedras = []; for (let i = 0; i < 18; i++) { const r = mesh(new THREE.DodecahedronGeometry(1.2 + hash(i) * 2.4, 0), matMuro(0.3, 0.3), (hash(i * 3) - 0.5) * 18, 0.9, -40 - hash(i * 5) * 16, g); r.rotation.set(i, i * 2, i * 3); pedras.push(r); }
@@ -2520,55 +2621,44 @@ function cenaShiganshina(g, o = {}) {
 }
 const LUZ_SHIG = { bg: 0x2a2048, fog: [30, 520], fogCol: 0x9a6a5a, look: { exposure: 1.05, bloom: 0.5, bloomT: 0.8, vig: 0.5, sat: 1.1, con: 1.08, dof: DOF_MED },
   sun: { dir: [0.25, 0.35, -1], col: 0xffb070, I: 2.4, c: [0, 3, -10], r: 30 }, hemi: { sky: 0xd8a0a0, ground: 0x3a2a30, I: 0.85 }, fill: { col: 0xffc8a0, I: 0.6, dir: [0.3, 0.4, 1] }, rim: { col: 0xffb070, str: 1.4 } };
+// ---------------------------------------------------------------- 0 · capa: o Grisha na caverna de cristal, luz azul nos óculos
 addSet("s0-capa", (g) => {
   const __n = "s0-capa";
-  const S = cenaShiganshina(g);
-  [[-1.2, 2], [0.9, 1.4]].forEach(([x, z], i) => { const p = i ? grishaLP() : erenKidLP(); g.add(p); p.position.set(x, 0, z); p.rotation.y = Math.PI; p.userData.i = i; S["p" + i] = p; });
-  return { ...LUZ_SHIG, hand: 0,
-    update(t) { S.vap.upd(t); S.fum.upd(t); S.brasa(t); [S.p0, S.p1].forEach((p, i) => { vive(p, t, 90 + i, { boca: "linha" }, 0.2); ventoAbas(p, t, 1); }); },
-    cam() { { const d = dbgCam(__n); if (d) return d; } return { pos: [1.6, 1.2, 8.5], look: [0, 22, -60], fov: 50, focus: 60 }; } };
+  const CV = cavernaCristal(g);
+  const gr = grishaLP(); g.add(gr); gr.position.set(0, 0, 0.2); gr.rotation.y = 0.25;
+  return { bg: 0x060a14, fog: [10, 40], fogCol: 0x0a1428, hand: 0, look: { exposure: 1.1, bloom: 0.7, bloomT: 0.72, vig: 0.55, sat: 1.1, con: 1.08, dof: DOF_CLOSE, rosto: 0.5 },
+    sun: { dir: [0.6, 0.6, 0.6], col: 0x9ad0ff, I: 1.4, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x3a6aaa, ground: 0x0a1020, I: 0.5 }, fill: { col: 0xffd8c0, I: 0.35, dir: [-0.5, 0.2, 1] }, rim: { col: 0x8ad8ff, str: 1.6 },
+    update(t) { CV.brilhos(t); vive(gr, t, 101, { boca: "linha", triste: 0.4, palpebra: 0.85, piscaCada: 99 }, 0.1); },
+    cam() { { const d = dbgCam(__n); if (d) return d; } return closeRosto(gr, 0.75, 0.12, 0, 30); } };
 });
 
-// ---------------------------------------------------------------- 1 · abertura: o morro com a árvore grande ao vento (como na referência); a Muralha Maria ao longe; o Grisha olhando
-function morroRef(g, o = {}) {
-  const hf = (x, z) => 0.9 * Math.exp(-(x * x + (z + 2) * (z + 2)) / 260) + 0.6 * Math.sin(x * 0.045) * Math.cos(z * 0.05) - 0.4 - Math.max(0, Math.hypot(x, z) - 40) * 0.03;
-  terrain(g, { size: 520, segs: 140, h: hf, grassA: o.gA ?? 0x6aa83e, grassB: o.gB ?? 0x9cc858, dirt: o.gA ?? 0x6aa83e, rock: o.gB ?? 0x8ab84a });
-  grassField(g, o.nGrama ?? 4500, [-14, 14, -14, 12], hf, { s: 0.7, colA: o.gA ?? 0x5a9a30, colB: o.gB ?? 0xa8d060 });
-  arvoresLonge(g, o.nLonge ?? 260, 14, 160, hf, { c1: o.c1 ?? 0x3e7a2c, c2: o.c2 ?? 0x74b04a, mask: (x, z) => !(Math.abs(x) < 10 && z > -6) });
-  montanhasLonge(g, 260, 16, o.mont ?? 0x9ab0c8, 40);
-  return hf;
-}
+// ---------------------------------------------------------------- 1 · abertura: o porão dos Yeager à luz de vela; o Grisha escreve os diários
 addSet("s1-abertura", (g) => {
   const __n = "s1-abertura";
   const [a, b] = T.sc["s1-abertura"];
-  const ceu = skyDome(g, { top: 0x3a72c8, mid: 0x86b2e0, hor: 0xd8eaf4, ground: 0x6a9a4a, sunDir: [0.45, 0.4, -0.8], sunCol: 0xfff4d8, sunI: 1.0, disk: 1.4, cov: 0.6, cloudLit: 0xffffff, cloudSh: 0x9aaac8, cloudScale: 0.12 });
-  const hf = morroRef(g);
-  muralhaV2(g, 620, 55, { c: [0, -8, 0], a0: -0.35, a1: 0.35, n: 16 });
-  const arv = arvoreRef(g, 0, -2, 1.0, { y: hf(0, -2) - 0.15 });
-  gramaAlta(g, 2600, [-7, 7, -5, 12], hf, { h: 0.55, mask: (x, z) => Math.hypot(x, z + 2) > 1.0 });
-  const gr = grishaLP(); g.add(gr); gr.position.set(1.7, hf(1.7, -0.6), -0.6); gr.rotation.y = Math.PI + 0.2;
-  const sp = sombraPe(g, gr);
-  const fol = folhasRef(g, 220, [-9, 9, 0.2, 6.5, -7, 9], { vel: 2.6, s: 2.2 }), ris = riscosVento(g, 22, [-6, 6, 0.4, 3.4, -7, -1.5], { op: 0.7, comp: 2.4 });
-  const sol = solFlare(g, [90, 80, -160], 1.2);
+  const PO = porao(g);
+  const gr = grishaLP(); g.add(gr); gr.position.set(-0.6, 0, -0.82); gr.rotation.y = Math.PI;
+  const pen = naMao(gr, 0, caneta(0x2a1a10), { dx: 0.006, dy: -0.075, rot: [1.2, 0, 0] });
   return {
-    bg: 0x86b2e0, fog: [60, 1100], fogCol: 0xc8dcea, hand: 0,
-    look: { exposure: 1.06, bloom: 0.4, bloomT: 0.84, vig: 0.35, sat: 1.14, con: 1.05, dof: { ap: 0.006, max: 0.012 } },
-    sun: { dir: [-0.5, 0.75, 0.55], col: 0xfff0d8, I: 2.6, c: [0.5, 3, -1.5], r: 10 }, hemi: { sky: 0xcfe2f6, ground: 0x8a7a5a, I: 1.05 }, fill: { col: 0xffe0c8, I: 1.0, dir: [0.2, 0.4, 1] }, rim: { col: 0xfff6e0, str: 1.1 },
+    bg: 0x0a0806, fog: [6, 20], fogCol: 0x0a0806, hand: 0.006,
+    look: { exposure: 1.12, bloom: 0.55, bloomT: 0.75, vig: 0.55, sat: 1.08, con: 1.08, dof: DOF_MED, rosto: 0.35, lift: [0.01, 0.005, 0] },
+    sun: { dir: [0.4, 0.8, 0.5], col: 0xffe8c0, I: 0.35, c: [0, 1, -1], r: 4 }, hemi: { sky: 0x4a3a2a, ground: 0x0a0806, I: 0.35 }, fill: { col: 0xffb870, I: 0.25, dir: [-0.5, 0.2, -1] }, rim: { col: 0xffc080, str: 1.2 },
     update(t) {
-      flash(t, a, 0.001, 0.45);
-      const esc = smr(t, K.que1 - 1.0, K.que1 + 0.3); ceu.material.uniforms.uTop.value.setHex(0x3a72c8).lerp(_c1.setHex(0x3a4258), esc); ceu.material.uniforms.uHor.value.setHex(0xd8eaf4).lerp(_c1.setHex(0x8a8e98), esc); sol.r.material.opacity = 1 - 0.8 * esc;
-      fol(t, 1 + 0.5 * esc); ris(t, 1); arv.vento(t, 1 + esc);
-      vive(gr, t, 101, { boca: "linha", triste: 0.45, palpebra: 0.85 }, 0.25); pose(gr, { head: [0.06, 0, 0] }, 1);
-      maoEm(gr, 0, frenteW(gr, 0.06, 0.88, -0.2), 1, { abre: 0.4, poleY: 0.2, poleZ: 0.4 }); maoEm(gr, 1, frenteW(gr, -0.06, 0.9, -0.2), 1, { abre: 0.4, poleY: 0.2, poleZ: 0.4 });
-      ventoAbas(gr, t, 1.2 + 0.5 * esc); cabeloVento(gr, t, 1 + esc, [1, 0, 0.2]); sp(gr.position.y);
+      flash(t, a, 0.001, 0.45); PO.vl.upd(t); floatDust(PO.poeira, t, 0.15, 0.1);
+      // o Grisha sentado escrevendo; para no "não sabia por quê" e olha pra vela
+      restPose(gr); idle(gr, t, 101, 0.2); sitPose(gr, 1, { seatY: 0.56, lean: 0.28 }); pose(gr, { neck: [0.32, 0, 0], handR: 0.85, handL: 0.35 }, 1);
+      const para = smr(t, K.que1 - 1.0, K.que1 - 0.3), esc = Math.sin(t * 7.5) * 0.02 * (1 - para), linha = ((t * 0.3) % 1) * 0.07 * (1 - para);
+      maoEm(gr, 0, V3(-0.6 + 0.04 + esc, 0.82, -1.33 - linha), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.1 }); maoEm(gr, 1, V3(-0.85, 0.81, -1.2), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.1 });
+      pose(gr, { neck: [0.32 - 0.25 * para, -0.35 * para, 0], head: [0, -0.2 * para, 0] }, 1);
+      rostoLP(gr, t, { boca: "linha", triste: 0.35 + 0.3 * para, palpebra: 0.82, piscaCada: 4.5 });
     },
     cam(t) {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([0.6, 2.4, 14], [0.4, 2.1, 11], [0, 4.4, -2], [0, 4.0, -2], 46, 44)],
-        [K.pai - 0.25, (tt, u) => { const e = olhosW(gr); return { pos: [e.x + 1.4 - 0.2 * u, e.y + 0.05, e.z - 2.6 + 0.5 * u], look: [e.x, e.y - 0.25, e.z], fov: 36 }; }],
-        [K.pior - 0.1, (tt, u) => ({ ...closeRosto(gr, lerp(1.2, 0.95, E.inOut(u)), 0.2, 0, 30) })],
-        [K.que1 - 1.2, mov([2.8, 1.7, 1.6], [3.0, 1.8, 2.6], [1.7, 1.5, -0.6], [0, 30, -620], 40, 44)],
+        [a, mov([2.4, 2.9, 1.0], [1.5, 1.9, 0.4], [-0.6, 0.95, -1.4], [-0.6, 1.0, -1.3], 44, 40)],
+        [K.pai - 0.25, (tt, u) => ({ pos: [lerp(-0.3, -0.36, u), 1.08, -1.82], look: [-0.62, 1.24, -0.95], fov: 34, near: 0.02 })],
+        [K.pior - 0.15, mov([-0.12, 1.06, -1.78], [-0.16, 1.02, -1.72], [-0.58, 0.82, -1.34], [-0.58, 0.82, -1.34], 36, 34)],
+        [K.que1 - 1.1, (tt, u) => ({ pos: [lerp(0.5, 0.35, u), 1.3, -1.72], look: [-0.7, 1.2, -0.95], fov: 30, near: 0.02 })],
       ], b);
     },
   };
@@ -2594,12 +2684,12 @@ addSet("s2-muralha", (g) => {
     update(t) {
       chicote(t, a, 0.22, 1); S.vap.upd(t); S.fum.upd(t); S.brasa(t); mul(t, 3.2);
       const run = clamp((t - a) / (K.capela - 0.3 - a)); gait(gr, D * run, { from: [0.6, 0, 4], ang: Math.PI, step: L, run: 1 }); rostoLP(gr, t, { boca: "aberta", bravo: 0.5, palpebra: 1.0, suor: 0.6 }); ventoAbas(gr, t, 1.6); cabeloVento(gr, t, 1.4, [0, 0, 1]); sp(0);
-      S.co.position.y = 50 + Math.sin(t * 0.5) * 0.3;
+      S.co.position.y = 58 + Math.sin(t * 0.5) * 0.3;
     },
     cam(t) {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([1.2, 1.4, 9], [1.0, 1.6, 6.5], [0, 14, -60], [0, 20, -60], 48, 46)],
+        [a, mov([1.2, 1.3, 9], [1.0, 1.4, 6.5], [0, 30, -60], [0, 38, -60], 52, 50)],
         [K.grisha2 - 0.2, (tt, u) => { const c = gr.position; return { pos: [c.x + 0.9, 1.5, c.z + 2.2], look: [c.x, 1.3, c.z - 2], fov: 40 }; }],
         [K.correu - 0.2, (tt, u) => { const c = gr.position; return { pos: [c.x - 0.6, 1.2, c.z - 3.4], look: [c.x, 1.25, c.z], fov: 40 }; }],
         [K.contraria - 0.1, mov([4, 9, 14], [3.5, 8, 11], [0, 1, -6], [0, 1, -10], 46, 44)],
@@ -2609,43 +2699,43 @@ addSet("s2-muralha", (g) => {
   };
 });
 
-// ---------------------------------------------------------------- 3 · a missão: no topo da muralha de Paradis, à beira-mar, ao pôr do sol (como a cena do Kruger da referência)
+// ---------------------------------------------------------------- 3 · a missão: o porto de Liberio à noite; o Kruger (oficial de Marley) entrega a seringa; Paradis no horizonte
 addSet("s3-missao", (g) => {
   const __n = "s3-missao";
   const [a, b] = T.sc["s3-missao"];
-  skyDome(g, { top: 0x2a2a5a, mid: 0xd8704a, hor: 0xffb070, ground: 0x2a2a3a, sunDir: [0.0, 0.05, -1], sunCol: 0xfff0c0, sunI: 0.55, disk: 1.4, cov: 0.3, cloudLit: 0xffb080, cloudSh: 0x6a4a5a, midY: 0.22 });
-  topoMuralha(g, 420, 6.5); marSimples(g, -60, 0x3a3a5a);
-  montanhasLonge(g, 420, 12, 0x6a5a6a, 50);
-  const sol = solFlare(g, [0, 16, -380], 1.0, 0xffe0b0); sol.r.material.opacity = 0.5; sol.d.material.opacity = 0.7;
-  const kr = krugerLP(); g.add(kr); kr.position.set(0.8, 0, -0.2); kr.rotation.y = -1.35;
-  const gr = grishaLP(); g.add(gr); gr.position.set(-0.8, 0, -0.1); gr.rotation.y = 1.4;
+  const LB = portoLiberio(g);
+  const kr = krugerLP(); g.add(kr); quepe(kr); kr.position.set(0.7, 0, -2.0); kr.rotation.y = -1.45;
+  const gr = grishaLP(); g.add(gr); bracadeira(gr); gr.position.set(-0.7, 0, -2.05); gr.rotation.y = 1.5;
   const spK = sombraPe(g, kr), spG = sombraPe(g, gr);
-  const orbG = glowSprite(0xffe0a0, 0.5, 0); g.add(orbG); const orbL = new THREE.PointLight(0xffd090, 0, 3, 1.5); g.add(orbL); const fag = estrelinhas(g, 30, [-1, 1, 0.6, 1.8, -0.6, 0.4], { s: 0.12 });
-  const coroa_ = grp(g, 0, 2.3, -0.2); for (let i = 0; i < 7; i++) mesh(new THREE.ConeGeometry(0.05, 0.18, 4), new THREE.MeshStandardMaterial({ color: 0xffd860, emissive: 0xffb030, emissiveIntensity: 1.4, metalness: 0.6 }), Math.cos(i / 7 * 6.28) * 0.22, 0, Math.sin(i / 7 * 6.28) * 0.22, coroa_); const anelC = mesh(new THREE.TorusGeometry(0.22, 0.03, 6, 20), new THREE.MeshStandardMaterial({ color: 0xffd860, emissive: 0xffb030, emissiveIntensity: 1.2 }), 0, -0.1, 0, coroa_); anelC.rotation.x = Math.PI / 2;
-  const fol = folhasRef(g, 90, [-7, 7, 0.2, 4, -6, 5], { cores: CORES_OURO, brilho: 0xffa050, vel: 1.8, s: 1.6 }), ris = riscosVento(g, 18, [-5, 5, 0.3, 3, -3, 6], { cor: 0xffe8c8, op: 0.5 });
-  const poeira = dustPts(160, [-6, 6, 0.1, 5, -10, 6], 0xffd8a0, 0.05, 0.8); g.add(poeira);
+  const SR = seringa(null); naMao(kr, 0, SR.s, { dx: 0.02, dy: -0.07, rot: [0, 0, 0] });
+  const brilhoIlha = glowSprite(0xffd070, 110, 0); brilhoIlha.position.set(25, 22, -430); g.add(brilhoIlha);
+  const coroa_ = grp(g, 25, 42, -420); for (let i = 0; i < 7; i++) mesh(new THREE.ConeGeometry(2.5, 9, 4), new THREE.MeshBasicMaterial({ color: 0xffd860, transparent: true, opacity: 0, blending: ADD }), Math.cos(i / 7 * 6.28) * 11, 0, Math.sin(i / 7 * 6.28) * 11, coroa_);
+  const ris = riscosVento(g, 16, [-5, 5, 0.3, 3, -6, 2], { cor: 0xbfd0ff, op: 0.35 });
   return {
-    bg: 0x2a2a5a, fog: [60, 900], fogCol: 0xd88a6a, hand: 0,
-    look: { exposure: 0.98, bloom: 0.45, bloomT: 0.84, vig: 0.5, sat: 1.12, con: 1.08, dof: DOF_MED },
-    sun: { dir: [0.05, 0.22, -1], col: 0xffb070, I: 2.8, c: [0, 1, -1], r: 8 }, hemi: { sky: 0xd8a0a0, ground: 0x3a2a30, I: 0.75 }, fill: { col: 0xffd0a0, I: 0.55, dir: [0.2, 0.4, 1] }, rim: { col: 0xffc080, str: 1.7 },
+    bg: 0x060a1c, fog: [30, 1600], fogCol: 0x0e1630, hand: 0,
+    look: { exposure: 1.12, bloom: 0.6, bloomT: 0.74, vig: 0.55, sat: 1.08, con: 1.08, dof: DOF_MED, rosto: 0.45 },
+    sun: { dir: [-0.3, 0.6, -0.8], col: 0x9ab0e8, I: 0.9, c: [0, 1, -2], r: 10 }, hemi: { sky: 0x2a3a6a, ground: 0x0a0a12, I: 0.55 }, fill: { col: 0xffb870, I: 0.45, dir: [0.8, 0.3, 0.4] }, rim: { col: 0xffc080, str: 1.4 },
     update(t) {
-      chicote(t, a, 0.22, -1); fol(t, 0.9); ris(t, 0.9); floatDust(poeira, t, 0.2, 0.2);
-      vive(kr, t, 102, { boca: t > K.kruger && t < K.missao + 0.8 && Math.sin(t * 9) > 0.2 ? "aberta" : "linha", bravo: 0.5, palpebra: 0.85 }, 0.2); ventoAbas(kr, t, 1.4); cabeloVento(kr, t, 1, [1, 0, 0]);
-      vive(gr, t, 101, { boca: "linha", sobe: t > K.tita ? 0.5 : 0, palpebra: t > K.tita ? 1.05 : 0.9 }, 0.2); ventoAbas(gr, t, 1.4); cabeloVento(gr, t, 1, [1, 0, 0]);
-      const toca = act(t, K.tita - 1.2, K.tita - 0.5) * (1 - smr(t, K.missao + 0.4, K.missao + 1.0)); maoEm(kr, 0, peitoW(gr).add(V3(0.08, 0, 0)), toca, { abre: 0.5, poleY: 0, poleZ: -0.3 }); pose(kr, { handR: 0.2 }, 1);
-      const vai = E.inOut(smr(t, K.tita - 0.4, K.tita + 0.6)); orbG.position.copy(peitoW(kr).lerp(peitoW(gr), vai)); orbG.material.opacity = 0.9 * smr(t, K.tita - 0.6, K.tita - 0.3) * (1 - smr(t, K.tita + 0.6, K.tita + 1.0)); orbL.position.copy(orbG.position); orbL.intensity = 3 * orbG.material.opacity; fag(t, orbG.material.opacity);
-      flash(t, K.tita + 0.55, 0.05, 0.4, [1, 0.9, 0.7]); GU.uFlash.value *= 0.5;
-      const cr = E.outBack(smr(t, K.fundador - 0.3, K.fundador + 0.4)) * (1 - smr(t, b - 0.4, b)); coroa_.scale.setScalar(Math.max(0.001, cr)); coroa_.rotation.y = t * 1.2; coroa_.visible = cr > 0.01;
+      chicote(t, a, 0.22, -1); LB.fumaca.upd(t); ris(t, 0.8);
+      vive(kr, t, 102, { boca: t > K.kruger - 0.1 && t < K.missao + 0.8 && Math.sin(t * 9) > 0.2 ? "aberta" : "linha", bravo: 0.55, palpebra: 0.8 }, 0.15); ventoAbas(kr, t, 0.8);
+      vive(gr, t, 101, { boca: "linha", sobe: t > K.tita ? 0.4 : 0, palpebra: t > K.tita ? 1.0 : 0.85 }, 0.15); ventoAbas(gr, t, 0.8);
+      // o Kruger estende a seringa; o Grisha pega no "missão"
+      const est = act(t, K.tita - 0.8, K.tita - 0.1) * (1 - smr(t, K.missao + 0.2, K.missao + 0.8)); const meio = kr.position.clone().lerp(gr.position, 0.5).setY(1.15);
+      maoEm(kr, 0, mixV(frenteW(kr, 0.18, 0.9, 0.1), meio, est), Math.max(0.001, Math.min(1, est * 3)), { abre: 0.5, poleY: 0.0, poleZ: -0.4 }); pose(kr, { handR: 0.6 }, 1);
+      const pega = smr(t, K.missao - 0.4, K.missao + 0.1) * (1 - smr(t, K.fundador, K.fundador + 0.6)); maoEm(gr, 0, mixV(frenteW(gr, 0.18, 0.9, 0.1), meio.clone().add(V3(-0.05, -0.02, 0)), pega), Math.max(0.001, pega), { abre: 0.5, poleY: 0.0, poleZ: -0.4 });
+      SR.s.visible = t > K.tita - 0.9; SR.liq.material.emissiveIntensity = 1.2 + 0.4 * Math.sin(t * 4); SR.gl.material.opacity = 0.5 + 0.2 * Math.sin(t * 4);
+      // Paradis no horizonte: o brilho dourado da família real
+      const cr = smr(t, K.fundador - 0.3, K.real + 0.3); brilhoIlha.material.opacity = 0.35 * cr; coroa_.children.forEach((m) => (m.material.opacity = 0.9 * cr)); coroa_.rotation.y = t * 0.3;
       spK(0); spG(0);
     },
     cam(t) {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([0.4, 1.6, 9.5], [0.3, 1.5, 6.5], [0, 1.4, -2], [0, 1.3, -2], 40, 38)],
-        [K.kruger - 0.2, (tt, u) => ({ ...closeRosto(kr, lerp(1.0, 0.8, E.inOut(u)), -0.55, 0, 30) })],
-        [K.tita - 1.0, mov([0.3, 1.35, 3.8], [0.2, 1.35, 3.3], [0, 1.15, -0.15], [0, 1.15, -0.15], 50, 48)],
-        [K.missao - 0.1, (tt, u) => ({ ...closeRosto(gr, lerp(1.0, 0.8, E.inOut(u)), 0.55, 0, 30) })],
-        [K.fundador - 0.4, mov([0.5, 1.6, 3.6], [0.3, 2.0, 3.0], [0, 1.6, -0.2], [0, 2.2, -0.2], 40, 38)],
+        [a, mov([3.2, 1.5, 6.5], [2.6, 1.6, 5.2], [-0.5, 1.6, -4], [-0.3, 1.5, -3], 42, 40)],
+        [K.kruger - 0.2, (tt, u) => ({ ...closeRosto(kr, lerp(1.0, 0.82, E.inOut(u)), -0.35, 0, 30) })],
+        [K.tita - 0.9, (tt, u) => { const c = SR.s.getWorldPosition(V3()); return { pos: [c.x + 0.25, c.y + 0.12, c.z + lerp(0.75, 0.55, u)], look: [c.x, c.y, c.z], fov: 34, near: 0.02 }; }],
+        [K.missao - 0.1, (tt, u) => ({ ...closeRosto(gr, lerp(1.0, 0.82, E.inOut(u)), 0.35, 0, 30) })],
+        [K.fundador - 0.5, mov([-1.4, 1.6, -0.2], [-1.2, 1.7, -0.6], [0, 1.4, -6], [25, 30, -420], 40, 30)],
       ], b);
     },
   };
@@ -2700,8 +2790,8 @@ addSet("s5-caverna", (g) => {
   const rod = rodLP(); g.add(rod);
   const raio = raios(g, [0, 14, -2.2], [0, 0, -2.2], { cor: 0xffe8a0, r: 0.08, amp: 0.8, galhos: 5 });
   // titãs: corpo inteiro musculoso, olhos acesos, vapor; o da Frieda e o de Ataque (cabelo longo)
-  const tF = titaFig(g, { cor: 0x8a6a5a, cor2: 0x6a4a40, olho: 0xffe8c0, s: 0.95 }); tF.position.set(0, 0, -6.5); tF.visible = false;
-  const tG = titaFig(g, { cor: 0x5a3a30, cor2: 0x3a241e, olho: 0x9affb0, cabelo: true, s: 1.05 }); tG.position.set(2, 0, 3); tG.rotation.y = Math.PI - 0.3; tG.visible = false;
+  const tF = titaLP({ seed: 131, pele: 0xe8c0a8, olho: "#5a7aa8", olhoAlt: 0.9, brava: 0.1, sob: 0x141418, cabelo: { ...CABELOS_AOT.frieda, seed: 141 }, s: 8.2 }); g.add(tF); tF.position.set(0, 0, -7); tF.visible = false;
+  const tG = titaLP({ seed: 132, pele: 0xc89078, olho: "#2aaa7a", olhoAlt: 0.62, brava: 0.85, sob: 0x1a1410, cabelo: { cor: 0x1a1410, dentes: 22, dente: 0.28, crista: 0.004, franjaY: 0.9, ladoY: -1.2, nucaY: -1.3, esp: 0.01, espBorda: 0.004, varia: 0.12, seed: 142, pontas: [] }, s: 9.2, orelhas: true }); g.add(tG); tG.position.set(2, 0, 3.5); tG.rotation.y = Math.PI - 0.3; tG.visible = false;
   const onda = choque(g, [0, 0, -2.2], 0xfff0c8), onda2 = choque(g, [2, 0, 3], 0xffb090);
   const vapT = steam(g, { origin: [0, 6, -6.5], n: 24, size: 3.0, spread: 6, rise: 1.5, grow: 2.0, opacity: 0.25, life: 3.5, color: 0xf0e8f0 });
   const vap = steam(g, { origin: [0, 0.5, -5], n: 34, size: 3.0, spread: 9, rise: 2, grow: 2.0, opacity: 0.28, life: 4, color: 0xd8e0f0 });
@@ -2718,8 +2808,8 @@ addSet("s5-caverna", (g) => {
       const jun = frenteW(gr, 0, 0.95, 0.28); maoEm(gr, 0, jun.clone().add(V3(0.03, 0, 0)), 1, { abre: 0.5, poleY: 0.0, poleZ: -0.3 }); maoEm(gr, 1, jun.clone().add(V3(-0.03, 0, 0)), 1, { abre: 0.5, poleY: 0.0, poleZ: -0.3 }); ventoAbas(gr, t, 0.4);
       const tr = t > K.transformou; fr.visible = !tr; vive(fr, t, 103, { boca: "linha", triste: 0.5, palpebra: 0.8 }, 0.2);
       raio.set(smr(t, K.transformou - 0.1, K.transformou) * (1 - smr(t, K.transformou + 0.3, K.transformou + 0.7)), t); flash(t, K.transformou, 0.03, 0.35, [1, 0.95, 0.8]); GU.uFlash.value *= 0.6;
-      tF.visible = tr && t < K.devorou - 0.32; tF.position.y = -6 + 6 * E.out(smr(t, K.transformou, K.transformou + 0.8)); tF.rotation.y = Math.sin(t * 0.7) * 0.1;
-      tG.visible = t > K.devorou - 0.4; tG.position.y = -6 + 6 * E.out(smr(t, K.devorou - 0.4, K.devorou + 0.2)); flash(t, K.devorou, 0.03, 0.45, [1, 0.5, 0.4]); luzR.intensity = 6 * smr(t, K.devorou - 0.2, K.devorou + 0.2) * (1 - smr(t, K.filhos - 0.2, K.filhos + 0.3));
+      tF.visible = tr && t < K.devorou - 0.32; if (tF.visible) { vive(tF, t, 131, { boca: "ryuk", palpebra: 0.9 }, 0.3); tF.position.y = -5 + 5 * E.out(smr(t, K.transformou, K.transformou + 0.8)); }
+      tG.visible = t > K.devorou - 0.4; if (tG.visible) { vive(tG, t, 132, { boca: "ryuk", bravo: 0.9, palpebra: 0.85 }, 0.3); tG.position.y = -5 + 5 * E.out(smr(t, K.devorou - 0.4, K.devorou + 0.2)); } flash(t, K.devorou, 0.03, 0.3, [1, 0.6, 0.5]); GU.uFlash.value *= 0.45; luzR.intensity = 1.6 * smr(t, K.devorou - 0.2, K.devorou + 0.2) * (1 - smr(t, K.filhos - 0.2, K.filhos + 0.3));
       if (tG.visible) gr.visible = false; else gr.visible = true;
       // as crianças viram luz azul; o Rod foge pelo túnel
       kids.forEach((k, i) => { const d = smr(t, K.filhos + i * 0.15, K.filhos + 0.9 + i * 0.15); k.visible = d < 0.5; vive(k, t, 110 + i, { boca: "aberta", choque: 1, triste: 0.6 }, 0.3); luzesK[i].visible = d > 0.05; luzesK[i].material.opacity = 0.9 * (1 - smr(t, K.filhos + 1, K.filhos + 1.8)); luzesK[i].position.y = kids[i].position.y + d * 1.2; });
@@ -2730,9 +2820,9 @@ addSet("s5-caverna", (g) => {
       return planos(t, [
         [a, mov([1.6, 1.0, 1.8], [1.2, 1.05, 1.5], [0, 0.95, -0.6], [0, 1.0, -0.8], 40, 38)],
         [K.implorou + 0.4, (tt, u) => ({ ...closeRosto(gr, lerp(0.95, 0.8, E.inOut(u)), 0.15, 0, 30) })],
-        [K.transformou - 0.15, mov([0.4, 1.2, 4.5], [0.3, 0.9, 5.5], [0, 2, -3], [0, 8, -6], 46, 52)],
-        [K.caverna - 0.1, mov([-8, 5, 12], [-6, 6, 10], [0, 4, -4], [0, 6, -4], 50, 48)],
-        [K.devorou - 0.3, mov([-5, 4, -9], [-6, 4.5, -10.5], [2, 8.5, 3], [2, 9, 3], 50, 50)],
+        [K.transformou - 0.15, mov([0.4, 1.2, 5.5], [0.3, 1.0, 7.5], [0, 2, -4], [0, 10, -7], 46, 52)],
+        [K.caverna - 0.1, mov([-6, 4, 9], [-5, 5, 8], [0, 8, -6], [0, 10, -6], 50, 48)],
+        [K.devorou - 0.3, mov([-3, 7, -8], [-3.6, 7.5, -9.5], [2, 11.5, 3.5], [2, 12, 3.5], 46, 44)],
         [K.filhos - 0.55, mov([0.2, 1.3, 0.6], [0.1, 1.4, 0.1], [-0.3, 0.7, -4.5], [-0.3, 1.2, -4.6], 44, 44)],
       ], b);
     },
@@ -2750,44 +2840,38 @@ addSet("s6-discord", (g) => {
     cam(t) { return { ...path2(t, [[a, [0, 1.3, 2.6], [0, 1.2, -0.5], 40], [b, [0, 1.3, 2.1], [0, 1.2, -0.5], 38]]), near: 0.03 }; } };
 });
 
-// ---------------------------------------------------------------- 7 · Sartre: o mundo das ideias dourado (como o Boécio da referência): estrada de luz, anéis de mostrador, pilar de luz; correntes; dois caminhos
+// ---------------------------------------------------------------- 7 · Sartre: a floresta na chuva, à noite; o Grisha ajoelhado diante do Eren criança, com a seringa na mão (a escolha)
 addSet("s7-sartre", (g) => {
   const __n = "s7-sartre";
   const [a, b] = T.sc["s7-sartre"];
-  vazio(g, 0x0a0806, 0x3a2810, 0x050403);
-  const ch = mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshStandardMaterial({ color: 0x1a140c, roughness: 0.25, metalness: 0.55 }), 0, 0, 0, g); ch.rotation.x = -Math.PI / 2;
-  const estrada = estradaLuz(g, 6, 140, 7, 0xffc860);
-  const pil = pilarLuz(g, [0, 0, -70], 70, 0.9, 0xfff0c8);
-  const aneis = [0, 1, 2, 3].map((i) => anelMostrador(g, 6 + i * 2.6, { pos: [0, 2.0, -10 - i * 7], marcas: 72 }));
-  const astro = [0, 1, 2].map((i) => { const r = anelMostrador(g, 3.2 + i * 0.5, { pos: [0, 4.2, -14], marcas: 48 }); r.rotation.set(i * 0.9, i * 0.6, 0); return r; });
-  const gr = grishaLP(); g.add(gr); const sp = sombraPe(g, gr);
-  const corr = [0, 1, 2].map((i) => { const r = mesh(new THREE.TorusGeometry(0.6, 0.012, 6, 48), new THREE.MeshBasicMaterial({ color: 0xffd060, transparent: true, opacity: 0, blending: THREE.AdditiveBlending }), 0, 0.5 + i * 0.45, 0, g); return r; });
-  const cam1 = linhaLuz(g, [[0, 0.02, -0.4], [-1.5, 0.02, -4], [-5, 0.02, -16]], { curva: true, r: 0.05, cor: 0xfff0c0, seg: 30 }), cam2 = linhaLuz(g, [[0, 0.02, -0.4], [1.5, 0.02, -4], [5, 0.02, -16]], { curva: true, r: 0.05, cor: 0xfff0c0, seg: 30 });
-  const pts = dustPts(260, [-10, 10, 0.2, 9, -40, 6], 0xffd890, 0.05, 0.85); g.add(pts); const est = estrelinhas(g, 40, [-8, 8, 0.5, 10, -30, 4], { cor: 0xffe8c0, s: 0.3 });
-  const D = 2.2, L = gaitFit(D, 0.5);
+  const FL = florestaChuva(g);
+  const ek = erenKidLP(); g.add(ek); ek.position.set(0.45, FL.hf(0.45, -0.3), -0.3); ek.rotation.y = -1.45;
+  const gr = grishaLP(); g.add(gr); gr.position.set(-0.4, FL.hf(-0.4, -0.25), -0.25); gr.rotation.y = 1.5;
+  const SR = seringa(null); naMao(gr, 0, SR.s, { dx: 0.02, dy: -0.07 });
+  const spE = sombraPe(g, ek), spG = sombraPe(g, gr);
   return {
-    bg: 0x0a0806, fog: [10, 120], fogCol: 0x0a0806, hand: 0,
-    look: { exposure: 1.02, bloom: 0.7, bloomT: 0.72, vig: 0.6, sat: 1.05, con: 1.1, dof: DOF_MED },
-    sun: { dir: [0, 0.35, -1], col: 0xffc070, I: 2.0, c: [0, 1, -1], r: 8 }, hemi: { sky: 0x6a4a2a, ground: 0x0a0806, I: 0.45 }, fill: { col: 0xffd8a0, I: 0.5, dir: [0.3, 0.3, 1] }, rim: { col: 0xffc070, str: 1.8 },
+    bg: 0x06080c, fog: [6, 40], fogCol: 0x0c1218, hand: 0.006,
+    look: { exposure: 1.12, bloom: 0.55, bloomT: 0.74, vig: 0.6, sat: 0.95, con: 1.08, dof: DOF_MED, rosto: 0.5, lift: [0.0, 0.01, 0.025] },
+    sun: { dir: [0.3, 0.9, 0.3], col: 0x8a9ab8, I: 0.6, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x2a3448, ground: 0x08090a, I: 0.45 }, fill: { col: 0xffb870, I: 0.3, dir: [0.6, 0.1, 0.8] }, rim: { col: 0xa8c0e0, str: 1.4 },
     update(t) {
-      flash(t, a, 0.001, 0.5, [1, 0.9, 0.7]); floatDust(pts, t, 0.2, 0.15); est(t);
-      estrada.forEach((l, i) => l.set(smr(t, a + i * 0.06, a + 1.0 + i * 0.06)));
-      aneis.forEach((r, i) => { const k = smr(t, K.livre - 0.8 + i * 0.15, K.livre + 0.3 + i * 0.15); r.scale.setScalar(Math.max(0.001, E.outBack(k))); r.visible = k > 0.01; r.rotation.z = t * (0.05 + i * 0.03) * (i % 2 ? 1 : -1); });
-      astro.forEach((r, i) => { const k = smr(t, a + 0.4, a + 1.4); r.scale.setScalar(Math.max(0.001, k)); r.rotation.x += 0; r.rotation.y = t * (0.25 + i * 0.1); r.rotation.x = i * 0.9 + t * 0.12; });
-      pil.gl.material.opacity = 0.5 + 0.1 * Math.sin(t * 2);
-      const anda = clamp((t - a) / (K.queria - a)); gait(gr, D * anda, { from: [0, 0, 1.2], ang: Math.PI, step: L });
-      if (t > K.queria) { restPose(gr); idle(gr, t, 101, 0.2); standFeet(gr); gr.position.set(0, 0, 1.2 - D); gr.rotation.y = Math.PI; }
-      rostoLP(gr, t, { boca: "linha", triste: 0.5, palpebra: 0.8 }); pose(gr, { neck: [0.3 * smr(t, K.escolha - 0.4, K.escolha + 0.4), 0, 0] }, 1); ventoAbas(gr, t, 0.5); sp(0);
-      corr.forEach((r, i) => { const k = smr(t, K.condenado - 0.3 + i * 0.15, K.condenado + 0.4 + i * 0.15); r.material.opacity = 0.9 * k * (1 - smr(t, K.livre, K.livre + 0.5)); r.position.set(gr.position.x, 0.5 + i * 0.45, gr.position.z); r.rotation.set(Math.PI / 2 + Math.sin(t * 1.3 + i) * 0.25, 0, t * (0.6 + i * 0.3)); r.scale.setScalar(lerp(2.5, 0.7, k)); });
-      const ca = smr(t, K.queria - 0.2, K.queria + 0.8); [cam1, cam2].forEach((c) => { c.set(ca); c.m.position.z = gr.position.z + 0.4; c.m.material.opacity = 1 - 0.9 * smr(t, K.escolha - 0.1, K.escolha + 0.6); });
+      chicote(t, a, 0.22, 1); FL.chuva_.update(t); FL.LL.intensity = 3 * (0.9 + 0.1 * noise1(t * 7));
+      // o Eren em pé, com medo; o Grisha ajoelhado, a seringa brilhando; a mão treme no "não ter escolha"
+      vive(ek, t, 6, { boca: t > K.queria ? "triste" : "aberta", triste: 0.8, choro: 0.6, palpebra: 1.05, sobe: 0.6 }, 0.25); pose(ek, { handR: 0.6, handL: 0.6 }, 1);
+      restPose(gr); idle(gr, t, 101, 0.15); kneelPose(gr); pose(gr, { spine: [0.15, 0, 0], neck: [0.1, 0, 0] }, 1);
+      const treme = smr(t, K.queria - 0.3, K.queria + 0.2) * Math.sin(t * 38) * 0.008, sobe = smr(t, K.livre - 0.6, K.livre);
+      maoEm(gr, 0, frenteW(gr, 0.14, 0.95 + 0.15 * sobe + treme, 0.3 + 0.05 * sobe), 1, { abre: 0.5, poleY: 0.0, poleZ: -0.3 }); pose(gr, { handR: 0.85 }, 1);
+      maoEm(gr, 1, corpoW(ek, "chest", 0.16, 0.28, 0.0), smr(t, a + 0.3, a + 1.0), { abre: 0.5, poleY: 0.2, poleZ: -0.3 });
+      rostoLP(gr, t, { boca: "triste", triste: 0.7, choro: 0.4 + 0.4 * smr(t, K.queria, K.escolha), palpebra: lerp(0.85, 0.55, smr(t, K.escolha - 0.2, K.escolha + 0.3)) });
+      SR.liq.material.emissiveIntensity = 1.3 + 0.4 * Math.sin(t * 5); spE(FL.hf(0.45, -0.3)); spG(FL.hf(-0.4, -0.25));
     },
     cam(t) {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, (tt, u) => { const c = gr.position; return { pos: [c.x + 0.5, 1.5, c.z + 4.2 - 0.6 * u], look: [c.x, 1.5, c.z - 6], fov: 44 }; }],
-        [K.condenado - 0.3, (tt, u) => ({ ...closeRosto(gr, lerp(1.2, 0.95, E.inOut(u)), 0.2, 0, 30) })],
-        [K.livre - 0.6, (tt, u) => { const c = gr.position; return { pos: [c.x + 0.3, 1.0 + 0.4 * u, c.z + 3.0 + 0.8 * u], look: [c.x, 3.2, c.z - 12], fov: 48 }; }],
-        [K.queria - 0.3, mov([0, 6, 2.5], [0, 7.5, 1.0], [0, 0, -3], [0, 0, -6], 46, 46)],
+        [a, mov([0.2, 1.3, 3.6], [0.15, 1.2, 2.9], [0, 0.9, -0.3], [0, 0.9, -0.3], 42, 40)],
+        [K.condenado - 0.3, (tt, u) => ({ ...closeRosto(gr, lerp(1.0, 0.82, E.inOut(u)), -0.3, 0.02, 30) })],
+        [K.livre - 0.4, (tt, u) => { const c = SR.s.getWorldPosition(V3()); return { pos: [c.x + 0.05, c.y + 0.08, c.z + lerp(0.5, 0.38, u)], look: [c.x, c.y, c.z], fov: 32, near: 0.02 }; }],
+        [K.queria - 0.2, (tt, u) => ({ ...closeRosto(ek, lerp(0.85, 0.7, E.inOut(u)), -0.25, 0, 30) })],
+        [K.escolha - 0.2, (tt, u) => ({ ...closeRosto(gr, lerp(0.9, 0.75, E.inOut(u)), -0.3, 0.02, 30) })],
       ], b);
     },
   };
@@ -2832,43 +2916,41 @@ addSet("s8-caminhos", (g) => {
   };
 });
 
-// ---------------------------------------------------------------- 9 · fim: o morro com a árvore ao pôr do sol; o Eren criança dorme encostado (como na referência); o Grisha vai embora; guindaste até acima da copa
+// ---------------------------------------------------------------- 9 · fim: a chave do porão no pescoço do Eren; o pai e o filho na porta de casa em Shiganshina ao amanhecer; a câmera sobe sobre os telhados até a Muralha Maria
 addSet("s9-fim", (g) => {
   const __n = "s9-fim";
   const [a, b] = T.sc["s9-fim"];
-  skyDome(g, { top: 0x3a4a8a, mid: 0xe8946a, hor: 0xffd090, ground: 0x6a7a4a, sunDir: [0.55, 0.08, -0.8], sunCol: 0xfff0c0, sunI: 0.9, disk: 1.6, cov: 0.45, cloudLit: 0xffc8a0, cloudSh: 0x7a6a8a, midY: 0.2 });
-  const hf = morroRef(g, { gA: 0x6a9a3a, gB: 0xb8c860, c1: 0x3a6a2a, c2: 0x8aa848, mont: 0x9a8aa8 });
-  muralhaV2(g, 620, 55, { c: [0, -8, 0], a0: -0.35, a1: 0.35, n: 16 });
-  const arv = arvoreRef(g, 0, -2, 1.0, { y: hf(0, -2) - 0.15 });
-  gramaAlta(g, 2600, [-7, 7, -5, 12], hf, { h: 0.5, base: 0x4a6a22, ponta: 0xe0d070, mask: (x, z) => Math.hypot(x, z + 2) > 1.0 && !(x > -1.2 && x < 1.8 && z > -1.6 && z < 3.2) });
-  const sol = solFlare(g, [330, 50, -480], 2.0, 0xffe0b0);
-  const ek = erenKidLP(); g.add(ek); ek.position.set(0.1, hf(0.1, -1.05), -1.05); ek.rotation.y = 0.12;
-  const gr = grishaLP(); g.add(gr); const spG = sombraPe(g, gr), spE = sombraPe(g, ek);
-  const fol = folhasRef(g, 220, [-9, 9, 0.2, 7, -7, 9], { vel: 2.4, s: 2.2, cores: [0x7ab83a, 0xa8c84a, 0xe0b850, 0x5a9a2a] }), ris = riscosVento(g, 22, [-5, 5, 0.4, 3.4, -1, 9], { cor: 0xfff0d8, op: 0.6, comp: 2.2 });
-  const D = 6, L = gaitFit(D, 0.62), tVai = K.empurrado - 0.2;
+  const SA = shiganshinaAlto(g);
+  ruaPedra(g, 12, 30, 12);
+  const casa = casaEnx(g, 0, -4.2, { w: 6, d: 5, h: 6, luz: true });
+  const sol = solFlare(g, [300, 40, -420], 1.4, 0xffe0b0);
+  const ek = erenKidLP(); g.add(ek); ek.position.set(0.35, 0, -0.9); ek.rotation.y = 0.15;
+  const gr = grishaLP(); g.add(gr); gr.position.set(-0.05, 0, -1.25); gr.rotation.y = 0.9;
+  const ch = chave(null); ek.userData.chest.add(ch); ch.position.set(0, 0.12, 0.16); ch.scale.setScalar(1 / ek.scale.x * 1.0); const cord = mesh(new THREE.TorusGeometry(0.11, 0.003, 4, 24, Math.PI), LPmat(0x5a3a22), 0, 0.22, 0.05, ek.userData.chest); cord.rotation.z = Math.PI;
+  const brilho = estrelinhas(g, 1, [0, 0, 0, 0, 0, 0], { cor: 0xfff0c0, s: 0.12 });
+  const spE = sombraPe(g, ek), spG = sombraPe(g, gr);
+  const fol = folhasRef(g, 60, [-6, 6, 0.3, 4, -4, 4], { cores: [0xe8c890, 0xd8a868, 0xf0e0c0], brilho: 0x302010, vel: 1.4, s: 1.4 });
   return {
-    bg: 0xe08a6a, fog: [60, 1100], fogCol: 0xe0b8a0, hand: 0,
-    look: { exposure: 1.05, bloom: 0.5, bloomT: 0.8, vig: 0.42, sat: 1.14, con: 1.06, dof: DOF_MED },
-    sun: { dir: [0.6, 0.3, -0.75], col: 0xffc890, I: 2.6, c: [0.5, 3, -1.5], r: 10 }, hemi: { sky: 0xe8c0a8, ground: 0x4a4a3a, I: 0.95 }, fill: { col: 0xffd8b0, I: 0.55, dir: [-0.4, 0.3, 1] }, rim: { col: 0xffc080, str: 1.5 },
+    bg: 0xe8a07a, fog: [40, 600], fogCol: 0xe8b8a0, hand: 0,
+    look: { exposure: 1.06, bloom: 0.45, bloomT: 0.82, vig: 0.42, sat: 1.12, con: 1.06, dof: DOF_MED, rosto: 0.35 },
+    sun: { dir: [0.7, 0.25, -0.65], col: 0xffc890, I: 2.6, c: [0, 2, -1], r: 10 }, hemi: { sky: 0xe8c0a8, ground: 0x4a4038, I: 0.9 }, fill: { col: 0xffd8b0, I: 0.5, dir: [-0.4, 0.3, 1] }, rim: { col: 0xffc080, str: 1.5 },
     update(t) {
-      chicote(t, a, 0.22, 1); fol(t, 1.1); ris(t, 1); arv.vento(t, 1.2);
-      // o Eren criança dormindo sentado, encostado no tronco, com lágrima (o sonho)
-      restPose(ek); idle(ek, t, 6, 0.12); sitPose(ek, 1, { seatY: 0.16, lean: -0.18 }); pose(ek, { neck: [0.3, 0.15, 0.18], legR: [-1.2, 0.25, -0.1, 0.6, 0], legL: [-1.4, -0.2, 0.1, 1.4, -0.1], handR: 0.3, handL: 0.3 }, 1); rostoLP(ek, t, { fechados: true, boca: "linha", choro: 0.5 }); cabeloVento(ek, t, 1, [1, 0, 0.2]);
-      maoEm(ek, 0, frenteW(ek, 0.22, 0.12, 0.2), 1, { abre: 0.6, poleY: 0.2, poleZ: -0.2 }); maoEm(ek, 1, frenteW(ek, -0.22, 0.12, 0.25), 1, { abre: 0.6, poleY: 0.2, poleZ: -0.2 });
-      // o Grisha olha o filho e vai embora morro abaixo
-      if (t < tVai) { gr.position.set(1.0, hf(1.0, 0.2), 0.2); gr.rotation.y = -2.3; vive(gr, t, 101, { boca: "linha", triste: 0.6, palpebra: 0.75 }, 0.2); pose(gr, { neck: [0.4, 0, 0] }, 1); }
-      else { const d = D * clamp((t - tVai) / (K.voltar - tVai)); gait(gr, d, { from: [1.0, 0, 0.2], ang: 0.7, step: L, hf: (x, z) => hf(x, z) }); rostoLP(gr, t, { boca: "linha", triste: 0.6 }); }
-      ventoAbas(gr, t, 1.3); cabeloVento(gr, t, 1, [1, 0, 0.2]); spG(hf(gr.position.x, gr.position.z)); spE(hf(0.1, -1.05) + 0.02);
+      chicote(t, a, 0.22, 1); SA.aves(t); fol(t, 0.7);
+      vive(ek, t, 6, { boca: "linha", palpebra: 1.0, sobe: 0.3 }, 0.2); cabeloVento(ek, t, 0.6, [1, 0, 0]);
+      vive(gr, t, 101, { boca: t > K.filho9 ? "sorriso" : "linha", triste: 0.3, palpebra: 0.8 }, 0.2); pose(gr, { neck: [0.3, 0.2, 0] }, 1); ventoAbas(gr, t, 0.7);
+      // a mão do pai no ombro do filho
+      maoEm(gr, 0, corpoW(ek, "head", 0.0, 0.17, -0.01), smr(t, K.empurrado - 0.6, K.empurrado), { abre: 0.9, poleY: -0.2, poleZ: -0.1 }); pose(gr, { handR: 0.2 }, 1);
+      const cw = ch.getWorldPosition(V3()); brilho(t, 1); g.children.filter((c) => c.isSprite && c.material.map === estrelaTex).forEach((s_) => s_.position.copy(cw).add(V3(0.01, 0.02, 0.03)));
+      spE(0); spG(0);
       escurece(t, b - 0.7, b, [0, 0, 0], 1);
     },
     cam(t) {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([0.5, 0.95, 2.4], [0.35, 0.85, 1.9], [0.1, 0.5, -1.05], [0.1, 0.5, -1.05], 38, 36)],
-        [K.comecou - 0.2, (tt, u) => ({ ...closeRosto(ek, lerp(0.8, 0.65, E.inOut(u)), 0.12, 0, 30) })],
-        [K.empurrado - 0.3, (tt, u) => { const c = gr.position; return { pos: [c.x - 1.4, c.y + 1.45, c.z + 2.6], look: [c.x, c.y + 1.1, c.z], fov: 40 }; }],
-        // guindaste: sobe colado no tronco, passa pelos galhos e sai acima da copa revelando o vale e a muralha (como o fim da referência)
-        [K.voltar - 0.4, (tt, u) => { if (u < 0.5) { const k = E.inOut(u / 0.5); return { pos: [0.3, lerp(1.0, 3.2, k), lerp(1.4, 2.2, k)], look: [0, lerp(2.5, 5.5, k), -2], fov: 52 }; } const k = E.inOut((u - 0.5) / 0.5); return { pos: [0.3, lerp(3.2, 13, k), lerp(2.2, 9, k)], look: [0, lerp(5.5, 8, k), lerp(-2, -220, k)], fov: lerp(52, 46, k) }; }],
+        [a, (tt, u) => { const c = ch.getWorldPosition(V3()); return { pos: [c.x + 0.05, c.y + 0.05, c.z + lerp(0.42, 0.34, u)], look: [c.x, c.y, c.z], fov: 32, near: 0.02 }; }],
+        [K.empurrado - 0.5, mov([1.6, 1.2, 2.6], [1.3, 1.25, 2.2], [-0.05, 0.95, -1.0], [-0.05, 1.0, -1.0], 40, 38)],
+        // sobe sobre os telhados até ver Shiganshina inteira e a Muralha Maria ao amanhecer
+        [K.voltar - 0.4, (tt, u) => { const k = E.inOut(u); return { pos: [lerp(1.3, 6, k), lerp(1.3, 60, k), lerp(2.2, 70, k)], look: [lerp(0, -10, k), lerp(1.0, 10, k), lerp(-1, -120, k)], fov: lerp(40, 50, k) }; }],
       ], b);
     },
   };
@@ -2887,6 +2969,7 @@ function applyLook(s) {
   bloom.strength = L.bloom ?? 0.55; bloom.radius = L.bloomR ?? 0.6; bloom.threshold = L.bloomT ?? 0.82;
   GU.uVig.value = L.vig ?? 0.35; GU.uGrain.value = L.grain ?? 0.028; GU.uCA.value = L.ca ?? 0.004; GU.uSat.value = L.sat ?? 1.05; GU.uCon.value = L.con ?? 1.04;
   GU.uLift.value.set(...(L.lift ?? [0, 0, 0])); GU.uGain.value.set(...(L.gain ?? [1, 1, 1])); GU.uFlash.value = 0; GU.uFade.value = 0; GU.uBlur.value.set(0, 0); GU.uFlashCol.value.set(1, 1, 1);
+  luzRosto.intensity = L.rosto ?? 0;
   bokeh.enabled = !!L.dof; if (L.dof) { bokeh.uniforms.aperture.value = L.dof.ap ?? 0.004; bokeh.uniforms.maxblur.value = L.dof.max ?? 0.01; }
   const S_ = s.sun || {}; setSun(S_.dir ?? [0.5, 0.8, 0.4], S_.col ?? 0xfff0d8, S_.I ?? 2.4, S_.c ?? [0, 0, 0], S_.r ?? 30);
   sun.castShadow = S_.shadow !== false;

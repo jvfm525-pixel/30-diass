@@ -1,0 +1,80 @@
+// ================================================================ locais de Attack on Titan (desenho nosso, sem copiar a referência)
+// porão dos Yeager, porto de Liberio à noite, floresta na chuva, Shiganshina ao amanhecer, titãs de corpo inteiro.
+
+// ---------------------------------------------------------------- texturas
+const pedraPoraoTex = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#5a5048"; c.fillRect(0, 0, w, h); for (let r = 0; r < 8; r++) { const off = (r % 2) * 32; for (let k = -1; k < 5; k++) { const v = 90 + hash(r * 9 + k) * 40; c.fillStyle = `rgb(${v + 10},${v},${v - 10})`; c.fillRect(k * 64 + off + 2, r * 32 + 2, 60, 28); } } for (let i = 0; i < 40; i++) { c.fillStyle = `rgba(20,15,10,${0.05 + hash(i) * 0.1})`; c.fillRect(hash(i * 3) * w, hash(i * 5) * h, 10 + hash(i * 7) * 30, 6 + hash(i * 9) * 20); } });
+const madeiraTex = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#6a4428"; c.fillRect(0, 0, w, h); for (let i = 0; i < 60; i++) { c.strokeStyle = `rgba(${hash(i) > 0.5 ? "40,24,12" : "140,96,60"},${0.15 + hash(i * 3) * 0.2})`; c.lineWidth = 1 + hash(i * 5) * 2; c.beginPath(); const y = hash(i * 7) * h; c.moveTo(0, y); c.bezierCurveTo(w * 0.3, y + 6, w * 0.6, y - 6, w, y + 3); c.stroke(); } });
+const tijoloTex = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#3a2a24"; c.fillRect(0, 0, w, h); for (let r = 0; r < 16; r++) { const off = (r % 2) * 16; for (let k = -1; k < 9; k++) { const v = 0.75 + hash(r * 13 + k) * 0.35; c.fillStyle = `rgb(${(120 * v) | 0},${(60 * v) | 0},${(44 * v) | 0})`; c.fillRect(k * 32 + off + 1, r * 16 + 1, 30, 14); } } });
+const fotoTex = canvasTex(128, 96, (c, w, h) => { const g_ = c.createLinearGradient(0, 0, 0, h); g_.addColorStop(0, "#d8c8a0"); g_.addColorStop(1, "#a89070"); c.fillStyle = g_; c.fillRect(0, 0, w, h); c.fillStyle = "rgba(60,40,24,.75)"; [[40, 56, 12], [64, 50, 14], [88, 60, 9]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y - r * 1.4, r * 0.55, 0, 7); c.fill(); c.fillRect(x - r * 0.6, y - r * 0.8, r * 1.2, r * 2.4); }); c.strokeStyle = "#f0e8d8"; c.lineWidth = 6; c.strokeRect(0, 0, w, h); });
+const capaLivroTex = (cor) => canvasTex(64, 96, (c, w, h) => { c.fillStyle = cor; c.fillRect(0, 0, w, h); c.strokeStyle = "rgba(220,190,120,.8)"; c.lineWidth = 2; c.strokeRect(6, 6, w - 12, h - 12); c.fillStyle = "rgba(220,190,120,.8)"; c.fillRect(14, 40, w - 28, 4); });
+const bracadeiraTex = canvasTex(128, 32, (c, w, h) => { c.fillStyle = "#e8c840"; c.fillRect(0, 0, w, h); c.strokeStyle = "#2a2a6a"; c.lineWidth = 2.5; const cx = w / 2, cy = h / 2; c.beginPath(); for (let i = 0; i <= 9; i++) { const a = -Math.PI / 2 + i * (Math.PI * 4 / 9), r = 12; i ? c.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r) : c.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); } c.stroke(); });
+
+// ---------------------------------------------------------------- objetos
+function vela(g, x, y, z) { const v = grp(g, x, y, z); mesh(cyl(0.025, 0.028, 0.12, 8), LPmat(0xf0e8d8, { rim: 0.4 }), 0, 0.06, 0, v); mesh(cyl(0.05, 0.06, 0.012, 10), LPmat(0x8a6a3a, { metal: 0.6 }), 0, 0.006, 0, v); const ch = glowSprite(0xffb050, 0.12, 0.95); ch.position.y = 0.15; v.add(ch); const ch2 = glowSprite(0xffd890, 0.035, 1); ch2.position.y = 0.145; v.add(ch2); const L = new THREE.PointLight(0xffb060, 2.2, 6, 1.6); L.position.y = 0.2; L.castShadow = true; L.shadow.mapSize.set(1024, 1024); v.add(L); return { v, ch, L, upd(t) { const f = 0.85 + 0.15 * noise1(t * 9) + 0.05 * Math.sin(t * 23); L.intensity = 2.2 * f; ch.scale.setScalar(0.12 * (0.9 + 0.2 * noise1(t * 11))); } }; }
+function livro(g, cor, x, y, z, ry = 0, aberto = false) { const l = grp(g, x, y, z); l.rotation.y = ry; const capa = new THREE.MeshStandardMaterial({ map: capaLivroTex(cor), roughness: 0.7 }); if (!aberto) { mesh(box(0.16, 0.04, 0.22), [LPmat(0xe8dcc0), LPmat(0xe8dcc0), capa, LPmat(0x2a1a10), LPmat(0xe8dcc0), LPmat(0xe8dcc0)], 0, 0.02, 0, l); } else { [-1, 1].forEach((k) => { const pg = mesh(box(0.15, 0.012, 0.22), LPmat(0xeee4cc, { rim: 0.2 }), k * 0.077, 0.012, 0, l); pg.rotation.z = -k * 0.06; }); } return l; }
+function chave(g) { const c = grp(g); const m = LPmat(0xb89a50, { metal: 0.85, rough: 0.3, liso: true }); mesh(new THREE.TorusGeometry(0.022, 0.006, 6, 16), m, 0, 0.05, 0, c); mesh(cyl(0.005, 0.005, 0.07, 6), m, 0, 0.0, 0, c); mesh(box(0.016, 0.01, 0.005), m, 0.008, -0.025, 0, c); mesh(box(0.012, 0.008, 0.005), m, 0.006, -0.012, 0, c); return c; }
+function seringa(g) { const s = grp(g); mesh(cyl(0.012, 0.012, 0.11, 10), new THREE.MeshStandardMaterial({ color: 0xd8f0e8, transparent: true, opacity: 0.55, roughness: 0.1 }), 0, 0, 0, s); const liq = mesh(cyl(0.009, 0.009, 0.07, 10), new THREE.MeshStandardMaterial({ color: 0x9aff9a, emissive: 0x5aff7a, emissiveIntensity: 1.4 }), 0, -0.012, 0, s); mesh(cyl(0.002, 0.002, 0.05, 4), LPmat(0xd0d0d8, { metal: 0.9 }), 0, -0.08, 0, s); mesh(cyl(0.016, 0.016, 0.006, 10), LPmat(0x9a9aa0, { metal: 0.7 }), 0, 0.058, 0, s); const gl = glowSprite(0x9aff9a, 0.12, 0.5); s.add(gl); return { s, liq, gl }; }
+function lampiao(g, x, z, h = 3.2) { const l = grp(g, x, 0, z), ferro = LPmat(0x1a1a1e, { metal: 0.6 }); mesh(cyl(0.05, 0.07, h, 6), ferro, 0, h / 2, 0, l); mesh(box(0.26, 0.34, 0.26), new THREE.MeshStandardMaterial({ color: 0xffe0a0, emissive: 0xffc060, emissiveIntensity: 1.6 }), 0, h + 0.17, 0, l); mesh(new THREE.ConeGeometry(0.22, 0.16, 4), ferro, 0, h + 0.42, 0, l).rotation.y = Math.PI / 4; const L = new THREE.PointLight(0xffb860, 3.5, 12, 1.6); L.position.y = h + 0.1; l.add(L); const gl = glowSprite(0xffc070, 1.6, 0.55); gl.position.y = h + 0.17; l.add(gl); return l; }
+function bracadeira(p) { const u = p.userData; const b = mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.07, 14, 1, true), new THREE.MeshStandardMaterial({ map: bracadeiraTex, side: THREE.DoubleSide, roughness: 0.8 }), 0, -0.13, 0, u.sh[1]); return b; }
+function quepe(p, cor = 0x3a3a2e) { const u = p.userData, m = LPmat(cor, { rim: 0.6 }); const cp = mesh(cyl(0.118, 0.095, 0.045, 14), m, 0, 0.21, -0.01, u.head); cp.rotation.x = -0.12; const aba = mesh(cyl(0.09, 0.09, 0.008, 14, 1, false, -Math.PI / 2, Math.PI), LPmat(0x141414, { rim: 0.3 }), 0, 0.19, 0.03, u.head); aba.scale.z = 1.2; mesh(cyl(0.101, 0.101, 0.016, 14), LPmat(0xb89a50, { metal: 0.6 }), 0, 0.19, -0.01, u.head); }
+// titã de corpo inteiro = pessoa low-poly gigante e nua (pele no lugar da roupa), com sorriso de dentes e vapor
+function titaLP(o = {}) { const pele = o.pele ?? 0xd8a888; const p = pessoaLP({ seed: o.seed ?? 130, pele, roupa: pele, calca: pele, sapato: pele, sola: pele, botoes: false, olho: o.olho ?? "#4a8a6a", olhoAlt: o.olhoAlt ?? 0.75, brava: o.brava ?? 0.5, sobrancelha: o.sob ?? 0x2a2018, cabelo: o.cabelo, bocaRyuk: true, scale: o.s ?? 9, queixo: 0.82 });
+  const u = p.userData; if (o.orelhas) [-1, 1].forEach((k) => { const e = mesh(new THREE.ConeGeometry(0.018, 0.05, 4), LPmat(pele, { rim: 0.6 }), k * 0.078, 0.11, -0.01, u.head); e.rotation.z = -k * 1.2; });
+  // marcas de músculo no rosto (linhas das bochechas, como os titãs da obra)
+  if (o.marcas !== false) [-1, 1].forEach((k) => { const m = mesh(box(0.004, 0.05, 0.004), LPmat(0x8a4a3a), k * 0.05, 0.035, surfZ(u.headM, k * 0.05, 0.035) - 0.001, u.head); m.rotation.z = k * 0.4; });
+  return p; }
+
+// ---------------------------------------------------------------- porão dos Yeager (o segredo do Grisha): pedra, vigas, escada com a porta lá em cima, mesa com vela, os três livros, a foto, a chave, estantes de médico
+function porao(g) { const P = grp(g), pm = new THREE.MeshStandardMaterial({ map: rep(pedraPoraoTex.clone(), 3, 1.5), roughness: 0.95 }); pm.map.needsUpdate = true; const mad = new THREE.MeshStandardMaterial({ map: rep(madeiraTex.clone(), 2, 1), roughness: 0.8 }); mad.map.needsUpdate = true;
+  const chao = mesh(new THREE.PlaneGeometry(7, 7), new THREE.MeshStandardMaterial({ map: rep(madeiraTex.clone(), 4, 4), color: 0x9a8070, roughness: 0.85 }), 0, 0, 0, P); chao.rotation.x = -Math.PI / 2; chao.material.map.needsUpdate = true;
+  mesh(box(7, 3, 0.3), pm, 0, 1.5, -2.6, P); [-1, 1].forEach((k) => mesh(box(0.3, 3, 7), pm, k * 3.2, 1.5, 0, P)); mesh(box(7, 0.2, 7), mad, 0, 3.0, 0, P);
+  for (let i = 0; i < 5; i++) mesh(box(0.22, 0.26, 7), mad, -2.6 + i * 1.3, 2.8, 0, P);
+  // escada subindo para a porta (luz do dia entrando)
+  for (let i = 0; i < 9; i++) mesh(box(1.1, 0.12, 0.32), mad, 2.4, 0.1 + i * 0.3, 1.6 - i * 0.32, P); const porta = mesh(box(1.0, 1.9, 0.08), new THREE.MeshBasicMaterial({ color: 0xfff0d0 }), 2.4, 3.6, -1.3, P); porta.castShadow = false;
+  const raios = godRays(P, [2.4, 3.6, -1.1], [-0.35, -0.75, 0.55], { color: 0xffe8c0, n: 5, len: 5, w: 0.7, opacity: 0.08, spread: 0.8 });
+  // mesa, cadeira, estantes com frascos
+  const mesa = grp(P, -0.6, 0, -1.5); mesh(box(1.6, 0.06, 0.8), mad, 0, 0.76, 0, mesa); [[-0.74, -0.34], [0.74, -0.34], [-0.74, 0.34], [0.74, 0.34]].forEach(([x, z]) => mesh(box(0.07, 0.76, 0.07), mad, x, 0.38, z, mesa)); mesh(box(1.5, 0.3, 0.6), mad, 0, 0.58, -0.05, mesa);
+  const cad = grp(P, -0.6, 0, -0.85); mesh(box(0.46, 0.05, 0.46), mad, 0, 0.48, 0, cad); mesh(box(0.46, 0.55, 0.05), mad, 0, 0.78, 0.22, cad); [[-0.2, -0.2], [0.2, -0.2], [-0.2, 0.2], [0.2, 0.2]].forEach(([x, z]) => mesh(box(0.04, 0.48, 0.04), mad, x, 0.24, z, cad));
+  [-2.9, 2.9].forEach((x, k) => { if (k) return; for (let j = 0; j < 4; j++) { mesh(box(0.35, 0.04, 2.4), mad, x, 0.5 + j * 0.55, -0.5, P); for (let i = 0; i < 9; i++) { const vid = new THREE.MeshStandardMaterial({ color: [0x5a8a5a, 0x8a5a3a, 0x3a5a8a, 0xb89a50][(i + j) % 4], transparent: true, opacity: 0.75, roughness: 0.15, metalness: 0.2 }); mesh(cyl(0.05, 0.05, 0.16 + hash(i + j * 9) * 0.12, 8), vid, x + 0.02, 0.6 + j * 0.55 + 0.07, -1.5 + i * 0.25, P); } } });
+  const vl = vela(P, -1.05, 0.79, -1.55);
+  const livros = [livro(P, "#4a2a1a", -0.25, 0.79, -1.6, 0.2), livro(P, "#2a3a4a", -0.24, 0.83, -1.6, 0.25), livro(P, "#3a2a3a", -0.26, 0.87, -1.62, 0.15), livro(P, "#4a3a2a", -0.65, 0.79, -1.35, 0, true)];
+  const foto = mesh(new THREE.PlaneGeometry(0.16, 0.12), new THREE.MeshStandardMaterial({ map: fotoTex, roughness: 0.6 }), -1.25, 0.95, -1.82, P); foto.rotation.x = -0.25; mesh(box(0.18, 0.14, 0.01), LPmat(0x3a2414), -1.25, 0.948, -1.826, P).rotation.x = -0.25;
+  const ch = chave(P); ch.position.set(-0.95, 0.8, -1.25); ch.rotation.set(Math.PI / 2, 0, 0.6);
+  const poeira = dustPts(240, [-2.5, 2.5, 0.2, 2.8, -2.4, 2], 0xffe0b0, 0.03, 0.75); P.add(poeira);
+  return { P, vl, livros, ch, poeira, raios, mesa, cad }; }
+
+// ---------------------------------------------------------------- porto de Liberio à noite (Marley): armazéns de tijolo, lampiões, cais, navios, mar ao luar e a ilha de Paradis no horizonte
+function portoLiberio(g) { const L = grp(g); skyDome(L, { top: 0x060a1c, mid: 0x14204a, hor: 0x3a4a7a, ground: 0x0a0c14, sunDir: [-0.3, 0.35, -1], sunCol: 0xd8e4ff, sunI: 0.9, disk: 1.0, cov: 0.35, cloudLit: 0x8a9ac8, cloudSh: 0x141a30, stars: 1.2, midY: 0.18 });
+  const lua = glowSprite(0xe8eeff, 14, 0.45); lua.position.set(-80, 120, -400); L.add(lua); const lua2 = glowSprite(0xffffff, 5, 1); lua2.position.copy(lua.position); L.add(lua2);
+  const mar = mesh(new THREE.PlaneGeometry(3000, 3000, 80, 80), new THREE.MeshStandardMaterial({ color: 0x0e1a34, roughness: 0.25, metalness: 0.6, flatShading: true }), 0, -1.2, -1500, L); mar.rotation.x = -Math.PI / 2; deform(mar.geometry, (v) => { v.z = Math.sin(v.x * 0.3) * 0.15 + Math.cos(v.y * 0.25) * 0.12; });
+  const rastro = mesh(new THREE.PlaneGeometry(6, 400), new THREE.MeshBasicMaterial({ color: 0xbfd0ff, transparent: true, opacity: 0.18, blending: ADD, depthWrite: false }), -12, -1.1, -220, L); rastro.rotation.x = -Math.PI / 2; rastro.rotation.z = 0.2;
+  const ilha = mesh(new THREE.ConeGeometry(130, 30, 9), new THREE.MeshStandardMaterial({ color: 0x1a2240, roughness: 1, flatShading: true }), 25, -2, -440, L); ilha.scale.z = 0.25;
+  const cais = mesh(box(14, 0.4, 40), new THREE.MeshStandardMaterial({ map: rep(madeiraTex.clone(), 6, 18), roughness: 0.8 }), 0, -0.2, -6, L); cais.material.map.needsUpdate = true;
+  for (let i = 0; i < 8; i++) [-1, 1].forEach((k) => mesh(cyl(0.18, 0.2, 2.4, 6), LPmat(0x2a1e14), k * 6.8, -1.3, -24 + i * 5, L));
+  const tij = new THREE.MeshStandardMaterial({ map: rep(tijoloTex.clone(), 4, 2), roughness: 0.9 }); tij.map.needsUpdate = true;
+  for (let i = 0; i < 5; i++) { const a = grp(L, -11, 0, 10 - i * 9); mesh(box(8, 7 + hash(i) * 3, 8), tij, 0, 4, 0, a); mesh(box(8.4, 0.4, 8.4), LPmat(0x2a2020), 0, 8.2 + hash(i) * 3, 0, a); for (let j = 0; j < 3; j++) mesh(box(0.06, 1.0, 0.7), new THREE.MeshStandardMaterial({ color: 0x1a1410, emissive: hash(i * 3 + j) > 0.5 ? 0xffb860 : 0x000000, emissiveIntensity: 1.2 }), 4.03, 2.5 + j * 2, -2.5 + j * 2.2, a); }
+  const lamps = [[-5.5, 2], [-5.5, -8], [5.5, -4], [5.5, -14]].map(([x, z]) => lampiao(L, x, z));
+  const navio = grp(L, 14, -1.2, -20); mesh(box(4, 2.2, 22), LPmat(0x1a1612), 0, 1.1, 0, navio); mesh(box(3.4, 2.6, 6), LPmat(0x2a2420), 0, 3.4, 3, navio); mesh(cyl(0.5, 0.6, 5, 8), LPmat(0x3a2a24), 0, 6.5, 2, navio); [-3, 0, 3].forEach((z) => mesh(box(0.1, 0.5, 0.5), new THREE.MeshBasicMaterial({ color: 0xffd890 }), -2.02, 1.5, z, navio));
+  const fumaca = steam(L, { origin: [14, 8.5, -18], n: 18, size: 2.5, spread: 1, rise: 1.5, opacity: 0.25, color: 0x3a3a48, wind: [-0.4, 0, 0] });
+  return { L, lamps, fumaca, ilha }; }
+
+// ---------------------------------------------------------------- floresta à noite, chuva
+function florestaChuva(g) { const F = grp(g); skyDome(F, { top: 0x04060c, mid: 0x0a1018, hor: 0x1a2230, ground: 0x06080a, sunDir: [0, 0.3, -1], sunI: 0, cov: 0.8, cloudLit: 0x2a3040, cloudSh: 0x0a0c10 });
+  const hf = (x, z) => Math.sin(x * 0.2) * 0.25 + Math.cos(z * 0.18) * 0.2;
+  terrain(F, { size: 120, segs: 70, h: hf, grassA: 0x1a2a1a, grassB: 0x24321e, dirt: 0x2a2418, rock: 0x2a2a2a });
+  grassField(F, 2500, [-10, 10, -10, 8], hf, { s: 0.7, colA: 0x1e3a1e, colB: 0x2e4a24 });
+  forestInst(F, 120, 30, hf, { leaf: 0x16281a }); [[-2.2, -2.6], [2.4, -3.2], [-3.4, 0.6], [3.2, 1.5]].forEach(([x, z], i) => tree(F, x, hf(x, z), z, { s: 0.55, seed: 20 + i }));
+  const chuva_ = chuva(F, { n: 1600, area: [-6, 6, 0, 8, -6, 6], cor: 0xa8c0e0, op: 0.4, vel: 12, vento: -0.6 });
+  const lan = grp(F, 0.5, hf(0.5, 0.6), 0.6); mesh(box(0.16, 0.22, 0.16), new THREE.MeshStandardMaterial({ color: 0xffd090, emissive: 0xffa040, emissiveIntensity: 1.5 }), 0, 0.11, 0, lan); const LL = new THREE.PointLight(0xffb060, 3, 8, 1.6); LL.position.y = 0.3; LL.castShadow = true; lan.add(LL); const lg = glowSprite(0xffb060, 1.2, 0.5); lg.position.y = 0.12; lan.add(lg);
+  return { F, hf, chuva_, LL }; }
+
+// ---------------------------------------------------------------- Shiganshina ao amanhecer, vista de cima (telhados, a Muralha Maria, pássaros)
+function shiganshinaAlto(g) { const S = grp(g); skyDome(S, { top: 0x3a5a9a, mid: 0xe8a07a, hor: 0xffd8a8, ground: 0x4a4038, sunDir: [0.6, 0.06, -0.8], sunCol: 0xfff0c8, sunI: 1.0, disk: 1.8, cov: 0.4, cloudLit: 0xffc8a0, cloudSh: 0x7a6a8a, midY: 0.2 });
+  const ch = mesh(new THREE.PlaneGeometry(800, 800), LPmat(0x6a6a4a), 0, -0.02, 0, S); ch.rotation.x = -Math.PI / 2;
+  // quarteirões em grade com ruas (como uma cidade de verdade), praça no meio
+  let n_ = 0; for (let gx = -7; gx <= 7; gx++) for (let gz = -7; gz <= 7; gz++) { const cx = gx * 11, cz = gz * 11; if (Math.hypot(cx, cz) > 82 || (Math.abs(gx) < 1 && Math.abs(gz) < 1)) continue; if (gx === 0 || gz === 0) continue;
+    for (let k = 0; k < 4; k++) { const ox = (k % 2 ? 2.6 : -2.6), oz = (k < 2 ? 2.6 : -2.6), i = n_++; casaEnx(S, cx + ox, cz + oz, { ry: (k % 2 ? 0 : Math.PI) + (hash(i) > 0.5 ? Math.PI / 2 : 0), w: 4.4, d: 4.4, h: 4 + hash(i * 3) * 4, luz: hash(i * 7) > 0.75, chamine: hash(i * 9) > 0.5, janelas: 1 }); } }
+  [0, Math.PI / 2].forEach((r) => { const rua = ruaPedra(S, 7, 170, 85); rua.rotation.z = r; });
+  muralhaV2(S, 95, 50, { c: [0, 0, 0], a0: -3.14, a1: 3.14, n: 40, canhoes: 24 });
+  const aves = birds(S, 9, { center: [0, 30, -20], rx: 30, rz: 12 });
+  return { S, aves }; }
