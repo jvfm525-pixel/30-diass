@@ -15,7 +15,7 @@
   - cabeçalhos de capítulo em versalete ("— A JAULA —"), nome de quem fala em lilás e fichas de citação ("Jujutsu Kaisen · cap. 213");
   - trilha contínua e suave, poucos efeitos sonoros, silêncio na última frase;
   - **fechamento circular**: termina na mesma imagem do começo.
-- Keys da Steam no meio, numa frase curta.
+- Propaganda do servidor do Discord no meio, numa frase curta (keys aleatórias, outros itens e aulas de como fazer esse tipo de vídeo).
 - Contém spoilers do mangá (caps. 212–236).
 
 **Personagens da obra em 3D low-poly** (desenho próprio, nada de arte oficial)
@@ -35,7 +35,7 @@
 | — O PRIMEIRO OLHAR — | Noite azul com chuva | Pátio alagado do reformatório. O Sukuna (no corpo do Yuji) sorri; o Megumi faz o sinal e os cães saem da sombra dele. Close dos olhos vermelhos que não saem do garoto. | a roupa do Yuji **fica dourada de baixo pra cima** |
 | — A JAULA — | Preto e dourado | Linhas de luz desenham uma casa em volta do Yuji, e a casa vira **jaula**. O Sukuna preso atrás das grades vermelhas. Ficha *Jujutsu Kaisen · cap. 213*. | a sombra cobre a tela |
 | — AS DEZ SOMBRAS — | Sombra azul e violeta | O Megumi faz o sinal; a sombra se espalha em **anéis no chão**; o Mahoraga sobe com a roda girando e trava a cada ataque. | chicote |
-| (keys) | Templo dourado | Baú de pedra que se abre com cartões de luz. | chicote |
+| (Discord) | Templo dourado | Baú de pedra que se abre: saem cartões de luz (keys), outros itens e uma claquete (as aulas). Sem logo oficial. | chicote |
 | — O PACTO — | Pôr do sol laranja e roxo | Ficha *cap. 212*. Uma boca abre na bochecha do Yuji; **veias de raio** e o relógio de 1 minuto. Um **orbe de luz** sai do peito do Yuji e entra no Megumi; os olhos dele ficam vermelhos. | flash branco |
 | — O BANHO — | Água escura com raios de luz | O Megumi afunda devagar. A Tsumiki aparece em luz clara e se desfaz em partículas. | a superfície da água vira **nuvem de fumaça** |
 | — O MANUAL — | Lilás e marrom, fogo no horizonte | A roda do Mahoraga trava, clique a clique. O Gojo no Infinito, com anéis azuis. Uma **linha branca corta a tela**. **SUKUNA:** "Eu tinha um ótimo manual." (ficha *cap. 236*) | flash branco |
@@ -52,7 +52,7 @@
 
 [mysterious] Então, por que logo o Megumi? [pause] Por causa das Dez Sombras, a técnica que nasceu no corpo dele. E junto dela vem o Mahoraga, o shikigami que se adapta a qualquer ataque.
 
-[casual] Rapidinho: tem keys aleatórias da Steam bem baratas no link da minha bio.
+[casual] Rapidinho: no meu servidor do Discord tem keys aleatórias, vários outros itens, e eu ainda ensino a fazer vídeos como este. O link tá na bio.
 
 [dramatic] No capítulo 212, o Sukuna ativou o pacto de um minuto que tinha arrancado do Yuji, cortou um dedo e obrigou o Megumi a engolir. Trocou de corpo como quem muda de casa... sem pagar o aluguel.
 
@@ -74,7 +74,7 @@ Não foi acaso: ele planejava isso desde o primeiro encontro dos dois. A jaula, 
 
 ⚠️ Contém spoilers do mangá de Jujutsu Kaisen
 
-🎮 Keys aleatórias da Steam baratas no link da minha bio!
+🎮 No meu servidor do Discord tem keys aleatórias, vários itens e aulas de como fazer esse tipo de vídeo. Link na bio!
 
 #jujutsukaisen #sukuna #megumi #yuji #gojo #anime #curiosidades #fyp
 ```

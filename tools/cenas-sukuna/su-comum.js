@@ -151,9 +151,9 @@ function vazio(g, top, hor, chao_ = 0x050405, o = {}) {
 // cães divinos (lobos de sombra): corpo facetado, focinho em cunha, orelhas em pé, rabo cheio
 function loboLP(o = {}) {
   const cor = o.cor ?? 0xe8e8ee, esc = o.escuro ?? 0x2a2a32, m = LPmat(cor, { rim: 1.1, rough: 0.8 }), md = LPmat(esc, { rim: 0.9, rough: 0.8 });
-  const root = new THREE.Group(), body = grp(root, 0, 0.62, 0);
+  const root = new THREE.Group(), body = grp(root, 0, 0.5, 0);
   const tor = mesh(new THREE.CapsuleGeometry(0.2, 0.62, 3, 6), m, 0, 0, 0, body); tor.rotation.x = Math.PI / 2; tor.scale.set(1, 1, 1.05);
-  mesh(new THREE.SphereGeometry(0.25, 6, 5), m, 0, 0.04, 0.3, body).scale.set(0.95, 1.05, 0.9); // peito
+  mesh(new THREE.SphereGeometry(0.2, 6, 5), m, 0, 0.02, 0.3, body).scale.set(1, 1.05, 0.85); // peito
   const neck = grp(body, 0, 0.12, 0.42); neck.rotation.x = -0.55;
   mesh(new THREE.CylinderGeometry(0.12, 0.16, 0.3, 6), m, 0, 0.12, 0, neck);
   const head = grp(neck, 0, 0.3, 0.02); head.rotation.x = 0.55;
@@ -168,18 +168,19 @@ function loboLP(o = {}) {
   const tail = grp(body, 0, 0.08, -0.48); tail.rotation.x = -0.7;
   mesh(new THREE.ConeGeometry(0.1, 0.5, 5), m, 0, -0.25, 0, tail).rotation.x = Math.PI;
   const legs = [[-1, 1], [1, 1], [-1, -1], [1, -1]].map(([sx, sz]) => {
-    const l = grp(body, sx * 0.12, -0.08, sz * 0.32); mesh(new THREE.CylinderGeometry(0.06, 0.045, 0.32, 5), m, 0, -0.16, 0, l);
-    const k = grp(l, 0, -0.3, 0); mesh(new THREE.CylinderGeometry(0.04, 0.03, 0.26, 5), m, 0, -0.13, 0, k); mesh(new THREE.BoxGeometry(0.07, 0.04, 0.1), md, 0, -0.26, 0.02, k);
+    const l = grp(body, sx * 0.12, -0.08, sz * 0.32); mesh(new THREE.CylinderGeometry(0.075, 0.05, 0.26, 5), m, 0, -0.12, 0, l);
+    const k = grp(l, 0, -0.22, 0); mesh(new THREE.CylinderGeometry(0.048, 0.036, 0.2, 5), m, 0, -0.1, 0, k); mesh(new THREE.BoxGeometry(0.08, 0.04, 0.11), md, 0, -0.2, 0.02, k);
     return { l, k };
   });
   shadows(root);
+  root.scale.setScalar(o.escala ?? 1.35);
   root.userData = { body, neck, head, tail, legs };
   return root;
 }
 // respira, mexe a cabeça e o rabo; rosna (abaixa a cabeça); corre (passo)
 function loboAnim(p, t, o = {}) {
   const u = p.userData, b = Math.sin(t * 2.2 + (o.seed ?? 0));
-  u.body.position.y = 0.62 + b * 0.008 + Math.abs(Math.sin(t * 7)) * 0.04 * (o.corre ?? 0);
+  u.body.position.y = 0.5 + b * 0.008 + Math.abs(Math.sin(t * 7)) * 0.04 * (o.corre ?? 0);
   u.neck.rotation.x = -0.55 + (o.rosna ?? 0) * 0.45 + b * 0.02;
   u.head.rotation.set(0.55 - (o.rosna ?? 0) * 0.3 + Math.sin(t * 0.7 + (o.seed ?? 0)) * 0.04, (o.olha ?? 0) + Math.sin(t * 0.5 + (o.seed ?? 0)) * 0.08, 0);
   u.tail.rotation.set(-0.7 + (o.rosna ?? 0) * 0.5, Math.sin(t * 2.4 + (o.seed ?? 0)) * 0.25, 0);
@@ -238,7 +239,7 @@ function rodaClique(m, t, cliques, o = {}) {
 function tsumikiLP(o = {}) {
   return pessoaLP({ seed: 41, pele: 0xffe2c0, olho: "#7a4a2e", olhoAlt: 0.95, blush: true, sobrancelha: 0x5a3a28, roupa: o.roupa ?? 0xe8e4dc, calca: 0x3a3e52, botoes: false, scale: 0.94,
     cabelo: { cor: 0x6a4630, dentes: 16, dente: 0.3, franjaY: 0.95, ladoY: -0.1, nucaY: -0.9, esp: 0.008, espBorda: 0.0034, crista: 0.004, varia: 0.06, seed: 12,
-      pontas: [...coroa(4, 0.2, 1.25, 0.72, 0.0, 0.0, 0.42, 0.22, -0.06, 0.3), ...coroa(4, 0.2, 1.25, 0.72, 0.0, 0.0, -0.64, 0.22, -0.06, 0.3), ...coroa(5, -0.2, 1.05, 0.7, 0.0, 0.0, 0.7, 0.6, -0.04, 0.3)] }, ...o });
+      pontas: [...coroa(4, 0.2, 1.9, 0.75, 0.0, 0.0, 0.42, 0.22, -0.04, 0.3), ...coroa(4, 0.2, 1.9, 0.75, 0.0, 0.0, -0.64, 0.22, -0.04, 0.3), ...coroa(5, -0.2, 1.6, 0.75, 0.0, 0.0, 0.7, 0.6, -0.04, 0.3)] }, ...o });
 }
 
 // ---------------------------------------------------------------- objetos de luz

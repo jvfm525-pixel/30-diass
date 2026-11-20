@@ -21,7 +21,8 @@ PARS = [
      "{entao:Então}, por que logo o {megumi4:Megumi}? | Por causa das {dez:Dez} {sombras:Sombras}, | a {tecnica:técnica} que {nasceu:nasceu} no corpo dele. | "
      "E {junto:junto} dela vem o {mahoraga1:Mahoraga}, | o {shikigami:shikigami} que se {adapta:adapta} a qualquer {ataque:ataque}."),
     ("s5-keys", None,
-     "{rapidinho:Rapidinho}: tem {keys:keys} aleatórias da {steam:Steam} | bem baratas no link da minha {bio:bio}."),
+     "{rapidinho:Rapidinho}: no meu servidor do {discord:Discord} | tem {keys:keys} aleatórias, vários outros {itens:itens}, | "
+     "e eu ainda {ensino:ensino} a fazer vídeos como este. | O link tá na {bio:bio}."),
     ("s6-pacto", "O PACTO",
      "No {capitulo:capítulo} {c212:212}, | o Sukuna {ativou:ativou} o {pacto:pacto} de um {minuto:minuto} | que tinha {arrancado:arrancado} do Yuji, | "
      "{cortou:cortou} um {dedo:dedo} | e {obrigou:obrigou} o Megumi a {engolir:engolir}. | {trocou:Trocou} de corpo como quem muda de {casa2:casa}... | "

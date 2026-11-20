@@ -22,7 +22,7 @@ addSet("teste", (g) => {
     cam() {
       const c = window.TEST_CAM | 0;
       return [null,
-        { pos: [0.4, 1.0, 3.0], look: [0, 0.55, 0], fov: 32 },
+        { pos: [0.8, 1.3, 4.6], look: [0, 0.6, 0], fov: 34 },
         { pos: [6.8, 2.2, 7.2], look: [6, 2.0, 0], fov: 34 },
         { pos: [6.3, 3.7, 2.3], look: [6, 3.7, 0], fov: 34 },
         { pos: [12.05, 1.62, 1.1], look: [12, 1.57, 0], fov: 26 },
