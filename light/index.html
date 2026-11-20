@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #06060c; }
+      #root { width: 100%; height: 100%; position: relative; }
+    </style>
+  </head>
+  <body>
+    <!-- Como o Light perdeu pro Near e pro Mello? — 3D (Three.js + Remotion) + texto e áudio (HyperFrames). Gerado por tools/build_sukuna.py -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="87.43" data-width="1080" data-height="1920">
+      <video id="c3d" class="clip" src="assets/3d.mp4" data-start="0" data-duration="87.43" muted playsinline data-track-index="0" style="position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover"></video>
+      <div id="texto" data-composition-id="texto" data-composition-src="compositions/texto.html" data-start="0" data-duration="87.43"
+        data-track-index="1" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:10"></div>
+            <audio id="voz" class="clip" src="assets/voice/narracao-light.wav" data-start="0.7" data-duration="84.65" data-volume="1" data-track-index="4"></audio>
+      <audio id="trilha" class="clip" src="assets/music/trilha-light.wav" data-start="0" data-duration="87.43" data-volume="0.3" data-fade-out="1.5" data-track-index="5"></audio>
+      <audio id="sfx-00" class="clip" src="assets/sfx/boom.wav" data-start="0.68" data-duration="2.20" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-01" class="clip" src="assets/sfx/brilho.wav" data-start="0.70" data-duration="1.40" data-volume="0.2" data-track-index="7"></audio>
+      <audio id="sfx-02" class="clip" src="assets/sfx/clique.wav" data-start="2.04" data-duration="0.90" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-03" class="clip" src="assets/sfx/clique.wav" data-start="2.67" data-duration="0.90" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-04" class="clip" src="assets/sfx/boom.wav" data-start="9.80" data-duration="2.20" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-05" class="clip" src="assets/sfx/sopro.wav" data-start="10.75" data-duration="1.20" data-volume="0.25" data-track-index="7"></audio>
+      <audio id="sfx-06" class="clip" src="assets/sfx/chuva.wav" data-start="10.90" data-duration="15.46" data-volume="0.28" data-track-index="8"></audio>
+      <audio id="sfx-07" class="clip" src="assets/sfx/brilho-grave.wav" data-start="12.29" data-duration="2.20" data-volume="0.22" data-track-index="6"></audio>
+      <audio id="sfx-08" class="clip" src="assets/sfx/boom.wav" data-start="20.98" data-duration="2.20" data-volume="0.28" data-track-index="6"></audio>
+      <audio id="sfx-09" class="clip" src="assets/sfx/brilho-grave.wav" data-start="25.76" data-duration="2.20" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-10" class="clip" src="assets/sfx/brilho.wav" data-start="31.99" data-duration="1.40" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-11" class="clip" src="assets/sfx/boom.wav" data-start="38.68" data-duration="2.20" data-volume="0.25" data-track-index="6"></audio>
+      <audio id="sfx-12" class="clip" src="assets/sfx/whoosh-cinematic.mp3" data-start="39.10" data-duration="5.54" data-volume="0.25" data-track-index="7"></audio>
+      <audio id="sfx-13" class="clip" src="assets/sfx/brilho.wav" data-start="41.00" data-duration="1.40" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-14" class="clip" src="assets/sfx/brilho.wav" data-start="43.34" data-duration="1.40" data-volume="0.22" data-track-index="6"></audio>
+      <audio id="sfx-15" class="clip" src="assets/sfx/whoosh-cinematic.mp3" data-start="47.00" data-duration="5.54" data-volume="0.25" data-track-index="6"></audio>
+      <audio id="sfx-16" class="clip" src="assets/sfx/boom.wav" data-start="53.92" data-duration="2.20" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-17" class="clip" src="assets/sfx/fogo.wav" data-start="53.97" data-duration="13.30" data-volume="0.22" data-track-index="7"></audio>
+      <audio id="sfx-18" class="clip" src="assets/sfx/clique.wav" data-start="59.08" data-duration="0.90" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-19" class="clip" src="assets/sfx/brilho-grave.wav" data-start="60.00" data-duration="2.20" data-volume="0.22" data-track-index="6"></audio>
+      <audio id="sfx-20" class="clip" src="assets/sfx/brilho.wav" data-start="64.68" data-duration="1.40" data-volume="0.28" data-track-index="6"></audio>
+      <audio id="sfx-21" class="clip" src="assets/sfx/tique.wav" data-start="68.63" data-duration="0.25" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-22" class="clip" src="assets/sfx/tique.wav" data-start="68.93" data-duration="0.25" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-23" class="clip" src="assets/sfx/tique.wav" data-start="69.23" data-duration="0.25" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-24" class="clip" src="assets/sfx/tique.wav" data-start="69.53" data-duration="0.25" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-25" class="clip" src="assets/sfx/tique.wav" data-start="69.83" data-duration="0.25" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-26" class="clip" src="assets/sfx/tique.wav" data-start="70.13" data-duration="0.25" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-27" class="clip" src="assets/sfx/tique.wav" data-start="70.43" data-duration="0.25" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-28" class="clip" src="assets/sfx/tique.wav" data-start="70.73" data-duration="0.25" data-volume="0.2" data-track-index="6"></audio>
+      <audio id="sfx-29" class="clip" src="assets/sfx/boom.wav" data-start="70.84" data-duration="2.20" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-30" class="clip" src="assets/sfx/sopro.wav" data-start="73.23" data-duration="1.20" data-volume="0.22" data-track-index="6"></audio>
+      <audio id="sfx-31" class="clip" src="assets/sfx/brilho-grave.wav" data-start="75.45" data-duration="2.20" data-volume="0.25" data-track-index="6"></audio>
+      <audio id="sfx-32" class="clip" src="assets/sfx/boom.wav" data-start="76.72" data-duration="2.20" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-33" class="clip" src="assets/sfx/boom.wav" data-start="79.70" data-duration="2.20" data-volume="0.25" data-track-index="6"></audio>
+      <audio id="sfx-34" class="clip" src="assets/sfx/clique.wav" data-start="80.43" data-duration="0.90" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-35" class="clip" src="assets/sfx/clique.wav" data-start="81.77" data-duration="0.90" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-36" class="clip" src="assets/sfx/boom.wav" data-start="84.72" data-duration="2.20" data-volume="0.35" data-track-index="6"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
