@@ -30,15 +30,26 @@ function nearLP(o = {}) { return pessoaLP({ seed: 62, pele: 0xfff0e4, olho: "#3a
 function melloLP(o = {}) { return pessoaLP({ seed: 63, pele: 0xffe2c4, olho: "#3a6a7a", olhoAlt: 0.82, brava: 0.5, roupa: 0x141418, calca: 0x141418, botoes: false, sobrancelha: 0xb89a40, cabelo: CABELOS_DN.mello, ...o }); }
 function mikamiLP(o = {}) { const p = pessoaLP({ seed: 64, pele: 0xffe4c8, olho: "#3a2a24", olhoAlt: 0.78, brava: 0.4, roupa: 0x1c1e26, calca: 0x1c1e26, botoes: false, sobrancelha: 0x141418, cabelo: CABELOS_DN.mikami, ...o }); oculos(p); gravata(p, 0x2a3a6a); return p; }
 function takadaLP(o = {}) { return pessoaLP({ seed: 65, pele: 0xffe6cc, olho: "#4a2a24", olhoAlt: 0.9, blush: true, roupa: 0x6a2a3a, calca: 0x3a1a24, botoes: false, sobrancelha: 0x2a1c18, cabelo: CABELOS_DN.takada, scale: 0.95, ...o }); }
-// Ryuk: shinigami alto e magro, pele cinza-azulada, olhos amarelos com pupila vermelha, sorriso enorme, gola de penas e asas pretas
+// Ryuk: shinigami alto, magro e curvado; rosto pálido azulado, olhos amarelos com pupila vermelha pequena, sorriso de lábios
+// escuros de orelha a orelha, cabelo espetado, gola de penas, roupa de couro com cinto de corrente (sem asas abertas)
 function ryukLP(o = {}) {
-  const p = pessoaLP({ seed: 66, pele: 0x8a98b0, olho: "#e8c020", fenda: true, olhoAlt: 1.0, olhoTam: 1.15, brava: 0.3, roupa: 0x121216, calca: 0x121216, botoes: false, sobrancelha: 0x101014, cabelo: CABELOS_DN.ryuk, scale: 1.32, ...o });
-  const u = p.userData, pena = LPmat(0x0c0c10, { rim: 0.9, rough: 0.9 });
-  for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2; const c = mesh(new THREE.ConeGeometry(0.03, 0.16, 3), pena, Math.sin(a) * 0.12, 0.3, Math.cos(a) * 0.09, u.chest); c.rotation.set(Math.cos(a) * 1.2, 0, -Math.sin(a) * 1.2); }
-  const asas = [-1, 1].map((k) => { const w = grp(u.chest, k * 0.08, 0.22, -0.12); for (let i = 0; i < 6; i++) { const f = mesh(new THREE.ConeGeometry(0.05, 0.55 - i * 0.05, 3), pena, k * (0.08 + i * 0.07), -0.05 - i * 0.04, -0.04, w); f.rotation.z = k * (1.9 - i * 0.12); f.scale.z = 0.3; } return w; });
-  u.asas = asas;
+  const p = pessoaLP({ seed: 66, pele: 0xc4cede, olho: "#c41818", olhoOpts: { esclera: "#f0d23c", ir: 0.42, cilio: "#0a0a10" }, olhoAlt: 1.05, olhoTam: 1.18, brava: 0.15, roupa: 0x16161c, calca: 0x16161c, botoes: false, sobrancelha: 0x101014, cabelo: CABELOS_DN.ryuk, scale: 1.3, bocaRyuk: true, ...o });
+  const u = p.userData, pena = LPmat(0x0c0c10, { rim: 0.9, rough: 0.9 }), metal = LPmat(0x9aa0aa, { metal: 0.85, rough: 0.3, rim: 0.6 });
+  for (let i = 0; i < 18; i++) { const a = (i / 18) * Math.PI * 2; const c = mesh(new THREE.ConeGeometry(0.028, 0.15, 3), pena, Math.sin(a) * 0.13, 0.3, Math.cos(a) * 0.1 - 0.01, u.chest); c.rotation.set(Math.cos(a) * 1.1, 0, -Math.sin(a) * 1.1); }
+  // cinto de corrente e a corrente pendurada no quadril
+  for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2; const r = mesh(new THREE.TorusGeometry(0.014, 0.004, 4, 8), metal, Math.sin(a) * 0.155, 0.04, Math.cos(a) * 0.125, u.hips); r.rotation.y = a + (i % 2) * 1.57; }
+  for (let i = 0; i < 6; i++) { const r = mesh(new THREE.TorusGeometry(0.012, 0.0035, 4, 8), metal, 0.12 + i * 0.006, 0.0 - i * 0.022, 0.1 - i * 0.004, u.hips); r.rotation.set(0, (i % 2) * 1.57, 0.3); }
+  // magro: tronco, braços e pernas mais finos (o comprimento fica igual para o IK)
+  u.chest.userData.sc0 = new THREE.Vector3(0.84, 1, 0.86); u.chest.scale.copy(u.chest.userData.sc0); u.spine.scale.set(0.84, 1, 0.86);
+  u.sh.forEach((g) => g.scale.set(0.8, 1, 0.8)); u.hipJ.forEach((g) => g.scale.set(0.8, 1, 0.8));
+  u.headM.material = u.headM.material.clone(); u.headM.material.emissive = new THREE.Color(0x4a5268); u.headM.material.emissiveIntensity = 0.55;
+  u.asas = null; u.curvado = true;
   return p;
 }
+// postura do Ryuk: costas curvadas, pescoço pra frente, cabeça erguida olhando
+function ryukPostura(p, k = 1) { const u = p.userData; pose(p, { spine: [0.32, 0, 0], chest: [0.22, 0, 0], neck: [0.5, 0, 0], head: [-0.62, 0, 0] }, k); u.sh.forEach((g, i) => { g.rotation.x -= 0.25 * k; g.rotation.z += (i ? 1 : -1) * 0.06 * k; }); u.el.forEach((e) => (e.rotation.x -= 0.25 * k)); }
+// o Near sentado no chão com o joelho direito levantado (pose clássica), a perna esquerda dobrada de lado
+function nearSentado(p, k = 1) { const u = p.userData; pose(p, { hipsPos: [0, -(u.d.hipY - 0.12), 0], hips: [0, 0, 0], spine: [0.42, 0, 0], chest: [0.18, 0, 0], legR: [-2.25, -0.1, 0.05, 2.35, 0.25], legL: [-1.5, -0.35, -1.05, 2.3, 0.2] }, k); }
 
 // ---------------------------------------------------------------- objetos
 const capaTex = canvasTex(256, 360, (c, w, h) => { c.fillStyle = "#0c0c0e"; c.fillRect(0, 0, w, h); c.strokeStyle = "#3a3a40"; c.lineWidth = 4; c.strokeRect(10, 10, w - 20, h - 20); c.fillStyle = "#e8e8e8"; c.font = "italic bold 46px serif"; c.textAlign = "center"; c.fillText("Caderno", w / 2, 150); c.fillText("da Morte", w / 2, 205); });
@@ -113,3 +124,14 @@ function caneta(cor = 0x101012) { const c = grp(null); mesh(cyl(0.006, 0.006, 0.
 // objeto solto no mundo, preso à mão i e apontando pra um alvo (ex.: a barra de chocolate apontando pra boca)
 const _Z = new THREE.Vector3(0, 0, 1);
 function apontaDaMao(obj, p, i, alvo, off = 0.05) { p.updateMatrixWorld(true); const k = i ? -1 : 1, s = p.scale.x; const de = p.userData.wr[i].localToWorld(V3(k * 0.02, -0.075, 0)); const d = alvo.clone().sub(de).normalize(); obj.position.copy(de).addScaledVector(d, off * s); obj.quaternion.setFromUnitVectors(_Z, d); return de; }
+
+// câmera de depuração (só nos testes: window.TEST_CAM ≥ 1)
+const DBGC = {
+  "s1-abertura": [{ pos: [1.5, 1.0, -0.6], look: [0, 0.6, -1.1], fov: 45 }, { pos: [-1.4, 1.1, -0.2], look: [0, 0.6, -1.2], fov: 45 }],
+  "s2-herdeiros": [{ pos: [0.2, 0.9, 1.6], look: [-0.9, 0.4, 0.3], fov: 45 }, { pos: [1.0, 1.4, 2.2], look: [1.0, 1.0, -0.1], fov: 45 }],
+  "s3-erro": [{ pos: [0, 1.4, 3.4], look: [0, 1.0, -0.2], fov: 45 }, { pos: [2.4, 1.4, 1.2], look: [0.3, 1.0, -0.3], fov: 45 }],
+  "s5-sacrificio": [{ pos: [0.5, 1.3, 2.5], look: [-0.3, 0.8, -0.6], fov: 45 }, { pos: [2.2, 1.6, -38.4], look: [0.2, 1.0, -39.6], fov: 45 }],
+  "s6-falso": [{ pos: [0.2, 1.0, 1.2], look: [1.4, 0.5, 1.2], fov: 45 }, { pos: [0.0, 1.5, 3.2], look: [-1.6, 1.0, 0.6], fov: 45 }],
+  "s7-fim": [{ pos: [0.6, 1.4, 2.4], look: [-1.3, 0.7, 0.0], fov: 45 }, { pos: [1.2, 1.8, 1.4], look: [-0.9, 1.4, -1.7], fov: 45 }],
+};
+function dbgCam(nome) { const c = (typeof window !== "undefined" && window.TEST_CAM) | 0; return c >= 1 ? (DBGC[nome] || [])[c - 1] || null : null; }

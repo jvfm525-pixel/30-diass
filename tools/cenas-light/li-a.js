@@ -2,19 +2,21 @@
 
 // ---------------------------------------------------------------- 0 · capa: o Light com os olhos do Kira, rindo
 addSet("s0-capa", (g) => {
+  const __n = "s0-capa";
   const Q = quartoLight(g);
   const li = lightLP({ kira: true }); g.add(li); li.position.set(0, 0, -0.4);
   return {
     bg: 0x05060c, fog: [4, 20], fogCol: 0x0a0a14, hand: 0,
     look: { exposure: 1.1, bloom: 0.6, bloomT: 0.75, vig: 0.6, sat: 1.1, con: 1.08 },
     sun: { dir: [-0.4, 0.5, 0.6], col: 0xff4a3a, I: 1.6, c: [0, 1.5, 0], r: 4 }, hemi: { sky: 0x3a2030, ground: 0x0a0408, I: 0.5 }, fill: { col: 0xffd8b0, I: 0.6, dir: [0.4, 0.2, 1] }, rim: { col: 0xff5a40, str: 1.0 },
-    update(t) { vive(li, t, 61, { boca: "risada", bravo: 0.7, piscaCada: 99 }, 0.1); },
-    cam() { return closeRosto(li, 0.62, 0.12, -0.02, 30); },
+    update(t) { vive(li, t, 61, { boca: "dentes", bravo: 0.8, sombra: 0.55, piscaCada: 99 }, 0.1); },
+    cam() { { const d = dbgCam(__n); if (d) return d; } return closeRosto(li, 0.62, 0.12, -0.02, 30); },
   };
 });
 
 // ---------------------------------------------------------------- 1 · abertura: quarto do Light à noite; xadrez na mesa; o Ryuk come uma maçã
 addSet("s1-abertura", (g) => {
+  const __n = "s1-abertura";
   const [a, b] = T.sc["s1-abertura"];
   const Q = quartoLight(g);
   const li = lightLP(); g.add(li); li.position.set(0.05, 0, -0.92); li.rotation.y = Math.PI;
@@ -32,12 +34,12 @@ addSet("s1-abertura", (g) => {
     update(t) {
       flash(t, a, 0.001, 0.45);
       // o Light sentado escrevendo: a caneta corre na página, a outra mão apoiada na mesa
-      restPose(li); idle(li, t, 61, 0.25); sitPose(li, 1, { seatY: 0.56, lean: 0.3 }); pose(li, { neck: [0.35, 0, 0], handR: 0.85, handL: 0.4 }, 1); rostoLP(li, t, { boca: "linha", bravo: 0.25 });
+      restPose(li); idle(li, t, 61, 0.25); sitPose(li, 1, { seatY: 0.56, lean: 0.3 }); pose(li, { neck: [0.35, 0, 0], handR: 0.85, handL: 0.4 }, 1); rostoLP(li, t, { boca: "smirk", bravo: 0.35, sombra: 0.3 });
       const esc = Math.sin(t * 7.5) * 0.025, linha = ((t * 0.35) % 1) * 0.08;
       maoEm(li, 0, V3(0.27 + esc, 0.9, -1.5 - linha), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.1 });
       maoEm(li, 1, V3(-0.12, 0.85, -1.3), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.1 });
       // o Ryuk atrás, rindo, morde a maçã
-      vive(ry, t, 66, { boca: mordidas(t, morde) > 0.6 ? "aberta" : "risada" }, 0.3); pose(ry, { spine: [0.15, 0, 0], handR: 0.5 }, 1);
+      vive(ry, t, 66, { boca: mordidas(t, morde) > 0.6 ? "aberta" : "ryuk", palpebra: 1.05 }, 0.3); ryukPostura(ry); pose(ry, { handR: 0.5 }, 1);
       const md = mordidas(t, morde, 1.0), base = frenteW(ry, 0.16, 1.28, 0.34), boca = bocaW(ry, 0.07).add(V3(0, 0.01, 0));
       maoEm(ry, 0, mixV(base, boca, md), 1, { abre: 0.7, poleY: 0.2, poleZ: -0.4 });
       cd.abrir(1);
@@ -50,6 +52,7 @@ addSet("s1-abertura", (g) => {
       escurece(t, b - 0.35, b, [0, 0, 0], 1);
     },
     cam(t) {
+      { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([2.4, 1.9, 2.6], [1.6, 1.6, 1.4], [0, 1.0, -1.4], [-0.1, 0.95, -1.5], 38, 36)],
         [K.near1 - 0.2, mov([-0.85, 1.2, -0.9], [-0.75, 1.12, -1.05], [-0.15, 0.84, -1.55], [-0.15, 0.84, -1.6], 34, 32)],
@@ -62,6 +65,7 @@ addSet("s1-abertura", (g) => {
 
 // ---------------------------------------------------------------- 2 · os herdeiros: sala da Wammy's House em dia de chuva; o L de luz se parte em dois
 addSet("s2-herdeiros", (g) => {
+  const __n = "s2-herdeiros";
   const [a, b] = T.sc["s2-herdeiros"];
   const piso = mesh(new THREE.PlaneGeometry(14, 14), new THREE.MeshStandardMaterial({ color: 0x6a5a4a, roughness: 0.55 }), 0, 0, 0, g); piso.rotation.x = -Math.PI / 2;
   const par = LPmat(0xb8b0a0, { rim: 0.2, rough: 0.95 }); mesh(box(14, 5, 0.2), par, 0, 2.5, -3, g); mesh(box(0.2, 5, 14), par, -5, 2.5, 2, g); mesh(box(0.2, 5, 14), par, 5, 2.5, 2, g);
@@ -72,7 +76,7 @@ addSet("s2-herdeiros", (g) => {
   const pz = puzzle(g, 26, 0.7); pz.forEach((p) => (p.position.x -= 0.9));
   const ml = melloLP(); g.add(ml); ml.position.set(1.0, 0, -0.1); ml.rotation.y = -0.5;
   const choc = chocolate(); g.add(choc);
-  const peq = naMao(nr, 0, mesh(box(0.1, 0.012, 0.1), LPmat(0xf4f4f6, { rim: 0.5 })), { dx: 0.03, dy: -0.1 });
+  const peq = naMao(nr, 1, mesh(box(0.1, 0.012, 0.1), LPmat(0xf4f4f6, { rim: 0.5 })), { dx: 0.03, dy: -0.1 });
   const mordeM = [K.mello2 + 0.45, K.impulsivo + 0.2];
   // o L de luz que se parte: metade branca (Near) e metade preta/dourada (Mello)
   const Lg = grp(g, 0, 2.2, -1.2), Lv = linhaLuz(Lg, [[-0.35, 0.7, 0], [-0.35, -0.6, 0]], { r: 0.03, cor: 0xe8f0ff, seg: 30 }), Lh = linhaLuz(Lg, [[-0.35, -0.6, 0], [0.45, -0.6, 0]], { r: 0.03, cor: 0xffd060, seg: 30 });
@@ -83,14 +87,14 @@ addSet("s2-herdeiros", (g) => {
     sun: { dir: [0, 0.5, -1], col: 0xd8e4f0, I: 1.8, c: [0, 1, 0], r: 6 }, hemi: { sky: 0xc8d4e4, ground: 0x4a4038, I: 0.9 }, fill: { col: 0xffd8b0, I: 0.4, dir: [0.4, 0.3, 1] }, rim: { col: 0xd8e8ff, str: 0.8 },
     update(t) {
       chicote(t, a, 0.22, 1);
-      // o Near ajoelhado: enrola o cabelo com a esquerda e encaixa peças com a direita
-      vive(nr, t, 62, { boca: "linha" }, 0.2); kneelPose(nr, 1); pose(nr, { spine: [0.5, 0, 0], neck: [0.35, 0, 0], handR: 0.5, handL: 0.6 }, 1);
+      // o Near sentado no chão: enrola o cabelo com a direita (cotovelo no joelho) e encaixa peças com a esquerda
+      restPose(nr); idle(nr, t, 62, 0.2); nearSentado(nr); pose(nr, { neck: [0.3, 0, 0], handR: 0.55, handL: 0.5 }, 1); rostoLP(nr, t, { boca: "linha", palpebra: 0.72, sobe: -0.2 });
       const cic = ((t - a) % 2.6) / 2.6, desce = Math.sin(clamp(cic / 0.8) * Math.PI);
-      maoEm(nr, 0, mixV(frenteW(nr, 0.14, 0.42, 0.22), frenteW(nr, 0.08, 0.06, 0.42), desce), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.2 });
-      const giro = t * 4; maoEm(nr, 1, corpoW(nr, "head", 0.11 + Math.cos(giro) * 0.012, 0.06 + Math.sin(giro) * 0.015, 0.03), 1, { abre: 0.8, poleY: -0.2, poleZ: -0.1 });
+      maoEm(nr, 1, mixV(frenteW(nr, -0.18, 0.3, 0.3), frenteW(nr, -0.12, 0.03, 0.48), desce), 1, { abre: 0.5, poleY: 0.3, poleZ: 0.2 });
+      const giro = t * 4; maoEm(nr, 0, corpoW(nr, "head", -0.1 + Math.cos(giro) * 0.012, 0.03 + Math.sin(giro) * 0.015, 0.05), 1, { abre: 0.5, poleY: -0.4, poleZ: 0.3 });
       // o Mello em pé, morde a barra de chocolate
       const mm = mordidas(t, mordeM, 1.0);
-      vive(ml, t, 63, { boca: mm > 0.6 ? "aberta" : "linha", bravo: 0.55 }, 0.35); pose(ml, { handR: 0.9 }, 1);
+      vive(ml, t, 63, { boca: mm > 0.6 ? "aberta" : mordidas(t, mordeM.map((x) => x + 0.7), 1.2) > 0.2 ? "mastiga" : "smirk", bravo: 0.65, palpebra: 0.9 }, 0.35); pose(ml, { handR: 0.9 }, 1);
       maoEm(ml, 0, mixV(frenteW(ml, 0.12, 1.2, 0.3), bocaW(ml, 0.1).add(V3(0, -0.1, 0)), mm), 1, { abre: 0.7, poleY: 0.2, poleZ: -0.4 }); apontaDaMao(choc, ml, 0, bocaW(ml, 0.02), 0.04);
       const ap = smr(t, K.l2 - 0.2, K.herdeiros), sep = E.inOut(smr(t, K.separados - 0.1, K.separados + 0.8));
       Lv.set(ap); Lh.set(ap); LT.material.opacity = 0.2 * ap * (1 - sep);
@@ -98,6 +102,7 @@ addSet("s2-herdeiros", (g) => {
       flash(t, K.separados + 0.1, 0.05, 0.3, [1, 1, 1]);
     },
     cam(t) {
+      { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0.2, 2.2, 6.4], [0.1, 2.0, 5.6], [0, 1.2, -0.6], [0, 1.4, -0.8], 52, 50)],
         [K.near2 - 0.2, (tt, u) => ({ ...closeRosto(nr, lerp(1.0, 0.8, E.inOut(u)), 0.2, 0.1, 32) })],
@@ -111,6 +116,7 @@ addSet("s2-herdeiros", (g) => {
 
 // ---------------------------------------------------------------- 3 · o erro: sala de monitores; o Light entrega o caderno ao Mikami, que escreve sozinho
 addSet("s3-erro", (g) => {
+  const __n = "s3-erro";
   const [a, b] = T.sc["s3-erro"];
   const chao = mesh(new THREE.PlaneGeometry(30, 30), new THREE.MeshStandardMaterial({ color: 0x0c0e14, roughness: 0.25, metalness: 0.6 }), 0, 0, 0, g); chao.rotation.x = -Math.PI / 2;
   mesh(box(14, 6, 0.2), LPmat(0x10121a), 0, 3, -3.2, g);
@@ -131,8 +137,9 @@ addSet("s3-erro", (g) => {
       // o Light vira pro Mikami e estende o caderno; o Mikami pega, vira pra frente e escreve sozinho, cada vez mais rápido
       const vira = E.inOut(smr(t, K.maos - 0.4, K.caderno3 - 0.4)), volta = E.inOut(smr(t, K.mikami3 + 0.8, K.sozinho - 0.8));
       li.rotation.y = lerp(0.45, 1.75, vira) - 0.9 * volta; mk.rotation.y = lerp(-0.5, -1.3, vira) + 0.85 * volta;
-      vive(li, t, 61, { boca: t < K.confiou ? "linha" : "sorriso", bravo: 0.2 }, 0.3);
-      vive(mk, t, 64, { boca: "linha", bravo: 0.5 + 0.3 * smr(t, K.plano, K.controlava) }, 0.3);
+      vive(li, t, 61, { boca: t < K.confiou ? "linha" : "smirk", bravo: t < K.confiou ? 0.1 : 0.45, sombra: 0.35 * smr(t, K.confiou, K.confiou + 0.5), sobe: t < K.confiou ? 0.3 : 0 }, 0.3);
+      const escreveM = smr(t, K.sozinho - 0.7, K.sozinho - 0.1);
+      vive(mk, t, 64, { boca: escreveM > 0.5 ? (Math.sin(t * 6) > 0.2 ? "grito" : "dentes") : "linha", bravo: 0.5 + 0.4 * escreveM, palpebra: 1 + 0.15 * escreveM, choque: smr(t, K.plano, K.plano + 0.2) }, 0.3);
       const estende = act(t, K.caderno3 - 0.7, K.caderno3 + 0.1) * (1 - E.inOut(smr(t, K.mikami3 + 0.3, K.mikami3 + 0.9)));
       const pega = smr(t, K.caderno3 + 0.1, K.caderno3 + 0.5), escreve = smr(t, K.sozinho - 0.7, K.sozinho - 0.1);
       const meio = li.position.clone().lerp(mk.position, 0.5).setY(1.12);
@@ -141,7 +148,7 @@ addSet("s3-erro", (g) => {
       // o caderno: na mão do Light → entre os dois → no peito do Mikami, aberto e inclinado
       const peitoM = frenteW(mk, -0.02, 1.08, 0.32), q = new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.4, mk.rotation.y, 0, "YXZ")), qL = new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.25, li.rotation.y, 0, "YXZ"));
       const vai = E.inOut(smr(t, K.caderno3 + 0.1, K.mikami3 + 0.6));
-      const gL = li.userData.wr[0].localToWorld(V3(0.02, -0.08, 0)).add(mk.position.clone().sub(li.position).setY(0).normalize().multiplyScalar(0.12)); cd.c.position.copy(mixV(gL, peitoM, vai)); cd.c.quaternion.copy(qL).slerp(q, vai); cd.abrir(escreve); luzCd.position.copy(cd.c.localToWorld(V3(0, 0.25, 0.05))); luzCd.intensity = 2.2 * escreve;
+      const gL = li.userData.wr[0].localToWorld(V3(0.02, -0.08, 0)).add(mk.position.clone().sub(li.position).setY(0).normalize().multiplyScalar(0.12)); cd.c.position.copy(mixV(gL, peitoM, vai)); cd.c.quaternion.copy(qL).slerp(q, vai); cd.abrir(escreve); luzCd.position.copy(cd.c.localToWorld(V3(0, 0.35, -0.15))); luzCd.intensity = 0.8 * escreve;
       // o Mikami: a esquerda segura o caderno, a direita escreve (o rabisco acelera no "não controlava")
       const pg = cd.c.localToWorld(V3(-0.1, 0.0, 0.05)), rab = 7 + 9 * smr(t, K.plano, K.controlava);
       maoEm(mk, 1, mixV(frenteW(mk, -0.2, 0.85, 0.05), pg, pega), 1, { abre: 0.6, poleY: 0.0, poleZ: -0.3 }); pose(mk, { handL: 0.7 * pega, handR: 0.85 }, 1);
@@ -152,6 +159,7 @@ addSet("s3-erro", (g) => {
       const ver = smr(t, K.controlava - 0.2, K.controlava + 0.5); telas.forEach((s, i) => { s.material.emissive.setRGB(1, 1, 1).lerp(telaVerm, ver * (hash(i) > 0.3 ? 1 : 0.4)); s.material.emissiveIntensity = 1.1 + 0.3 * noise1(t * 3 + i); });
     },
     cam(t) {
+      { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0.4, 1.7, 4.4], [0.1, 1.6, 3.6], [0, 1.6, -1.2], [0, 1.5, -1.0], 40, 38)],
         [K.confiou - 0.2, (tt, u) => ({ ...closeRosto(li, lerp(1.0, 0.75, E.inOut(u)), 0.2, 0, 32) })],
@@ -165,6 +173,7 @@ addSet("s3-erro", (g) => {
 
 // ---------------------------------------------------------------- 4 · Discord: biblioteca dourada; o baú se abre com keys, itens e a claquete
 addSet("s4-keys", (g) => {
+  const __n = "s4-keys";
   const [a, b] = T.sc["s4-keys"];
   const tb = texPlanks([120, 82, 50], [96, 64, 38]), piso = new THREE.MeshStandardMaterial({ map: rep(tb.map.clone(), 4, 4), roughness: 0.6 }); piso.map.needsUpdate = true;
   mesh(new THREE.PlaneGeometry(20, 20), piso, 0, 0, 0, g).rotation.x = -Math.PI / 2;
@@ -191,8 +200,8 @@ addSet("s4-keys", (g) => {
       cards.forEach((c, i) => { const up = smr(t, tA + 0.1 + i * 0.05, K.keys + 0.6), an = (i / 10) * Math.PI * 2 + lt * 0.8, r = 0.15 + up * (0.55 + (i % 3) * 0.12); c.position.set(Math.cos(an) * r, 0.7 + up * (0.5 + (i % 4) * 0.16), -0.6 + Math.sin(an) * r * 0.6); c.rotation.set(Math.sin(lt + i) * 0.4, an + Math.PI / 2, 0.2); c.visible = up > 0.01; });
       itens.forEach((it, i) => { const up = smr(t, K.itens - 0.4 + i * 0.06, K.itens + 0.5), an = (i / 6) * Math.PI * 2 - lt * 0.9, r = up * 0.75; it.position.set(Math.cos(an) * r, 0.7 + up * (1.15 + (i % 2) * 0.15), -0.6 + Math.sin(an) * r * 0.6); it.rotation.set(lt * 2, lt * 1.5 + i, 0); it.visible = up > 0.01; });
       const uc = E.outBack(smr(t, K.ensino - 0.3, K.ensino + 0.4)); claq.position.set(0, 0.7 + uc * 1.35, -0.35); claq.rotation.set(0, Math.sin(lt * 1.2) * 0.25, 0); claq.scale.setScalar(Math.max(0.001, uc * 1.3)); claq.visible = uc > 0.01;
-      vive(ry, t, 66, { boca: "risada" }, 0.35);
+      vive(ry, t, 66, { boca: "ryuk" }, 0.35); ryukPostura(ry);
     },
-    cam(t) { return { ...path2(t, [[a, [2.2, 1.6, 3.2], [0.1, 1.1, -0.7], 36], [K.itens, [1.5, 1.6, 2.5], [0.1, 1.4, -0.6], 34], [b, [1.1, 1.65, 2.1], [0.2, 1.5, -0.7], 32]]), near: 0.03 }; },
+    cam(t) { { const d = dbgCam(__n); if (d) return d; } return { ...path2(t, [[a, [2.2, 1.6, 3.2], [0.1, 1.1, -0.7], 36], [K.itens, [1.5, 1.6, 2.5], [0.1, 1.4, -0.6], 34], [b, [1.1, 1.65, 2.1], [0.2, 1.5, -0.7], 32]]), near: 0.03 }; },
   };
 });

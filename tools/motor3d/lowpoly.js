@@ -69,7 +69,7 @@ function olhoTex(iris, o = {}) {
     const abertura = () => { arco(); c.bezierCurveTo(R - 6, B - 10, 170, B + 2, 128, B + 2); c.bezierCurveTo(84, B + 2, L + 6, B - 18, L, 122); };
     c.save(); c.beginPath(); abertura(); c.closePath(); c.clip();
     c.fillStyle = o.esclera ?? "#f8f6f2"; c.fillRect(0, 0, w, h);
-    const ix = 130 + (o.dx ?? 0), iy = 106, ir = 68 * Math.min(1.02, Math.max(0.7, al));
+    const ix = 130 + (o.dx ?? 0), iy = 106, ir = 68 * Math.min(1.02, Math.max(0.7, al)) * (o.ir ?? 1);
     const g = c.createRadialGradient(ix, iy + ir * 0.4, ir * 0.1, ix, iy, ir);
     g.addColorStop(0, corCSS(iris, 0.22)); g.addColorStop(0.6, corCSS(iris, 0.04)); g.addColorStop(1, corCSS(iris, -0.14));
     c.fillStyle = g; c.beginPath(); c.arc(ix, iy, ir, 0, Math.PI * 2); c.fill();
@@ -99,6 +99,10 @@ function olhoTex(iris, o = {}) {
 const olhoFechadoTex = canvasTex(256, 200, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = "#141010"; c.lineCap = "round"; c.lineWidth = 13; c.beginPath(); c.moveTo(28, 104); c.bezierCurveTo(70, 140, 180, 146, 228, 100); c.stroke(); c.lineWidth = 5; [[80, 130], [110, 136], [140, 137], [170, 133], [198, 122]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x, y); c.lineTo(x + 3, y + 15); c.stroke(); }); });
 // sobrancelha: barra comprida e grossa, mais grossa na ponta de dentro, arco suave e pontas arredondadas
 const sobrancelhaTex = canvasTex(256, 64, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "#ffffff"; c.beginPath(); c.moveTo(14, 26); c.bezierCurveTo(70, 4, 170, 4, 240, 26); c.bezierCurveTo(252, 30, 250, 46, 238, 44); c.bezierCurveTo(170, 28, 80, 30, 20, 58); c.bezierCurveTo(4, 62, 2, 34, 14, 26); c.closePath(); c.fill(); });
+// sombra de anime sobre a testa e os olhos (olhar ameaçador), gota de suor e lágrimas
+const sombraTex = canvasTex(128, 128, (c, w, h) => { const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(8,2,8,.97)"); g.addColorStop(0.62, "rgba(8,2,8,.85)"); g.addColorStop(1, "rgba(8,2,8,0)"); c.fillStyle = g; c.fillRect(0, 0, w, h); c.globalCompositeOperation = "destination-in"; const gx = c.createLinearGradient(0, 0, w, 0); gx.addColorStop(0, "rgba(0,0,0,0)"); gx.addColorStop(0.18, "rgba(0,0,0,1)"); gx.addColorStop(0.82, "rgba(0,0,0,1)"); gx.addColorStop(1, "rgba(0,0,0,0)"); c.fillStyle = gx; c.fillRect(0, 0, w, h); });
+const suorTex = canvasTex(64, 96, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "rgba(200,230,255,.95)"; c.strokeStyle = "#5a8ab8"; c.lineWidth = 4; c.beginPath(); c.moveTo(32, 6); c.bezierCurveTo(40, 30, 58, 50, 54, 68); c.arc(32, 66, 22, 0.1, Math.PI - 0.1); c.bezierCurveTo(6, 50, 24, 30, 32, 6); c.fill(); c.stroke(); c.fillStyle = "#fff"; c.beginPath(); c.ellipse(24, 64, 5, 9, -0.3, 0, Math.PI * 2); c.fill(); });
+const lagrimaTex = canvasTex(64, 128, (c, w, h) => { c.clearRect(0, 0, w, h); const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(190,225,255,.9)"); g.addColorStop(1, "rgba(190,225,255,0)"); c.fillStyle = g; c.beginPath(); c.roundRect(22, 0, 20, h, 10); c.fill(); });
 const BOCAT = {};
 function bocaTex(tipo) {
   if (BOCAT[tipo]) return BOCAT[tipo];
@@ -108,6 +112,15 @@ function bocaTex(tipo) {
     else if (tipo === "sorriso") { c.strokeStyle = cor; c.lineWidth = 20; c.beginPath(); c.moveTo(cx - 58, cy - 10); c.quadraticCurveTo(cx, cy + 22, cx + 58, cy - 10); c.stroke(); }
     else if (tipo === "triste") { c.strokeStyle = cor; c.lineWidth = 20; c.beginPath(); c.moveTo(cx - 56, cy + 12); c.quadraticCurveTo(cx, cy - 18, cx + 56, cy + 12); c.stroke(); }
     else if (tipo === "aberta") { c.fillStyle = "#3a0c10"; c.beginPath(); c.ellipse(cx, cy, 34, 26, 0, 0, Math.PI * 2); c.fill(); c.fillStyle = "#b8343a"; c.beginPath(); c.ellipse(cx, cy + 12, 22, 11, 0, 0, Math.PI * 2); c.fill(); }
+    else if (tipo === "smirk") { c.strokeStyle = cor; c.lineWidth = 18; c.beginPath(); c.moveTo(cx - 54, cy + 4); c.bezierCurveTo(cx - 20, cy + 14, cx + 30, cy + 10, cx + 62, cy - 18); c.stroke(); c.lineWidth = 8; c.beginPath(); c.moveTo(cx + 56, cy - 22); c.lineTo(cx + 66, cy - 8); c.stroke(); }
+    else if (tipo === "dentes") { c.fillStyle = "#2a0a0e"; c.beginPath(); c.moveTo(cx - 70, cy - 14); c.quadraticCurveTo(cx, cy + 46, cx + 70, cy - 14); c.quadraticCurveTo(cx, cy - 4, cx - 70, cy - 14); c.fill(); c.save(); c.clip(); c.fillStyle = "#f4efe6"; c.fillRect(cx - 70, cy - 16, 140, 15); c.fillStyle = "rgba(0,0,0,.25)"; for (let i = 1; i < 9; i++) c.fillRect(cx - 70 + i * 15.5, cy - 16, 2, 15); c.fillStyle = "#b8343a"; c.beginPath(); c.ellipse(cx, cy + 22, 26, 9, 0, 0, Math.PI * 2); c.fill(); c.restore(); }
+    else if (tipo === "grito") { c.fillStyle = "#2a0a0e"; c.beginPath(); c.ellipse(cx, cy + 4, 40, 34, 0, 0, Math.PI * 2); c.fill(); c.save(); c.clip(); c.fillStyle = "#f4efe6"; c.fillRect(cx - 40, cy - 32, 80, 12); c.fillStyle = "#b8343a"; c.beginPath(); c.ellipse(cx, cy + 30, 26, 14, 0, 0, Math.PI * 2); c.fill(); c.restore(); }
+    else if (tipo === "mastiga") { c.fillStyle = cor; c.beginPath(); c.roundRect(cx - 44, cy - 9, 88, 18, 9); c.fill(); c.strokeStyle = "rgba(120,60,50,.5)"; c.lineWidth = 6; [-1, 1].forEach((k) => { c.beginPath(); c.arc(cx + k * 62, cy, 10, k > 0 ? -1.2 : 1.9, k > 0 ? 1.2 : 4.4); c.stroke(); }); }
+    else if (tipo === "ryuk") { // sorriso enorme do Ryuk: lábios escuros e grossos de orelha a orelha, dentes afiados
+      c.fillStyle = "#1c1424"; c.beginPath(); c.moveTo(cx - 122, cy - 26); c.quadraticCurveTo(cx, cy + 58, cx + 122, cy - 26); c.quadraticCurveTo(cx, cy + 2, cx - 122, cy - 26); c.fill();
+      c.fillStyle = "#3a1a40"; c.beginPath(); c.moveTo(cx - 108, cy - 18); c.quadraticCurveTo(cx, cy + 40, cx + 108, cy - 18); c.quadraticCurveTo(cx, cy + 14, cx - 108, cy - 18); c.fill();
+      c.save(); c.clip(); c.fillStyle = "#f2ead8"; for (let i = 0; i < 18; i++) { const x = cx - 104 + i * 12.2; c.beginPath(); c.moveTo(x, cy - 20); c.lineTo(x + 11, cy - 20); c.lineTo(x + 5.5, cy + 6); c.fill(); } c.restore();
+    }
     else if (tipo === "risada") { // sorriso de canto a canto do Sukuna, com a fileira de dentes
       c.fillStyle = "#2a0a0e"; c.beginPath(); c.moveTo(cx - 110, cy - 16); c.quadraticCurveTo(cx, cy + 40, cx + 110, cy - 16); c.quadraticCurveTo(cx, cy + 8, cx - 110, cy - 16); c.fill();
       c.save(); c.clip(); c.fillStyle = "#f4efe6"; for (let i = 0; i < 15; i++) c.fillRect(cx - 104 + i * 14, cy - 14, 11, 16); c.restore();
@@ -277,7 +290,7 @@ function pessoaLP(o = {}) {
   const olhos = [], fechados = [];
   if (!P.venda) [-1, 1].forEach((k) => {
     const g = grp(S.head, k * EX, EY, 0); g.rotation.set(0, 0, k * (P.olhoInc ?? 0));
-    decalSup(g, olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1 }), OW, OH, 0, 0, (x, y) => zAt(k * EX + x, EY + y), { espelho: k < 0, ei: 0.28, dz: 0.0028 });
+    decalSup(g, olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.olhoOpts || {}) }), OW, OH, 0, 0, (x, y) => zAt(k * EX + x, EY + y), { espelho: k < 0, ei: 0.28, dz: 0.0028 });
     const f = decalSup(S.head, olhoFechadoTex, OW, OH, k * EX, EY - 0.002, zAt, { espelho: k < 0, dz: 0.0032 }); f.visible = false;
     olhos.push(g); fechados.push(f);
   });
@@ -287,6 +300,11 @@ function pessoaLP(o = {}) {
   const bocas = {};
   ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 })));
   bocas.risada = decalSup(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
+  ["smirk", "mastiga"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 }))); ["dentes", "grito"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.07, 0.036, 0, MY - 0.002, zAt, { dz: 0.0034 })));
+  if (P.bocaRyuk) bocas.ryuk = decalSup(S.head, bocaTex("ryuk"), 0.12, 0.06, 0, MY + 0.004, zAt, { dz: 0.0034 });
+  const sombra = decalSup(S.head, sombraTex, 0.15, 0.08, 0, EY + 0.012, zAt, { dz: 0.0042, suave: true, sx: 16, sy: 6 }); sombra.visible = false;
+  const suor = decal(S.head, suorTex, 0.016, 0.024, 0.068, EY + 0.05, zAt(0.068, EY + 0.05) + 0.004, 0.5, 0, { suave: true }); suor.visible = false;
+  const lagrimas = [-1, 1].map((k) => { const m = decalSup(S.head, lagrimaTex, 0.012, 0.05, k * 0.04, EY - 0.045, zAt, { dz: 0.0036, suave: true }); m.visible = false; return m; });
   if (P.blush) [-1, 1].forEach((k) => decal(S.head, blushTex, 0.042, 0.022, k * 0.045, 0.061, zAt(k * 0.045, 0.061) + 0.003, k * 0.15, 0, { suave: true }));
   let extras = null;
   if (P.sukuna) { // marcas do Sukuna
@@ -307,7 +325,7 @@ function pessoaLP(o = {}) {
   S.root.scale.setScalar(P.scale);
   shadows(S.root);
   S.root.traverse((c) => { if (c.userData && c.userData.isDecal) { c.castShadow = false; c.receiveShadow = false; } });
-  S.root.userData = { ...S, eyes: null, brows: null, mouth: null, hands, P, headM, kind: "lp", tails: [], scarfTails: [], lp: { olhos, fechados, brows, bocas, extras } };
+  S.root.userData = { ...S, eyes: null, brows: null, mouth: null, hands, P, headM, kind: "lp", tails: [], scarfTails: [], lp: { olhos, fechados, brows, bocas, extras, sombra, suor, lagrimas } };
   restPose(S.root);
   return S.root;
 }
@@ -316,11 +334,16 @@ function pessoaLP(o = {}) {
 function rostoLP(p, t, f = {}) {
   const u = p.userData, L = u.lp; if (!L) return;
   const per = f.piscaCada ?? 3.4, ph = (t + hash(u.P.seed) * 5) % per, piscando = ph < 0.12;
-  const fecha = f.fechados || piscando;
+  const fecha = f.fechados || (piscando && !((f.choque ?? 0) > 0.5));
   L.olhos.forEach((g) => (g.visible = !fecha)); L.fechados.forEach((g) => (g.visible = fecha));
   if (!fecha) L.olhos.forEach((g) => (g.scale.y = clamp(f.palpebra ?? 1, 0.3, 1.2)));
   if (L.extras) L.extras.forEach((g) => (g.visible = !fecha));
   L.brows.forEach((g, i) => { const k = i ? 1 : -1; g.rotation.z = g.userData.rz0 - k * ((f.bravo ?? 0) * 0.32 - (f.triste ?? 0) * 0.3); g.position.y = g.userData.y0 + (f.sobe ?? 0) * 0.006 - (f.bravo ?? 0) * 0.003; });
+  const chq = (f.choque ?? 0) > 0.5;
+  L.olhos.forEach((g) => { const m = g.children[0]; if (!m || !m.material.map) return; if (!m.userData.texN) { const P = u.P, base = olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.olhoOpts || {}), ir: 0.52 * (P.olhoOpts?.ir ?? 1) }); m.userData.texN = m.material.map; m.userData.texC = m.material.map.repeat.x < 0 ? espelho(base) : base; } const want = chq ? m.userData.texC : m.userData.texN; if (m.material.map !== want) { m.material.map = want; if (m.material.emissiveMap) m.material.emissiveMap = want; m.material.needsUpdate = true; } });
+  if (L.sombra) { L.sombra.visible = (f.sombra ?? 0) > 0.02; L.sombra.material.opacity = clamp(f.sombra ?? 0); }
+  if (L.suor) { L.suor.visible = (f.suor ?? 0) > 0.02; L.suor.position.y = CAB.EY + 0.05 - ((t * 0.03) % 0.03) * (f.suor ?? 0); }
+  if (L.lagrimas) L.lagrimas.forEach((m) => { m.visible = (f.choro ?? 0) > 0.02; m.scale.y = Math.max(0.05, f.choro ?? 0); });
   let tipo = f.boca ?? "linha";
   if (f.fala) { const a = Math.abs(Math.sin(t * 12.5)) * f.fala; if (a > 0.4) tipo = "aberta"; L.bocas.aberta.scale.y = 0.6 + a * 0.5; }
   for (const k in L.bocas) L.bocas[k].visible = k === tipo;
