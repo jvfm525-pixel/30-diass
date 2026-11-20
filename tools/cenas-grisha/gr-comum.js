@@ -90,12 +90,17 @@ function colossal(g, s = 1) { const c = grp(g), mus = new THREE.MeshStandardMate
   mesh(new THREE.ConeGeometry(0.9 * s, 1.4 * s, 4), escuro, 0, -0.2 * s, 8.2 * s, c).rotation.x = Math.PI;
   return c; }
 // casa de enxaimel (paredes claras com vigas escuras) e telhado vermelho: Shiganshina
-function casaEnx(g, x, z, o = {}) { const h = grp(g, x, 0, z); h.rotation.y = o.ry ?? 0; const W = o.w ?? 4, D = o.d ?? 4, A = o.h ?? 5; const pl = texPlaster(), rf = texRoof();
-  const pm = SM(0xffffff, { map: rep(pl.clone(), W / 3, A / 3) }); pm.map.needsUpdate = true; mesh(box(W, A, D), pm, 0, A / 2, 0, h);
-  const tel = SM(0xffffff, { map: rep(rf.map.clone(), 2, 2), normalMap: rf.normalMap }); tel.map.needsUpdate = true; [-1, 1].forEach((k) => { const r = mesh(box(W + 0.6, 0.2, D * 0.62), tel, 0, A + D * 0.22, k * D * 0.25, h); r.rotation.x = k * 0.75; });
-  mesh(new THREE.ConeGeometry(0.001, 0.001, 3), tel, 0, 0, 0, h);
-  for (let j = 0; j < (o.janelas ?? 2); j++) [-1, 1].forEach((k) => mesh(box(0.6, 0.8, 0.06), new THREE.MeshStandardMaterial({ color: 0x2a3040, emissive: o.luz ? 0xffc070 : 0x000000, emissiveIntensity: o.luz ? 1.2 : 0 }), k * W * 0.25, 1.6 + j * 1.6, D / 2 + 0.03, h));
-  mesh(box(0.9, 1.6, 0.06), LPmat(0x4a3020), 0, 0.8, D / 2 + 0.03, h); if (o.chamine !== false) mesh(box(0.5, 1.4, 0.5), SM(0x7a6a5a), W * 0.3, A + D * 0.4, -D * 0.1, h); return h; }
+// materiais das casas compartilhados (centenas de casas na vista de cima não podem criar material cada uma)
+const CASA_MAT = {}; function casaMats() { if (CASA_MAT.pm) return CASA_MAT; const pl = texPlaster(), rf = texRoof();
+  CASA_MAT.pm = SM(0xffffff, { map: rep(pl.clone(), 1.5, 1.7) }); CASA_MAT.pm.map.needsUpdate = true;
+  CASA_MAT.tel = SM(0xffffff, { map: rep(rf.map.clone(), 2, 2), normalMap: rf.normalMap }); CASA_MAT.tel.map.needsUpdate = true;
+  CASA_MAT.jan = new THREE.MeshStandardMaterial({ color: 0x2a3040 }); CASA_MAT.janLuz = new THREE.MeshStandardMaterial({ color: 0x2a3040, emissive: 0xffc070, emissiveIntensity: 1.2 });
+  CASA_MAT.porta = LPmat(0x4a3020); CASA_MAT.cham = SM(0x7a6a5a); return CASA_MAT; }
+function casaEnx(g, x, z, o = {}) { const M = casaMats(); const h = grp(g, x, 0, z); h.rotation.y = o.ry ?? 0; const W = o.w ?? 4, D = o.d ?? 4, A = o.h ?? 5;
+  mesh(box(W, A, D), M.pm, 0, A / 2, 0, h);
+  [-1, 1].forEach((k) => { const r = mesh(box(W + 0.6, 0.2, D * 0.62), M.tel, 0, A + D * 0.22, k * D * 0.25, h); r.rotation.x = k * 0.75; });
+  for (let j = 0; j < (o.janelas ?? 2); j++) [-1, 1].forEach((k) => mesh(box(0.6, 0.8, 0.06), o.luz ? M.janLuz : M.jan, k * W * 0.25, 1.6 + j * 1.6, D / 2 + 0.03, h));
+  mesh(box(0.9, 1.6, 0.06), M.porta, 0, 0.8, D / 2 + 0.03, h); if (o.chamine !== false) mesh(box(0.5, 1.4, 0.5), M.cham, W * 0.3, A + D * 0.4, -D * 0.1, h); return h; }
 function ruaPedra(g, w = 6, L = 60, z0 = 0) { const t = texBlocks([150, 140, 128], [118, 110, 100]), m = SM(0xffffff, { map: rep(t.map.clone(), w / 1.2, L / 1.2), normalMap: t.normalMap, roughness: 0.85 }); m.map.needsUpdate = true; const r = mesh(new THREE.PlaneGeometry(w, L), m, 0, 0.01, z0 - L / 2, g); r.rotation.x = -Math.PI / 2; return r; }
 // multidão de gente pequena fugindo (silhuetas low-poly simples)
 function multidao(g, n, area, o = {}) { const ps = []; const corpo = new THREE.CapsuleGeometry(0.16, 0.7, 3, 6), cab = new THREE.SphereGeometry(0.13, 6, 5);

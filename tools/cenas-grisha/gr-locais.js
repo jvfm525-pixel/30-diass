@@ -72,7 +72,7 @@ function florestaChuva(g) { const F = grp(g); skyDome(F, { top: 0x04060c, mid: 0
 function shiganshinaAlto(g) { const S = grp(g); skyDome(S, { top: 0x3a5a9a, mid: 0xe8a07a, hor: 0xffd8a8, ground: 0x4a4038, sunDir: [0.6, 0.06, -0.8], sunCol: 0xfff0c8, sunI: 1.0, disk: 1.8, cov: 0.4, cloudLit: 0xffc8a0, cloudSh: 0x7a6a8a, midY: 0.2 });
   const ch = mesh(new THREE.PlaneGeometry(800, 800), LPmat(0x6a6a4a), 0, -0.02, 0, S); ch.rotation.x = -Math.PI / 2;
   // quarteirões em grade com ruas (como uma cidade de verdade), praça no meio
-  let n_ = 0; for (let gx = -7; gx <= 7; gx++) for (let gz = -7; gz <= 7; gz++) { const cx = gx * 11, cz = gz * 11; if (Math.hypot(cx, cz) > 82 || (Math.abs(gx) < 1 && Math.abs(gz) < 1)) continue; if (gx === 0 || gz === 0) continue;
+  let n_ = 0; for (let gx = -6; gx <= 6; gx++) for (let gz = -6; gz <= 6; gz++) { const cx = gx * 12, cz = gz * 12; if (Math.hypot(cx, cz) > 80 || (Math.abs(gx) < 1 && Math.abs(gz) < 1)) continue; if (gx === 0 || gz === 0) continue;
     for (let k = 0; k < 4; k++) { const ox = (k % 2 ? 2.6 : -2.6), oz = (k < 2 ? 2.6 : -2.6), i = n_++; casaEnx(S, cx + ox, cz + oz, { ry: (k % 2 ? 0 : Math.PI) + (hash(i) > 0.5 ? Math.PI / 2 : 0), w: 4.4, d: 4.4, h: 4 + hash(i * 3) * 4, luz: hash(i * 7) > 0.75, chamine: hash(i * 9) > 0.5, janelas: 1 }); } }
   [0, Math.PI / 2].forEach((r) => { const rua = ruaPedra(S, 7, 170, 85); rua.rotation.z = r; });
   muralhaV2(S, 95, 50, { c: [0, 0, 0], a0: -3.14, a1: 3.14, n: 40, canhoes: 24 });
