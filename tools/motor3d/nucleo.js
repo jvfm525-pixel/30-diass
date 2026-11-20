@@ -9,6 +9,7 @@ import { RenderPass } from "./vendor/RenderPass.js";
 import { UnrealBloomPass } from "./vendor/UnrealBloomPass.js";
 import { ShaderPass } from "./vendor/ShaderPass.js";
 import { OutputPass } from "./vendor/OutputPass.js";
+import { BokehPass } from "./vendor/BokehPass.js";
 
 const T = window.HF_T;
 const K = T.k;
@@ -105,6 +106,8 @@ const composer = new EffectComposer(renderer, rt0);
 composer.setPixelRatio(1);
 composer.setSize(W, H);
 composer.addPass(new RenderPass(scene, camera));
+// profundidade de campo (fundo desfocado), ligada por cena em look.dof = { ap, max }; o foco vem da câmera (c.focus ou distância até o alvo)
+const bokeh = new BokehPass(scene, camera, { focus: 5, aperture: 0.004, maxblur: 0.01 }); bokeh.enabled = false; composer.addPass(bokeh);
 const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.55, 0.6, 0.82);
 composer.addPass(bloom);
 composer.addPass(new OutputPass());

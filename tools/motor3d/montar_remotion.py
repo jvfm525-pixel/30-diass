@@ -10,6 +10,7 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
+import { BokehPass } from "three/examples/jsm/postprocessing/BokehPass.js";
 '''
 nuc = re.sub(r'^import .*\n', '', nuc, flags=re.M)
 nuc = nuc.replace("const T = window.HF_T;", "const T = HF_T;").replace('const canvas = document.getElementById("c3d");', "")

@@ -13,6 +13,7 @@ function applyLook(s) {
   bloom.strength = L.bloom ?? 0.55; bloom.radius = L.bloomR ?? 0.6; bloom.threshold = L.bloomT ?? 0.82;
   GU.uVig.value = L.vig ?? 0.35; GU.uGrain.value = L.grain ?? 0.028; GU.uCA.value = L.ca ?? 0.004; GU.uSat.value = L.sat ?? 1.05; GU.uCon.value = L.con ?? 1.04;
   GU.uLift.value.set(...(L.lift ?? [0, 0, 0])); GU.uGain.value.set(...(L.gain ?? [1, 1, 1])); GU.uFlash.value = 0; GU.uFade.value = 0; GU.uBlur.value.set(0, 0); GU.uFlashCol.value.set(1, 1, 1);
+  bokeh.enabled = !!L.dof; if (L.dof) { bokeh.uniforms.aperture.value = L.dof.ap ?? 0.004; bokeh.uniforms.maxblur.value = L.dof.max ?? 0.01; }
   const S_ = s.sun || {}; setSun(S_.dir ?? [0.5, 0.8, 0.4], S_.col ?? 0xfff0d8, S_.I ?? 2.4, S_.c ?? [0, 0, 0], S_.r ?? 30);
   sun.castShadow = S_.shadow !== false;
   const Hm = s.hemi || {}; hemi.color.set(Hm.sky ?? 0xbfd4ff); hemi.groundColor.set(Hm.ground ?? 0x3a3020); hemi.intensity = Hm.I ?? 0.7;
@@ -35,6 +36,7 @@ function renderAt(t) {
   if (s.hand !== 0) { const hh = handCam(t, s.hand ?? 0.012, 0.5); camera.position.x += hh[0]; camera.position.y += hh[1]; camera.position.z += hh[2]; camera.lookAt(...c.look); }
   if (c.roll) camera.rotateZ(c.roll);
   camera.fov = c.fov ?? 35; camera.near = c.near ?? 0.1; camera.updateProjectionMatrix();
+  if (bokeh.enabled) bokeh.uniforms.focus.value = c.focus ?? camera.position.distanceTo(_sd.set(...c.look));
   if (s.dome) s.dome.position.copy(camera.position);
   if (s.after) s.after(t);
   if (s.fadeIn) { const [a] = T.sc[n]; GU.uFade.value = Math.max(GU.uFade.value, 1 - seg(t, a, a + s.fadeIn)); }

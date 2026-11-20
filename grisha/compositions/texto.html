@@ -1,0 +1,142 @@
+<template>
+  <style>
+    @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/EBGaramond-400.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/EBGaramond-700.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "Cinzel"; src: url("../assets/fonts/cinzel-900.woff2") format("woff2"); font-weight: 900; }
+    #root { position:absolute; inset:0; overflow:hidden; background:transparent; }
+    .titulo { position:absolute; left:0; right:0; top:560px; text-align:center; color:#fff; text-shadow:0 4px 30px rgba(0,0,0,.85); }
+    .tl1 { font-family:"EB Garamond"; font-style:italic; font-size:72px; line-height:1.05; }
+    .tl2 { font-family:"Cinzel"; font-weight:900; font-size:118px; letter-spacing:.06em; line-height:1.05; }
+    .tl3 { font-family:"Cinzel"; font-weight:900; font-size:150px; letter-spacing:.04em; color:#c9a8ff; line-height:1.1; }
+    .cap { position:absolute; left:0; right:0; top:200px; text-align:center; font-family:"Cinzel"; font-weight:900; font-size:44px;
+            color:#f2ece0; letter-spacing:.32em; text-shadow:0 2px 18px rgba(0,0,0,.9); white-space:nowrap; }
+    .leg { position:absolute; left:70px; right:70px; text-align:center; }
+    .mancha { position:absolute; left:-60px; right:-60px; top:-50px; bottom:-50px; background:url("../assets/img/mancha.png") center / 100% 100% no-repeat; }
+    .lt { position:relative; font-family:"EB Garamond"; font-style:italic; font-weight:700; font-size:62px; line-height:1.18; color:#fff;
+           text-shadow:0 2px 10px rgba(0,0,0,.8); }
+    .quem { font-family:"Cinzel"; font-style:normal; font-weight:900; font-size:46px; letter-spacing:.08em; color:#c9a8ff; }
+    .ficha { position:absolute; left:290px; width:500px; top:1290px; padding:22px 30px; border-radius:18px; background:rgba(12,10,16,.78);
+              border:2px solid rgba(255,245,230,.55); text-align:center; color:#fff; }
+    .fa { font-family:"EB Garamond"; font-weight:700; font-size:44px; }
+    .fo { font-family:"EB Garamond"; font-style:italic; font-size:38px; color:#e8e0d0; }
+    .fn { font-family:"EB Garamond"; font-style:italic; font-size:30px; color:#c9a8ff; margin-top:6px; }
+    .disc { position:absolute; left:190px; width:700px; top:1250px; padding:26px 30px; border-radius:22px; background:rgba(20,40,28,.82);
+             border:2px solid #c9a8ff; text-align:center; color:#fff; box-shadow:0 0 50px rgba(120,255,160,.35); }
+    .d1 { font-family:"Cinzel"; font-weight:900; font-size:40px; letter-spacing:.06em; white-space:nowrap; }
+    .d2 { font-family:"EB Garamond"; font-style:italic; font-weight:700; font-size:50px; color:#c9a8ff; }
+    .bal { position:absolute; left:330px; top:1120px; padding:16px 34px; border-radius:26px; background:#fff; color:#2a2440; font-family:"EB Garamond"; font-weight:700; font-size:44px; box-shadow:0 6px 24px rgba(0,0,0,.35); }
+    .d3 { font-family:"EB Garamond"; font-style:italic; font-size:40px; margin-top:4px; }
+  </style>
+  <div id="root" data-composition-id="texto" data-width="1080" data-height="1920">
+<div id="titulo" class="clip titulo" data-start="0.75" data-duration="5.60">
+  <div class="tl1">Por que o</div><div class="tl2">GRISHA</div><div class="tl3">COMEU</div><div class="tl1">a família real?</div></div>
+<div id="cap0" class="clip cap" data-start="6.35" data-duration="2.60">— O DIA DA QUEDA —</div>
+<div id="cap1" class="clip cap" data-start="13.11" data-duration="2.60">— A MISSÃO —</div>
+<div id="cap2" class="clip cap" data-start="19.79" data-duration="2.60">— A RAINHA QUE NÃO LUTOU —</div>
+<div id="cap3" class="clip cap" data-start="26.99" data-duration="2.60">— A CAVERNA —</div>
+<div id="cap4" class="clip cap" data-start="35.48" data-duration="2.60">— CONDENADO —</div>
+<div id="cap5" class="clip cap" data-start="41.79" data-duration="2.60">— QUEM EMPURROU —</div>
+<div id="lg3" class="clip leg" data-start="6.45" data-duration="1.76" style="top:330px"><div class="mancha"></div><div class="lt">No dia em que a Muralha Maria caiu,</div></div>
+<div id="lg4" class="clip leg" data-start="8.26" data-duration="0.80" style="top:330px"><div class="mancha"></div><div class="lt">o Grisha não fugiu.</div></div>
+<div id="lg5" class="clip leg" data-start="9.11" data-duration="1.22" style="top:250px"><div class="mancha"></div><div class="lt">Correu na direção contrária,</div></div>
+<div id="lg6" class="clip leg" data-start="10.38" data-duration="1.80" style="top:250px"><div class="mancha"></div><div class="lt">até a capela dos Reiss.</div></div>
+<div id="lg7" class="clip leg" data-start="13.21" data-duration="0.67" style="top:330px"><div class="mancha"></div><div class="lt">Anos antes,</div></div>
+<div id="lg8" class="clip leg" data-start="13.93" data-duration="1.18" style="top:330px"><div class="mancha"></div><div class="lt">o Kruger tinha dado a ele</div></div>
+<div id="lg9" class="clip leg" data-start="15.16" data-duration="0.67" style="top:330px"><div class="mancha"></div><div class="lt">o Titã de Ataque,</div></div>
+<div id="lg10" class="clip leg" data-start="15.88" data-duration="0.97" style="top:250px"><div class="mancha"></div><div class="lt">e uma missão:</div></div>
+<div id="lg11" class="clip leg" data-start="16.97" data-duration="0.78" style="top:250px"><div class="mancha"></div><div class="lt">tomar o Titã Fundador</div></div>
+<div id="lg12" class="clip leg" data-start="17.80" data-duration="1.21" style="top:250px"><div class="mancha"></div><div class="lt">da família real.</div></div>
+<div id="lg13" class="clip leg" data-start="19.89" data-duration="1.25" style="top:330px"><div class="mancha"></div><div class="lt">Quem tinha esse poder</div></div>
+<div id="lg14" class="clip leg" data-start="21.19" data-duration="1.21" style="top:330px"><div class="mancha"></div><div class="lt">era a Frieda Reiss.</div></div>
+<div id="lg15" class="clip leg" data-start="22.45" data-duration="1.84" style="top:250px"><div class="mancha"></div><div class="lt">Ela podia salvar as muralhas,</div></div>
+<div id="lg16" class="clip leg" data-start="24.34" data-duration="1.80" style="top:250px"><div class="mancha"></div><div class="lt">mas o juramento do primeiro rei</div></div>
+<div id="lg17" class="clip leg" data-start="26.19" data-duration="0.85" style="top:250px"><div class="mancha"></div><div class="lt">proibia lutar.</div></div>
+<div id="lg18" class="clip leg" data-start="27.09" data-duration="1.36" style="top:330px"><div class="mancha"></div><div class="lt">O Grisha implorou.</div></div>
+<div id="lg19" class="clip leg" data-start="28.50" data-duration="0.39" style="top:330px"><div class="mancha"></div><div class="lt">Ela se transformou.</div></div>
+<div id="lg20" class="clip leg" data-start="28.94" data-duration="1.50" style="top:330px"><div class="mancha"></div><div class="lt">Na caverna de cristal,</div></div>
+<div id="lg21" class="clip leg" data-start="30.49" data-duration="0.99" style="top:250px"><div class="mancha"></div><div class="lt">ele a devorou,</div></div>
+<div id="lg22" class="clip leg" data-start="31.53" data-duration="1.43" style="top:250px"><div class="mancha"></div><div class="lt">e matou os filhos do Rod.</div></div>
+<div id="lg23" class="clip leg" data-start="33.97" data-duration="1.56" style="top:250px"><div class="mancha"></div><div class="lt">Link do meu Discord tá na bio.</div></div>
+<div id="lg24" class="clip leg" data-start="35.58" data-duration="1.56" style="top:330px"><div class="mancha"></div><div class="lt">O filósofo Sartre escreveu</div></div>
+<div id="lg25" class="clip leg" data-start="37.19" data-duration="1.49" style="top:330px"><div class="mancha"></div><div class="lt">que o homem está condenado</div></div>
+<div id="lg26" class="clip leg" data-start="38.73" data-duration="0.88" style="top:250px"><div class="mancha"></div><div class="lt">a ser livre.</div></div>
+<div id="lg27" class="clip leg" data-start="39.66" data-duration="0.45" style="top:250px"><div class="mancha"></div><div class="lt">O Grisha queria</div></div>
+<div id="lg28" class="clip leg" data-start="40.16" data-duration="1.13" style="top:250px"><div class="mancha"></div><div class="lt">não ter escolha.</div></div>
+<div id="lg29" class="clip leg" data-start="41.89" data-duration="1.78" style="top:330px"><div class="mancha"></div><div class="lt">E, de certo jeito, não teve.</div></div>
+<div id="lg30" class="clip leg" data-start="43.72" data-duration="1.64" style="top:330px"><div class="mancha"></div><div class="lt">Ele parou ali, chorando.</div></div>
+<div id="lg31" class="clip leg" data-start="45.41" data-duration="1.45" style="top:250px"><div class="mancha"></div><div class="lt">E dentro da memória dele</div></div>
+<div id="lg32" class="clip leg" data-start="46.91" data-duration="2.23" style="top:250px"><div class="mancha"></div><div class="lt">estava o próprio filho, o Eren,</div></div>
+<div id="lg33" class="clip leg" data-start="49.19" data-duration="-0.05" style="top:250px"><div class="mancha"></div><div class="lt">dizendo:</div></div>
+<div id="lg34" class="clip leg" data-start="49.19" data-duration="0.95" style="top:250px"><div class="mancha"></div><div class="lt"><span class="quem">EREN:</span> “siga em frente.”</div></div>
+<div id="lg35" class="clip leg" data-start="51.93" data-duration="2.47" style="top:250px"><div class="mancha"></div><div class="lt">Um pai que começou tudo pelo filho...</div></div>
+<div id="lg36" class="clip leg" data-start="54.45" data-duration="1.55" style="top:250px"><div class="mancha"></div><div class="lt">empurrado pelo filho.</div></div>
+<div id="lg37" class="clip leg" data-start="56.05" data-duration="0.70" style="top:250px"><div class="mancha"></div><div class="lt">Se você pudesse voltar</div></div>
+<div id="lg38" class="clip leg" data-start="56.80" data-duration="0.87" style="top:250px"><div class="mancha"></div><div class="lt">e falar uma frase</div></div>
+<div id="lg39" class="clip leg" data-start="57.72" data-duration="1.11" style="top:250px"><div class="mancha"></div><div class="lt">pra alguém do seu passado,</div></div>
+<div id="lg40" class="clip leg" data-start="58.88" data-duration="0.64" style="top:250px"><div class="mancha"></div><div class="lt">qual seria?</div></div>
+<div id="lg41" class="clip leg" data-start="59.57" data-duration="0.91" style="top:250px"><div class="mancha"></div><div class="lt">Comenta aí,</div></div>
+<div id="lg42" class="clip leg" data-start="60.53" data-duration="1.01" style="top:250px"><div class="mancha"></div><div class="lt">e me segue pra mais.</div></div>
+<div id="f1" class="clip ficha" data-start="35.92" data-duration="3.88"><div class="fa">Jean-Paul Sartre</div><div class="fo">O existencialismo é um humanismo · 1946</div><div class="fn">o homem está condenado a ser livre</div></div>
+<div id="f2" class="clip ficha" data-start="46.61" data-duration="3.24"><div class="fa">Attack on Titan</div><div class="fo">capítulo 121</div><div class="fn">Memórias do Futuro</div></div>
+<div id="disc" class="clip disc" data-start="33.87" data-duration="1.73"><div class="d1">DISCORD</div><div class="d3">link na bio</div></div>
+<div id="bal" class="clip bal" data-start="60.47" data-duration="3.10">Comenta aí</div>
+  </div>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#titulo",{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:"power2.out"},0.75);tl.fromTo("#titulo .tl3",{opacity:0,scale:.9},{opacity:1,scale:1,duration:.5,ease:"power2.out"},1.69);tl.to("#titulo",{opacity:0,duration:.35},6.00);
+      tl.fromTo("#cap0",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},6.35);tl.to("#cap0",{opacity:0,duration:.4},8.55);
+      tl.fromTo("#cap1",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},13.11);tl.to("#cap1",{opacity:0,duration:.4},15.31);
+      tl.fromTo("#cap2",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},19.79);tl.to("#cap2",{opacity:0,duration:.4},21.99);
+      tl.fromTo("#cap3",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},26.99);tl.to("#cap3",{opacity:0,duration:.4},29.19);
+      tl.fromTo("#cap4",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},35.48);tl.to("#cap4",{opacity:0,duration:.4},37.68);
+      tl.fromTo("#cap5",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},41.79);tl.to("#cap5",{opacity:0,duration:.4},43.99);
+      tl.fromTo("#lg3",{opacity:0},{opacity:1,duration:.25},6.45);tl.to("#lg3",{opacity:0,duration:.25},7.96);
+      tl.fromTo("#lg4",{opacity:0},{opacity:1,duration:.25},8.26);tl.to("#lg4",{opacity:0,duration:.25},8.81);
+      tl.fromTo("#lg5",{opacity:0},{opacity:1,duration:.25},9.11);tl.to("#lg5",{opacity:0,duration:.25},10.08);
+      tl.fromTo("#lg6",{opacity:0},{opacity:1,duration:.25},10.38);tl.to("#lg6",{opacity:0,duration:.25},11.93);
+      tl.fromTo("#lg7",{opacity:0},{opacity:1,duration:.25},13.21);tl.to("#lg7",{opacity:0,duration:.25},13.63);
+      tl.fromTo("#lg8",{opacity:0},{opacity:1,duration:.25},13.93);tl.to("#lg8",{opacity:0,duration:.25},14.86);
+      tl.fromTo("#lg9",{opacity:0},{opacity:1,duration:.25},15.16);tl.to("#lg9",{opacity:0,duration:.25},15.58);
+      tl.fromTo("#lg10",{opacity:0},{opacity:1,duration:.25},15.88);tl.to("#lg10",{opacity:0,duration:.25},16.60);
+      tl.fromTo("#lg11",{opacity:0},{opacity:1,duration:.25},16.97);tl.to("#lg11",{opacity:0,duration:.25},17.50);
+      tl.fromTo("#lg12",{opacity:0},{opacity:1,duration:.25},17.80);tl.to("#lg12",{opacity:0,duration:.25},18.76);
+      tl.fromTo("#lg13",{opacity:0},{opacity:1,duration:.25},19.89);tl.to("#lg13",{opacity:0,duration:.25},20.89);
+      tl.fromTo("#lg14",{opacity:0},{opacity:1,duration:.25},21.19);tl.to("#lg14",{opacity:0,duration:.25},22.15);
+      tl.fromTo("#lg15",{opacity:0},{opacity:1,duration:.25},22.45);tl.to("#lg15",{opacity:0,duration:.25},24.04);
+      tl.fromTo("#lg16",{opacity:0},{opacity:1,duration:.25},24.34);tl.to("#lg16",{opacity:0,duration:.25},25.89);
+      tl.fromTo("#lg17",{opacity:0},{opacity:1,duration:.25},26.19);tl.to("#lg17",{opacity:0,duration:.25},26.79);
+      tl.fromTo("#lg18",{opacity:0},{opacity:1,duration:.25},27.09);tl.to("#lg18",{opacity:0,duration:.25},28.20);
+      tl.fromTo("#lg19",{opacity:0},{opacity:1,duration:.25},28.50);tl.to("#lg19",{opacity:0,duration:.25},28.80);
+      tl.fromTo("#lg20",{opacity:0},{opacity:1,duration:.25},28.94);tl.to("#lg20",{opacity:0,duration:.25},30.19);
+      tl.fromTo("#lg21",{opacity:0},{opacity:1,duration:.25},30.49);tl.to("#lg21",{opacity:0,duration:.25},31.23);
+      tl.fromTo("#lg22",{opacity:0},{opacity:1,duration:.25},31.53);tl.to("#lg22",{opacity:0,duration:.25},32.71);
+      tl.fromTo("#lg23",{opacity:0},{opacity:1,duration:.25},33.97);tl.to("#lg23",{opacity:0,duration:.25},35.28);
+      tl.fromTo("#lg24",{opacity:0},{opacity:1,duration:.25},35.58);tl.to("#lg24",{opacity:0,duration:.25},36.89);
+      tl.fromTo("#lg25",{opacity:0},{opacity:1,duration:.25},37.19);tl.to("#lg25",{opacity:0,duration:.25},38.43);
+      tl.fromTo("#lg26",{opacity:0},{opacity:1,duration:.25},38.73);tl.to("#lg26",{opacity:0,duration:.25},39.36);
+      tl.fromTo("#lg27",{opacity:0},{opacity:1,duration:.25},39.66);tl.to("#lg27",{opacity:0,duration:.25},39.96);
+      tl.fromTo("#lg28",{opacity:0},{opacity:1,duration:.25},40.16);tl.to("#lg28",{opacity:0,duration:.25},41.04);
+      tl.fromTo("#lg29",{opacity:0},{opacity:1,duration:.25},41.89);tl.to("#lg29",{opacity:0,duration:.25},43.42);
+      tl.fromTo("#lg30",{opacity:0},{opacity:1,duration:.25},43.72);tl.to("#lg30",{opacity:0,duration:.25},45.11);
+      tl.fromTo("#lg31",{opacity:0},{opacity:1,duration:.25},45.41);tl.to("#lg31",{opacity:0,duration:.25},46.61);
+      tl.fromTo("#lg32",{opacity:0},{opacity:1,duration:.25},46.91);tl.to("#lg32",{opacity:0,duration:.25},48.89);
+      tl.fromTo("#lg33",{opacity:0},{opacity:1,duration:.25},49.19);tl.to("#lg33",{opacity:0,duration:.25},49.49);
+      tl.fromTo("#lg34",{opacity:0},{opacity:1,duration:.25},49.19);tl.to("#lg34",{opacity:0,duration:.25},49.89);
+      tl.fromTo("#lg35",{opacity:0},{opacity:1,duration:.25},51.93);tl.to("#lg35",{opacity:0,duration:.25},54.15);
+      tl.fromTo("#lg36",{opacity:0},{opacity:1,duration:.25},54.45);tl.to("#lg36",{opacity:0,duration:.25},55.76);
+      tl.fromTo("#lg37",{opacity:0},{opacity:1,duration:.25},56.05);tl.to("#lg37",{opacity:0,duration:.25},56.50);
+      tl.fromTo("#lg38",{opacity:0},{opacity:1,duration:.25},56.80);tl.to("#lg38",{opacity:0,duration:.25},57.42);
+      tl.fromTo("#lg39",{opacity:0},{opacity:1,duration:.25},57.72);tl.to("#lg39",{opacity:0,duration:.25},58.58);
+      tl.fromTo("#lg40",{opacity:0},{opacity:1,duration:.25},58.88);tl.to("#lg40",{opacity:0,duration:.25},59.27);
+      tl.fromTo("#lg41",{opacity:0},{opacity:1,duration:.25},59.57);tl.to("#lg41",{opacity:0,duration:.25},60.23);
+      tl.fromTo("#lg42",{opacity:0},{opacity:1,duration:.25},60.53);tl.to("#lg42",{opacity:0,duration:.25},61.29);
+      tl.fromTo("#f1",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},35.92);tl.to("#f1",{opacity:0,duration:.35},39.45);
+      tl.fromTo("#f2",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},46.61);tl.to("#f2",{opacity:0,duration:.35},49.50);
+      tl.fromTo("#disc",{opacity:0,scale:.92},{opacity:1,scale:1,duration:.35,ease:"back.out(1.6)"},33.87);tl.to("#disc",{opacity:0,duration:.25},35.35);
+      tl.fromTo("#bal",{opacity:0,scale:.8},{opacity:1,scale:1,duration:.35,ease:"back.out(2)"},60.47);tl.to("#bal",{opacity:0,duration:.3},63.27);
+      window.__timelines["texto"] = tl;
+    })();
+  </script>
+</template>

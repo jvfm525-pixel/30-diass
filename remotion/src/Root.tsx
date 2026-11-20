@@ -9,6 +9,8 @@ import { Light3D } from "./videos/light/Light3D";
 import lightDados from "./videos/light/dados.json";
 import { Ging3D } from "./videos/ging/Ging3D";
 import gingDados from "./videos/ging/dados.json";
+import { Grisha3D } from "./videos/grisha/Grisha3D";
+import grishaDados from "./videos/grisha/dados.json";
 
 // Vídeos verticais do TikTok: 1080 x 1920, 60 quadros por segundo
 export const RemotionRoot: React.FC = () => (
@@ -18,6 +20,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Sukuna3D" component={Sukuna3D} durationInFrames={Math.round(sukunaDados.total * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Light3D" component={Light3D} durationInFrames={Math.round(lightDados.total * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Ging3D" component={Ging3D} durationInFrames={Math.round(gingDados.total * 30)} fps={30} width={1080} height={1920} />
+    <Composition id="Grisha3D" component={Grisha3D} durationInFrames={Math.round(grishaDados.total * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Teste3D" component={Teste3D} durationInFrames={180} fps={60} width={1080} height={1920} />
   </>
 );

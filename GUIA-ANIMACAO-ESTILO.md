@@ -202,3 +202,17 @@ Regra geral: **toda transição tem motivo na história** (entrar na memória, v
 - Fontes: serifa itálica para a legenda (Cormorant Garamond ou EB Garamond, via @fontsource) e versalete para os cabeçalhos (Cinzel, que já temos).
 
 **Personagens (regra nova, 15/11/2026)**: como nessa animação, desenhamos **os próprios personagens da obra** em 3D low-poly, com os traços que identificam cada um (cabelo, olhos, roupa, marcas). O desenho é sempre nosso: nada de prints, trechos ou arte oficial.
+
+## Estudo 2 (20/11/2026): por que os cenários da referência são bonitos — receitas para copiar
+
+Quadros revistos em resolução maior (0–153 s). O que faz a beleza, em ordem de importância:
+
+1. **Luz em contraluz**: quase todo plano tem a fonte de luz atrás ou ao lado do personagem (sol enorme no horizonte, pilar de luz, porta clara). Borda luminosa (rim) forte nos personagens, raios saindo do sol, halo grande e quente, sombras longas vindo na direção da câmera.
+2. **Profundidade de campo**: fundo sempre desfocado nos closes (árvores distantes viram manchas, luz vira bokeh redondo). A grama em primeiro plano também desfoca. Isso separa o personagem e esconde a simplicidade do fundo.
+3. **Natureza densa em camadas**: (a) grama alta em lâminas grandes bem perto da câmera; (b) chão liso verde-claro levemente facetado; (c) árvores distantes simples (copa redonda de 2 tons num tronco fino) espalhadas em morros suaves; (d) montanhas azuladas na névoa; (e) céu azul com nuvens fofas. A árvore principal tem a copa feita de dezenas de "bolhas" lisas de vários verdes, com folhinhas saindo pelas bordas e um tronco grosso com sulcos verticais e raízes.
+4. **Vento em várias camadas ao mesmo tempo**: folhas verdes pontudas cruzando a tela em diagonal girando (algumas grandes, perto da câmera, borradas), riscos finos brancos de vento passando rápido, a grama ondulando, o cachecol/capa batendo, mechas de cabelo esvoaçando (Armin), a copa balançando. Nas cenas de areia, poeira e riscos de vento.
+5. **Partículas de luz**: poeira dourada flutuando, estrelinhas de 4 pontas cintilando, faíscas no pilar de luz.
+6. **Cor por mundo**: verde-azul vivo (dia na árvore), laranja-rosa (pôr do sol no topo da muralha), dourado no preto (mundo das ideias), sépia escura (memória do pai), roxo-laranja (Armin), areia e fumaça (Rumbling).
+7. **Cenários-símbolo grandes**: topo de muralha com parapeitos indo até o horizonte; corredor de cerimônia com colunas e tapete vermelho; rodas de carroça gigantes; anéis de mostrador (relógio/astrolábio) em túnel; estrada de luz com faixas até o ponto de fuga.
+8. **Câmera**: movimentos longos e lentos (aproximação, guindaste subindo pelo tronco até acima da copa, órbita ao redor do tronco, recuo revelando o cenário), poucos cortes, chicote com borrão nas trocas de capítulo.
+9. **Personagens sempre apoiados**: pés no chão com sombra de contato; ajoelhar/sentar com o corpo apoiado; nada flutua.
