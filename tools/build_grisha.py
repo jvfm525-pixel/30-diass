@@ -42,8 +42,8 @@ def add(html, script=""):
 
 # título (0,75 → pouco antes da 2ª frase)
 import sys as _s; _s.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import grisha_texto as GT
-N1 = len(GT.frases(GT.PARS[0][2]))
-t0, t1 = 0.75, T["legendas"][N1][0] - 0.1
+N1 = 1
+t0, t1 = 0.75, min(T["legendas"][N1][0] - 0.1, K["pior"] - 0.3)
 add(f'''<div id="titulo" class="clip titulo" data-start="{t0}" data-duration="{t1 - t0:.2f}">
   <div class="tl1">Por que o</div><div class="tl2">GRISHA</div><div class="tl3">COMEU</div><div class="tl1">a família real?</div></div>''',
     f'tl.fromTo("#titulo",{{opacity:0,y:20}},{{opacity:1,y:0,duration:.6,ease:"power2.out"}},{t0});'
@@ -55,7 +55,8 @@ caps_t = {}
 for i, (tc, nome) in enumerate(T["caps"]):
     a, b = tc, tc + 2.6
     caps_t[nome] = (a, b)
-    add(f'<div id="cap{i}" class="clip cap" data-start="{a:.2f}" data-duration="{b - a:.2f}">— {esc(nome)} —</div>',
+    estilo = ' style="font-size:34px;letter-spacing:.2em"' if len(nome) > 16 else ""
+    add(f'<div id="cap{i}" class="clip cap"{estilo} data-start="{a:.2f}" data-duration="{b - a:.2f}">— {esc(nome)} —</div>',
         f'tl.fromTo("#cap{i}",{{opacity:0,scale:1.06}},{{opacity:1,scale:1,duration:.7,ease:"power2.out"}},{a:.2f});'
         f'tl.to("#cap{i}",{{opacity:0,duration:.4}},{b - 0.4:.2f});')
 
@@ -80,7 +81,7 @@ for i, (a, b, f) in enumerate(T["legendas"]):
 # fichas de citação (etiqueta de museu)
 fichas = [
     ("f1", K["sartre"] - 0.3, K["livre"] + 0.8, "Jean-Paul Sartre", "O existencialismo é um humanismo · 1946", "o homem está condenado a ser livre"),
-    ("f2", K["memoria"] - 0.3, K["eren"] + 0.6, "Attack on Titan", "capítulo 121", "Memórias do Futuro"),
+    ("f2", K["memoria"] - 0.3, K["eren"] - 0.35, "Attack on Titan", "capítulo 121", "Memórias do Futuro"),
 ]
 for fid, a, b, autor, obra, nota in fichas:
     add(f'<div id="{fid}" class="clip ficha" data-start="{a:.2f}" data-duration="{b - a:.2f}"><div class="fa">{esc(autor)}</div><div class="fo">{esc(obra)}</div><div class="fn">{esc(nota)}</div></div>',

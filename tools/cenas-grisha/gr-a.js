@@ -45,7 +45,7 @@ addSet("s1-abertura", (g) => {
     look: { exposure: 1.12, bloom: 0.55, bloomT: 0.75, vig: 0.55, sat: 1.08, con: 1.08, dof: DOF_MED, rosto: 0.35, lift: [0.01, 0.005, 0] },
     sun: { dir: [0.4, 0.8, 0.5], col: 0xffe8c0, I: 0.35, c: [0, 1, -1], r: 4 }, hemi: { sky: 0x4a3a2a, ground: 0x0a0806, I: 0.35 }, fill: { col: 0xffb870, I: 0.25, dir: [-0.5, 0.2, -1] }, rim: { col: 0xffc080, str: 1.2 },
     update(t) {
-      flash(t, a, 0.001, 0.45); PO.vl.upd(t); floatDust(PO.poeira, t, 0.15, 0.1);
+      flash(t, a, 0.001, 0.35); GU.uFlash.value *= 0.55; PO.vl.upd(t); floatDust(PO.poeira, t, 0.15, 0.1);
       // o Grisha sentado escrevendo; para no "não sabia por quê" e olha pra vela
       restPose(gr); idle(gr, t, 101, 0.2); sitPose(gr, 1, { seatY: 0.56, lean: 0.28 }); pose(gr, { neck: [0.32, 0, 0], handR: 0.85, handL: 0.35 }, 1);
       const para = smr(t, K.que1 - 1.0, K.que1 - 0.3), esc = Math.sin(t * 7.5) * 0.02 * (1 - para), linha = ((t * 0.3) % 1) * 0.07 * (1 - para);
@@ -57,7 +57,6 @@ addSet("s1-abertura", (g) => {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([2.4, 2.9, 1.0], [1.5, 1.9, 0.4], [-0.6, 0.95, -1.4], [-0.6, 1.0, -1.3], 44, 40)],
-        [K.pai - 0.25, (tt, u) => ({ pos: [lerp(-0.3, -0.36, u), 1.08, -1.82], look: [-0.62, 1.24, -0.95], fov: 34, near: 0.02 })],
         [K.pior - 0.15, mov([-0.12, 1.06, -1.78], [-0.16, 1.02, -1.72], [-0.58, 0.82, -1.34], [-0.58, 0.82, -1.34], 36, 34)],
         [K.que1 - 1.1, (tt, u) => ({ pos: [lerp(0.5, 0.35, u), 1.3, -1.72], look: [-0.7, 1.2, -0.95], fov: 30, near: 0.02 })],
       ], b);
@@ -71,7 +70,7 @@ addSet("s2-muralha", (g) => {
   const __n = "s2-muralha";
   const [a, b] = T.sc["s2-muralha"];
   const S = cenaShiganshina(g);
-  const mul = multidao(g, 46, [-2.8, 2.8, -40, 4]);
+  const mul = multidao(g, 40, [-3.2, -1.3, -40, 4]), mul2 = multidao(g, 22, [2.4, 3.3, -40, 4]);
   const gr = grishaLP(); g.add(gr); const sp = sombraPe(g, gr);
   // capela dos Reiss no alto de um morro gramado (x=300), céu do fim de tarde, árvores, caminho
   const C = grp(g, 300, 0, 0);
@@ -83,7 +82,7 @@ addSet("s2-muralha", (g) => {
   const D = 9, L = gaitFit(D, 0.8, 1);
   return { ...LUZ_SHIG, hand: 0.01,
     update(t) {
-      chicote(t, a, 0.22, 1); S.vap.upd(t); S.fum.upd(t); S.brasa(t); mul(t, 3.2);
+      chicote(t, a, 0.22, 1); S.vap.upd(t); S.fum.upd(t); S.brasa(t); mul(t, 3.2); mul2(t, 3.0);
       const run = clamp((t - a) / (K.capela - 0.3 - a)); gait(gr, D * run, { from: [0.6, 0, 4], ang: Math.PI, step: L, run: 1 }); rostoLP(gr, t, { boca: "aberta", bravo: 0.5, palpebra: 1.0, suor: 0.6 }); ventoAbas(gr, t, 1.6); cabeloVento(gr, t, 1.4, [0, 0, 1]); sp(0);
       S.co.position.y = 58 + Math.sin(t * 0.5) * 0.3;
     },
@@ -134,7 +133,7 @@ addSet("s3-missao", (g) => {
       return planos(t, [
         [a, mov([3.2, 1.5, 6.5], [2.6, 1.6, 5.2], [-0.5, 1.6, -4], [-0.3, 1.5, -3], 42, 40)],
         [K.kruger - 0.2, (tt, u) => ({ ...closeRosto(kr, lerp(1.0, 0.82, E.inOut(u)), -0.35, 0, 30) })],
-        [K.tita - 0.9, (tt, u) => { const c = SR.s.getWorldPosition(V3()); return { pos: [c.x + 0.25, c.y + 0.12, c.z + lerp(0.75, 0.55, u)], look: [c.x, c.y, c.z], fov: 34, near: 0.02 }; }],
+        [K.tita - 0.45, (tt, u) => { const c = SR.s.getWorldPosition(V3()); return { pos: [c.x - 0.22, c.y + 0.14, c.z + lerp(0.72, 0.58, u)], look: [c.x, c.y, c.z], fov: 36, near: 0.02 }; }],
         [K.missao - 0.1, (tt, u) => ({ ...closeRosto(gr, lerp(1.0, 0.82, E.inOut(u)), 0.35, 0, 30) })],
         [K.fundador - 0.5, mov([-1.4, 1.6, -0.2], [-1.2, 1.7, -0.6], [0, 1.4, -6], [25, 30, -420], 40, 30)],
       ], b);
@@ -154,7 +153,7 @@ addSet("s4-frieda", (g) => {
   const aneis = [0, 1, 2].map((i) => { const r = mesh(new THREE.TorusGeometry(0.55 + i * 0.08, 0.012, 6, 40), new THREE.MeshBasicMaterial({ color: 0xffd060, transparent: true, opacity: 0, blending: THREE.AdditiveBlending }), 0, 0.6 + i * 0.4, -1.5, g); r.castShadow = false; return r; });
   return {
     bg: 0x060a14, fog: [10, 40], fogCol: 0x0a1428, hand: 0,
-    look: { exposure: 1.15, bloom: 0.75, bloomT: 0.7, vig: 0.55, sat: 1.1, con: 1.06, dof: DOF_MED },
+    look: { exposure: 1.12, bloom: 0.7, bloomT: 0.72, vig: 0.55, sat: 1.1, con: 1.06, dof: DOF_MED, rosto: 0.55 },
     sun: { dir: [0, 1, 0.3], col: 0x7ab8ff, I: 1.0, c: [0, 1, -2], r: 8 }, hemi: { sky: 0x3a6aaa, ground: 0x0a1020, I: 0.6 }, fill: { col: 0x9ad0ff, I: 0.9, dir: [0, 0.3, 1] }, rim: { col: 0x8ad8ff, str: 1.4 },
     update(t) {
       chicote(t, a, 0.22, 1);

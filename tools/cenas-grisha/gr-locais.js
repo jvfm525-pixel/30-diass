@@ -44,8 +44,8 @@ function porao(g) { const P = grp(g), pm = new THREE.MeshStandardMaterial({ map:
   return { P, vl, livros, ch, poeira, raios, mesa, cad }; }
 
 // ---------------------------------------------------------------- porto de Liberio à noite (Marley): armazéns de tijolo, lampiões, cais, navios, mar ao luar e a ilha de Paradis no horizonte
-function portoLiberio(g) { const L = grp(g); skyDome(L, { top: 0x060a1c, mid: 0x14204a, hor: 0x3a4a7a, ground: 0x0a0c14, sunDir: [-0.3, 0.35, -1], sunCol: 0xd8e4ff, sunI: 0.9, disk: 1.0, cov: 0.35, cloudLit: 0x8a9ac8, cloudSh: 0x141a30, stars: 1.2, midY: 0.18 });
-  const lua = glowSprite(0xe8eeff, 14, 0.45); lua.position.set(-80, 120, -400); L.add(lua); const lua2 = glowSprite(0xffffff, 5, 1); lua2.position.copy(lua.position); L.add(lua2);
+function portoLiberio(g) { const L = grp(g); skyDome(L, { top: 0x04060f, mid: 0x0a1230, hor: 0x1e2a50, ground: 0x06080e, sunDir: [-0.3, 0.35, -1], sunCol: 0xd8e4ff, sunI: 0.15, disk: 0.4, cov: 0.3, cloudLit: 0x4a5a88, cloudSh: 0x0a0e1c, stars: 1.4, midY: 0.18 });
+  const lua = glowSprite(0xe8eeff, 10, 0.3); lua.position.set(-80, 120, -400); L.add(lua); const lua2 = glowSprite(0xffffff, 3.5, 1); lua2.position.copy(lua.position); L.add(lua2);
   const mar = mesh(new THREE.PlaneGeometry(3000, 3000, 80, 80), new THREE.MeshStandardMaterial({ color: 0x0e1a34, roughness: 0.25, metalness: 0.6, flatShading: true }), 0, -1.2, -1500, L); mar.rotation.x = -Math.PI / 2; deform(mar.geometry, (v) => { v.z = Math.sin(v.x * 0.3) * 0.15 + Math.cos(v.y * 0.25) * 0.12; });
   const rastro = mesh(new THREE.PlaneGeometry(6, 400), new THREE.MeshBasicMaterial({ color: 0xbfd0ff, transparent: true, opacity: 0.18, blending: ADD, depthWrite: false }), -12, -1.1, -220, L); rastro.rotation.x = -Math.PI / 2; rastro.rotation.z = 0.2;
   const ilha = mesh(new THREE.ConeGeometry(130, 30, 9), new THREE.MeshStandardMaterial({ color: 0x1a2240, roughness: 1, flatShading: true }), 25, -2, -440, L); ilha.scale.z = 0.25;

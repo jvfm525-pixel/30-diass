@@ -28,14 +28,16 @@
     .d3 { font-family:"EB Garamond"; font-style:italic; font-size:40px; margin-top:4px; }
   </style>
   <div id="root" data-composition-id="texto" data-width="1080" data-height="1920">
-<div id="titulo" class="clip titulo" data-start="0.75" data-duration="5.60">
+<div id="titulo" class="clip titulo" data-start="0.75" data-duration="1.15">
   <div class="tl1">Por que o</div><div class="tl2">GRISHA</div><div class="tl3">COMEU</div><div class="tl1">a família real?</div></div>
 <div id="cap0" class="clip cap" data-start="6.35" data-duration="2.60">— O DIA DA QUEDA —</div>
 <div id="cap1" class="clip cap" data-start="13.11" data-duration="2.60">— A MISSÃO —</div>
-<div id="cap2" class="clip cap" data-start="19.79" data-duration="2.60">— A RAINHA QUE NÃO LUTOU —</div>
+<div id="cap2" class="clip cap" style="font-size:34px;letter-spacing:.2em" data-start="19.79" data-duration="2.60">— A RAINHA QUE NÃO LUTOU —</div>
 <div id="cap3" class="clip cap" data-start="26.99" data-duration="2.60">— A CAVERNA —</div>
 <div id="cap4" class="clip cap" data-start="35.48" data-duration="2.60">— CONDENADO —</div>
 <div id="cap5" class="clip cap" data-start="41.79" data-duration="2.60">— QUEM EMPURROU —</div>
+<div id="lg1" class="clip leg" data-start="2.00" data-duration="2.52" style="top:250px"><div class="mancha"></div><div class="lt">que fez a pior coisa da vida dele...</div></div>
+<div id="lg2" class="clip leg" data-start="4.57" data-duration="1.83" style="top:250px"><div class="mancha"></div><div class="lt">e não sabia direito por quê.</div></div>
 <div id="lg3" class="clip leg" data-start="6.45" data-duration="1.76" style="top:330px"><div class="mancha"></div><div class="lt">No dia em que a Muralha Maria caiu,</div></div>
 <div id="lg4" class="clip leg" data-start="8.26" data-duration="0.80" style="top:330px"><div class="mancha"></div><div class="lt">o Grisha não fugiu.</div></div>
 <div id="lg5" class="clip leg" data-start="9.11" data-duration="1.22" style="top:250px"><div class="mancha"></div><div class="lt">Correu na direção contrária,</div></div>
@@ -77,20 +79,22 @@
 <div id="lg41" class="clip leg" data-start="59.57" data-duration="0.91" style="top:250px"><div class="mancha"></div><div class="lt">Comenta aí,</div></div>
 <div id="lg42" class="clip leg" data-start="60.53" data-duration="1.01" style="top:250px"><div class="mancha"></div><div class="lt">e me segue pra mais.</div></div>
 <div id="f1" class="clip ficha" data-start="35.92" data-duration="3.88"><div class="fa">Jean-Paul Sartre</div><div class="fo">O existencialismo é um humanismo · 1946</div><div class="fn">o homem está condenado a ser livre</div></div>
-<div id="f2" class="clip ficha" data-start="46.61" data-duration="3.24"><div class="fa">Attack on Titan</div><div class="fo">capítulo 121</div><div class="fn">Memórias do Futuro</div></div>
+<div id="f2" class="clip ficha" data-start="46.61" data-duration="2.29"><div class="fa">Attack on Titan</div><div class="fo">capítulo 121</div><div class="fn">Memórias do Futuro</div></div>
 <div id="disc" class="clip disc" data-start="33.87" data-duration="1.73"><div class="d1">DISCORD</div><div class="d3">link na bio</div></div>
   </div>
   <script>
     (function () {
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo("#titulo",{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:"power2.out"},0.75);tl.fromTo("#titulo .tl3",{opacity:0,scale:.9},{opacity:1,scale:1,duration:.5,ease:"power2.out"},1.69);tl.to("#titulo",{opacity:0,duration:.35},6.00);
+      tl.fromTo("#titulo",{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:"power2.out"},0.75);tl.fromTo("#titulo .tl3",{opacity:0,scale:.9},{opacity:1,scale:1,duration:.5,ease:"power2.out"},1.69);tl.to("#titulo",{opacity:0,duration:.35},1.55);
       tl.fromTo("#cap0",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},6.35);tl.to("#cap0",{opacity:0,duration:.4},8.55);
       tl.fromTo("#cap1",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},13.11);tl.to("#cap1",{opacity:0,duration:.4},15.31);
       tl.fromTo("#cap2",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},19.79);tl.to("#cap2",{opacity:0,duration:.4},21.99);
       tl.fromTo("#cap3",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},26.99);tl.to("#cap3",{opacity:0,duration:.4},29.19);
       tl.fromTo("#cap4",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},35.48);tl.to("#cap4",{opacity:0,duration:.4},37.68);
       tl.fromTo("#cap5",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},41.79);tl.to("#cap5",{opacity:0,duration:.4},43.99);
+      tl.fromTo("#lg1",{opacity:0},{opacity:1,duration:.25},2.00);tl.to("#lg1",{opacity:0,duration:.25},4.27);
+      tl.fromTo("#lg2",{opacity:0},{opacity:1,duration:.25},4.57);tl.to("#lg2",{opacity:0,duration:.25},6.15);
       tl.fromTo("#lg3",{opacity:0},{opacity:1,duration:.25},6.45);tl.to("#lg3",{opacity:0,duration:.25},7.96);
       tl.fromTo("#lg4",{opacity:0},{opacity:1,duration:.25},8.26);tl.to("#lg4",{opacity:0,duration:.25},8.81);
       tl.fromTo("#lg5",{opacity:0},{opacity:1,duration:.25},9.11);tl.to("#lg5",{opacity:0,duration:.25},10.08);
@@ -132,7 +136,7 @@
       tl.fromTo("#lg41",{opacity:0},{opacity:1,duration:.25},59.57);tl.to("#lg41",{opacity:0,duration:.25},60.23);
       tl.fromTo("#lg42",{opacity:0},{opacity:1,duration:.25},60.53);tl.to("#lg42",{opacity:0,duration:.25},61.29);
       tl.fromTo("#f1",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},35.92);tl.to("#f1",{opacity:0,duration:.35},39.45);
-      tl.fromTo("#f2",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},46.61);tl.to("#f2",{opacity:0,duration:.35},49.50);
+      tl.fromTo("#f2",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},46.61);tl.to("#f2",{opacity:0,duration:.35},48.55);
       tl.fromTo("#disc",{opacity:0,scale:.92},{opacity:1,scale:1,duration:.35,ease:"back.out(1.6)"},33.87);tl.to("#disc",{opacity:0,duration:.25},35.35);
       window.__timelines["texto"] = tl;
     })();

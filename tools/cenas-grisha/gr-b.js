@@ -15,22 +15,22 @@ addSet("s5-caverna", (g) => {
   const tG = titaLP({ seed: 132, pele: 0xc89078, olho: "#2aaa7a", olhoAlt: 0.62, brava: 0.85, sob: 0x1a1410, cabelo: { cor: 0x1a1410, dentes: 22, dente: 0.28, crista: 0.004, franjaY: 0.9, ladoY: -1.2, nucaY: -1.3, esp: 0.01, espBorda: 0.004, varia: 0.12, seed: 142, pontas: [] }, s: 9.2, orelhas: true }); g.add(tG); tG.position.set(2, 0, 3.5); tG.rotation.y = Math.PI - 0.3; tG.visible = false;
   const onda = choque(g, [0, 0, -2.2], 0xfff0c8), onda2 = choque(g, [2, 0, 3], 0xffb090);
   const vapT = steam(g, { origin: [0, 6, -6.5], n: 24, size: 3.0, spread: 6, rise: 1.5, grow: 2.0, opacity: 0.25, life: 3.5, color: 0xf0e8f0 });
-  const vap = steam(g, { origin: [0, 0.5, -5], n: 34, size: 3.0, spread: 9, rise: 2, grow: 2.0, opacity: 0.28, life: 4, color: 0xd8e0f0 });
+  const vap = steam(g, { origin: [0, 0.5, -9], n: 26, size: 3.0, spread: 12, rise: 2, grow: 2.0, opacity: 0.14, life: 4, color: 0xd8e0f0 });
   const luzesK = kids.map(() => dustPts(60, [-0.3, 0.3, 0, 1.0, -0.3, 0.3], 0x9ad8ff, 0.05, 0.9)); luzesK.forEach((p, i) => { kids[i].parent.add(p); p.position.copy(kids[i].position); p.visible = false; });
   const luzR = new THREE.PointLight(0xff6040, 0, 20, 1.2); luzR.position.set(1, 6, 0); g.add(luzR);
   return {
     bg: 0x060a14, fog: [10, 40], fogCol: 0x0a1428, hand: 0.008,
-    look: { exposure: 1.12, bloom: 0.8, bloomT: 0.7, vig: 0.6, sat: 1.12, con: 1.08, dof: DOF_MED },
+    look: { exposure: 1.08, bloom: 0.6, bloomT: 0.78, vig: 0.6, sat: 1.12, con: 1.1, dof: DOF_MED, rosto: 0.6 },
     sun: { dir: [0, 1, 0.3], col: 0x7ab8ff, I: 1.0, c: [0, 1, -2], r: 10 }, hemi: { sky: 0x3a6aaa, ground: 0x0a1020, I: 0.6 }, fill: { col: 0x9ad0ff, I: 0.8, dir: [0, 0.3, 1] }, rim: { col: 0x8ad8ff, str: 1.4 },
     update(t) {
-      chicote(t, a, 0.22, -1); vap.upd(t, smr(t, K.transformou, K.transformou + 0.6)); vapT.upd(t, smr(t, K.transformou + 0.2, K.transformou + 0.8)); onda(t, K.transformou); onda2(t, K.devorou); CV.brilhos(t); floatDust(CV.poeira, t, 0.2, 0.1);
+      chicote(t, a, 0.22, -1); vap.upd(t, smr(t, K.transformou, K.transformou + 0.6)); vapT.upd(t, 0.45 * smr(t, K.transformou + 0.2, K.transformou + 0.8)); onda(t, K.transformou); onda2(t, K.devorou); CV.brilhos(t); floatDust(CV.poeira, t, 0.2, 0.1);
       // o Grisha de joelhos implorando, mãos juntas
       restPose(gr); idle(gr, t, 101, 0.2); kneelPose(gr); pose(gr, { handR: 0.6, handL: 0.6 }, 1); rostoLP(gr, t, { boca: t < K.transformou ? "aberta" : "grito", triste: 0.7, choro: 0.6, palpebra: 1.0, choque: smr(t, K.transformou, K.transformou + 0.2) });
       const jun = frenteW(gr, 0, 0.95, 0.28); maoEm(gr, 0, jun.clone().add(V3(0.03, 0, 0)), 1, { abre: 0.5, poleY: 0.0, poleZ: -0.3 }); maoEm(gr, 1, jun.clone().add(V3(-0.03, 0, 0)), 1, { abre: 0.5, poleY: 0.0, poleZ: -0.3 }); ventoAbas(gr, t, 0.4);
       const tr = t > K.transformou; fr.visible = !tr; vive(fr, t, 103, { boca: "linha", triste: 0.5, palpebra: 0.8 }, 0.2);
       raio.set(smr(t, K.transformou - 0.1, K.transformou) * (1 - smr(t, K.transformou + 0.3, K.transformou + 0.7)), t); flash(t, K.transformou, 0.03, 0.35, [1, 0.95, 0.8]); GU.uFlash.value *= 0.6;
       tF.visible = tr && t < K.devorou - 0.32; if (tF.visible) { vive(tF, t, 131, { boca: "ryuk", palpebra: 0.9 }, 0.3); tF.position.y = -5 + 5 * E.out(smr(t, K.transformou, K.transformou + 0.8)); }
-      tG.visible = t > K.devorou - 0.4; if (tG.visible) { vive(tG, t, 132, { boca: "ryuk", bravo: 0.9, palpebra: 0.85 }, 0.3); tG.position.y = -5 + 5 * E.out(smr(t, K.devorou - 0.4, K.devorou + 0.2)); } flash(t, K.devorou, 0.03, 0.3, [1, 0.6, 0.5]); GU.uFlash.value *= 0.45; luzR.intensity = 1.6 * smr(t, K.devorou - 0.2, K.devorou + 0.2) * (1 - smr(t, K.filhos - 0.2, K.filhos + 0.3));
+      tG.visible = t > K.devorou - 0.4; if (tG.visible) { vive(tG, t, 132, { boca: "ryuk", bravo: 0.9, palpebra: 0.85 }, 0.3); tG.position.y = -5 + 5 * E.out(smr(t, K.devorou - 0.4, K.devorou + 0.2)); }  luzR.intensity = 1.6 * smr(t, K.devorou - 0.2, K.devorou + 0.2) * (1 - smr(t, K.filhos - 0.2, K.filhos + 0.3));
       if (tG.visible) gr.visible = false; else gr.visible = true;
       // as crianças viram luz azul; o Rod foge pelo túnel
       kids.forEach((k, i) => { const d = smr(t, K.filhos + i * 0.15, K.filhos + 0.9 + i * 0.15); k.visible = d < 0.5; vive(k, t, 110 + i, { boca: "aberta", choque: 1, triste: 0.6 }, 0.3); luzesK[i].visible = d > 0.05; luzesK[i].material.opacity = 0.9 * (1 - smr(t, K.filhos + 1, K.filhos + 1.8)); luzesK[i].position.y = kids[i].position.y + d * 1.2; });
@@ -39,7 +39,7 @@ addSet("s5-caverna", (g) => {
     cam(t) {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([1.6, 1.0, 1.8], [1.2, 1.05, 1.5], [0, 0.95, -0.6], [0, 1.0, -0.8], 40, 38)],
+        [a, mov([1.45, 1.1, -1.05], [1.25, 1.08, -0.92], [0, 0.88, 0.1], [0, 0.9, 0.1], 40, 38)],
         [K.implorou + 0.4, (tt, u) => ({ ...closeRosto(gr, lerp(0.95, 0.8, E.inOut(u)), 0.15, 0, 30) })],
         [K.transformou - 0.15, mov([0.4, 1.2, 5.5], [0.3, 1.0, 7.5], [0, 2, -4], [0, 10, -7], 46, 52)],
         [K.caverna - 0.1, mov([-6, 4, 9], [-5, 5, 8], [0, 8, -6], [0, 10, -6], 50, 48)],
@@ -67,7 +67,7 @@ addSet("s7-sartre", (g) => {
   const [a, b] = T.sc["s7-sartre"];
   const FL = florestaChuva(g);
   const ek = erenKidLP(); g.add(ek); ek.position.set(0.45, FL.hf(0.45, -0.3), -0.3); ek.rotation.y = -1.45;
-  const gr = grishaLP(); g.add(gr); gr.position.set(-0.4, FL.hf(-0.4, -0.25), -0.25); gr.rotation.y = 1.5;
+  const gr = grishaLP(); g.add(gr); gr.position.set(-0.12, FL.hf(-0.12, -0.25), -0.25); gr.rotation.y = 1.5;
   const SR = seringa(null); naMao(gr, 0, SR.s, { dx: 0.02, dy: -0.07 });
   const spE = sombraPe(g, ek), spG = sombraPe(g, gr);
   return {
@@ -80,8 +80,8 @@ addSet("s7-sartre", (g) => {
       vive(ek, t, 6, { boca: t > K.queria ? "triste" : "aberta", triste: 0.8, choro: 0.6, palpebra: 1.05, sobe: 0.6 }, 0.25); pose(ek, { handR: 0.6, handL: 0.6 }, 1);
       restPose(gr); idle(gr, t, 101, 0.15); kneelPose(gr); pose(gr, { spine: [0.15, 0, 0], neck: [0.1, 0, 0] }, 1);
       const treme = smr(t, K.queria - 0.3, K.queria + 0.2) * Math.sin(t * 38) * 0.008, sobe = smr(t, K.livre - 0.6, K.livre);
-      maoEm(gr, 0, frenteW(gr, 0.14, 0.95 + 0.15 * sobe + treme, 0.3 + 0.05 * sobe), 1, { abre: 0.5, poleY: 0.0, poleZ: -0.3 }); pose(gr, { handR: 0.85 }, 1);
-      maoEm(gr, 1, corpoW(ek, "chest", 0.16, 0.28, 0.0), smr(t, a + 0.3, a + 1.0), { abre: 0.5, poleY: 0.2, poleZ: -0.3 });
+      maoEm(gr, 0, frenteW(gr, 0.16, 0.72 + 0.1 * sobe + treme, 0.28 + 0.04 * sobe), 1, { abre: 0.6, poleY: 0.1, poleZ: -0.3 }); pose(gr, { handR: 0.85 }, 1);
+      maoEm(gr, 1, corpoW(ek, "chest", 0.15, 0.3, 0.0), smr(t, a + 0.3, a + 1.0), { abre: 0.9, poleY: -0.3, poleZ: -0.2 });
       rostoLP(gr, t, { boca: "triste", triste: 0.7, choro: 0.4 + 0.4 * smr(t, K.queria, K.escolha), palpebra: lerp(0.85, 0.55, smr(t, K.escolha - 0.2, K.escolha + 0.3)) });
       SR.liq.material.emissiveIntensity = 1.3 + 0.4 * Math.sin(t * 5); spE(FL.hf(0.45, -0.3)); spG(FL.hf(-0.4, -0.25));
     },
@@ -90,7 +90,7 @@ addSet("s7-sartre", (g) => {
       return planos(t, [
         [a, mov([0.2, 1.3, 3.6], [0.15, 1.2, 2.9], [0, 0.9, -0.3], [0, 0.9, -0.3], 42, 40)],
         [K.condenado - 0.3, (tt, u) => ({ ...closeRosto(gr, lerp(1.0, 0.82, E.inOut(u)), -0.3, 0.02, 30) })],
-        [K.livre - 0.4, (tt, u) => { const c = SR.s.getWorldPosition(V3()); return { pos: [c.x + 0.05, c.y + 0.08, c.z + lerp(0.5, 0.38, u)], look: [c.x, c.y, c.z], fov: 32, near: 0.02 }; }],
+        [K.livre - 0.4, (tt, u) => { const c = SR.s.getWorldPosition(V3()); return { pos: [c.x + 0.1, c.y + 0.12, c.z + lerp(0.8, 0.62, u)], look: [c.x, c.y, c.z], fov: 32, near: 0.02 }; }],
         [K.queria - 0.2, (tt, u) => ({ ...closeRosto(ek, lerp(0.85, 0.7, E.inOut(u)), -0.25, 0, 30) })],
         [K.escolha - 0.2, (tt, u) => ({ ...closeRosto(gr, lerp(0.9, 0.75, E.inOut(u)), -0.3, 0.02, 30) })],
       ], b);
@@ -108,11 +108,11 @@ addSet("s8-caminhos", (g) => {
   const brE = glowSprite(0x9ad8ff, 2.4, 0); g.add(brE);
   const spG = sombraPe(g, gr), spE = sombraPe(g, er); const areia = riscosVento(g, 30, [-6, 6, 0.05, 1.2, -4, 5], { cor: 0xe8dcc8, op: 0.45, comp: 2.6 }); const graos = folhasRef(g, 120, [-8, 8, 0.05, 1.5, -5, 5], { cores: [0xe8dcc0, 0xd8c8a8, 0xf0e8d8], brilho: 0x302a20, vel: 3.2, s: 0.5 }); const est = estrelinhas(g, 60, [-30, 30, 4, 30, -60, -10], { cor: 0xd8ecff, s: 0.6 });
   return {
-    bg: 0x04060e, fog: [20, 140], fogCol: 0x0a1430, hand: 0,
-    look: { exposure: 1.15, bloom: 0.75, bloomT: 0.7, vig: 0.55, sat: 1.05, con: 1.06, dof: DOF_MED, lift: [0.0, 0.01, 0.03] },
-    sun: { dir: [0, 0.5, -1], col: 0xa8d0ff, I: 1.6, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x4a6aaa, ground: 0x2a2a30, I: 0.7 }, fill: { col: 0xbfe0ff, I: 0.6, dir: [0.3, 0.3, 1] }, rim: { col: 0x9ad8ff, str: 1.5 },
+    bg: 0x04060e, fog: [40, 420], fogCol: 0x0a1028, hand: 0,
+    look: { exposure: 1.0, bloom: 0.42, bloomT: 0.86, vig: 0.55, sat: 1.12, con: 1.1, dof: { ap: 0.003, max: 0.006 }, rosto: 0.55 },
+    sun: { dir: [0.3, 0.45, -1], col: 0xa8d0ff, I: 1.1, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x3a5a9a, ground: 0x1a1a22, I: 0.55 }, fill: { col: 0xbfe0ff, I: 0.6, dir: [0.3, 0.3, 1] }, rim: { col: 0x9ad8ff, str: 1.5 },
     update(t) {
-      flash(t, a, 0.001, 0.5, [0.8, 0.9, 1]); floatDust(CM.pts, t, 0.2, 0.1); areia(t, 1); graos(t, 1); est(t); spG(0); spE(0); cabeloVento(gr, t, 0.8, [1, 0, 0]); cabeloVento(er, t, 1.2, [1, 0, 0]); CM.ramos.forEach((r, i) => r.set(smr(t, a + i * 0.01, a + 1.5 + i * 0.01)));
+      flash(t, a, 0.001, 0.35, [0.8, 0.9, 1]); GU.uFlash.value *= 0.45; floatDust(CM.pts, t, 0.2, 0.1); areia(t, 1); graos(t, 1); est(t); spG(0); spE(0); cabeloVento(gr, t, 0.8, [1, 0, 0]); cabeloVento(er, t, 1.2, [1, 0, 0]); CM.ramos.forEach((r, i) => r.set(smr(t, a + i * 0.01, a + 1.5 + i * 0.01)));
       // o Grisha ajoelhado chorando; no "siga em frente" ele levanta o rosto
       restPose(gr); idle(gr, t, 101, 0.25); kneelPose(gr); const ergue = smr(t, K.siga - 0.2, K.frente + 0.4);
       pose(gr, { neck: [0.55 * (1 - ergue), 0, 0], head: [0.15 * (1 - ergue), 0, 0], handR: 0.7, handL: 0.7 }, 1);
@@ -148,7 +148,7 @@ addSet("s9-fim", (g) => {
   const ek = erenKidLP(); g.add(ek); ek.position.set(0.35, 0, -0.9); ek.rotation.y = 0.15;
   const gr = grishaLP(); g.add(gr); gr.position.set(-0.05, 0, -1.25); gr.rotation.y = 0.9;
   const ch = chave(null); ek.userData.chest.add(ch); ch.position.set(0, 0.12, 0.16); ch.scale.setScalar(1 / ek.scale.x * 1.0); const cord = mesh(new THREE.TorusGeometry(0.11, 0.003, 4, 24, Math.PI), LPmat(0x5a3a22), 0, 0.22, 0.05, ek.userData.chest); cord.rotation.z = Math.PI;
-  const brilho = estrelinhas(g, 1, [0, 0, 0, 0, 0, 0], { cor: 0xfff0c0, s: 0.12 });
+  const brilho = estrelinhas(g, 1, [0, 0, 0, 0, 0, 0], { cor: 0xfff0c0, s: 0.045 });
   const spE = sombraPe(g, ek), spG = sombraPe(g, gr);
   const fol = folhasRef(g, 60, [-6, 6, 0.3, 4, -4, 4], { cores: [0xe8c890, 0xd8a868, 0xf0e0c0], brilho: 0x302010, vel: 1.4, s: 1.4 });
   return {
@@ -171,7 +171,7 @@ addSet("s9-fim", (g) => {
         [a, (tt, u) => { const c = ch.getWorldPosition(V3()); return { pos: [c.x + 0.05, c.y + 0.05, c.z + lerp(0.42, 0.34, u)], look: [c.x, c.y, c.z], fov: 32, near: 0.02 }; }],
         [K.empurrado - 0.5, mov([1.6, 1.2, 2.6], [1.3, 1.25, 2.2], [-0.05, 0.95, -1.0], [-0.05, 1.0, -1.0], 40, 38)],
         // sobe sobre os telhados até ver Shiganshina inteira e a Muralha Maria ao amanhecer
-        [K.voltar - 0.4, (tt, u) => { const k = E.inOut(u); return { pos: [lerp(1.3, 6, k), lerp(1.3, 60, k), lerp(2.2, 70, k)], look: [lerp(0, -10, k), lerp(1.0, 10, k), lerp(-1, -120, k)], fov: lerp(40, 50, k) }; }],
+        [K.voltar - 0.4, (tt, u) => { if (u < 0.35) { const k = E.inOut(u / 0.35); return { pos: [0.4, lerp(1.25, 3.5, k), lerp(2.2, 14, k)], look: [0, lerp(1.0, 2.5, k), -1], fov: 40 }; } const k = E.inOut((u - 0.35) / 0.65); return { pos: [lerp(0.4, 4, k), lerp(3.5, 60, k), lerp(14, 70, k)], look: [lerp(0, -10, k), lerp(2.5, 10, k), lerp(-1, -120, k)], fov: lerp(40, 50, k) }; }],
       ], b);
     },
   };

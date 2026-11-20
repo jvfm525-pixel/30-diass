@@ -122,9 +122,11 @@ function cavernaCristal(g, o = {}) { const c = grp(g), cr = new THREE.MeshStanda
   return { c, crs, cr, luz, poeira, brilhos }; }
 // Caminhos: areia clara infinita, céu de estrelas, a árvore de luz ao longe (linhas de luz subindo e ramificando)
 function caminhos(g) { const ceu = skyDome(g, { top: 0x04060e, mid: 0x0a1630, hor: 0x2a3a6a, ground: 0x0a0c14, sunDir: [0, 0.2, -1], sunCol: 0xa8d0ff, sunI: 0.4, disk: 0.5, cov: 0, cloudA: 0, stars: 1.6, midY: 0.15 });
-  const ch = mesh(new THREE.PlaneGeometry(200, 200, 60, 60), new THREE.MeshStandardMaterial({ color: 0xe8d8b8, roughness: 0.95, flatShading: true }), 0, 0, 0, g); ch.rotation.x = -Math.PI / 2; deform(ch.geometry, (v) => { v.z = Math.sin(v.x * 0.12) * 0.4 + Math.cos(v.y * 0.1) * 0.5 - 0.5; });
+  const ch = mesh(new THREE.PlaneGeometry(200, 200, 60, 60), new THREE.MeshStandardMaterial({ color: 0xc8b898, roughness: 0.95, flatShading: true }), 0, 0, 0, g); ch.rotation.x = -Math.PI / 2; deform(ch.geometry, (v) => { v.z = Math.sin(v.x * 0.12) * 0.4 + Math.cos(v.y * 0.1) * 0.5 - 0.5; });
   const arv = grp(g, 0, 0, -60); const ramos = []; const ramo = (x, y, z, a, L, d) => { if (d > 5) return; const x2 = x + Math.sin(a) * L * 0.6, y2 = y + L, z2 = z + Math.cos(a * 1.7) * L * 0.2; ramos.push(linhaLuz(arv, [[x, y, z], [(x + x2) / 2 + Math.sin(d + a) * 0.6, (y + y2) / 2, z], [x2, y2, z2]], { curva: true, r: 0.9 / (d + 1), cor: 0xbfe8ff, seg: 16 })); ramo(x2, y2, z2, a - 0.5, L * 0.72, d + 1); ramo(x2, y2, z2, a + 0.5, L * 0.72, d + 1); };
-  ramo(0, 0, 0, 0, 26, 0); const brilho = glowSprite(0x9ad8ff, 90, 0.3); brilho.position.set(0, 40, -60); g.add(brilho);
+  ramo(0, 0, 0, 0, 26, 0); const brilho = glowSprite(0x9ad8ff, 60, 0.06); brilho.position.set(0, 40, -60); g.add(brilho);
+  // os caminhos de luz no céu: fios que descem de todas as direções e convergem na árvore
+  for (let i = 0; i < 14; i++) { const an = (i / 14) * Math.PI * 2, R = 70 + hash(i) * 40; ramos.push(linhaLuz(g, [[Math.cos(an) * R, 30 + hash(i * 3) * 25, -60 + Math.sin(an) * R * 0.6], [Math.cos(an) * R * 0.45, 45 + hash(i * 5) * 10, -60 + Math.sin(an) * R * 0.25], [0, 40, -60]], { curva: true, r: 0.18, cor: 0xbfe8ff, seg: 30 })); }
   const pts = dustPts(300, [-30, 30, 0.2, 20, -60, 10], 0xbfe8ff, 0.08, 0.8); g.add(pts); return { ceu, ramos, pts }; }
 // árvore grande e redonda do morro (como a da referência): copa feita de muitos aglomerados de esferas, tronco grosso com raízes
 function arvoreMorro(g, x, z, s = 1) { const a = grp(g, x, 0, z), bk = texBark(), cas = SM(0xffffff, { map: rep(bk.map.clone(), 1, 2), normalMap: bk.normalMap, color: 0xa88866, side: THREE.DoubleSide }); cas.map.needsUpdate = true;
