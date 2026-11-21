@@ -1,0 +1,154 @@
+<template>
+  <style>
+    @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/EBGaramond-400.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/EBGaramond-700.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "Cinzel"; src: url("../assets/fonts/cinzel-900.woff2") format("woff2"); font-weight: 900; }
+    #root { position:absolute; inset:0; overflow:hidden; background:transparent; }
+    .titulo { position:absolute; left:0; right:0; top:560px; text-align:center; color:#fff; text-shadow:0 4px 30px rgba(0,0,0,.85); }
+    .tl1 { font-family:"EB Garamond"; font-style:italic; font-size:72px; line-height:1.05; }
+    .tl2 { font-family:"Cinzel"; font-weight:900; font-size:118px; letter-spacing:.06em; line-height:1.05; }
+    .tl3 { font-family:"Cinzel"; font-weight:900; font-size:104px; letter-spacing:.03em; color:#8ad8ff; line-height:1.1; white-space:nowrap; text-shadow:0 0 40px rgba(110,210,255,.55), 0 4px 30px rgba(0,0,0,.85); }
+    .cap { position:absolute; left:0; right:0; top:200px; text-align:center; font-family:"Cinzel"; font-weight:900; font-size:44px;
+            color:#f2ece0; letter-spacing:.32em; text-shadow:0 2px 18px rgba(0,0,0,.9); white-space:nowrap; }
+    .leg { position:absolute; left:70px; right:70px; text-align:center; }
+    .mancha { position:absolute; left:-60px; right:-60px; top:-50px; bottom:-50px; background:url("../assets/img/mancha.png") center / 100% 100% no-repeat; }
+    .lt { position:relative; font-family:"EB Garamond"; font-style:italic; font-weight:700; font-size:62px; line-height:1.18; color:#fff;
+           text-shadow:0 2px 10px rgba(0,0,0,.8); }
+    .quem { font-family:"Cinzel"; font-style:normal; font-weight:900; font-size:46px; letter-spacing:.08em; color:#8ad8ff; }
+    .ficha { position:absolute; left:240px; width:600px; top:1290px; padding:22px 30px; border-radius:18px; background:rgba(12,10,16,.78);
+              border:2px solid rgba(255,245,230,.55); text-align:center; color:#fff; }
+    .fa { font-family:"EB Garamond"; font-weight:700; font-size:44px; }
+    .fo { font-family:"EB Garamond"; font-style:italic; font-size:38px; color:#e8e0d0; }
+    .fn { font-family:"EB Garamond"; font-style:italic; font-size:30px; color:#8ad8ff; margin-top:6px; }
+    .disc { position:absolute; left:190px; width:700px; top:1250px; padding:26px 30px; border-radius:22px; background:rgba(20,40,28,.82);
+             border:2px solid #8ad8ff; text-align:center; color:#fff; box-shadow:0 0 50px rgba(120,255,160,.35); }
+    .d1 { font-family:"Cinzel"; font-weight:900; font-size:40px; letter-spacing:.06em; white-space:nowrap; }
+    .d2 { font-family:"EB Garamond"; font-style:italic; font-weight:700; font-size:50px; color:#8ad8ff; }
+    .bal { position:absolute; left:330px; top:1120px; padding:16px 34px; border-radius:26px; background:#fff; color:#2a2440; font-family:"EB Garamond"; font-weight:700; font-size:44px; box-shadow:0 6px 24px rgba(0,0,0,.35); }
+    .d3 { font-family:"EB Garamond"; font-style:italic; font-size:40px; margin-top:4px; }
+  </style>
+  <div id="root" data-composition-id="texto" data-width="1080" data-height="1920">
+<div id="titulo" class="clip titulo" data-start="0.75" data-duration="2.28">
+  <div class="tl1">Por que o</div><div class="tl2">GOJO</div><div class="tl3">FICOU PRESO</div><div class="tl1">tanto tempo?</div></div>
+<div id="cap0" class="clip cap" data-start="5.03" data-duration="2.60">— SHIBUYA —</div>
+<div id="cap1" class="clip cap" data-start="13.47" data-duration="2.60">— UM INSTANTE —</div>
+<div id="cap2" class="clip cap" style="font-size:34px;letter-spacing:.2em" data-start="20.26" data-duration="2.60">— O REINO DA PRISÃO —</div>
+<div id="cap3" class="clip cap" data-start="25.92" data-duration="2.60">— AS CHAVES —</div>
+<div id="cap4" class="clip cap" data-start="35.34" data-duration="2.60">— O ANJO —</div>
+<div id="cap5" class="clip cap" data-start="41.35" data-duration="2.60">— APEGO —</div>
+<div id="lg1" class="clip leg" data-start="2.99" data-duration="0.68" style="top:250px"><div class="mancha"></div><div class="lt">que foi vencido</div></div>
+<div id="lg2" class="clip leg" data-start="3.72" data-duration="1.00" style="top:250px"><div class="mancha"></div><div class="lt">por uma lembrança.</div></div>
+<div id="lg3" class="clip leg" data-start="5.13" data-duration="1.50" style="top:330px"><div class="mancha"></div><div class="lt">Em Shibuya, o Gojo tinha acabado de derrotar</div></div>
+<div id="lg4" class="clip leg" data-start="6.68" data-duration="0.88" style="top:330px"><div class="mancha"></div><div class="lt">centenas de maldições.</div></div>
+<div id="lg5" class="clip leg" data-start="7.61" data-duration="1.17" style="top:330px"><div class="mancha"></div><div class="lt">Aí apareceu alguém</div></div>
+<div id="lg6" class="clip leg" data-start="8.83" data-duration="1.23" style="top:250px"><div class="mancha"></div><div class="lt">com o rosto do Suguru Geto.</div></div>
+<div id="lg7" class="clip leg" data-start="10.11" data-duration="0.85" style="top:250px"><div class="mancha"></div><div class="lt">O melhor amigo dele...</div></div>
+<div id="lg8" class="clip leg" data-start="11.01" data-duration="1.61" style="top:250px"><div class="mancha"></div><div class="lt">que ele mesmo tinha matado.</div></div>
+<div id="lg9" class="clip leg" data-start="13.57" data-duration="0.69" style="top:330px"><div class="mancha"></div><div class="lt">Por um instante,</div></div>
+<div id="lg10" class="clip leg" data-start="14.31" data-duration="0.61" style="top:330px"><div class="mancha"></div><div class="lt">a cabeça dele voltou</div></div>
+<div id="lg11" class="clip leg" data-start="14.97" data-duration="0.85" style="top:330px"><div class="mancha"></div><div class="lt">pros anos de escola</div></div>
+<div id="lg12" class="clip leg" data-start="15.87" data-duration="0.77" style="top:330px"><div class="mancha"></div><div class="lt">ao lado do amigo.</div></div>
+<div id="lg13" class="clip leg" data-start="16.69" data-duration="0.81" style="top:250px"><div class="mancha"></div><div class="lt">E esse instante bastou.</div></div>
+<div id="lg14" class="clip leg" data-start="17.55" data-duration="1.69" style="top:250px"><div class="mancha"></div><div class="lt">O Reino da Prisão se fechou.</div></div>
+<div id="lg15" class="clip leg" data-start="20.36" data-duration="1.14" style="top:330px"><div class="mancha"></div><div class="lt">Uma caixa feita dos restos</div></div>
+<div id="lg16" class="clip leg" data-start="21.55" data-duration="0.63" style="top:330px"><div class="mancha"></div><div class="lt">de um monge, o Genshin.</div></div>
+<div id="lg17" class="clip leg" data-start="22.23" data-duration="0.59" style="top:330px"><div class="mancha"></div><div class="lt">Lá dentro,</div></div>
+<div id="lg18" class="clip leg" data-start="22.87" data-duration="0.77" style="top:250px"><div class="mancha"></div><div class="lt">nem o Gojo consegue usar</div></div>
+<div id="lg19" class="clip leg" data-start="23.69" data-duration="0.83" style="top:250px"><div class="mancha"></div><div class="lt">energia amaldiçoada.</div></div>
+<div id="lg20" class="clip leg" data-start="26.02" data-duration="1.81" style="top:330px"><div class="mancha"></div><div class="lt">Mas por que ele ficou tanto tempo lá?</div></div>
+<div id="lg21" class="clip leg" data-start="27.89" data-duration="0.84" style="top:330px"><div class="mancha"></div><div class="lt">Só duas ferramentas</div></div>
+<div id="lg22" class="clip leg" data-start="28.78" data-duration="1.48" style="top:250px"><div class="mancha"></div><div class="lt">abriam a porta de trás da prisão:</div></div>
+<div id="lg23" class="clip leg" data-start="30.31" data-duration="1.06" style="top:250px"><div class="mancha"></div><div class="lt">a Lança Invertida do Céu</div></div>
+<div id="lg24" class="clip leg" data-start="31.42" data-duration="0.93" style="top:250px"><div class="mancha"></div><div class="lt">e a Corda Negra.</div></div>
+<div id="lg25" class="clip leg" data-start="32.41" data-duration="1.12" style="top:250px"><div class="mancha"></div><div class="lt">E as duas tinham sumido...</div></div>
+<div id="lg26" class="clip leg" data-start="33.58" data-duration="1.24" style="top:250px"><div class="mancha"></div><div class="lt">nas mãos do próprio Gojo.</div></div>
+<div id="lg27" class="clip leg" data-start="35.44" data-duration="0.83" style="top:330px"><div class="mancha"></div><div class="lt">A saída foi o Anjo,</div></div>
+<div id="lg28" class="clip leg" data-start="36.32" data-duration="0.98" style="top:330px"><div class="mancha"></div><div class="lt">uma feiticeira com uma técnica</div></div>
+<div id="lg29" class="clip leg" data-start="37.35" data-duration="1.43" style="top:330px"><div class="mancha"></div><div class="lt">que apaga qualquer técnica.</div></div>
+<div id="lg30" class="clip leg" data-start="39.52" data-duration="1.52" style="top:250px"><div class="mancha"></div><div class="lt">Link do meu Discord tá na bio.</div></div>
+<div id="lg31" class="clip leg" data-start="41.45" data-duration="0.53" style="top:330px"><div class="mancha"></div><div class="lt">E o budismo,</div></div>
+<div id="lg32" class="clip leg" data-start="42.03" data-duration="0.81" style="top:330px"><div class="mancha"></div><div class="lt">a religião daquele monge,</div></div>
+<div id="lg33" class="clip leg" data-start="42.89" data-duration="1.44" style="top:330px"><div class="mancha"></div><div class="lt">ensina que o que prende a gente</div></div>
+<div id="lg34" class="clip leg" data-start="44.38" data-duration="0.60" style="top:250px"><div class="mancha"></div><div class="lt">não são correntes.</div></div>
+<div id="lg35" class="clip leg" data-start="45.03" data-duration="0.76" style="top:250px"><div class="mancha"></div><div class="lt">É o apego.</div></div>
+<div id="lg36" class="clip leg" data-start="45.84" data-duration="1.15" style="top:250px"><div class="mancha"></div><div class="lt">O Gojo podia vencer qualquer um...</div></div>
+<div id="lg37" class="clip leg" data-start="47.04" data-duration="1.86" style="top:250px"><div class="mancha"></div><div class="lt">menos o que sentia pelo amigo.</div></div>
+<div id="lg38" class="clip leg" data-start="50.06" data-duration="0.78" style="top:250px"><div class="mancha"></div><div class="lt">Na história, foram semanas.</div></div>
+<div id="lg39" class="clip leg" data-start="50.89" data-duration="0.72" style="top:250px"><div class="mancha"></div><div class="lt">Na vida real,</div></div>
+<div id="lg40" class="clip leg" data-start="51.66" data-duration="0.97" style="top:250px"><div class="mancha"></div><div class="lt">foram mais de três anos,</div></div>
+<div id="lg41" class="clip leg" data-start="52.68" data-duration="1.36" style="top:250px"><div class="mancha"></div><div class="lt">e cento e trinta e um capítulos.</div></div>
+<div id="lg42" class="clip leg" data-start="54.09" data-duration="1.81" style="top:250px"><div class="mancha"></div><div class="lt">Se você pudesse rever alguém do seu passado</div></div>
+<div id="lg43" class="clip leg" data-start="55.95" data-duration="0.54" style="top:250px"><div class="mancha"></div><div class="lt">por um instante...</div></div>
+<div id="lg44" class="clip leg" data-start="56.54" data-duration="0.51" style="top:250px"><div class="mancha"></div><div class="lt">quem seria?</div></div>
+<div id="lg45" class="clip leg" data-start="57.10" data-duration="0.75" style="top:250px"><div class="mancha"></div><div class="lt">Comenta aí,</div></div>
+<div id="lg46" class="clip leg" data-start="57.91" data-duration="1.48" style="top:250px"><div class="mancha"></div><div class="lt">e me segue pra mais.</div></div>
+<div id="f1" class="clip ficha" data-start="21.10" data-duration="3.84"><div class="fa">Genshin · 942–1017</div><div class="fo">monge budista japonês, de verdade</div><div class="fn">escreveu o livro que descreveu o inferno</div></div>
+<div id="f2" class="clip ficha" data-start="41.43" data-duration="5.40"><div class="fa">Budismo</div><div class="fo">a segunda nobre verdade</div><div class="fn">a origem do sofrimento é o apego</div></div>
+<div id="f3" class="clip ficha" data-start="51.67" data-duration="3.84"><div class="fa">Jujutsu Kaisen</div><div class="fo">selado no cap. 90 · jan/2020</div><div class="fn">solto no cap. 221 · abr/2023</div></div>
+<div id="disc" class="clip disc" data-start="39.42" data-duration="2.05"><div class="d1">DISCORD</div><div class="d3">link na bio</div></div>
+  </div>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#titulo",{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:"power2.out"},0.75);tl.fromTo("#titulo .tl3",{opacity:0,scale:1.3},{opacity:1,scale:1,duration:.45,ease:"back.out(2)"},1.05);tl.to("#titulo",{opacity:0,duration:.35},2.68);
+      tl.fromTo("#cap0",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},5.03);tl.to("#cap0",{opacity:0,duration:.4},7.23);
+      tl.fromTo("#cap1",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},13.47);tl.to("#cap1",{opacity:0,duration:.4},15.67);
+      tl.fromTo("#cap2",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},20.26);tl.to("#cap2",{opacity:0,duration:.4},22.46);
+      tl.fromTo("#cap3",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},25.92);tl.to("#cap3",{opacity:0,duration:.4},28.12);
+      tl.fromTo("#cap4",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},35.34);tl.to("#cap4",{opacity:0,duration:.4},37.54);
+      tl.fromTo("#cap5",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},41.35);tl.to("#cap5",{opacity:0,duration:.4},43.55);
+      tl.fromTo("#lg1",{opacity:0},{opacity:1,duration:.25},2.99);tl.to("#lg1",{opacity:0,duration:.25},3.42);
+      tl.fromTo("#lg2",{opacity:0},{opacity:1,duration:.25},3.72);tl.to("#lg2",{opacity:0,duration:.25},4.47);
+      tl.fromTo("#lg3",{opacity:0},{opacity:1,duration:.25},5.13);tl.to("#lg3",{opacity:0,duration:.25},6.38);
+      tl.fromTo("#lg4",{opacity:0},{opacity:1,duration:.25},6.68);tl.to("#lg4",{opacity:0,duration:.25},7.31);
+      tl.fromTo("#lg5",{opacity:0},{opacity:1,duration:.25},7.61);tl.to("#lg5",{opacity:0,duration:.25},8.53);
+      tl.fromTo("#lg6",{opacity:0},{opacity:1,duration:.25},8.83);tl.to("#lg6",{opacity:0,duration:.25},9.81);
+      tl.fromTo("#lg7",{opacity:0},{opacity:1,duration:.25},10.11);tl.to("#lg7",{opacity:0,duration:.25},10.71);
+      tl.fromTo("#lg8",{opacity:0},{opacity:1,duration:.25},11.01);tl.to("#lg8",{opacity:0,duration:.25},12.37);
+      tl.fromTo("#lg9",{opacity:0},{opacity:1,duration:.25},13.57);tl.to("#lg9",{opacity:0,duration:.25},14.01);
+      tl.fromTo("#lg10",{opacity:0},{opacity:1,duration:.25},14.31);tl.to("#lg10",{opacity:0,duration:.25},14.67);
+      tl.fromTo("#lg11",{opacity:0},{opacity:1,duration:.25},14.97);tl.to("#lg11",{opacity:0,duration:.25},15.57);
+      tl.fromTo("#lg12",{opacity:0},{opacity:1,duration:.25},15.87);tl.to("#lg12",{opacity:0,duration:.25},16.39);
+      tl.fromTo("#lg13",{opacity:0},{opacity:1,duration:.25},16.69);tl.to("#lg13",{opacity:0,duration:.25},17.25);
+      tl.fromTo("#lg14",{opacity:0},{opacity:1,duration:.25},17.55);tl.to("#lg14",{opacity:0,duration:.25},18.99);
+      tl.fromTo("#lg15",{opacity:0},{opacity:1,duration:.25},20.36);tl.to("#lg15",{opacity:0,duration:.25},21.25);
+      tl.fromTo("#lg16",{opacity:0},{opacity:1,duration:.25},21.55);tl.to("#lg16",{opacity:0,duration:.25},21.93);
+      tl.fromTo("#lg17",{opacity:0},{opacity:1,duration:.25},22.23);tl.to("#lg17",{opacity:0,duration:.25},22.57);
+      tl.fromTo("#lg18",{opacity:0},{opacity:1,duration:.25},22.87);tl.to("#lg18",{opacity:0,duration:.25},23.39);
+      tl.fromTo("#lg19",{opacity:0},{opacity:1,duration:.25},23.69);tl.to("#lg19",{opacity:0,duration:.25},24.27);
+      tl.fromTo("#lg20",{opacity:0},{opacity:1,duration:.25},26.02);tl.to("#lg20",{opacity:0,duration:.25},27.58);
+      tl.fromTo("#lg21",{opacity:0},{opacity:1,duration:.25},27.89);tl.to("#lg21",{opacity:0,duration:.25},28.48);
+      tl.fromTo("#lg22",{opacity:0},{opacity:1,duration:.25},28.78);tl.to("#lg22",{opacity:0,duration:.25},30.01);
+      tl.fromTo("#lg23",{opacity:0},{opacity:1,duration:.25},30.31);tl.to("#lg23",{opacity:0,duration:.25},31.12);
+      tl.fromTo("#lg24",{opacity:0},{opacity:1,duration:.25},31.42);tl.to("#lg24",{opacity:0,duration:.25},32.10);
+      tl.fromTo("#lg25",{opacity:0},{opacity:1,duration:.25},32.41);tl.to("#lg25",{opacity:0,duration:.25},33.28);
+      tl.fromTo("#lg26",{opacity:0},{opacity:1,duration:.25},33.58);tl.to("#lg26",{opacity:0,duration:.25},34.57);
+      tl.fromTo("#lg27",{opacity:0},{opacity:1,duration:.25},35.44);tl.to("#lg27",{opacity:0,duration:.25},36.02);
+      tl.fromTo("#lg28",{opacity:0},{opacity:1,duration:.25},36.32);tl.to("#lg28",{opacity:0,duration:.25},37.05);
+      tl.fromTo("#lg29",{opacity:0},{opacity:1,duration:.25},37.35);tl.to("#lg29",{opacity:0,duration:.25},38.53);
+      tl.fromTo("#lg30",{opacity:0},{opacity:1,duration:.25},39.52);tl.to("#lg30",{opacity:0,duration:.25},40.79);
+      tl.fromTo("#lg31",{opacity:0},{opacity:1,duration:.25},41.45);tl.to("#lg31",{opacity:0,duration:.25},41.75);
+      tl.fromTo("#lg32",{opacity:0},{opacity:1,duration:.25},42.03);tl.to("#lg32",{opacity:0,duration:.25},42.59);
+      tl.fromTo("#lg33",{opacity:0},{opacity:1,duration:.25},42.89);tl.to("#lg33",{opacity:0,duration:.25},44.08);
+      tl.fromTo("#lg34",{opacity:0},{opacity:1,duration:.25},44.38);tl.to("#lg34",{opacity:0,duration:.25},44.73);
+      tl.fromTo("#lg35",{opacity:0},{opacity:1,duration:.25},45.03);tl.to("#lg35",{opacity:0,duration:.25},45.54);
+      tl.fromTo("#lg36",{opacity:0},{opacity:1,duration:.25},45.84);tl.to("#lg36",{opacity:0,duration:.25},46.74);
+      tl.fromTo("#lg37",{opacity:0},{opacity:1,duration:.25},47.04);tl.to("#lg37",{opacity:0,duration:.25},48.65);
+      tl.fromTo("#lg38",{opacity:0},{opacity:1,duration:.25},50.06);tl.to("#lg38",{opacity:0,duration:.25},50.59);
+      tl.fromTo("#lg39",{opacity:0},{opacity:1,duration:.25},50.89);tl.to("#lg39",{opacity:0,duration:.25},51.36);
+      tl.fromTo("#lg40",{opacity:0},{opacity:1,duration:.25},51.66);tl.to("#lg40",{opacity:0,duration:.25},52.38);
+      tl.fromTo("#lg41",{opacity:0},{opacity:1,duration:.25},52.68);tl.to("#lg41",{opacity:0,duration:.25},53.79);
+      tl.fromTo("#lg42",{opacity:0},{opacity:1,duration:.25},54.09);tl.to("#lg42",{opacity:0,duration:.25},55.65);
+      tl.fromTo("#lg43",{opacity:0},{opacity:1,duration:.25},55.95);tl.to("#lg43",{opacity:0,duration:.25},56.25);
+      tl.fromTo("#lg44",{opacity:0},{opacity:1,duration:.25},56.54);tl.to("#lg44",{opacity:0,duration:.25},56.84);
+      tl.fromTo("#lg45",{opacity:0},{opacity:1,duration:.25},57.10);tl.to("#lg45",{opacity:0,duration:.25},57.60);
+      tl.fromTo("#lg46",{opacity:0},{opacity:1,duration:.25},57.91);tl.to("#lg46",{opacity:0,duration:.25},59.14);
+      tl.fromTo("#f1",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},21.10);tl.to("#f1",{opacity:0,duration:.35},24.59);
+      tl.fromTo("#f2",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},41.43);tl.to("#f2",{opacity:0,duration:.35},46.48);
+      tl.fromTo("#f3",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},51.67);tl.to("#f3",{opacity:0,duration:.35},55.16);
+      tl.fromTo("#disc",{opacity:0,scale:.92},{opacity:1,scale:1,duration:.35,ease:"back.out(1.6)"},39.42);tl.to("#disc",{opacity:0,duration:.25},41.22);
+      window.__timelines["texto"] = tl;
+    })();
+  </script>
+</template>
