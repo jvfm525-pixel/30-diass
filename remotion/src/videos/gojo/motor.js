@@ -2968,7 +2968,7 @@ function depositoG(g) {
   [-0.9, 0.9].forEach((x) => vela(alt, x, 0.98, 0.2));
   // suporte da Lança (esquerda) e pedestal da Corda (direita)
   const sup = grp(g, -0.75, 0, -2.6); mesh(box(0.9, 0.12, 0.45), LPmat(0x3a2416), 0, 0.06, 0, sup); [-0.32, 0.32].forEach((x) => { mesh(box(0.1, 1.0, 0.1), LPmat(0x3a2416), x, 0.6, 0, sup); mesh(box(0.1, 0.12, 0.05), LPmat(0x3a2416), x, 1.16, 0.045, sup); mesh(box(0.1, 0.12, 0.05), LPmat(0x3a2416), x, 1.16, -0.045, sup); });
-  const lanca = lancaInvertida(); sup.add(lanca); lanca.position.set(0.0, 1.135, 0); lanca.rotation.z = Math.PI / 2;
+  const lanca = lancaInvertida(); sup.add(lanca); lanca.position.set(-0.12, 1.135, 0); lanca.rotation.z = -Math.PI / 2;
   const ped = grp(g, 0.75, 0, -2.6); mesh(cyl(0.42, 0.5, 0.9, 8), LPmat(0x5a4a3a, { rim: 0.3 }), 0, 0.45, 0, ped); mesh(cyl(0.48, 0.48, 0.06, 8), LPmat(0x2a1a12), 0, 0.93, 0, ped);
   const corda = cordaNegra(); ped.add(corda); corda.position.y = 0.96;
   const jan = mesh(new THREE.PlaneGeometry(1.4, 0.6), new THREE.MeshBasicMaterial({ color: 0xfff0d0 }), -5.84, 3.6, 0.5, g); jan.rotation.y = Math.PI / 2; jan.castShadow = false;
@@ -3045,8 +3045,8 @@ addSet("s1-abertura", (g) => {
   const ris = riscosVento(g, 18, [-6, 6, 0.3, 3, -5, 4], { cor: 0xcfc0ff, op: 0.3 });
   return {
     bg: 0x06040c, fog: [20, 160], fogCol: 0x120a1c, hand: 0.006,
-    look: { exposure: 1.08, bloom: 0.62, bloomT: 0.74, vig: 0.55, sat: 1.12, con: 1.08, dof: GDOF_L, rosto: 0.5 },
-    sun: { dir: [-0.4, 0.9, 0.5], col: 0xb8a8ff, I: 0.55, c: [0, 1, 0], r: 12 }, hemi: { sky: 0x4a3a7a, ground: 0x14101a, I: 0.5 }, fill: { col: 0xd8e0ff, I: 0.5, dir: [0.4, 0.3, 0.8] }, rim: { col: 0xb8c8ff, str: 1.3 },
+    look: { exposure: 1.3, bloom: 0.62, bloomT: 0.76, vig: 0.5, sat: 1.12, con: 1.06, dof: GDOF_L, rosto: 0.5, lift: [0.01, 0.008, 0.02] },
+    sun: { dir: [-0.4, 0.9, 0.5], col: 0xc8b8ff, I: 1.0, c: [0, 1, 0], r: 14 }, hemi: { sky: 0x6a5aa0, ground: 0x2a2030, I: 0.9 }, fill: { col: 0xd8e0ff, I: 0.5, dir: [0.4, 0.3, 0.8] }, rim: { col: 0xb8c8ff, str: 1.3 },
     update(t) {
       chicote(t, a, 0.22, 1); SB.brilho(t, 1); ris(t, 0.8);
       vive(go, t, 311, { boca: "linha", palpebra: 0.9 }, 0.15); maosBolso(go); pose(go, { neck: [-0.06, 0, 0] }, 1); cabeloVento(go, t, 0.7, [1, 0, 0.2]); sp(0);
@@ -3119,7 +3119,7 @@ addSet("s3-instante", (g) => {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([1.6, 7.5, 16], [0.8, 1.9, 6.5], [0, 7, -6], [0, 1.2, -1.2], 50, 42)],
-        [K.escola - 0.3, mov([0.3, 1.15, 1.55], [0.18, 1.12, 1.2], [0, 0.98, -1.2], [0, 1.0, -1.2], 40, 38)],
+        [K.escola - 0.3, mov([0.25, 1.2, 2.6], [0.15, 1.18, 2.2], [0, 1.0, -1.2], [0, 1.02, -1.2], 44, 42)],
         [K.amigo3 - 0.25, (tt, u) => ({ ...closeRosto(ge, lerp(1.0, 0.85, E.inOut(u)), 0.35, 0.0, 30) })],
       ], b);
     },
@@ -3227,7 +3227,7 @@ addSet("s5-chaves", (g) => {
       return planos(t, [
         [a, mov([0.4, 2.3, 5.6], [0.15, 1.6, 1.4], [0, 1.4, -5.4], [0, 1.15, -5.4], 44, 38)],
         [K.duas - 0.25, mov([0, 1.9, 2.0], [0, 1.8, 1.6], [0, 0.95, -2.6], [0, 1.0, -2.6], 48, 46)],
-        [K.lanca - 0.25, mov([-0.35, 1.5, -1.75], [-0.42, 1.42, -1.88], [-0.75, 1.13, -2.6], [-0.78, 1.14, -2.6], 34, 32)],
+        [K.lanca - 0.25, mov([-0.28, 1.55, -1.6], [-0.33, 1.48, -1.72], [-0.62, 1.14, -2.6], [-0.64, 1.15, -2.6], 38, 36)],
         [K.corda - 0.25, mov([0.42, 1.55, -1.8], [0.48, 1.45, -1.92], [0.75, 1.02, -2.6], [0.75, 1.04, -2.6], 34, 32)],
         [K.sumido - 0.35, mov([0, 1.75, 1.2], [0, 1.7, 0.8], [0, 1.0, -2.6], [0, 1.05, -2.6], 46, 44)],
         [K.proprio - 0.3, mov([0.15, 1.45, 1.6], [0.1, 1.5, 1.1], [0, 1.2, -3.1], [0, 1.4, -3.1], 44, 40)],
@@ -3320,7 +3320,7 @@ addSet("s8-apego", (g) => {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0.9, 4.4, 13], [0.6, 2.2, 9], [0, 1.2, -1.2], [0, 1.0, -1.2], 46, 40)],
-        [K.correntes - 0.3, mov([1.15, 0.42, 0.7], [1.05, 0.4, 0.55], [0.55, 0.02, -0.45], [0.6, 0.04, -0.5], 40, 38)],
+        [K.correntes - 0.3, mov([0.55, 0.95, 0.75], [0.6, 0.9, 0.62], [1.15, 0.0, -0.25], [1.18, 0.02, -0.3], 42, 40)],
         [K.apego - 0.25, mov([-0.6, 1.45, -3.0], [-0.5, 1.4, -2.6], [0.4, 1.1, 8], [0.2, 1.2, 20], 40, 36)],
         [K.vencer - 0.25, (tt, u) => ({ ...closeRosto(go, lerp(0.95, 0.78, E.inOut(u)), -0.3, 0.0, 30) })],
         [K.sentia - 0.25, mov([0.9, 1.3, -2.9], [1.0, 1.5, -3.6], [0.3, 1.0, 6], [0.2, 1.6, 20], 40, 44)],

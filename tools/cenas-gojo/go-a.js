@@ -29,8 +29,8 @@ addSet("s1-abertura", (g) => {
   const ris = riscosVento(g, 18, [-6, 6, 0.3, 3, -5, 4], { cor: 0xcfc0ff, op: 0.3 });
   return {
     bg: 0x06040c, fog: [20, 160], fogCol: 0x120a1c, hand: 0.006,
-    look: { exposure: 1.08, bloom: 0.62, bloomT: 0.74, vig: 0.55, sat: 1.12, con: 1.08, dof: GDOF_L, rosto: 0.5 },
-    sun: { dir: [-0.4, 0.9, 0.5], col: 0xb8a8ff, I: 0.55, c: [0, 1, 0], r: 12 }, hemi: { sky: 0x4a3a7a, ground: 0x14101a, I: 0.5 }, fill: { col: 0xd8e0ff, I: 0.5, dir: [0.4, 0.3, 0.8] }, rim: { col: 0xb8c8ff, str: 1.3 },
+    look: { exposure: 1.3, bloom: 0.62, bloomT: 0.76, vig: 0.5, sat: 1.12, con: 1.06, dof: GDOF_L, rosto: 0.5, lift: [0.01, 0.008, 0.02] },
+    sun: { dir: [-0.4, 0.9, 0.5], col: 0xc8b8ff, I: 1.0, c: [0, 1, 0], r: 14 }, hemi: { sky: 0x6a5aa0, ground: 0x2a2030, I: 0.9 }, fill: { col: 0xd8e0ff, I: 0.5, dir: [0.4, 0.3, 0.8] }, rim: { col: 0xb8c8ff, str: 1.3 },
     update(t) {
       chicote(t, a, 0.22, 1); SB.brilho(t, 1); ris(t, 0.8);
       vive(go, t, 311, { boca: "linha", palpebra: 0.9 }, 0.15); maosBolso(go); pose(go, { neck: [-0.06, 0, 0] }, 1); cabeloVento(go, t, 0.7, [1, 0, 0.2]); sp(0);
@@ -103,7 +103,7 @@ addSet("s3-instante", (g) => {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([1.6, 7.5, 16], [0.8, 1.9, 6.5], [0, 7, -6], [0, 1.2, -1.2], 50, 42)],
-        [K.escola - 0.3, mov([0.3, 1.15, 1.55], [0.18, 1.12, 1.2], [0, 0.98, -1.2], [0, 1.0, -1.2], 40, 38)],
+        [K.escola - 0.3, mov([0.25, 1.2, 2.6], [0.15, 1.18, 2.2], [0, 1.0, -1.2], [0, 1.02, -1.2], 44, 42)],
         [K.amigo3 - 0.25, (tt, u) => ({ ...closeRosto(ge, lerp(1.0, 0.85, E.inOut(u)), 0.35, 0.0, 30) })],
       ], b);
     },

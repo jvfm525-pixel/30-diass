@@ -207,7 +207,7 @@ function depositoG(g) {
   [-0.9, 0.9].forEach((x) => vela(alt, x, 0.98, 0.2));
   // suporte da Lança (esquerda) e pedestal da Corda (direita)
   const sup = grp(g, -0.75, 0, -2.6); mesh(box(0.9, 0.12, 0.45), LPmat(0x3a2416), 0, 0.06, 0, sup); [-0.32, 0.32].forEach((x) => { mesh(box(0.1, 1.0, 0.1), LPmat(0x3a2416), x, 0.6, 0, sup); mesh(box(0.1, 0.12, 0.05), LPmat(0x3a2416), x, 1.16, 0.045, sup); mesh(box(0.1, 0.12, 0.05), LPmat(0x3a2416), x, 1.16, -0.045, sup); });
-  const lanca = lancaInvertida(); sup.add(lanca); lanca.position.set(0.0, 1.135, 0); lanca.rotation.z = Math.PI / 2;
+  const lanca = lancaInvertida(); sup.add(lanca); lanca.position.set(-0.12, 1.135, 0); lanca.rotation.z = -Math.PI / 2;
   const ped = grp(g, 0.75, 0, -2.6); mesh(cyl(0.42, 0.5, 0.9, 8), LPmat(0x5a4a3a, { rim: 0.3 }), 0, 0.45, 0, ped); mesh(cyl(0.48, 0.48, 0.06, 8), LPmat(0x2a1a12), 0, 0.93, 0, ped);
   const corda = cordaNegra(); ped.add(corda); corda.position.y = 0.96;
   const jan = mesh(new THREE.PlaneGeometry(1.4, 0.6), new THREE.MeshBasicMaterial({ color: 0xfff0d0 }), -5.84, 3.6, 0.5, g); jan.rotation.y = Math.PI / 2; jan.castShadow = false;
