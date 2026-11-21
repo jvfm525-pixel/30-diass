@@ -115,3 +115,4 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 
 - Chamada do Discord em todo vídeo novo, curta, perto do meio: **"Quer aprender a fazer esses vídeos? Link do meu Discord na bio."** (selo na tela: "QUER APRENDER? · link do Discord na bio").
 - Antes de entregar, revisar o vídeo inteiro (um quadro a cada 0,5 s) e corrigir: cenário sem chão, objeto voando, personagem em posição estranha, câmera dentro de objetos, luz estourada.
+- Usar as skills do Superpowers (.claude/skills, obra/superpowers) em todo trabalho: começar por `using-superpowers`; `brainstorming` antes de vídeo/cena nova, `writing-plans` para tarefas de vários passos, `systematic-debugging` em bugs, `verification-before-completion` antes de dizer que algo está pronto.
