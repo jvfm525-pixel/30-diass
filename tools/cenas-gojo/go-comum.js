@@ -3,12 +3,12 @@ const GDOF_C = { ap: 0.008, max: 0.014 }, GDOF_M = { ap: 0.005, max: 0.012 }, GD
 const AZUL_SEIS = "#6ad8ff";
 const CAB_JJK = {
   // Gojo de venda: cabelo branco espetado pra cima
-  gojo: { ...CABELOS.gojo, seed: 301 },
+  gojo: { ...CABELOS.gojo, seed: 301, rigidez: 0.45 },
   // Gojo sem venda / jovem: branco, bagunçado, caindo na testa
-  gojoSolto: { cor: 0xeef2f6, dentes: 16, dente: 0.34, crista: 0.0045, franjaY: 0.88, ladoY: 0.15, nucaY: -0.55, esp: 0.01, espBorda: 0.0036, varia: 0.1, seed: 302,
+  gojoSolto: { cor: 0xeef2f6, dentes: 16, dente: 0.34, crista: 0.0045, franjaY: 0.88, ladoY: 0.15, nucaY: -0.55, esp: 0.01, espBorda: 0.0036, varia: 0.1, seed: 302, rigidez: 0.6,
     pontas: [...coroa(8, 1.45, 0.48, 0.52, 0.5, 0.06, 0.06, 2, 0.06, 0.6), ...coroa(5, 1.15, 0.44, 0.48, 0.12, 0.05, -0.32, 0.64, -0.1, 0.55)] },
   // Geto: preto, comprido até o ombro, repartido, uma mecha caindo na testa (o coque vai à parte)
-  geto: { cor: 0x141218, dentes: 24, dente: 0.14, crista: 0.003, franjaY: 1.08, ladoY: -0.75, nucaY: -0.9, esp: 0.009, espBorda: 0.004, varia: 0.05, seed: 303,
+  geto: { cor: 0x141218, dentes: 24, dente: 0.14, crista: 0.003, franjaY: 1.08, ladoY: -0.75, nucaY: -0.9, esp: 0.009, espBorda: 0.004, varia: 0.05, seed: 303, rigidez: 1.1,
     pontas: [[1.18, 0.14, 0.78, 0.24, -0.55, 0.0, -0.1, 0.5], [1.0, 0.9, 0.7, 0.32, -0.8, 0.05, -0.1, 0.5], [1.0, -0.9, 0.7, 0.32, -0.8, 0.05, -0.1, 0.5]] },
   // Anjo: claro, comprido, franja reta
   anjo: { cor: 0xf0dcb8, dentes: 30, dente: 0.1, crista: 0.003, franjaY: 0.9, ladoY: -0.9, nucaY: -1.25, esp: 0.009, espBorda: 0.004, varia: 0.04, seed: 304, pontas: [] },

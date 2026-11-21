@@ -13,6 +13,7 @@ import { Grisha3D } from "./videos/grisha/Grisha3D";
 import grishaDados from "./videos/grisha/dados.json";
 import { Gojo3D, Gojo3DPrev } from "./videos/gojo/Gojo3D";
 import gojoDados from "./videos/gojo/dados.json";
+import { TesteCabelo } from "./videos/tcab/TesteCabelo";
 
 // Vídeos verticais do TikTok: 1080 x 1920, 60 quadros por segundo
 export const RemotionRoot: React.FC = () => (
@@ -25,6 +26,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Grisha3D" component={Grisha3D} durationInFrames={Math.round(grishaDados.total * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Gojo3D" component={Gojo3D} durationInFrames={Math.round(gojoDados.total * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Gojo3DPrev" component={Gojo3DPrev} durationInFrames={Math.ceil(gojoDados.total / 0.5)} fps={30} width={1080} height={1920} />
+    <Composition id="TesteCabelo" component={TesteCabelo} durationInFrames={60} fps={30} width={1080} height={1920} />
     <Composition id="Teste3D" component={Teste3D} durationInFrames={180} fps={60} width={1080} height={1920} />
   </>
 );

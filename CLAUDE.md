@@ -117,3 +117,4 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 - Antes de entregar, revisar o vídeo inteiro (um quadro a cada 0,5 s) e corrigir: cenário sem chão, objeto voando, personagem em posição estranha, câmera dentro de objetos, luz estourada.
 - Usar as skills do Superpowers (.claude/skills, obra/superpowers) em todo trabalho: começar por `using-superpowers`; `brainstorming` antes de vídeo/cena nova, `writing-plans` para tarefas de vários passos, `systematic-debugging` em bugs, `verification-before-completion` antes de dizer que algo está pronto.
 - Duração do vídeo: sem limite. Pode passar de 1 minuto sem problema; não encurtar roteiro nem acelerar narração por causa de tempo.
+- Cabelo: antes de criar um personagem, estudar o cabelo dele e copiar o mais fiel possível (mechas, formato, direção, volume, franja); vento no cabelo segue o estudo do GUIA-ANIMACAO-ESTILO.md.

@@ -216,3 +216,16 @@ Quadros revistos em resolução maior (0–153 s). O que faz a beleza, em ordem 
 7. **Cenários-símbolo grandes**: topo de muralha com parapeitos indo até o horizonte; corredor de cerimônia com colunas e tapete vermelho; rodas de carroça gigantes; anéis de mostrador (relógio/astrolábio) em túnel; estrada de luz com faixas até o ponto de fuga.
 8. **Câmera**: movimentos longos e lentos (aproximação, guindaste subindo pelo tronco até acima da copa, órbita ao redor do tronco, recuo revelando o cenário), poucos cortes, chicote com borrão nas trocas de capítulo.
 9. **Personagens sempre apoiados**: pés no chão com sombra de contato; ajoelhar/sentar com o corpo apoiado; nada flutua.
+
+## Estudo: cabelo no vento (21/11/2026)
+
+- A raiz fica presa; a mecha dobra a partir dela e o deslocamento cresce até a ponta (≈ quadrado da distância).
+- A ponta chega atrasada (efeito chicote): ela responde à rajada de um instante antes.
+- O vento é do mundo: o cabelo aponta pra onde o vento vai, mesmo se a cabeça vira.
+- Rajadas lentas (0,8–2 Hz) movem a massa; só as pontas tremulam rápido.
+- Cabelo duro/espetado (Gojo) quase não dobra, só treme; cabelo comprido (Geto) esvoaça; a parte colada no couro cabeludo nunca mexe, só a borda (franja, laterais, nuca).
+- Implementado em `cabeloVento` (gr-kit.js), com `rigidez` por cabelo.
+
+## Regra: cabelo do personagem
+
+Antes de modelar um personagem, estudar o cabelo dele no original e copiar o mais fiel possível: quantidade e formato das mechas, para onde apontam, comprimento, volume, franja, divisão, cor e o jeito de cair.

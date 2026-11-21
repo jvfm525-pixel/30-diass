@@ -235,14 +235,14 @@ function cabeloLP(head, o) {
   const hg = grp(head, 0, cy, 0), hr = grp(hg, 0, -cy, 0); head.userData.hairG = hg; head.userData.hairLong = false;
   const m = LPmat(o.cor, { rim: 1.0, liso: true, side: THREE.DoubleSide, rough: 0.8 });
   if (o.baixo) mesh(toucaGeo({ ...o, ...o.baixo }), LPmat(o.baixo.cor, { rim: 0.9, liso: true, side: THREE.DoubleSide, rough: 0.85 }), 0, 0, 0, hr); // camada de baixo (undercut)
-  mesh(toucaGeo(o), m, 0, 0, 0, hr);
+  const tc = mesh(toucaGeo(o), m, 0, 0, 0, hr); tc.userData.touca = true; hg.userData.rig = o.rigidez ?? 1;
   const mp = o.pontaFacetada ? LPmat(o.cor, { rim: 1.0, side: THREE.DoubleSide, rough: 0.82 }) : m; // pontas com o mesmo sombreado da touca (se misturam ao cabelo)
   (o.pontas || []).forEach(([y, phf, L, W, sobe = 0.4, tras = 0, curva = 0.15, esp = 0.5, contra = 0], i) => {
     const ph = phf * Math.PI, A = naTouca(o, y, ph, -0.002), up = V3_(0, 1, 0);
     // direção: desce pela superfície (tangente) misturada com a normal (sobe) e pra trás
     const t = supCab(ph, y - 0.05).sub(supCab(ph, y + 0.05)).normalize(); if (contra) t.negate(); // contra = sobe pela cabeça (penteado pra trás)
     const d = t.multiplyScalar(1 - sobe).addScaledVector(A.n, sobe * 1.2).add(V3_(0, 0, -tras)).normalize();
-    const lm = lamina(hr, A.w, d, A.n, L * CAB.HW, W * CAB.HW, mp, curva, esp, (hash(i * 3.1 + (o.seed ?? 0)) - 0.5) * 0.6); lm.geometry = vincoNormais(lm.geometry, 0.9);
+    const lm = lamina(hr, A.w, d, A.n, L * CAB.HW, W * CAB.HW, mp, curva, esp, (hash(i * 3.1 + (o.seed ?? 0)) - 0.5) * 0.6); lm.geometry = vincoNormais(lm.geometry, 0.9); lm.userData.lock = { L: L * CAB.HW, i };
   });
   return hg;
 }
