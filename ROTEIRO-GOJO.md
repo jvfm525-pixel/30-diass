@@ -57,7 +57,7 @@ O mais forte do mundo não perdeu pra um golpe. Perdeu pra uma lembrança 💔
 #jujutsukaisen #gojo #gojosatoru #geto #reinodaprisao #anime #curiosidades #fyp
 ```
 
-**Thumb**: "POR QUE O GOJO / FICOU PRESO / TANTO TEMPO?" com PRESO em azul; o Gojo sem venda (olhos azuis) dentro do Reino da Prisão, o cubo com olho em primeiro plano.
+**Thumb** (renders/gojo-thumb.png, regras da skill youtube-thumbnail-design: 6 palavras, teste dos 120 px): "POR QUE O GOJO / FICOU / PRESO?" com PRESO em azul brilhante; o rosto do Gojo de olhos azuis acesos dentro do Reino da Prisão e o cubo de olhos abertos embaixo.
 
 ## Fatos conferidos
 
