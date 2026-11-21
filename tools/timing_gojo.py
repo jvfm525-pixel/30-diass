@@ -17,7 +17,7 @@ CAPA = 0.7  # quadro de capa antes da narração
 TR = os.path.join(ROOT, "gojo/assets/voice/transcript.json")
 OUT = os.path.join(ROOT, "gojo/assets/timing.js")
 # o que o reconhecedor ouviu diferente do texto
-FIX = {"enao": "e nao", "porque": "por que", "para": "pra", "gendin": "genshin", "genchin": "genshin", "jojo": "gojo", "goujo": "gojo", "sugoru": "suguru", "getto": "geto"}
+FIX = {"enao": "e nao", "porque": "por que", "para": "pra", "gendin": "genshin", "genchin": "genshin", "jojo": "gojo", "goujo": "gojo", "sugoru": "suguru", "getto": "geto", "sugurugetu": "suguru geto", "sugurugeto": "suguru geto", "eas": "e as", "eo": "e o", "maldicoada": "amaldicoada", "131": "cento e trinta e um"}
 DADOS = os.path.join(ROOT, "remotion/src/videos/gojo/dados.json")
 # cortes do 3D que não coincidem com os parágrafos: (nome, parágrafo, chave, deslocamento)
 CORTES = [("s3b-prisao", "s3-instante", "bastou", -0.15), ("s4b-dentro", "s4-caixa", "dentro", -0.25)]
