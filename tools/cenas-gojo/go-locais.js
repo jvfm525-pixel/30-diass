@@ -154,7 +154,7 @@ function salaoG(g, x, z, s = 1, ry = 0) { // salão de madeira sobre base de ped
 function escolaJujutsu(g, noite = false) {
   if (!noite) skyDome(g, { top: 0x2a6ad8, mid: 0x6aa8ec, hor: 0xd8ecff, ground: 0x4a5a3a, sunDir: [0.45, 0.55, -0.7], sunCol: 0xfff2d8, sunI: 1.1, disk: 1.2, cov: 0.42, cloudLit: 0xffffff, cloudSh: 0x9ab0cc, midY: 0.18 });
   else skyDome(g, { top: 0x02040c, mid: 0x081428, hor: 0x1a2a48, ground: 0x05070a, sunDir: [-0.3, 0.4, -1], sunCol: 0xb8c8ff, sunI: 0.15, disk: 0.2, cov: 0.12, cloudLit: 0x4a5a7a, cloudSh: 0x0a0e18, stars: 1, midY: 0.16 });
-  const verde = noite ? [34, 48, 40] : [86, 128, 54], verde2 = noite ? [44, 60, 50] : [112, 150, 66];
+  const verde = noite ? 0x223028 : 0x568036, verde2 = noite ? 0x2c3c32 : 0x709642;
   const ter = terrain(g, { size: 360, segs: 90, grassA: verde, grassB: verde2, h: (x, z) => { const d = Math.hypot(x, z + 6); return d < 45 ? 0 : (d - 45) * 0.06 + Math.sin(x * 0.05) * 2 * clamp((d - 45) / 30); } });
   const cas = mesh(new THREE.PlaneGeometry(26, 22), SM(noite ? 0x4a4a50 : 0xb8b2a4, { roughness: 1 }), 0, 0.012, 6, g); cas.rotation.x = -Math.PI / 2;
   const laje = mesh(new THREE.PlaneGeometry(2.6, 26), SM(0xffffff, { map: texRep(lajeTex, 1, 10), roughness: 0.9 }), 0, 0.02, 9.5, g); laje.rotation.x = -Math.PI / 2;

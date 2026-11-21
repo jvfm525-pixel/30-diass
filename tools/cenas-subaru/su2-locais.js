@@ -38,7 +38,7 @@ const fachadaTex = canvasTex(512, 256, (c, w, h) => { c.fillStyle = "#d8d0c0"; c
 function mansao(g, z = -22) { const m = grp(g, 0, 0, z), mat = new THREE.MeshStandardMaterial({ map: texRep(fachadaTex, 3, 1), emissive: 0xffffff, emissiveMap: texRep(fachadaTex, 3, 1), emissiveIntensity: 0.35, roughness: 0.85 });
   const corpo = mesh(box(48, 12, 12), [SM(0xc8c0b0), SM(0xc8c0b0), SM(0x3a4a6a), SM(0x3a4a6a), mat, SM(0xc8c0b0)], 0, 6, 0, m);
   const tel = LPmat(0x3a4a6a, { rim: 0.5 }); [-1, 1].forEach((k) => { const r = mesh(box(49, 0.3, 7.4), tel, 0, 14.6, k * 3.2, m); r.rotation.x = -k * 0.72; });
-  mesh(box(10, 14, 13), SM(0xd8d0c0), 0, 7, 0.6, m); const fr = mesh(new THREE.ConeGeometry(7.8, 4, 4), tel, 0, 16, 0.6, m); fr.rotation.y = Math.PI / 4; fr.scale.z = 0.85;
+  mesh(box(10, 14, 13), [SM(0xd8d0c0), SM(0xd8d0c0), SM(0x3a4a6a), SM(0xd8d0c0), new THREE.MeshStandardMaterial({ map: texRep(fachadaTex, 0.6, 1.2), emissive: 0xffffff, emissiveMap: texRep(fachadaTex, 0.6, 1.2), emissiveIntensity: 0.35, roughness: 0.85 }), SM(0xd8d0c0)], 0, 7, 0.6, m); const fr = mesh(new THREE.ConeGeometry(7.8, 4, 4), tel, 0, 16, 0.6, m); fr.rotation.y = Math.PI / 4; fr.scale.z = 0.85;
   const porta = mesh(box(2.6, 4, 0.2), new THREE.MeshStandardMaterial({ color: 0x3a2418, emissive: 0xffb860, emissiveIntensity: 0.25 }), 0, 2, 7.15, m);
   [-2.2, 2.2].forEach((x) => mesh(cyl(0.4, 0.45, 6, 12), SM(0xe8e0d0), x, 3, 7.6, m)); mesh(box(6, 0.6, 2.4), SM(0xe0d8c8), 0, 6.3, 7.4, m);
   for (let i = 0; i < 4; i++) mesh(box(8 - i * 0.8, 0.2, 1.2 - i * 0.2), SM(0xc8c0b0), 0, 0.1 + i * 0.2, 8.4 - i * 0.2, m);
@@ -49,7 +49,7 @@ function chafariz(g, x, z) { const c = grp(g, x, 0, z), p = LPmat(0xc8c4bc, { ri
   const jato = dustPts(160, [-0.6, 0.6, 0.6, 2.3, -0.6, 0.6], 0xcfe6ff, 0.025, 0.7); c.add(jato); return { c, jato }; }
 function jardimMansao(g) {
   skyDome(g, { top: 0x040818, mid: 0x0c1a3a, hor: 0x1a2a4a, ground: 0x05070a, sunDir: [0.3, 0.5, -1], sunCol: 0xb8c8ff, sunI: 0.2, disk: 0.2, cov: 0.2, cloudLit: 0x4a5a7a, cloudSh: 0x0a0e18, stars: 1, midY: 0.16 });
-  const gram = mesh(new THREE.PlaneGeometry(200, 200), LPmat(0x1e3420), 0, -0.01, 0, g); gram.rotation.x = -Math.PI / 2;
+  const gram = mesh(new THREE.PlaneGeometry(200, 200), LPmat(0x16281a, { rim: 0 }), 0, -0.01, 0, g); gram.rotation.x = -Math.PI / 2;
   const cam_ = mesh(new THREE.PlaneGeometry(3.2, 30), SM(0xffffff, { map: texRep(lajeTex, 1, 10), roughness: 0.9 }), 0, 0.01, -6, g); cam_.rotation.x = -Math.PI / 2;
   const roda = mesh(new THREE.RingGeometry(2.6, 4.2, 40), SM(0xffffff, { map: texRep(lajeTex, 6, 1), roughness: 0.9 }), 0, 0.012, 0, g); roda.rotation.x = -Math.PI / 2;
   const F = chafariz(g, 0, 0); mansao(g, -22);
@@ -83,25 +83,25 @@ function cadeira(g, x, z, ry) { const c = grp(g, x, 0, z), br = LPmat(0xf2f0ea, 
   [[-0.2, -0.2], [0.2, -0.2], [-0.2, 0.2], [0.2, 0.2]].forEach(([a, b]) => mesh(cyl(0.02, 0.02, 0.46, 6), br, a, 0.23, b, c)); mesh(box(0.46, 0.5, 0.04), br, 0, 0.72, -0.22, c); return c; }
 function colinaCha(g) {
   skyDome(g, { top: 0x2a6ad8, mid: 0x7ab0ec, hor: 0xe8f4ff, ground: 0x6a8a4a, sunDir: [0.5, 0.6, 0.6], sunCol: 0xfff4e0, sunI: 1.1, disk: 1.3, cov: 0.35, cloudLit: 0xffffff, cloudSh: 0xa8bcd4, midY: 0.18 });
-  const ter = terrain(g, { size: 300, segs: 90, grassA: [96, 150, 70], grassB: [128, 176, 88], h: (x, z) => { const d = Math.hypot(x, z); return d < 8 ? 0 : -(d - 8) * 0.09 + Math.sin(x * 0.05) * 1.2 * Math.min(1, (d - 8) / 20); } });
+  const ter = terrain(g, { size: 300, segs: 90, grassA: 0x4f8a36, grassB: 0x6fa24a, h: (x, z) => { const d = Math.hypot(x, z); return d < 8 ? 0 : -(d - 8) * 0.09 + Math.sin(x * 0.05) * 1.2 * Math.min(1, (d - 8) / 20); } });
   const mesa = mesaCha(g, 0, 0); const cE = cadeira(g, 0, -0.78, 0), cS = cadeira(g, 0, 0.78, Math.PI);
   arvoreRef(g, -4.5, -3.5, 1.1);
-  const grama = gramaAlta(g, 1400, [-14, 14, -14, 14], () => 0, { base: 0x4a8a2a, ponta: 0xd0e88a, mask: (x, z) => Math.hypot(x, z) > 1.4 });
+  const grama = gramaAlta(g, 1600, [-14, 14, -14, 14], () => 0, { base: 0x3a7a22, ponta: 0xb8d870, w: 0.03, h: 0.42, mask: (x, z) => Math.hypot(x, z) > 1.4 });
   const flor = []; for (let i = 0; i < 160; i++) { const a = hash(i * 1.7) * 6.28, r = 2 + hash(i * 3.1) * 12; flor.push([Math.cos(a) * r, 0.18, Math.sin(a) * r]); }
   instG(g, sph(0.05, 6, 5), LPmat(0xffffff, { rim: 0.4 }), flor, false);
-  const nuv = []; for (let i = 0; i < 9; i++) { const s = glowSprite(0x1a1020, 60 + hash(i) * 40, 0.55, NORM, puffTex); s.position.set(-140 + i * 35, 14 + hash(i * 3) * 10, -170); g.add(s); nuv.push(s); }
+  const nuv = []; for (let i = 0; i < 9; i++) { const s = glowSprite(0x2a1838, 46 + hash(i) * 30, 0.8, NORM, puffTex); s.material.fog = false; s.position.set(-120 + i * 30, 10 + hash(i * 3) * 8, -110); g.add(s); nuv.push(s); }
   const folhas = folhasRef(g, 60, [-6, 6, 0.3, 4, -6, 6], { cores: [0xffffff, 0xf0f0ff, 0xffe8f0], brilho: 0x302a30, s: 0.6 });
   return { ter, mesa, folhas, cE, cS };
 }
 
 // ---------------------------------------------------------------- 8 · campo dos marcos ao anoitecer: cada morte, um marco de pedra com uma luzinha
 function campoMarcos(g) {
-  skyDome(g, { top: 0x1a1a4a, mid: 0x6a3a6a, hor: 0xe88a5a, ground: 0x2a2420, sunDir: [0.2, 0.06, -1], sunCol: 0xffa070, sunI: 0.8, disk: 1.2, cov: 0.4, cloudLit: 0xe8906a, cloudSh: 0x3a2a4a, midY: 0.16 });
-  const ter = terrain(g, { size: 300, segs: 80, grassA: [60, 70, 50], grassB: [80, 86, 60], h: (x, z) => Math.sin(x * 0.04) * 1.2 * Math.min(1, Math.hypot(x, z) / 30) });
+  skyDome(g, { top: 0x1a1a4a, mid: 0x6a3a6a, hor: 0xe88a5a, ground: 0x2a2420, sunDir: [0.2, 0.06, -1], sunCol: 0xffa070, sunI: 0.5, disk: 0.6, cov: 0.4, cloudLit: 0xe8906a, cloudSh: 0x3a2a4a, midY: 0.16 });
+  const ter = terrain(g, { size: 300, segs: 80, grassA: 0x3c4a2e, grassB: 0x55603c, h: (x, z) => Math.sin(x * 0.04) * 1.2 * Math.min(1, Math.hypot(x, z) / 30) });
   const marcos = []; const pedra = LPmat(0x8a8478, { rim: 0.5 });
   for (let i = 0; i < 44; i++) { const x = (hash(i * 2.1) - 0.5) * 22, z = -2 - hash(i * 3.7) * 34; if (Math.abs(x) < 1.1) continue; const h = 0.7 + hash(i * 5) * 0.5, m = grp(g, x, 0, z);
     mesh(box(0.28, h, 0.16), pedra, 0, h / 2, 0, m).rotation.y = hash(i) * 0.6; const l = glowSprite(0xffd8a0, 0.5, 0.8); l.position.y = h + 0.12; m.add(l); marcos.push({ m, l, i }); }
-  const grama = gramaAlta(g, 1200, [-12, 12, -36, 4], () => 0, { base: 0x3a4a2a, ponta: 0xb8a86a, mask: (x, z) => Math.abs(x) > 0.7 });
+  const grama = gramaAlta(g, 1200, [-12, 12, -36, 4], () => 0, { base: 0x3a4a2a, ponta: 0xb8a86a, w: 0.03, h: 0.5, mask: (x, z) => Math.abs(x) > 0.7 });
   const brilho = dustPts(120, [-10, 10, 0.3, 3, -30, 2], 0xffd8a0, 0.04, 0.8); g.add(brilho);
   return { marcos, brilho };
 }
@@ -109,7 +109,7 @@ function campoMarcos(g) {
 // ---------------------------------------------------------------- 9 · terraço da mansão ao amanhecer (o pórtico da entrada vira varanda com balaústre)
 function terracoAmanhecer(g) {
   skyDome(g, { top: 0x2a4a8a, mid: 0xd88a8a, hor: 0xffc890, ground: 0x2a2a24, sunDir: [0, 0.06, 1], sunCol: 0xffd8a0, sunI: 1.3, disk: 1.8, cov: 0.4, cloudLit: 0xffc0a0, cloudSh: 0x6a5a7a, midY: 0.16 });
-  const gram = mesh(new THREE.PlaneGeometry(240, 240), LPmat(0x2a4a28), 0, -0.01, 0, g); gram.rotation.x = -Math.PI / 2;
+  const gram = mesh(new THREE.PlaneGeometry(240, 240), LPmat(0x2a4a28, { rim: 0 }), 0, -0.01, 0, g); gram.rotation.x = -Math.PI / 2;
   mansao(g, -22); const F = chafariz(g, 0, 0);
   const cam_ = mesh(new THREE.PlaneGeometry(3.2, 30), SM(0xffffff, { map: texRep(lajeTex, 1, 10), roughness: 0.9 }), 0, 0.01, -6, g); cam_.rotation.x = -Math.PI / 2;
   // varanda em cima do pórtico (pórtico em z = -22 + 7.4 = -14.6, topo em y = 6.6)

@@ -6,7 +6,7 @@ addSet("s5-bruxa", (g) => {
   const VZ = vazioSatella(g);
   const su = subaruLP(); g.add(su); su.position.set(0, 0, 0.4); const spS = sombraPe(g, su);
   const sa = satellaSombra(); g.add(sa); sa.scale.setScalar(1.25); sa.position.set(0, 0, -1.4);
-  const aura = glowSprite(0x8a5ad8, 3.2, 0); aura.position.set(0, 1.6, -1.6); g.add(aura);
+  const aura = glowSprite(0x8a5ad8, 2.4, 0); aura.position.set(0, 1.6, -1.6); g.add(aura);
   const M = [0, 1, 2, 3].map(() => maoSombra(g)), bases = [V3(-1.1, 0, -0.9), V3(1.1, 0, -0.9), V3(-1.3, 0, 0.6), V3(1.3, 0, 0.7)];
   const alvos = (p) => [corpoW(p, "chest", -0.16, 0.2, 0.02), corpoW(p, "chest", 0.16, 0.2, 0.02), corpoW(p, "spine", -0.15, 0.05, 0.05), corpoW(p, "spine", 0.15, 0.05, 0.05)];
   return { bg: 0x05020c, fog: [12, 90], fogCol: 0x140a20, hand: 0.004,
@@ -15,7 +15,7 @@ addSet("s5-bruxa", (g) => {
     update(t) {
       floatDust(VZ.po, t, 0.3, 0.2);
       vive(su, t, 411, { boca: "linha", triste: 0.8, choro: 0.3, palpebra: 0.75 }, 0.06); kneelPose(su, 1); pose(su, { neck: [0.3, 0, 0] }, 1); spS(0);
-      const ap = smr(t, K.satella - 0.6, K.satella + 0.4); sa.visible = ap > 0.02; aura.material.opacity = 0.35 * ap; restPose(sa); idle(sa, t, 441, 0.05); standFeet(sa); pose(sa, { neck: [0.35, 0, 0] }, 1);
+      const ap = smr(t, K.satella - 0.6, K.satella + 0.4); sa.visible = ap > 0.02; aura.material.opacity = 0.18 * ap; restPose(sa); idle(sa, t, 441, 0.05); standFeet(sa); pose(sa, { neck: [0.35, 0, 0] }, 1);
       sa.position.y = -0.6 * (1 - ap); cabeloVento(sa, t, 0.6, [1, 0, 0.3]);
       const abr = smr(t, K.inveja - 0.3, K.dividir + 0.3), al = alvos(su); M.forEach((m, i) => m.set(bases[i], al[i], abr * (0.85 + 0.15 * Math.sin(t * 1.5 + i)), t, i * 2));
     },
@@ -58,9 +58,9 @@ addSet("s7-echidna", (g) => {
   const su = subaruLP(); g.add(su); su.position.set(0, 0, 0.74); su.rotation.y = Math.PI;
   const senta = (p, t, seed, o) => { restPose(p); idle(p, t, seed, 0.08); sitPose(p, 1, { seatY: 0.49, lean: o.lean ?? 0.05 }); pose(p, { neck: o.neck ?? [0, 0, 0] }, 1);
     maoEm(p, 0, frenteW(p, 0.14, 0.78, 0.34), 1, { abre: 0.6, poleY: 0.1, poleZ: -0.3 }); maoEm(p, 1, frenteW(p, -0.14, 0.78, 0.34), 1, { abre: 0.6, poleY: 0.1, poleZ: -0.3 }); };
-  return { bg: 0x9ac8f0, fog: [40, 300], fogCol: 0xd8ecff, hand: 0.004,
-    look: { exposure: 1.04, bloom: 0.45, bloomT: 0.84, vig: 0.36, sat: 1.12, con: 1.04, dof: RDOF_M, rosto: 0.3, lift: [0.01, 0.008, 0] },
-    sun: { dir: [0.5, 0.65, 0.55], col: 0xfff2d8, I: 2.3, c: [0, 1, 0], r: 12 }, hemi: { sky: 0xcfe6ff, ground: 0x7a9a5a, I: 1.0 }, fill: { col: 0xffe8d0, I: 0.5, dir: [-0.3, 0.3, 1] }, rim: { col: 0xfff4e0, str: 1.1 },
+  return { bg: 0x9ac8f0, fog: [60, 420], fogCol: 0xd8ecff, hand: 0.004,
+    look: { exposure: 0.98, bloom: 0.4, bloomT: 0.86, vig: 0.38, sat: 1.12, con: 1.06, dof: RDOF_M, rosto: 0.2, lift: [0.01, 0.008, 0] },
+    sun: { dir: [0.5, 0.65, 0.55], col: 0xfff2d8, I: 2.0, c: [0, 1, 0], r: 12 }, hemi: { sky: 0xcfe6ff, ground: 0x5a7a3a, I: 0.85 }, fill: { col: 0xffe8d0, I: 0.5, dir: [-0.3, 0.3, 1] }, rim: { col: 0xfff4e0, str: 1.1 },
     update(t) {
       CC.folhas(t, 0.6);
       senta(ec, t, 431, { lean: 0.02 }); rostoLP(ec, t, { boca: t > K.sabia - 0.3 ? "sorriso" : "linha", palpebra: 0.85, piscaCada: 4.1 }); cabeloVento(ec, t, 0.6, [1, 0, 0.2]);
@@ -70,7 +70,7 @@ addSet("s7-echidna", (g) => {
       return planos(t, [
         [a, mov([4.5, 3.2, 7.5], [3.2, 2.0, 5.0], [0, 0.9, 0], [0, 0.95, 0], 44, 40)],
         [K.echidna - 0.2, (tt, u) => ({ ...closeRosto(ec, lerp(1.0, 0.85, E.inOut(u)), 0.22, -0.02, 30) })],
-        [K.castelo - 0.2, mov([-2.2, 1.6, 3.4], [-2.6, 1.9, 4.2], [0, 1.0, -1], [0, 2.4, -30], 44, 46)],
+        [K.castelo - 0.2, mov([0.9, 1.15, 2.6], [0.8, 1.25, 3.2], [0, 1.4, -6], [0, 4, -80], 44, 46)],
         [K.falou - 0.3, (tt, u) => ({ ...closeRosto(su, lerp(1.0, 0.85, E.inOut(u)), -0.22, -0.02, 30) })],
         [K.sabia - 0.3, (tt, u) => ({ ...closeRosto(ec, lerp(0.9, 0.78, E.inOut(u)), 0.2, -0.02, 30) })],
       ], b); },
@@ -91,7 +91,7 @@ addSet("s8-heidegger", (g) => {
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; } const p = su.position;
       return planos(t, [
-        [a, mov([3, 6, 5], [2, 4.5, 1], [0, 0.5, -10], [0, 0.6, -12], 46, 44)],
+        [a, mov([2.4, 3.2, 4.5], [1.8, 2.6, 2.6], [0, 0.6, -6], [0, 0.7, -8], 46, 44)],
         [K.morrer8 - 0.3, (tt, u) => ({ pos: [p.x + 0.6, 1.5, p.z + 2.6], look: [p.x, 1.2, p.z - 2], fov: 40 })],
         [K.sua - 0.3, (tt, u) => ({ pos: [p.x + 2.4, 1.2, p.z - 1.0], look: [p.x, 1.1, p.z], fov: 38 })],
         [K.dezenas - 0.3, (tt, u) => ({ pos: [p.x - 3, lerp(4, 9, E.inOut(u)), p.z + 6], look: [p.x, 0.5, p.z - 8], fov: 46 })],
@@ -118,7 +118,7 @@ addSet("s9-fim", (g) => {
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([1.5, 1.3, 2.0], [1.2, 1.5, 1.0], [0, 7.6, TA.vz], [0, 7.8, TA.vz], 44, 42)],
-        [K.salvar - 0.2, mov([0.5, 8.4, TA.vz - 0.6], [0.45, 8.3, TA.vz - 0.3], [-0.3, 0.8, 3.4], [-0.3, 0.9, 3.4], 40, 36)],
+        [K.salvar - 0.2, mov([0.35, 9.4, TA.vz + 0.2], [0.3, 9.2, TA.vz + 0.5], [0, 0.6, 3.2], [0, 0.7, 3.2], 40, 36)],
         [K.sozinho - 0.3, (tt, u) => ({ ...closeRosto(su, lerp(1.0, 0.85, E.inOut(u)), 0.2, 0, 30) })],
         [K.voltar9 - 0.2, mov([2.2, 7.9, TA.vz + 2.6], [1.8, 7.8, TA.vz + 2.2], [0, 7.6, TA.vz + 0.5], [0, 7.7, TA.vz + 0.5], 42, 40)],
         [K.comenta - 0.2, mov([2.2, 8.2, TA.vz + 3], [6, 24, 26], [0, 7.6, TA.vz], [0, 6, -40], 42, 50)],

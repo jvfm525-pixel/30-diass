@@ -31,7 +31,7 @@ function florCabelo(p, x, y, z) { const u = p.userData, g = grp(u.head, x, y, z)
   mesh(sph(0.007, 8, 6), LPmat(0xffe070, { rim: 0.3 }), 0, 0, 0.003, g); [-1, 1].forEach((k) => { const r = mesh(box(0.024, 0.01, 0.004), LPmat(0x8a5ac8, { rim: 0.5 }), k * 0.016, -0.026, -0.004, g); r.rotation.z = k * 0.6; });
   g.rotation.y = Math.sign(x) * 0.9; return g; }
 function emiliaLP(o = {}) { // meia-elfa: olhos roxos, orelhas pontudas, flor branca com fita roxa; roupa branca e roxa, botas brancas
-  const p = pessoaLP({ seed: 421, pele: 0xfbe8dc, olho: "#7a5ac0", olhoAlt: 1.0, olhoTam: 1.06, browW: 0.054, queixo: 0.66, sobrancelha: 0xcac2dc, roupa: 0xf4f2f8, calca: 0xf6f4fa, sapato: 0xf2f0f6, sola: 0xd8d4e0, botoes: false, scale: 0.93, cabelo: CAB_RZ.emilia, ...o });
+  const p = pessoaLP({ seed: 421, pele: 0xfbe8dc, olho: "#7a5ac0", olhoAlt: 1.0, olhoTam: 1.06, browW: 0.054, queixo: 0.66, sobrancelha: 0x8a82a0, roupa: 0xf4f2f8, calca: 0xf6f4fa, sapato: 0xf2f0f6, sola: 0xd8d4e0, botoes: false, scale: 0.93, cabelo: CAB_RZ.emilia, ...o });
   const u = p.userData; orelhaPontuda(p); florCabelo(p, 0.075, 0.175, 0.02);
   const saia = mesh(new THREE.CylinderGeometry(0.17, 0.27, 0.32, 16, 1, true), LPmat(0xf4f2f8, { rim: 0.8, side: THREE.DoubleSide }), 0, -0.13, 0, u.hips); saia.scale.z = 0.85;
   const barra = mesh(new THREE.CylinderGeometry(0.272, 0.276, 0.035, 16, 1, true), LPmat(0x8a5ac8, { rim: 0.6, side: THREE.DoubleSide }), 0, -0.28, 0, u.hips); barra.scale.z = 0.85;
@@ -39,7 +39,7 @@ function emiliaLP(o = {}) { // meia-elfa: olhos roxos, orelhas pontudas, flor br
   return p;
 }
 function echidnaLP(o = {}) { // olhos pretos, pele pálida, presilha de asa de borboleta; vestido preto longo de luto com acabamento branco
-  const p = pessoaLP({ seed: 431, pele: 0xfbf2ec, olho: "#141416", olhoAlt: 0.86, olhoTam: 1.02, browW: 0.054, queixo: 0.66, sobrancelha: 0xe8e8ee, roupa: 0x121214, calca: 0x121214, sapato: 0x121214, sola: 0x2a2a2e, botoes: false, scale: 0.95, cabelo: CAB_RZ.echidna, ...o });
+  const p = pessoaLP({ seed: 431, pele: 0xfbf2ec, olho: "#141416", olhoAlt: 0.86, olhoTam: 1.02, browW: 0.054, queixo: 0.66, sobrancelha: 0x9a9aa4, roupa: 0x121214, calca: 0x121214, sapato: 0x121214, sola: 0x2a2a2e, botoes: false, scale: 0.95, cabelo: CAB_RZ.echidna, ...o });
   const u = p.userData, preto = LPmat(0x121214, { rim: 0.9, side: THREE.DoubleSide });
   const saia = mesh(new THREE.CylinderGeometry(0.17, 0.32, 0.86, 16, 1, true), preto, 0, -0.37, 0, u.hips); saia.scale.z = 0.88;
   const barra = mesh(new THREE.CylinderGeometry(0.322, 0.326, 0.03, 16, 1, true), LPmat(0xf2f2f2, { rim: 0.4, side: THREE.DoubleSide }), 0, -0.79, 0, u.hips); barra.scale.z = 0.88;
@@ -49,7 +49,7 @@ function echidnaLP(o = {}) { // olhos pretos, pele pálida, presilha de asa de b
 }
 // Satella: só a sombra (corpo negro translúcido, cabelo prateado comprido que brilha de leve)
 function satellaSombra(o = {}) { const p = pessoaLP({ seed: 441, pele: 0x000000, roupa: 0x000000, calca: 0x000000, botoes: false, scale: 0.95, cabelo: { ...CAB_RZ.emilia, seed: 442, cor: 0xc8c4d8 }, ...o });
-  const m = new THREE.MeshBasicMaterial({ color: 0x05030a, transparent: true, opacity: 0.92 }), mc = new THREE.MeshBasicMaterial({ color: 0xc8c0e0, transparent: true, opacity: 0.55, blending: ADD, depthWrite: false });
+  const m = new THREE.MeshBasicMaterial({ color: 0x05030a, transparent: true, opacity: 0.92 }), mc = new THREE.MeshBasicMaterial({ color: 0x8a84a0, transparent: true, opacity: 0.22, blending: ADD, depthWrite: false });
   p.traverse((x) => { if (!x.isMesh) return; if (x.userData.isDecal) { x.visible = false; return; } let n = x; let cab = false; while (n) { if (n.userData && n.userData.hairG) { cab = true; break; } n = n.parent; } x.material = cab ? mc : m; x.castShadow = false; });
   const veu = mesh(new THREE.CylinderGeometry(0.2, 0.45, 1.4, 16, 1, true), new THREE.MeshBasicMaterial({ color: 0x05030a, transparent: true, opacity: 0.85, side: THREE.DoubleSide }), 0, -0.55, 0, p.userData.hips); veu.scale.z = 0.8;
   return p; }

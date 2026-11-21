@@ -36,8 +36,8 @@ addSet("s1-abertura", (g) => {
       escurece(t, K.morrer + 0.15, K.morrer + 0.6, [0.05, 0, 0.02], 0.92 * (1 - smr(t, K.acordar - 0.08, K.acordar))); flash(t, K.acordar, 0.05, 0.45, [0.85, 0.9, 1]); GU.uFlash.value *= 0.55;
       vive(ve, t, 650, { boca: "sorriso", palpebra: 0.9 }, 0.15);
       // a Emilia chega no "nem pra quem você mais ama"
-      const D = 2.2, f = smr(t, K.ama - 1.6, K.ama - 0.2); em.visible = t > K.ama - 1.7; if (em.visible) { if (f < 1) gait(em, D * f, { from: [-0.6, 0, 3.0], ang: Math.PI * 0.8, step: gaitFit(D, 0.5, 0) }); else { em.position.set(-0.6 + Math.sin(Math.PI * 0.8) * D, 0, 3.0 + Math.cos(Math.PI * 0.8) * D); em.rotation.y = 1.1; vive(em, t, 421, { boca: "sorriso", palpebra: 0.95 }, 0.1); } rostoLP(em, t, { boca: "sorriso" }); cabeloVento(em, t, 0.5, [1, 0, 0.2]); } spE(0);
-      if (t > K.ama - 1.6) pose(su, { neck: [0, -0.5 * smr(t, K.ama - 1.0, K.ama - 0.5), 0] }, 1); cabeloVento(su, t, 0.5, [1, 0, 0.2]);
+      const D = 2.4, f = smr(t, K.ama - 1.8, K.ama - 0.3); em.visible = t > K.ama - 1.9; if (em.visible) { if (f < 1) gait(em, D * f, { from: [-1.6, 0, -2.6], ang: 0.62, step: gaitFit(D, 0.5, 0) }); else { em.position.set(-1.6 + Math.sin(0.62) * D, 0, -2.6 + Math.cos(0.62) * D); em.rotation.y = 0.62; vive(em, t, 421, { boca: "sorriso", palpebra: 0.95 }, 0.1); } rostoLP(em, t, { boca: "sorriso" }); cabeloVento(em, t, 0.5, [1, 0, 0.2]); } spE(0);
+      if (t > K.ama - 1.6) pose(su, { neck: [0, 0.45 * smr(t, K.ama - 1.0, K.ama - 0.5), 0] }, 1); cabeloVento(su, t, 0.5, [1, 0, 0.2]);
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
@@ -45,7 +45,7 @@ addSet("s1-abertura", (g) => {
         [K.acordar - 0.05, (tt, u) => ({ ...closeRosto(su, lerp(1.0, 0.85, E.inOut(u)), 0.15, 0, 30) })],
         [K.antes - 0.2, mov([-3.5, 2.6, 6.5], [-3.2, 2.4, 5.6], [1.6, 1.0, 0.2], [1.6, 1.0, 0.2], 42, 40)],
         [K.contar - 0.2, (tt, u) => ({ ...closeRosto(su, lerp(0.95, 0.8, E.inOut(u)), -0.18, 0, 30) })],
-        [K.ama - 1.5, mov([0.6, 1.5, 4.6], [0.5, 1.45, 4.0], [0.4, 1.3, 1.2], [0.4, 1.3, 1.0], 40, 38)],
+        [K.ama - 1.7, mov([2.3, 1.65, 2.6], [2.1, 1.6, 2.2], [-0.4, 1.2, -1.0], [-0.2, 1.25, -0.6], 42, 40)],
       ], b); },
   };
 });
@@ -99,7 +99,7 @@ addSet("s3-mao", (g) => {
         [a, mov([3, 7, 16], [1.6, 2.4, 10], [0, 3, -10], [0, 1.2, 4.6], 46, 40)],
         [K.emilia3 - 0.3, mov([0.1, 1.5, 7.4], [0.05, 1.45, 6.7], [0, 1.25, 4.6], [0, 1.25, 4.6], 40, 38)],
         [K.mao - 0.3, mov([-2.6, 1.6, 7.6], [-2.3, 1.5, 7.0], [-0.4, 1.0, 4.6], [-0.4, 1.1, 4.6], 42, 40)],
-        [K.apertou - 0.2, (tt, u) => ({ ...closeRosto(su, lerp(0.95, 0.75, E.inOut(u)), 0.2, -0.04, 30) })],
+        [K.apertou - 0.2, (tt, u) => ({ ...closeRosto(su, lerp(0.95, 0.75, E.inOut(u)), -0.3, -0.04, 30) })],
         [K.vez - 0.2, mov([1.6, 1.5, 6.8], [1.4, 1.45, 6.3], [-0.2, 1.1, 4.6], [-0.2, 1.1, 4.6], 40, 38)],
       ], b); },
   };
