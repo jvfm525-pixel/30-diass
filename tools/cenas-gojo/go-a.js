@@ -30,7 +30,7 @@ addSet("s1-abertura", (g) => {
   return {
     bg: 0x06040c, fog: [20, 160], fogCol: 0x120a1c, hand: 0.006,
     look: { exposure: 1.08, bloom: 0.62, bloomT: 0.74, vig: 0.55, sat: 1.12, con: 1.08, dof: GDOF_L, rosto: 0.5 },
-    sun: { dir: [-0.4, 0.9, 0.5], col: 0xb8a8ff, I: 0.55, c: [0, 1, 0], r: 12 }, hemi: { sky: 0x4a3a7a, ground: 0x14101a, I: 0.5 }, fill: { col: 0xff8ac8, I: 0.45, dir: [0.6, 0.3, 0.6] }, rim: { col: 0xb8c8ff, str: 1.3 },
+    sun: { dir: [-0.4, 0.9, 0.5], col: 0xb8a8ff, I: 0.55, c: [0, 1, 0], r: 12 }, hemi: { sky: 0x4a3a7a, ground: 0x14101a, I: 0.5 }, fill: { col: 0xd8e0ff, I: 0.5, dir: [0.4, 0.3, 0.8] }, rim: { col: 0xb8c8ff, str: 1.3 },
     update(t) {
       chicote(t, a, 0.22, 1); SB.brilho(t, 1); ris(t, 0.8);
       vive(go, t, 311, { boca: "linha", palpebra: 0.9 }, 0.15); maosBolso(go); pose(go, { neck: [-0.06, 0, 0] }, 1); cabeloVento(go, t, 0.7, [1, 0, 0.2]); sp(0);
@@ -91,7 +91,7 @@ addSet("s3-instante", (g) => {
   return {
     bg: 0x9ac8f0, fog: [40, 330], fogCol: 0xc8e0f4, hand: 0.004,
     look: { exposure: 1.04, bloom: 0.45, bloomT: 0.84, vig: 0.38, sat: 1.14, con: 1.05, dof: GDOF_M, rosto: 0.3, lift: [0.01, 0.008, 0] },
-    sun: { dir: [0.5, 0.7, 0.55], col: 0xfff0d8, I: 2.2, c: [0, 1, -2], r: 18 }, hemi: { sky: 0xbfe0ff, ground: 0x6a7a4a, I: 0.9 }, fill: { col: 0xffe0c0, I: 0.45, dir: [-0.4, 0.3, 1] }, rim: { col: 0xfff4e0, str: 1.2 },
+    sun: { dir: [0.5, 0.7, 0.55], col: 0xfff0d8, I: 2.2, c: [0, 1, -2], r: 18 }, hemi: { sky: 0xbfe0ff, ground: 0x8a8a6a, I: 1.05 }, fill: { col: 0xffe8d0, I: 0.8, dir: [-0.2, 0.3, 1] }, rim: { col: 0xfff4e0, str: 1.2 },
     update(t) {
       ES.folhas(t, 0.8); ES.brilho(t, 1); ES.sol.visible = true;
       const ri = 0.5 + 0.5 * Math.sin(t * 2.2);
@@ -138,7 +138,7 @@ addSet("s3b-prisao", (g) => {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([GO_PLAT[0] + 1.3, 0.28, GO_PLAT[1] + 1.2], [GO_PLAT[0] + 1.25, 0.3, GO_PLAT[1] + 1.05], [GO_PLAT[0] + 0.75, 0.16, GO_PLAT[1] + 0.1], [GO_PLAT[0] + 0.7, 0.3, GO_PLAT[1] + 0.05], 38, 36)],
-        [tCorte, mov([-3.6, 2.1, 6.8], [-3.3, 2.0, 6.1], [GO_PLAT[0], 1.5, GO_PLAT[1]], [GO_PLAT[0], 1.3, GO_PLAT[1]], 44, 42)],
+        [tCorte, mov([2.3, 2.9, 14.5], [2.2, 2.8, 13.4], [1.6, 1.5, GO_PLAT[1]], [1.6, 1.4, GO_PLAT[1]], 50, 48)],
         [Math.max(K.caixa - 0.25, t1 + 0.1), mov([GO_PLAT[0] - 0.9, 0.3, GO_PLAT[1] + 1.4], [GO_PLAT[0] - 0.75, 0.32, GO_PLAT[1] + 1.2], [GO_PLAT[0], 0.15, GO_PLAT[1]], [GO_PLAT[0], 0.22, GO_PLAT[1]], 38, 36)],
         [K.monge - 0.3, mov([GO_PLAT[0] - 2.6, 0.55, GO_PLAT[1] + 3.6], [GO_PLAT[0] - 3.3, 0.8, GO_PLAT[1] + 4.6], [GO_PLAT[0] + 0.3, 1.0, GO_PLAT[1] - 0.6], [GO_PLAT[0] + 0.4, 1.8, GO_PLAT[1] - 1.2], 44, 50)],
       ], b);
@@ -153,19 +153,19 @@ addSet("s4b-dentro", (g) => {
   const PD = prisaoDentro(g);
   const go = gojoVendaLP(); g.add(go); go.position.set(0, 0, 0);
   restPose(go); kneelPose(go); amarras(g, go, [["hips", 0.16, 0, 0.02, 0.9, 0.5], ["hips", -0.16, 0, 0.02, -0.9, 0.5], ["chest", 0.18, 0.15, 0, 1.4, -0.4], ["chest", -0.18, 0.15, 0, -1.4, -0.4], ["chest", 0, 0.1, -0.12, 0, -1.6]]);
-  const aura = glowSprite(0x6ad8ff, 1.5, 0); aura.position.set(0, 0.95, -0.4); g.add(aura);
+  const aura = glowSprite(0x6ad8ff, 1.2, 0); aura.position.set(0, 0.6, -0.45); g.add(aura);
   const casca = mesh(sph(0.95, 24, 16), new THREE.MeshBasicMaterial({ color: 0x6ad8ff, transparent: true, opacity: 0, blending: ADD, depthWrite: false, wireframe: true }), 0, 0.75, 0, g); casca.castShadow = false;
   const L = new THREE.PointLight(0x6ad8ff, 0, 10, 1.6); L.position.set(0, 1.2, 0.6); g.add(L);
   return {
     bg: 0x0a0204, fog: [6, 32], fogCol: 0x1a0408, hand: 0.004,
-    look: { exposure: 1.1, bloom: 0.68, bloomT: 0.72, vig: 0.6, sat: 1.1, con: 1.1, dof: GDOF_M, rosto: 0.5 },
-    sun: { dir: [0.3, 1, 0.6], col: 0xffb0b8, I: 0.6, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x8a3a4a, ground: 0x1a0408, I: 0.5 }, fill: { col: 0xb8d8ff, I: 0.3, dir: [-0.4, 0.2, 1] }, rim: { col: 0xff8a9a, str: 1.3 },
+    look: { exposure: 1.06, bloom: 0.55, bloomT: 0.82, vig: 0.6, sat: 1.1, con: 1.1, dof: GDOF_M, rosto: 0.4 },
+    sun: { dir: [0.3, 1, 0.6], col: 0xffb0b8, I: 0.6, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x8a3a4a, ground: 0x1a0408, I: 0.45 }, fill: { col: 0xd8e8ff, I: 0.65, dir: [0.2, 0.3, 1] }, rim: { col: 0xff8a9a, str: 1.1 },
     update(t) {
       floatDust(PD.poeira, t, 0.15, 0.08); PD.nevoa.upd(t, 1);
       restPose(go); idle(go, t, 311, 0.04); kneelPose(go); pose(go, { neck: [0.15 * smr(t, K.energia, K.energia + 0.8), 0, 0] }, 1); rostoLP(go, t, { boca: "linha", palpebra: 0.9 });
       // a energia tenta acender (pisca) e apaga de vez no "energia amaldiçoada"
       const tenta = smr(t, K.dentro + 0.1, K.gojo4) * (1 - smr(t, K.energia - 0.1, K.energia + 0.5)), pisca = 0.55 + 0.45 * Math.sin(t * 31) * Math.sin(t * 7.3);
-      const e = tenta * pisca; aura.material.opacity = 0.32 * e; casca.material.opacity = 0.14 * e; casca.rotation.y = t * 0.6; L.intensity = 4 * e;
+      const e = tenta * pisca; aura.material.opacity = 0.22 * e; casca.material.opacity = 0.12 * e; casca.rotation.y = t * 0.6; L.intensity = 0;
       PD.olhos.forEach((o, i) => { o.pu.position.x = 0.12 * Math.sin(t * 0.7 + i); o.ir.position.x = o.pu.position.x * 0.8; });
     },
     cam(t) {

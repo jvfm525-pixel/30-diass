@@ -18,7 +18,7 @@ const CAB_JJK = {
 const UNI = 0x2c3552;
 function gojoVendaLP(o = {}) { return gojoLP({ seed: 311, cabelo: CAB_JJK.gojo, botoes: false, roupa: UNI, calca: UNI, ...o }); }
 // mãos nos bolsos (em pé): o jeito do Gojo
-function maosBolso(p, k = 1) { if (k <= 0) return; maoEm(p, 0, frenteW(p, 0.2, 0.84, 0.03), k, { abre: 0.95, poleY: 0.7, poleZ: -0.55 }); maoEm(p, 1, frenteW(p, -0.2, 0.84, 0.03), k, { abre: 0.95, poleY: 0.7, poleZ: -0.55 }); pose(p, { handR: 0.9 * k, handL: 0.9 * k }, 1); }
+function maosBolso(p, k = 1) { if (k <= 0) return; maoEm(p, 0, frenteW(p, 0.2, 0.84, 0.075), k, { abre: 0.95, poleY: 0.7, poleZ: -0.6 }); maoEm(p, 1, frenteW(p, -0.2, 0.84, 0.075), k, { abre: 0.95, poleY: 0.7, poleZ: -0.6 }); pose(p, { handR: 0.9 * k, handL: 0.9 * k }, 1); }
 function gojoOlhosLP(o = {}) { // sem venda: os Seis Olhos azuis
   return pessoaLP({ seed: 312, pele: 0xffe6c8, olho: AZUL_SEIS, olhoAlt: 0.82, olhoTam: 1.0, brava: 0.08, browW: 0.06, sobrancelha: 0x8a929e, roupa: UNI, calca: UNI, botoes: false, scale: 1.08, cabelo: CAB_JJK.gojoSolto, ...o });
 }
@@ -29,9 +29,9 @@ function oculosEscuros(p) {
     mesh(box(0.014, 0.0016, 0.0016), aro, k * 0.064, CAB.EY - 0.006, surfZ(u.headM, k * 0.064, CAB.EY) + 0.002, u.head); });
   mesh(box(0.016, 0.0016, 0.0016), aro, 0, CAB.EY - 0.01, surfZ(u.headM, 0, CAB.EY - 0.01) + 0.011, u.head);
 }
-function gojoJovemLP(o = {}) { const p = gojoOlhosLP({ seed: 313, roupa: 0x1a1d2a, calca: 0x1a1d2a, scale: 1.04, ...o }); oculosEscuros(p); return p; }
+function gojoJovemLP(o = {}) { const p = gojoOlhosLP({ seed: 313, roupa: 0x323c5e, calca: 0x323c5e, scale: 1.04, ...o }); oculosEscuros(p); return p; }
 function getoLP(o = {}) { // Suguru Geto: cabelo preto com meio coque, mecha na testa, alargadores, olhos puxados
-  const p = pessoaLP({ seed: 321, pele: 0xf6dcc0, olho: "#3a3030", olhoAlt: 0.5, olhoTam: 0.98, brava: 0.05, browW: 0.058, queixo: 0.66, sobrancelha: 0x141218, roupa: 0x1a1d2a, calca: 0x1a1d2a, botoes: false, scale: 1.05, cabelo: CAB_JJK.geto, ...o });
+  const p = pessoaLP({ seed: 321, pele: 0xf6dcc0, olho: "#3a3030", olhoAlt: 0.5, olhoTam: 0.98, brava: 0.05, browW: 0.058, queixo: 0.66, sobrancelha: 0x141218, roupa: 0x323c5e, calca: 0x323c5e, botoes: false, scale: 1.05, cabelo: CAB_JJK.geto, ...o });
   const u = p.userData; mesh(sph(0.042, 8, 6), LPmat(0x141218, { rim: 0.5 }), 0, 0.15, -0.078, u.head);
   [-1, 1].forEach((k) => { const a = mesh(cyl(0.011, 0.011, 0.006, 12), LPmat(0x101012, { metal: 0.5, rough: 0.3 }), k * 0.083, 0.06, -0.006, u.head); a.rotation.z = Math.PI / 2; });
   return p;
@@ -75,7 +75,7 @@ function genshinEspirito(g, s = 3) {
   const halo = mesh(new THREE.RingGeometry(0.27 * s, 0.3 * s, 48), new THREE.MeshBasicMaterial({ color: 0xffe2a0, transparent: true, opacity: 0.4, blending: ADD, depthWrite: false, side: THREE.DoubleSide }), 0, 1.32 * s, -0.14 * s, e);
   const aura = glowSprite(0xffd890, 2.4 * s, 0.14); aura.position.set(0, 0.8 * s, -0.3 * s); e.add(aura);
   e.traverse((x) => { if (x.isMesh) { x.castShadow = false; x.receiveShadow = false; } });
-  return { e, m, halo, aura, set(k) { m.opacity = 0.12 * k; mb.opacity = 0.3 * k; halo.material.opacity = 0.4 * k; aura.material.opacity = 0.14 * k; e.visible = k > 0.01; } };
+  return { e, m, halo, aura, set(k) { m.opacity = 0.05 * k; mb.opacity = 0.13 * k; halo.material.opacity = 0.3 * k; aura.material.opacity = 0.06 * k; e.visible = k > 0.01; } };
 }
 // ---------------------------------------------------------------- o Reino da Prisão
 const cuboTexF = (olho) => canvasTex(256, 256, (c, w, h) => {

@@ -2624,7 +2624,7 @@ const CAB_JJK = {
 const UNI = 0x2c3552;
 function gojoVendaLP(o = {}) { return gojoLP({ seed: 311, cabelo: CAB_JJK.gojo, botoes: false, roupa: UNI, calca: UNI, ...o }); }
 // mãos nos bolsos (em pé): o jeito do Gojo
-function maosBolso(p, k = 1) { if (k <= 0) return; maoEm(p, 0, frenteW(p, 0.2, 0.84, 0.03), k, { abre: 0.95, poleY: 0.7, poleZ: -0.55 }); maoEm(p, 1, frenteW(p, -0.2, 0.84, 0.03), k, { abre: 0.95, poleY: 0.7, poleZ: -0.55 }); pose(p, { handR: 0.9 * k, handL: 0.9 * k }, 1); }
+function maosBolso(p, k = 1) { if (k <= 0) return; maoEm(p, 0, frenteW(p, 0.2, 0.84, 0.075), k, { abre: 0.95, poleY: 0.7, poleZ: -0.6 }); maoEm(p, 1, frenteW(p, -0.2, 0.84, 0.075), k, { abre: 0.95, poleY: 0.7, poleZ: -0.6 }); pose(p, { handR: 0.9 * k, handL: 0.9 * k }, 1); }
 function gojoOlhosLP(o = {}) { // sem venda: os Seis Olhos azuis
   return pessoaLP({ seed: 312, pele: 0xffe6c8, olho: AZUL_SEIS, olhoAlt: 0.82, olhoTam: 1.0, brava: 0.08, browW: 0.06, sobrancelha: 0x8a929e, roupa: UNI, calca: UNI, botoes: false, scale: 1.08, cabelo: CAB_JJK.gojoSolto, ...o });
 }
@@ -2635,9 +2635,9 @@ function oculosEscuros(p) {
     mesh(box(0.014, 0.0016, 0.0016), aro, k * 0.064, CAB.EY - 0.006, surfZ(u.headM, k * 0.064, CAB.EY) + 0.002, u.head); });
   mesh(box(0.016, 0.0016, 0.0016), aro, 0, CAB.EY - 0.01, surfZ(u.headM, 0, CAB.EY - 0.01) + 0.011, u.head);
 }
-function gojoJovemLP(o = {}) { const p = gojoOlhosLP({ seed: 313, roupa: 0x1a1d2a, calca: 0x1a1d2a, scale: 1.04, ...o }); oculosEscuros(p); return p; }
+function gojoJovemLP(o = {}) { const p = gojoOlhosLP({ seed: 313, roupa: 0x323c5e, calca: 0x323c5e, scale: 1.04, ...o }); oculosEscuros(p); return p; }
 function getoLP(o = {}) { // Suguru Geto: cabelo preto com meio coque, mecha na testa, alargadores, olhos puxados
-  const p = pessoaLP({ seed: 321, pele: 0xf6dcc0, olho: "#3a3030", olhoAlt: 0.5, olhoTam: 0.98, brava: 0.05, browW: 0.058, queixo: 0.66, sobrancelha: 0x141218, roupa: 0x1a1d2a, calca: 0x1a1d2a, botoes: false, scale: 1.05, cabelo: CAB_JJK.geto, ...o });
+  const p = pessoaLP({ seed: 321, pele: 0xf6dcc0, olho: "#3a3030", olhoAlt: 0.5, olhoTam: 0.98, brava: 0.05, browW: 0.058, queixo: 0.66, sobrancelha: 0x141218, roupa: 0x323c5e, calca: 0x323c5e, botoes: false, scale: 1.05, cabelo: CAB_JJK.geto, ...o });
   const u = p.userData; mesh(sph(0.042, 8, 6), LPmat(0x141218, { rim: 0.5 }), 0, 0.15, -0.078, u.head);
   [-1, 1].forEach((k) => { const a = mesh(cyl(0.011, 0.011, 0.006, 12), LPmat(0x101012, { metal: 0.5, rough: 0.3 }), k * 0.083, 0.06, -0.006, u.head); a.rotation.z = Math.PI / 2; });
   return p;
@@ -2681,7 +2681,7 @@ function genshinEspirito(g, s = 3) {
   const halo = mesh(new THREE.RingGeometry(0.27 * s, 0.3 * s, 48), new THREE.MeshBasicMaterial({ color: 0xffe2a0, transparent: true, opacity: 0.4, blending: ADD, depthWrite: false, side: THREE.DoubleSide }), 0, 1.32 * s, -0.14 * s, e);
   const aura = glowSprite(0xffd890, 2.4 * s, 0.14); aura.position.set(0, 0.8 * s, -0.3 * s); e.add(aura);
   e.traverse((x) => { if (x.isMesh) { x.castShadow = false; x.receiveShadow = false; } });
-  return { e, m, halo, aura, set(k) { m.opacity = 0.12 * k; mb.opacity = 0.3 * k; halo.material.opacity = 0.4 * k; aura.material.opacity = 0.14 * k; e.visible = k > 0.01; } };
+  return { e, m, halo, aura, set(k) { m.opacity = 0.05 * k; mb.opacity = 0.13 * k; halo.material.opacity = 0.3 * k; aura.material.opacity = 0.06 * k; e.visible = k > 0.01; } };
 }
 // ---------------------------------------------------------------- o Reino da Prisão
 const cuboTexF = (olho) => canvasTex(256, 256, (c, w, h) => {
@@ -2998,7 +2998,7 @@ function ruinasG(g, o = {}) {
   [[-7.6, -4], [7.6, 6], [-7.6, -26], [7.6, -32]].forEach(([x, z], i) => luzRuaG(g, x, z, { y: 0.16, rot: x < 0 ? Math.PI / 2 : -Math.PI / 2, luz: false, col: 0x2a2a30 }));
   const fogos = [[-22, -40, 1.6], [24, -52, 2], [-12, -70, 2.4]].map(([x, z, s]) => fogoLonge(g, x, z, s));
   const fumo = steam(g, { origin: [0, 14, -60], n: 20, size: 14, spread: 40, rise: 6, opacity: 0.3, color: 0x2a2228, wind: [1.5, 0, 0] });
-  const brasa = estrelinhas(g, 24, [-20, 20, 2, 14, -70, -30], { cor: 0xffa060, s: 0.08 });
+  const brasaP = dustPts(70, [-20, 20, 1, 12, -70, -28], 0xffa060, 0.06, 0.8); g.add(brasaP); const brasa = (t) => floatDust(brasaP, t, 0.5, 0.3);
   const Lf = new THREE.PointLight(0xff7a3a, 30, 80, 1.5); Lf.position.set(-18, 6, -40); g.add(Lf);
   return { tel, fogos, fumo, brasa };
 }
@@ -3007,11 +3007,11 @@ function escadaJaco(g, pos) { const e = grp(g, ...pos), m = new THREE.MeshBasicM
   const c1 = mesh(new THREE.CylinderGeometry(0.55, 0.55, 120, 32, 1, true), m, 0, 60, 0, e), c2 = mesh(new THREE.CylinderGeometry(1.4, 1.4, 120, 32, 1, true), m.clone(), 0, 60, 0, e);
   const disco = mesh(new THREE.CircleGeometry(3.2, 40), new THREE.MeshBasicMaterial({ color: 0xffe6a0, map: softTex, transparent: true, opacity: 0, blending: ADD, depthWrite: false }), 0, 0.02, 0, e); disco.rotation.x = -Math.PI / 2;
   const aneis = [0, 1, 2].map(() => { const r = mesh(new THREE.RingGeometry(0.95, 1, 64), new THREE.MeshBasicMaterial({ color: 0xfff0c0, transparent: true, opacity: 0, blending: ADD, depthWrite: false, side: THREE.DoubleSide }), 0, 0.04, 0, e); r.rotation.x = -Math.PI / 2; return r; });
-  const penas = estrelinhas(g, 30, [pos[0] - 3, pos[0] + 3, 0.3, 12, pos[2] - 3, pos[2] + 3], { cor: 0xfff0c0, s: 0.1 });
+  const penas = dustPts(80, [pos[0] - 1.6, pos[0] + 1.6, 0.2, 9, pos[2] - 1.6, pos[2] + 1.6], 0xfff0c0, 0.04, 0.8); g.add(penas);
   const L = new THREE.PointLight(0xffe0a0, 0, 30, 1.4); L.position.set(0, 3, 0); e.add(L);
   [c1, c2, disco, ...aneis].forEach((x) => (x.castShadow = false));
   return { e, set(k, t) { const b = E.out(seg(k, 0, 0.4)); c1.scale.y = c2.scale.y = Math.max(0.001, b); c1.position.y = c2.position.y = 120 - 60 * b; m.opacity = 0.32 * k; c2.material.opacity = 0.07 * k; disco.material.opacity = 0.45 * k; L.intensity = 14 * k;
-    aneis.forEach((r, i) => { const ph = ((t * 0.6 + i / 3) % 1); r.scale.setScalar(1 + ph * 5); r.material.opacity = k * 0.4 * (1 - ph); }); } };
+    aneis.forEach((r, i) => { const ph = ((t * 0.6 + i / 3) % 1); r.scale.setScalar(1 + ph * 5); r.material.opacity = k * 0.4 * (1 - ph); }); penas.visible = k > 0.02; penas.material.opacity = 0.8 * k; floatDust(penas, t, 0.6, 0.2); } };
 }
 
 // ================================================================ vídeo: Gojo · cenas 0–4 (capa, Shibuya, plataforma, a lembrança, o fecho, dentro da prisão)
@@ -3046,7 +3046,7 @@ addSet("s1-abertura", (g) => {
   return {
     bg: 0x06040c, fog: [20, 160], fogCol: 0x120a1c, hand: 0.006,
     look: { exposure: 1.08, bloom: 0.62, bloomT: 0.74, vig: 0.55, sat: 1.12, con: 1.08, dof: GDOF_L, rosto: 0.5 },
-    sun: { dir: [-0.4, 0.9, 0.5], col: 0xb8a8ff, I: 0.55, c: [0, 1, 0], r: 12 }, hemi: { sky: 0x4a3a7a, ground: 0x14101a, I: 0.5 }, fill: { col: 0xff8ac8, I: 0.45, dir: [0.6, 0.3, 0.6] }, rim: { col: 0xb8c8ff, str: 1.3 },
+    sun: { dir: [-0.4, 0.9, 0.5], col: 0xb8a8ff, I: 0.55, c: [0, 1, 0], r: 12 }, hemi: { sky: 0x4a3a7a, ground: 0x14101a, I: 0.5 }, fill: { col: 0xd8e0ff, I: 0.5, dir: [0.4, 0.3, 0.8] }, rim: { col: 0xb8c8ff, str: 1.3 },
     update(t) {
       chicote(t, a, 0.22, 1); SB.brilho(t, 1); ris(t, 0.8);
       vive(go, t, 311, { boca: "linha", palpebra: 0.9 }, 0.15); maosBolso(go); pose(go, { neck: [-0.06, 0, 0] }, 1); cabeloVento(go, t, 0.7, [1, 0, 0.2]); sp(0);
@@ -3107,7 +3107,7 @@ addSet("s3-instante", (g) => {
   return {
     bg: 0x9ac8f0, fog: [40, 330], fogCol: 0xc8e0f4, hand: 0.004,
     look: { exposure: 1.04, bloom: 0.45, bloomT: 0.84, vig: 0.38, sat: 1.14, con: 1.05, dof: GDOF_M, rosto: 0.3, lift: [0.01, 0.008, 0] },
-    sun: { dir: [0.5, 0.7, 0.55], col: 0xfff0d8, I: 2.2, c: [0, 1, -2], r: 18 }, hemi: { sky: 0xbfe0ff, ground: 0x6a7a4a, I: 0.9 }, fill: { col: 0xffe0c0, I: 0.45, dir: [-0.4, 0.3, 1] }, rim: { col: 0xfff4e0, str: 1.2 },
+    sun: { dir: [0.5, 0.7, 0.55], col: 0xfff0d8, I: 2.2, c: [0, 1, -2], r: 18 }, hemi: { sky: 0xbfe0ff, ground: 0x8a8a6a, I: 1.05 }, fill: { col: 0xffe8d0, I: 0.8, dir: [-0.2, 0.3, 1] }, rim: { col: 0xfff4e0, str: 1.2 },
     update(t) {
       ES.folhas(t, 0.8); ES.brilho(t, 1); ES.sol.visible = true;
       const ri = 0.5 + 0.5 * Math.sin(t * 2.2);
@@ -3154,7 +3154,7 @@ addSet("s3b-prisao", (g) => {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([GO_PLAT[0] + 1.3, 0.28, GO_PLAT[1] + 1.2], [GO_PLAT[0] + 1.25, 0.3, GO_PLAT[1] + 1.05], [GO_PLAT[0] + 0.75, 0.16, GO_PLAT[1] + 0.1], [GO_PLAT[0] + 0.7, 0.3, GO_PLAT[1] + 0.05], 38, 36)],
-        [tCorte, mov([-3.6, 2.1, 6.8], [-3.3, 2.0, 6.1], [GO_PLAT[0], 1.5, GO_PLAT[1]], [GO_PLAT[0], 1.3, GO_PLAT[1]], 44, 42)],
+        [tCorte, mov([2.3, 2.9, 14.5], [2.2, 2.8, 13.4], [1.6, 1.5, GO_PLAT[1]], [1.6, 1.4, GO_PLAT[1]], 50, 48)],
         [Math.max(K.caixa - 0.25, t1 + 0.1), mov([GO_PLAT[0] - 0.9, 0.3, GO_PLAT[1] + 1.4], [GO_PLAT[0] - 0.75, 0.32, GO_PLAT[1] + 1.2], [GO_PLAT[0], 0.15, GO_PLAT[1]], [GO_PLAT[0], 0.22, GO_PLAT[1]], 38, 36)],
         [K.monge - 0.3, mov([GO_PLAT[0] - 2.6, 0.55, GO_PLAT[1] + 3.6], [GO_PLAT[0] - 3.3, 0.8, GO_PLAT[1] + 4.6], [GO_PLAT[0] + 0.3, 1.0, GO_PLAT[1] - 0.6], [GO_PLAT[0] + 0.4, 1.8, GO_PLAT[1] - 1.2], 44, 50)],
       ], b);
@@ -3169,19 +3169,19 @@ addSet("s4b-dentro", (g) => {
   const PD = prisaoDentro(g);
   const go = gojoVendaLP(); g.add(go); go.position.set(0, 0, 0);
   restPose(go); kneelPose(go); amarras(g, go, [["hips", 0.16, 0, 0.02, 0.9, 0.5], ["hips", -0.16, 0, 0.02, -0.9, 0.5], ["chest", 0.18, 0.15, 0, 1.4, -0.4], ["chest", -0.18, 0.15, 0, -1.4, -0.4], ["chest", 0, 0.1, -0.12, 0, -1.6]]);
-  const aura = glowSprite(0x6ad8ff, 1.5, 0); aura.position.set(0, 0.95, -0.4); g.add(aura);
+  const aura = glowSprite(0x6ad8ff, 1.2, 0); aura.position.set(0, 0.6, -0.45); g.add(aura);
   const casca = mesh(sph(0.95, 24, 16), new THREE.MeshBasicMaterial({ color: 0x6ad8ff, transparent: true, opacity: 0, blending: ADD, depthWrite: false, wireframe: true }), 0, 0.75, 0, g); casca.castShadow = false;
   const L = new THREE.PointLight(0x6ad8ff, 0, 10, 1.6); L.position.set(0, 1.2, 0.6); g.add(L);
   return {
     bg: 0x0a0204, fog: [6, 32], fogCol: 0x1a0408, hand: 0.004,
-    look: { exposure: 1.1, bloom: 0.68, bloomT: 0.72, vig: 0.6, sat: 1.1, con: 1.1, dof: GDOF_M, rosto: 0.5 },
-    sun: { dir: [0.3, 1, 0.6], col: 0xffb0b8, I: 0.6, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x8a3a4a, ground: 0x1a0408, I: 0.5 }, fill: { col: 0xb8d8ff, I: 0.3, dir: [-0.4, 0.2, 1] }, rim: { col: 0xff8a9a, str: 1.3 },
+    look: { exposure: 1.06, bloom: 0.55, bloomT: 0.82, vig: 0.6, sat: 1.1, con: 1.1, dof: GDOF_M, rosto: 0.4 },
+    sun: { dir: [0.3, 1, 0.6], col: 0xffb0b8, I: 0.6, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x8a3a4a, ground: 0x1a0408, I: 0.45 }, fill: { col: 0xd8e8ff, I: 0.65, dir: [0.2, 0.3, 1] }, rim: { col: 0xff8a9a, str: 1.1 },
     update(t) {
       floatDust(PD.poeira, t, 0.15, 0.08); PD.nevoa.upd(t, 1);
       restPose(go); idle(go, t, 311, 0.04); kneelPose(go); pose(go, { neck: [0.15 * smr(t, K.energia, K.energia + 0.8), 0, 0] }, 1); rostoLP(go, t, { boca: "linha", palpebra: 0.9 });
       // a energia tenta acender (pisca) e apaga de vez no "energia amaldiçoada"
       const tenta = smr(t, K.dentro + 0.1, K.gojo4) * (1 - smr(t, K.energia - 0.1, K.energia + 0.5)), pisca = 0.55 + 0.45 * Math.sin(t * 31) * Math.sin(t * 7.3);
-      const e = tenta * pisca; aura.material.opacity = 0.32 * e; casca.material.opacity = 0.14 * e; casca.rotation.y = t * 0.6; L.intensity = 4 * e;
+      const e = tenta * pisca; aura.material.opacity = 0.22 * e; casca.material.opacity = 0.12 * e; casca.rotation.y = t * 0.6; L.intensity = 0;
       PD.olhos.forEach((o, i) => { o.pu.position.x = 0.12 * Math.sin(t * 0.7 + i); o.ir.position.x = o.pu.position.x * 0.8; });
     },
     cam(t) {
@@ -3209,7 +3209,7 @@ addSet("s5-chaves", (g) => {
   const DP = depositoG(g);
   const mL = materiaisProprios(DP.lanca), mC = materiaisProprios(DP.corda);
   const poL = poSumindo(g, [-0.75, 1.12, -2.6], 0x2a2236, 70), poC = poSumindo(g, [0.75, 1.0, -2.6], 0x1a1620, 70);
-  const fan = fantasma(gojoJovemLP(), 0x9ad8ff, 0.12); g.add(fan); fan.position.set(0, 0, -2.9);
+  const fan = fantasma(gojoVendaLP(), 0x9ad8ff, 0.07); g.add(fan); fan.position.set(0, 0, -3.1);
   return {
     bg: 0x0a0604, fog: [6, 26], fogCol: 0x120a06, hand: 0.005,
     look: { exposure: 1.1, bloom: 0.55, bloomT: 0.78, vig: 0.6, sat: 1.05, con: 1.1, dof: GDOF_M, rosto: 0.3, lift: [0.01, 0.005, 0] },
@@ -3220,7 +3220,7 @@ addSet("s5-chaves", (g) => {
       const s = smr(t, K.sumido - 0.1, K.sumido + 0.9); mL.forEach((m) => (m.opacity = 1 - s)); mC.forEach((m) => (m.opacity = 1 - s)); DP.lanca.visible = DP.corda.visible = s < 0.99;
       [poL, poC].forEach((p) => { p.visible = s > 0.02 && s < 0.999 || (t > K.sumido && t < K.sumido + 1.8); p.material.opacity = 0.9 * (1 - smr(t, K.sumido + 0.6, K.sumido + 1.8)); p.position.y = (p === poL ? 1.12 : 1.0) + 0.6 * smr(t, K.sumido - 0.1, K.sumido + 1.8); });
       // o Gojo jovem (de luz) aparece entre os suportes vazios no "próprio Gojo"
-      const fv = smr(t, K.proprio - 0.35, K.proprio + 0.2); fan.visible = fv > 0.01; fan.userData.fm.opacity = 0.12 * fv; restPose(fan); idle(fan, t, 313, 0.1); standFeet(fan);
+      const fv = smr(t, K.proprio - 0.35, K.proprio + 0.2); fan.visible = fv > 0.01; fan.userData.fm.opacity = 0.07 * fv; restPose(fan); idle(fan, t, 313, 0.1); standFeet(fan);
     },
     cam(t) {
       { const d = dbgCam(__n); if (d) return d; }
@@ -3230,7 +3230,7 @@ addSet("s5-chaves", (g) => {
         [K.lanca - 0.25, mov([-0.35, 1.5, -1.75], [-0.42, 1.42, -1.88], [-0.75, 1.13, -2.6], [-0.78, 1.14, -2.6], 34, 32)],
         [K.corda - 0.25, mov([0.42, 1.55, -1.8], [0.48, 1.45, -1.92], [0.75, 1.02, -2.6], [0.75, 1.04, -2.6], 34, 32)],
         [K.sumido - 0.35, mov([0, 1.75, 1.2], [0, 1.7, 0.8], [0, 1.0, -2.6], [0, 1.05, -2.6], 46, 44)],
-        [K.proprio - 0.3, mov([0.15, 1.5, 0.7], [0.1, 1.55, 0.3], [0, 1.35, -2.9], [0, 1.55, -2.9], 42, 38)],
+        [K.proprio - 0.3, mov([0.15, 1.45, 1.6], [0.1, 1.5, 1.1], [0, 1.2, -3.1], [0, 1.4, -3.1], 44, 40)],
       ], b);
     },
   };
@@ -3245,8 +3245,9 @@ addSet("s6-anjo", (g) => {
   const cubo = cuboPrisao(g, 0.3); cubo.c.position.set(CUBO_RUA[0], 0, CUBO_RUA[1]); cubo.c.rotation.y = 0.4;
   const EJ = escadaJaco(g, [CUBO_RUA[0], 0, CUBO_RUA[1]]);
   const an = anjoLP(); g.add(an); an.position.set(5.0, 7.4, -16); an.rotation.y = -Math.PI / 2 + 0.35;
-  const La = new THREE.SpotLight(0xfff0d8, 30, 18, 0.5, 0.6, 1.4); La.position.set(1.5, 4.5, -12); La.target = an; g.add(La); const ga = glowSprite(0xffe8b0, 3.2, 0.35); ga.position.set(5.4, 8.4, -16.2); g.add(ga);
-  const ris = riscosVento(g, 14, [-6, 6, 0.3, 3, -14, 2], { cor: 0xffd8b0, op: 0.25 });
+  const La = new THREE.SpotLight(0xfff0d8, 40, 20, 0.45, 0.6, 1.4); La.position.set(-1, 10, -12); La.target = an; g.add(La); const ga = glowSprite(0xffe8b0, 1.6, 0.22); ga.position.set(5.35, 8.5, -16.25); g.add(ga);
+  const Lc = new THREE.SpotLight(0xd8e0ff, 18, 10, 0.4, 0.7, 1.5); Lc.position.set(0.5, 4, -6); Lc.target = cubo.c; g.add(Lc);
+  const ris = () => {};
   return {
     bg: 0x05050c, fog: [20, 140], fogCol: 0x1a1220, hand: 0.006,
     look: { exposure: 1.08, bloom: 0.66, bloomT: 0.72, vig: 0.58, sat: 1.1, con: 1.1, dof: GDOF_L, rosto: 0.45 },
@@ -3261,8 +3262,8 @@ addSet("s6-anjo", (g) => {
     cam(t) {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([1.4, 1.1, -2.6], [1.0, 0.9, -4.0], [0, 0.35, -8], [0, 0.4, -8], 40, 38)],
-        [K.anjo - 0.25, mov([1.6, 1.4, -9.5], [1.9, 1.6, -10.2], [5.0, 8.6, -16], [5.0, 8.7, -16], 38, 34)],
+        [a, mov([0.9, 0.9, -4.2], [0.7, 0.75, -5.2], [0, 0.25, -8], [0, 0.3, -8], 38, 36)],
+        [K.anjo - 0.25, mov([-3.5, 8.4, -10.5], [-2.2, 8.5, -11.6], [5.0, 8.3, -16], [5.0, 8.4, -16], 36, 32)],
         [K.apaga - 0.4, mov([-9, 2.4, 6.5], [-8.2, 3.6, 5], [0, 2.6, -8], [0, 5, -8], 46, 50)],
       ], b);
     },
@@ -3277,8 +3278,8 @@ addSet("s7-discord", (g) => {
   const ch = mesh(new THREE.PlaneGeometry(40, 40), SM(0x0a0816, { roughness: 0.5, metalness: 0.2 }), 0, -0.005, 0, g); ch.rotation.x = -Math.PI / 2;
   const gira = grp(g); mesh(cyl(0.62, 0.66, 0.15, 40), SM(0x16122a, { roughness: 0.4, metalness: 0.4 }), 0, 0.075, 0, gira);
   const aro = mesh(new THREE.TorusGeometry(0.64, 0.012, 6, 64), new THREE.MeshBasicMaterial({ color: 0xb8a8ff }), 0, 0.15, 0, gira); aro.rotation.x = Math.PI / 2; aro.castShadow = false;
-  const go = gojoVendaLP(); gira.add(go); go.position.y = 0.15;
-  const fio = gojoVendaLP(); gira.add(fio); fio.position.y = 0.15; const wm = new THREE.MeshBasicMaterial({ color: 0xb8a8ff, wireframe: true, transparent: true, opacity: 0.85 });
+  const go = gojoVendaLP(); g.add(go); go.position.y = 0.15;
+  const fio = gojoVendaLP(); g.add(fio); fio.position.y = 0.15; const wm = new THREE.MeshBasicMaterial({ color: 0xb8a8ff, wireframe: true, transparent: true, opacity: 0.85 });
   fio.traverse((x) => { if (x.isMesh) { if (x.userData.isDecal) x.visible = false; else x.material = wm; x.castShadow = false; } });
   const scan = mesh(new THREE.TorusGeometry(0.5, 0.01, 6, 64), new THREE.MeshBasicMaterial({ color: 0xe8e0ff, transparent: true, opacity: 0, blending: ADD, depthWrite: false }), 0, 0.15, 0, gira); scan.rotation.x = Math.PI / 2; scan.castShadow = false;
   const p = dustPts(160, [-3, 3, 0.1, 3.5, -3, 1], 0xb8a8ff, 0.03, 0.7); g.add(p);
@@ -3287,11 +3288,11 @@ addSet("s7-discord", (g) => {
     sun: { dir: [0.4, 0.8, 0.8], col: 0xf0e8ff, I: 1.6, c: [0, 1, 0], r: 4 }, hemi: { sky: 0x6a5ab8, ground: 0x0a0814, I: 0.7 }, fill: { col: 0xb8a8ff, I: 0.5, dir: [-0.6, 0.3, -0.5] }, rim: { col: 0xb0a0ff, str: 1.3 },
     update(t) {
       floatDust(p, t, 0.3, 0.15); gira.rotation.y = 0.6 + (t - a) * 0.9;
-      [go, fio].forEach((q) => { vive(q, t, 311, { boca: "linha", palpebra: 0.9 }, 0.08); maosBolso(q); });
+      [go, fio].forEach((q) => { q.rotation.y = gira.rotation.y; q.position.set(0, 0.15, 0); restPose(q); idle(q, t, 311, 0.06); standFeet(q); maosBolso(q); }); rostoLP(go, t, { boca: "linha", palpebra: 0.9 });
       const k = seg(t, tTroca - 0.35, tTroca + 0.35); go.visible = t > tTroca; fio.visible = t <= tTroca + 0.05;
       scan.position.y = 0.15 + 2.1 * k; scan.material.opacity = k > 0 && k < 1 ? 0.9 : 0; scan.scale.setScalar(1 - 0.4 * Math.sin(k * Math.PI));
     },
-    cam(t) { return { ...path2(t, [[a, [0.2, 1.35, 3.6], [0, 1.05, 0], 40], [b, [0.1, 1.3, 2.7], [0, 1.05, 0], 38]]), near: 0.03 }; } };
+    cam(t) { return { ...path2(t, [[a, [0.3, 1.55, 4.8], [0, 1.15, 0], 40], [b, [0.2, 1.5, 3.9], [0, 1.15, 0], 38]]), near: 0.03 }; } };
 });
 
 // ---------------------------------------------------------------- 8 · apego: a escola à noite; o Gojo sozinho no banco, correntes partidas no chão; um fio vermelho até o Geto (de luz) no torii
@@ -3319,7 +3320,7 @@ addSet("s8-apego", (g) => {
       { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0.9, 4.4, 13], [0.6, 2.2, 9], [0, 1.2, -1.2], [0, 1.0, -1.2], 46, 40)],
-        [K.correntes - 0.3, mov([1.3, 0.75, 1.1], [1.15, 0.7, 0.9], [0.6, 0.05, -0.4], [0.7, 0.08, -0.5], 38, 36)],
+        [K.correntes - 0.3, mov([1.15, 0.42, 0.7], [1.05, 0.4, 0.55], [0.55, 0.02, -0.45], [0.6, 0.04, -0.5], 40, 38)],
         [K.apego - 0.25, mov([-0.6, 1.45, -3.0], [-0.5, 1.4, -2.6], [0.4, 1.1, 8], [0.2, 1.2, 20], 40, 36)],
         [K.vencer - 0.25, (tt, u) => ({ ...closeRosto(go, lerp(0.95, 0.78, E.inOut(u)), -0.3, 0.0, 30) })],
         [K.sentia - 0.25, mov([0.9, 1.3, -2.9], [1.0, 1.5, -3.6], [0.3, 1.0, 6], [0.2, 1.6, 20], 40, 44)],
@@ -3337,7 +3338,7 @@ addSet("s9-fim", (g) => {
   const EJ = escadaJaco(g, [CUBO_RUA[0], 0, CUBO_RUA[1]]); const onda = choque(g, [CUBO_RUA[0], 0, CUBO_RUA[1]], 0xbfe8ff);
   const go = gojoVendaLP(); g.add(go); go.position.set(CUBO_RUA[0], 0, CUBO_RUA[1]); go.rotation.y = 0.15; const sp = sombraPe(g, go);
   const gv = gojoOlhosLP(); g.add(gv); gv.position.set(CUBO_RUA[0], 0, CUBO_RUA[1]); gv.rotation.y = 0.15; const gl = OLHO_GL(gv, 0.6);
-  const ris = riscosVento(g, 14, [-6, 6, 0.3, 3, -14, 2], { cor: 0xcfe0ff, op: 0.16 });
+  const ris = () => {};
   const Lk = new THREE.PointLight(0xffc090, 7, 12, 1.5); Lk.position.set(CUBO_RUA[0] + 1.6, 2.3, CUBO_RUA[1] + 3); g.add(Lk);
   const tSai = K.semanas - 0.1, tOlhos = K.rever - 0.3;
   return {
@@ -3347,13 +3348,13 @@ addSet("s9-fim", (g) => {
     update(t) {
       chicote(t, a, 0.22, 1); RU.fogos.forEach((f) => f.update(t)); RU.fumo.upd(t, 1); RU.brasa(t, 1); ris(t, 0.9);
       // a luz ainda em cima do cubo; ele racha no "semanas" e some; o Gojo aparece de joelhos e se levanta
-      const luz = 0.7 * (1 - smr(t, tSai + 0.3, tSai + 2.0)); EJ.set(luz, t); cubo.c.visible = t < tSai + 0.05; cubo.olho(true); cubo.gl.material.color.set(0xffe0a0); cubo.gl.material.opacity = 0.9 * luz; cubo.m.emissiveIntensity = 0.6;
-      onda(t, tSai); flash(t, tSai, 0.06, 0.5, [0.85, 0.95, 1]); GU.uFlash.value *= 0.45;
+      const luz = 0.42 * (1 - smr(t, tSai + 0.3, tSai + 2.0)); EJ.set(luz, t); cubo.c.visible = t < tSai + 0.05; cubo.olho(true); cubo.gl.material.color.set(0xffe0a0); cubo.gl.material.opacity = 0.9 * luz; cubo.m.emissiveIntensity = 0.6;
+      onda(t, tSai); flash(t, tSai, 0.06, 0.5, [0.85, 0.95, 1]); GU.uFlash.value *= 0.25;
       const up = smr(t, tSai + 0.3, tSai + 1.6); go.visible = t > tSai && t < tOlhos; gv.visible = t >= tOlhos;
       [go, gv].forEach((p, i) => { if (!p.visible) return; restPose(p); idle(p, t, 311 + i, 0.12); if (up < 1) kneelPose(p, 1 - up); standFeet(p); maosBolso(p, smr(t, tSai + 1.4, tSai + 2.2)); });
       pose(go, { neck: [0.1 - 0.3 * smr(t, K.real - 0.2, K.real + 0.4) + 0.25 * smr(t, K.real + 0.4, K.real + 1.2), 0.35 * Math.sin(smr(t, K.real - 0.2, K.real + 1.2) * Math.PI), 0] }, 1);
       rostoLP(go, t, { boca: t > K.real ? "smirk" : "linha", palpebra: 0.9 });
-      pose(gv, { neck: [-0.35 * smr(t, K.seria - 0.3, K.seria + 0.4), 0, 0] }, 1); rostoLP(gv, t, { boca: "linha", palpebra: 0.95, piscaCada: 3.7 }); gl.forEach((s) => (s.material.opacity = 0.55 + 0.1 * Math.sin(t * 3)));
+      pose(gv, { neck: [-0.14 * smr(t, K.seria - 0.3, K.seria + 0.4), 0, 0] }, 1); rostoLP(gv, t, { boca: "linha", palpebra: 0.95, piscaCada: 3.7 }); gl.forEach((s) => (s.material.opacity = 0.55 + 0.1 * Math.sin(t * 3)));
       cabeloVento(go, t, 0.8, [1, 0, 0.3]); cabeloVento(gv, t, 0.8, [1, 0, 0.3]); sp(0);
     },
     cam(t) {
@@ -3363,7 +3364,7 @@ addSet("s9-fim", (g) => {
         [a, mov([c[0] + 1.8, 1.0, c[1] + 4.4], [c[0] + 1.4, 1.1, c[1] + 3.6], [c[0], 0.4, c[1]], [c[0], 0.9, c[1]], 40, 38)],
         [K.real - 0.25, mov([c[0] + 0.9, 1.55, c[1] + 2.6], [c[0] + 0.7, 1.6, c[1] + 2.2], [c[0], 1.6, c[1]], [c[0], 1.7, c[1]], 36, 34)],
         [tOlhos, (tt, u) => ({ ...closeRosto(gv, lerp(1.05, 0.85, E.inOut(u)), 0.12, 0.0, 30) })],
-        [K.seria - 0.3, mov([c[0] + 0.6, 0.9, c[1] + 1.6], [c[0] + 0.5, 0.8, c[1] + 1.4], [c[0], 2.4, c[1] - 1.5], [c[0], 3.2, c[1] - 2.5], 42, 40)],
+        [K.seria - 0.3, mov([c[0] + 0.5, 1.8, c[1] + 1.45], [c[0] + 0.42, 1.84, c[1] + 1.2], [c[0], 1.92, c[1]], [c[0], 1.98, c[1]], 40, 38)],
         [K.comenta - 0.2, mov([c[0] + 1.5, 2.2, c[1] + 4.5], [c[0] + 6, 26, c[1] + 34], [c[0], 1.6, c[1]], [c[0], 4, c[1] - 40], 42, 50)],
       ], b);
     },

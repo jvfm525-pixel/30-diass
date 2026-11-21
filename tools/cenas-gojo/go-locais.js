@@ -237,7 +237,7 @@ function ruinasG(g, o = {}) {
   [[-7.6, -4], [7.6, 6], [-7.6, -26], [7.6, -32]].forEach(([x, z], i) => luzRuaG(g, x, z, { y: 0.16, rot: x < 0 ? Math.PI / 2 : -Math.PI / 2, luz: false, col: 0x2a2a30 }));
   const fogos = [[-22, -40, 1.6], [24, -52, 2], [-12, -70, 2.4]].map(([x, z, s]) => fogoLonge(g, x, z, s));
   const fumo = steam(g, { origin: [0, 14, -60], n: 20, size: 14, spread: 40, rise: 6, opacity: 0.3, color: 0x2a2228, wind: [1.5, 0, 0] });
-  const brasa = estrelinhas(g, 24, [-20, 20, 2, 14, -70, -30], { cor: 0xffa060, s: 0.08 });
+  const brasaP = dustPts(70, [-20, 20, 1, 12, -70, -28], 0xffa060, 0.06, 0.8); g.add(brasaP); const brasa = (t) => floatDust(brasaP, t, 0.5, 0.3);
   const Lf = new THREE.PointLight(0xff7a3a, 30, 80, 1.5); Lf.position.set(-18, 6, -40); g.add(Lf);
   return { tel, fogos, fumo, brasa };
 }
@@ -246,9 +246,9 @@ function escadaJaco(g, pos) { const e = grp(g, ...pos), m = new THREE.MeshBasicM
   const c1 = mesh(new THREE.CylinderGeometry(0.55, 0.55, 120, 32, 1, true), m, 0, 60, 0, e), c2 = mesh(new THREE.CylinderGeometry(1.4, 1.4, 120, 32, 1, true), m.clone(), 0, 60, 0, e);
   const disco = mesh(new THREE.CircleGeometry(3.2, 40), new THREE.MeshBasicMaterial({ color: 0xffe6a0, map: softTex, transparent: true, opacity: 0, blending: ADD, depthWrite: false }), 0, 0.02, 0, e); disco.rotation.x = -Math.PI / 2;
   const aneis = [0, 1, 2].map(() => { const r = mesh(new THREE.RingGeometry(0.95, 1, 64), new THREE.MeshBasicMaterial({ color: 0xfff0c0, transparent: true, opacity: 0, blending: ADD, depthWrite: false, side: THREE.DoubleSide }), 0, 0.04, 0, e); r.rotation.x = -Math.PI / 2; return r; });
-  const penas = estrelinhas(g, 30, [pos[0] - 3, pos[0] + 3, 0.3, 12, pos[2] - 3, pos[2] + 3], { cor: 0xfff0c0, s: 0.1 });
+  const penas = dustPts(80, [pos[0] - 1.6, pos[0] + 1.6, 0.2, 9, pos[2] - 1.6, pos[2] + 1.6], 0xfff0c0, 0.04, 0.8); g.add(penas);
   const L = new THREE.PointLight(0xffe0a0, 0, 30, 1.4); L.position.set(0, 3, 0); e.add(L);
   [c1, c2, disco, ...aneis].forEach((x) => (x.castShadow = false));
   return { e, set(k, t) { const b = E.out(seg(k, 0, 0.4)); c1.scale.y = c2.scale.y = Math.max(0.001, b); c1.position.y = c2.position.y = 120 - 60 * b; m.opacity = 0.32 * k; c2.material.opacity = 0.07 * k; disco.material.opacity = 0.45 * k; L.intensity = 14 * k;
-    aneis.forEach((r, i) => { const ph = ((t * 0.6 + i / 3) % 1); r.scale.setScalar(1 + ph * 5); r.material.opacity = k * 0.4 * (1 - ph); }); } };
+    aneis.forEach((r, i) => { const ph = ((t * 0.6 + i / 3) % 1); r.scale.setScalar(1 + ph * 5); r.material.opacity = k * 0.4 * (1 - ph); }); penas.visible = k > 0.02; penas.material.opacity = 0.8 * k; floatDust(penas, t, 0.6, 0.2); } };
 }
