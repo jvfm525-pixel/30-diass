@@ -2481,11 +2481,16 @@ function riscosVento(g, n, box, o = {}) { const ls = [], m0 = new THREE.MeshBasi
       const ciclo = Math.floor((t + hash(i) * per) / per); m.position.set(x0 + vis * L * 1.2 - L * 0.1, y0 + hash(i * 5 + ciclo * 7.3) * (y1 - y0) + Math.sin(vis * 6 + i) * 0.05, z0 + hash(i * 7 + ciclo * 3.1) * (z1 - z0)); m.scale.set((o.comp ?? 1.6) * (0.5 + hash(i * 9 + ciclo) * 0.8), 1, 1); m.rotation.z = -0.08 + Math.sin(vis * 3 + i) * 0.05; m.lookAt(m.position.x, m.position.y, m.position.z + 1); m.material.opacity = (o.op ?? 0.55) * k * Math.sin(vis * Math.PI); }); }
 // cabelo ao vento: as pontas (longe do couro cabeludo) se deslocam na direção do vento e tremulam
 const _cv = new THREE.Vector3();
-function cabeloVento(p, t, f = 1, dir = [1, 0, 0]) { const hg = p.userData.head && p.userData.head.userData.hairG; if (!hg) return; let j = 0;
-  hg.traverse((m) => { if (!m.isMesh) return; const gm = m.geometry, a = gm.attributes.position; if (!gm.userData.b) gm.userData.b = a.array.slice(); const b = gm.userData.b; j++;
-    for (let i = 0; i < a.count; i++) { const x = b[i * 3], y = b[i * 3 + 1], z = b[i * 3 + 2]; const r = Math.hypot(x, y, z), k = clamp((r - 0.13) * 12) + clamp((-y - 0.03) * 6); if (k <= 0) { a.setXYZ(i, x, y, z); continue; }
-      const w = 0.016 * f * k; a.setXYZ(i, x + (dir[0] * 0.8 + Math.sin(t * 7.5 + y * 40 + j) * 0.5) * w, y + Math.sin(t * 9 + x * 50 + j) * 0.3 * w, z + (dir[2] * 0.8 + Math.cos(t * 6.3 + x * 35 + j) * 0.4) * w); }
-    a.needsUpdate = true; }); }
+// o cabelo dobra a partir da raiz: perto do couro cabeludo não mexe; quanto mais longe, mais balança (curva ao quadrado),
+// com uma onda que desce da raiz até a ponta e fase própria de cada tufo (ângulo em volta da cabeça) — nada de bloco rígido
+function cabeloVento(p, t, f = 1, dir = [1, 0, 0]) { const hg = p.userData.head && p.userData.head.userData.hairG; if (!hg) return;
+  const g = 0.75 + 0.25 * Math.sin(t * 0.9) + 0.12 * Math.sin(t * 2.3); // rajada lenta
+  hg.traverse((m) => { if (!m.isMesh) return; const gm = m.geometry, a = gm.attributes.position; if (!gm.userData.b) gm.userData.b = a.array.slice(); const b = gm.userData.b;
+    for (let i = 0; i < a.count; i++) { const x = b[i * 3], y = b[i * 3 + 1], z = b[i * 3 + 2];
+      const d = Math.max(Math.hypot(x, y, z) - 0.092, -y - 0.02, 0), s = clamp(d / 0.11), k = s * s; if (k <= 0) { a.setXYZ(i, x, y, z); continue; }
+      const ph = Math.atan2(x, z) * 2.0, onda = Math.sin(t * 5.2 - d * 38 + ph), onda2 = Math.sin(t * 8.1 - d * 55 + ph * 1.7);
+      const w = 0.022 * f * k; a.setXYZ(i, x + (dir[0] * 0.55 * g + onda * 0.45 + onda2 * 0.15) * w, y - Math.abs(onda) * 0.12 * w, z + (dir[2] * 0.55 * g + Math.cos(t * 4.6 - d * 34 + ph) * 0.35) * w); }
+    a.needsUpdate = true; gm.computeVertexNormals(); }); }
 
 // ---------------------------------------------------------------- sombra de contato (o personagem sempre "pisa" no chão)
 function sombraPe(g, p, s = 1) { const m = mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: sombraPeTex, transparent: true, depthWrite: false, opacity: 0.85 }), 0, 0, 0, g); m.rotation.x = -Math.PI / 2; m.castShadow = false; m.renderOrder = 1;
