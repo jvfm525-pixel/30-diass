@@ -90,8 +90,8 @@ for fid, a, b, autor, obra, nota in fichas:
         f'tl.fromTo("#{fid}",{{opacity:0,y:14}},{{opacity:1,y:0,duration:.45,ease:"power2.out"}},{a:.2f});tl.to("#{fid}",{{opacity:0,duration:.35}},{b - 0.35:.2f});')
 
 # selo do Discord
-a, b = K["link"] - 0.1, PAR["s7-discord"][1] + 0.2
-add(f'<div id="disc" class="clip disc" data-start="{a:.2f}" data-duration="{b - a:.2f}"><div class="d1">DISCORD</div><div class="d3">link na bio</div></div>',
+a, b = K["aprender"] - 0.3, PAR["s7-discord"][1] + 0.2
+add(f'<div id="disc" class="clip disc" data-start="{a:.2f}" data-duration="{b - a:.2f}"><div class="d1">QUER APRENDER?</div><div class="d3">link do Discord na bio</div></div>',
     f'tl.fromTo("#disc",{{opacity:0,scale:.92}},{{opacity:1,scale:1,duration:.35,ease:"back.out(1.6)"}},{a:.2f});tl.to("#disc",{{opacity:0,duration:.25}},{b - 0.25:.2f});')
 
 texto = f'''<template>

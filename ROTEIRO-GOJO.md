@@ -15,11 +15,11 @@ Sem a condição de "1 minuto" do Reino da Prisão (pedido do usuário).
 | — O REINO DA PRISÃO — | Plataforma, depois o interior | O monge Genshin (espírito) atrás do cubo; lá dentro o Gojo preso, a energia apaga. |
 | — AS CHAVES — | Depósito de ferramentas amaldiçoadas | O cubo da porta de trás no altar; a Lança Invertida e a Corda Negra viram pó. |
 | — O ANJO — | Cidade em ruínas do Jogo do Abate | O Anjo no telhado, asas de luz; a Escada de Jacó desce sobre o cubo. |
-| (Discord) | Vazio roxo | Selo "link na bio". |
+| (Discord) | "Bastidor" 3D: grade de editor, o Gojo girando num pedestal, de arame virando modelo | Selo "Quer aprender? link do Discord na bio". |
 | — APEGO — | Escola Jujutsu à noite | O Gojo sentado na escada, correntes no chão; um fio vermelho até o Geto (silhueta) no torii. |
 | Fecho | Cidade em ruínas | O cubo racha de luz, o Gojo se levanta e tira a venda; a câmera sobe. |
 
-## Narração para o ElevenLabs (v4) · 218 palavras · 1.286 créditos
+## Narração para o ElevenLabs (v4) · 224 palavras · ~1.320 créditos
 
 ```
 [serious] Esta é a história do homem mais forte do mundo... que foi vencido por uma lembrança.
@@ -34,7 +34,7 @@ Sem a condição de "1 minuto" do Reino da Prisão (pedido do usuário).
 
 [mysterious] A saída foi o Anjo, uma feiticeira com uma técnica que apaga qualquer técnica.
 
-[casual] Link do meu Discord tá na bio.
+[casual] Quer aprender a fazer esses vídeos? Link do meu Discord na bio.
 
 [serious] E o budismo, a religião daquele monge, ensina que o que prende a gente não são correntes. É o apego. [sad] O Gojo podia vencer qualquer um... menos o que sentia pelo amigo.
 

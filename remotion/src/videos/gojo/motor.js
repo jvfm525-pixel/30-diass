@@ -2837,7 +2837,7 @@ function shibuyaCruz(g) {
   const lixo = []; for (let i = 0; i < 70; i++) { const a = hash(i) * 6.28, r = 2 + hash(i * 3) * 14; lixo.push([Math.cos(a) * r, 0.004, Math.sin(a) * r, 0, hash(i * 5) * 6.28, 0, 0.6 + hash(i * 7), 1, 0.6 + hash(i * 9)]); }
   instG(g, box(0.16, 0.004, 0.11), SM(0xd8d0c0, { roughness: 0.9 }), lixo, false);
   const L1 = new THREE.PointLight(0xff5ab0, 9, 50, 1.6); L1.position.set(14, 16, 22); g.add(L1); const L2 = new THREE.PointLight(0x3ab8ff, 9, 50, 1.6); L2.position.set(-14, 14, -18); g.add(L2);
-  const brilho = estrelinhas(g, 30, [-14, 14, 0.5, 8, -14, 14], { cor: 0xc8a8ff, s: 0.12 });
+  const brilho = estrelinhas(g, 16, [-30, 30, 10, 40, -90, -40], { cor: 0xc8a8ff, s: 0.1 });
   return { veu, brilho };
 }
 
@@ -3269,16 +3269,29 @@ addSet("s6-anjo", (g) => {
   };
 });
 
-// ---------------------------------------------------------------- 7 · Discord: rapidinho (vazio roxo, poeira de luz; o selo vem no texto)
+// ---------------------------------------------------------------- 7 · Discord ("quer aprender a fazer esses vídeos?"): bastidor 3D — grade de editor, o Gojo num pedestal girando, de arame virando modelo
 addSet("s7-discord", (g) => {
   const [a, b] = T.sc["s7-discord"];
   vazio(g, 0x0c0820, 0x3a2a7a, 0x06040c);
-  const p = dustPts(220, [-3, 3, -2, 4, -3, 1], 0xb8a8ff, 0.035, 0.8); g.add(p);
-  const ch = mesh(new THREE.PlaneGeometry(30, 30), SM(0x0a0816, { roughness: 0.4, metalness: 0.3 }), 0, -0.6, 0, g); ch.rotation.x = -Math.PI / 2;
-  return { bg: 0x0c0820, fog: [6, 30], fogCol: 0x140c30, hand: 0, look: { exposure: 1.1, bloom: 0.8, bloomT: 0.7, vig: 0.5 },
-    sun: { dir: [0, 0.6, 1], col: 0xd8c8ff, I: 1.2, c: [0, 1, 0], r: 4 }, hemi: { sky: 0x6a5ab8, ground: 0x0a0814, I: 0.7 }, fill: { col: 0xffffff, I: 0.3, dir: [0, 0.3, 1] }, rim: { col: 0xb0a0ff, str: 1 },
-    update(t) { floatDust(p, t, 0.3, 0.15); },
-    cam(t) { return { ...path2(t, [[a, [0, 1.2, 3.0], [0, 1.0, -0.5], 40], [b, [0, 1.2, 2.4], [0, 1.0, -0.5], 38]]), near: 0.03 }; } };
+  const grade = new THREE.GridHelper(24, 48, 0x9a8aff, 0x3a2a7a); grade.material.transparent = true; grade.material.opacity = 0.55; g.add(grade);
+  const ch = mesh(new THREE.PlaneGeometry(40, 40), SM(0x0a0816, { roughness: 0.5, metalness: 0.2 }), 0, -0.005, 0, g); ch.rotation.x = -Math.PI / 2;
+  const gira = grp(g); mesh(cyl(0.62, 0.66, 0.15, 40), SM(0x16122a, { roughness: 0.4, metalness: 0.4 }), 0, 0.075, 0, gira);
+  const aro = mesh(new THREE.TorusGeometry(0.64, 0.012, 6, 64), new THREE.MeshBasicMaterial({ color: 0xb8a8ff }), 0, 0.15, 0, gira); aro.rotation.x = Math.PI / 2; aro.castShadow = false;
+  const go = gojoVendaLP(); gira.add(go); go.position.y = 0.15;
+  const fio = gojoVendaLP(); gira.add(fio); fio.position.y = 0.15; const wm = new THREE.MeshBasicMaterial({ color: 0xb8a8ff, wireframe: true, transparent: true, opacity: 0.85 });
+  fio.traverse((x) => { if (x.isMesh) { if (x.userData.isDecal) x.visible = false; else x.material = wm; x.castShadow = false; } });
+  const scan = mesh(new THREE.TorusGeometry(0.5, 0.01, 6, 64), new THREE.MeshBasicMaterial({ color: 0xe8e0ff, transparent: true, opacity: 0, blending: ADD, depthWrite: false }), 0, 0.15, 0, gira); scan.rotation.x = Math.PI / 2; scan.castShadow = false;
+  const p = dustPts(160, [-3, 3, 0.1, 3.5, -3, 1], 0xb8a8ff, 0.03, 0.7); g.add(p);
+  const tTroca = K.link - 0.25;
+  return { bg: 0x0c0820, fog: [6, 30], fogCol: 0x140c30, hand: 0, look: { exposure: 1.1, bloom: 0.7, bloomT: 0.74, vig: 0.5, sat: 1.08, con: 1.06, rosto: 0.5 },
+    sun: { dir: [0.4, 0.8, 0.8], col: 0xf0e8ff, I: 1.6, c: [0, 1, 0], r: 4 }, hemi: { sky: 0x6a5ab8, ground: 0x0a0814, I: 0.7 }, fill: { col: 0xb8a8ff, I: 0.5, dir: [-0.6, 0.3, -0.5] }, rim: { col: 0xb0a0ff, str: 1.3 },
+    update(t) {
+      floatDust(p, t, 0.3, 0.15); gira.rotation.y = 0.6 + (t - a) * 0.9;
+      [go, fio].forEach((q) => { vive(q, t, 311, { boca: "linha", palpebra: 0.9 }, 0.08); maosBolso(q); });
+      const k = seg(t, tTroca - 0.35, tTroca + 0.35); go.visible = t > tTroca; fio.visible = t <= tTroca + 0.05;
+      scan.position.y = 0.15 + 2.1 * k; scan.material.opacity = k > 0 && k < 1 ? 0.9 : 0; scan.scale.setScalar(1 - 0.4 * Math.sin(k * Math.PI));
+    },
+    cam(t) { return { ...path2(t, [[a, [0.2, 1.35, 3.6], [0, 1.05, 0], 40], [b, [0.1, 1.3, 2.7], [0, 1.05, 0], 38]]), near: 0.03 }; } };
 });
 
 // ---------------------------------------------------------------- 8 · apego: a escola à noite; o Gojo sozinho no banco, correntes partidas no chão; um fio vermelho até o Geto (de luz) no torii

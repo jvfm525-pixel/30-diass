@@ -16,7 +16,7 @@ PARS = [
      "Mas por que ele ficou {tanto:tanto} tempo lá? | Só {duas:duas} ferramentas | abriam a porta de {tras:trás} da prisão: | a {lanca:Lança} Invertida do Céu | e a {corda:Corda} Negra. | E as duas tinham {sumido:sumido}... | nas mãos do {proprio:próprio} Gojo."),
     ("s6-anjo", "O ANJO",
      "A {saida:saída} foi o {anjo:Anjo}, | uma feiticeira com uma técnica | que {apaga:apaga} qualquer {tecnica:técnica}."),
-    ("s7-discord", None, "{link:Link} do meu {discord:Discord} tá na bio."),
+    ("s7-discord", None, "Quer {aprender:aprender} a fazer esses vídeos? | {link:Link} do meu {discord:Discord} na bio."),
     ("s8-apego", "APEGO",
      "E o {budismo:budismo}, | a religião daquele monge, | ensina que o que {prende:prende} a gente | não são {correntes:correntes}. | É o {apego:apego}. | O Gojo podia {vencer:vencer} qualquer um... | menos o que {sentia:sentia} pelo {amigo8:amigo}."),
     ("s9-fim", None,

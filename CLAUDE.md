@@ -110,3 +110,8 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 4. A video with sound keeps it on the `<video>` (`data-has-audio="true"`, no `muted`). Use a separate `<audio>` for music, voiceover, replacement audio, J/L cuts, or audio detached in Studio. Silent footage and b-roll: `muted`.
 5. Sub-compositions use `data-composition-src="compositions/file.html"` to reference other HTML files
 6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches
+
+## Preferências do canal (pedidas pelo usuário)
+
+- Chamada do Discord em todo vídeo novo, curta, perto do meio: **"Quer aprender a fazer esses vídeos? Link do meu Discord na bio."** (selo na tela: "QUER APRENDER? · link do Discord na bio").
+- Antes de entregar, revisar o vídeo inteiro (um quadro a cada 0,5 s) e corrigir: cenário sem chão, objeto voando, personagem em posição estranha, câmera dentro de objetos, luz estourada.
