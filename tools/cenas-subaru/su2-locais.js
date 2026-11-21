@@ -27,8 +27,8 @@ function ruaCapital(g) {
   const barraca = barracaFrutas(g, 3.6, 0, -Math.PI / 2);
   [[-4.1, 8], [4.1, -8], [-4.1, -14], [4.1, 14]].forEach(([x, z]) => lampiao(g, x, z, 3.2));
   const sol = solFlare(g, [-80, 30, -200], 1.2, 0xffd0a0);
-  const poeira = dustPts(120, [-5, 5, 0.2, 4, -10, 10], 0xffd8a0, 0.03, 0.7); g.add(poeira);
-  return { barraca, poeira };
+  const poeira = dustPts(120, [-5, 5, 0.2, 4, -10, 10], 0xffd8a0, 0.03, 0.7); g.add(poeira); const D = decorRua(g);
+  return { barraca, poeira, upd(t) { floatDust(poeira, t, 0.2, 0.1); D.fumos.forEach((f) => f.upd(t, 1)); } };
 }
 
 // ---------------------------------------------------------------- 3/4/0 · jardim da mansão à noite (fachada com janelas, chafariz, sebes, caminho de pedra, postes)
@@ -59,7 +59,7 @@ function jardimMansao(g) {
   [[-1.9, 3.5], [1.9, -3.5], [-1.9, -12], [1.9, -12]].forEach(([x, z]) => lampiao(g, x, z, 3.0));
   arvoresLonge(g, 60, 26, 60, () => 0, { cores: [0x1a3020, 0x203a24] });
   const lua = luaG(g, [40, 60, -150], 12);
-  const vag = dustPts(70, [-8, 8, 0.3, 3, -10, 8], 0xd8ff9a, 0.045, 0.8); g.add(vag);
+  const vag = dustPts(70, [-8, 8, 0.3, 3, -10, 8], 0xd8ff9a, 0.045, 0.8); g.add(vag); decorJardim(g); decorMansao(g);
   return { F, vag };
 }
 
@@ -69,8 +69,8 @@ function vazioSatella(g) {
   const dun = mesh(new THREE.PlaneGeometry(240, 240, 120, 120), LPmat(0x141018, { rim: 0.4 }), 0, 0, 0, g); dun.rotation.x = -Math.PI / 2;
   const pa = dun.geometry.attributes.position; for (let i = 0; i < pa.count; i++) { const x = pa.getX(i), y = pa.getY(i), d = Math.hypot(x, y); pa.setZ(i, d < 6 ? 0 : (Math.sin(x * 0.12) * 1.4 + Math.sin(y * 0.09 + 1) * 1.8) * Math.min(1, (d - 6) / 10)); } dun.geometry.computeVertexNormals();
   const lua = luaG(g, [0, 40, -160], 16);
-  const po = dustPts(220, [-12, 12, 0.1, 4, -12, 8], 0x9a7ad8, 0.035, 0.6); g.add(po);
-  return { po };
+  const po = dustPts(220, [-12, 12, 0.1, 4, -12, 8], 0x9a7ad8, 0.035, 0.6); g.add(po); const D = decorVazio(g);
+  return { po, upd(t) { floatDust(po, t, 0.3, 0.2); D.miasma.upd(t, 1); floatDust(D.cinza, t, 0.2, 0.5); } };
 }
 
 // ---------------------------------------------------------------- 7 · colina do chá (o castelo dos sonhos da Echidna): grama clara, mesa branca, céu limpo; nuvens escuras longe
@@ -90,8 +90,8 @@ function colinaCha(g) {
   const flor = []; for (let i = 0; i < 160; i++) { const a = hash(i * 1.7) * 6.28, r = 2 + hash(i * 3.1) * 12; flor.push([Math.cos(a) * r, 0.18, Math.sin(a) * r]); }
   instG(g, sph(0.05, 6, 5), LPmat(0xffffff, { rim: 0.4 }), flor, false);
   const nuv = []; for (let i = 0; i < 9; i++) { const s = glowSprite(0x2a1838, 46 + hash(i) * 30, 0.8, NORM, puffTex); s.material.fog = false; s.position.set(-120 + i * 30, 10 + hash(i * 3) * 8, -110); g.add(s); nuv.push(s); }
-  const folhas = folhasRef(g, 60, [-6, 6, 0.3, 4, -6, 6], { cores: [0xffffff, 0xf0f0ff, 0xffe8f0], brilho: 0x302a30, s: 0.6 });
-  return { ter, mesa, folhas, cE, cS };
+  const folhas = folhasRef(g, 60, [-6, 6, 0.3, 4, -6, 6], { cores: [0xffffff, 0xf0f0ff, 0xffe8f0], brilho: 0x302a30, s: 0.6 }); const D = decorCha(g);
+  return { ter, mesa, folhas, cE, cS, upd(t) { folhas(t, 0.6); const f = ((t * 0.37) % 1); D.relampago.material.opacity = f < 0.04 || (f > 0.06 && f < 0.08) ? 0.5 : 0; } };
 }
 
 // ---------------------------------------------------------------- 8 · campo dos marcos ao anoitecer: cada morte, um marco de pedra com uma luzinha
@@ -102,8 +102,8 @@ function campoMarcos(g) {
   for (let i = 0; i < 44; i++) { const x = (hash(i * 2.1) - 0.5) * 22, z = -2 - hash(i * 3.7) * 34; if (Math.abs(x) < 1.1) continue; const h = 0.7 + hash(i * 5) * 0.5, m = grp(g, x, 0, z);
     mesh(box(0.28, h, 0.16), pedra, 0, h / 2, 0, m).rotation.y = hash(i) * 0.6; const l = glowSprite(0xffd8a0, 0.5, 0.8); l.position.y = h + 0.12; m.add(l); marcos.push({ m, l, i }); }
   const grama = gramaAlta(g, 1200, [-12, 12, -36, 4], () => 0, { base: 0x3a4a2a, ponta: 0xb8a86a, w: 0.03, h: 0.5, mask: (x, z) => Math.abs(x) > 0.7 });
-  const brilho = dustPts(120, [-10, 10, 0.3, 3, -30, 2], 0xffd8a0, 0.04, 0.8); g.add(brilho);
-  return { marcos, brilho };
+  const brilho = dustPts(120, [-10, 10, 0.3, 3, -30, 2], 0xffd8a0, 0.04, 0.8); g.add(brilho); const D = decorCampo(g);
+  return { marcos, brilho, upd(t) { D.nevoa.upd(t, 1); } };
 }
 
 // ---------------------------------------------------------------- 9 · terraço da mansão ao amanhecer (o pórtico da entrada vira varanda com balaústre)
@@ -116,6 +116,6 @@ function terracoAmanhecer(g) {
   const vz = -14.6, piso = mesh(box(6, 0.2, 2.4), SM(0xe0d8c8), 0, 6.7, vz, g); const bal = LPmat(0xe8e0d0, { rim: 0.4 });
   mesh(box(6, 0.12, 0.16), bal, 0, 7.75, vz + 1.12, g); for (let i = 0; i <= 14; i++) mesh(cyl(0.05, 0.07, 0.95, 8), bal, -2.8 + i * 0.4, 7.25, vz + 1.12, g);
   const sol = solFlare(g, [0, 20, 220], 1.6, 0xffe0b0);
-  arvoresLonge(g, 70, 26, 80, () => 0, { cores: [0x2a4a2a, 0x3a5a30] });
-  return { vz, F };
+  arvoresLonge(g, 70, 26, 80, () => 0, { cores: [0x2a4a2a, 0x3a5a30] }); const D = decorAmanhecer(g);
+  return { vz, F, upd(t) { D.nevoa.upd(t, 1); } };
 }

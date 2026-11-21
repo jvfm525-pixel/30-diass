@@ -26,10 +26,10 @@ addSet("s1-abertura", (g) => {
   const RU = ruaCapital(g), PS = passantes(g, 6, { xs: [-3.4, -2.6, -1.8, -3.0] });
   const su = subaruLP(); g.add(su); su.position.set(1.3, 0, 0.6); su.rotation.y = -0.4; const sp = sombraPe(g, su);
   const ve = pessoaLP({ seed: 650, pele: 0xeac0a0, olho: "#4a3a2a", roupa: 0x8a5a3a, calca: 0x4a3a2a, botoes: false, cabelo: { ...CABELOS_AOT.rod, seed: 651 } }); g.add(ve); ve.position.set(4.35, 0, 0); ve.rotation.y = -Math.PI / 2;
-  const em = emiliaLP(); g.add(em); const spE = sombraPe(g, em);
+  const em = emiliaLP(); g.add(em); const spE = sombraPe(g, em); const VV = vfxVolta(g);
   return { ...LUZ_RUA, hand: 0.005,
     update(t) {
-      chicote(t, a, 0.22, 1); floatDust(RU.poeira, t, 0.2, 0.1); PS.forEach((q) => q.upd(t));
+      chicote(t, a, 0.22, 1); RU.upd(t); PS.forEach((q) => q.upd(t)); VV(t, K.acordar, su.position, 1.4);
       const cai = smr(t, K.morrer, K.morrer + 0.5) * (1 - smr(t, K.acordar - 0.05, K.acordar)); // morre (cai de joelhos) até o "acordar"
       vive(su, t, 411, { boca: cai > 0.5 ? "aberta" : t > K.acordar && t < K.antes ? "aberta" : "linha", choque: t > K.acordar && t < K.antes ? 1 : 0, triste: t > K.contar ? 0.6 : 0, palpebra: cai > 0.5 ? 0.3 : 1.0 }, 0.12);
       if (cai > 0) kneelPose(su, cai); maoPeito(su, Math.max(cai, smr(t, K.acordar, K.acordar + 0.3) * (1 - smr(t, K.antes, K.antes + 0.5)))); sp(0);
@@ -57,9 +57,10 @@ addSet("s2-volta", (g) => {
   const su = subaruLP(); g.add(su); su.position.set(0.2, 0, 0.8); const sp = sombraPe(g, su);
   const ecos = [[2.6, 0.2, -1.2, 1], [-1.6, -3.5, 0.6, 0], [1.4, 5.0, 2.6, 1]].map(([x, z, ry, aj], i) => { const e = fantasma(subaruLP(), 0xffb8d0, 0); g.add(e); e.position.set(x, 0, z); e.rotation.y = ry; e.userData.aj = aj; return e; });
   const ve = pessoaLP({ seed: 650, pele: 0xeac0a0, olho: "#4a3a2a", roupa: 0x8a5a3a, calca: 0x4a3a2a, botoes: false, cabelo: { ...CABELOS_AOT.rod, seed: 651 } }); g.add(ve); ve.position.set(4.35, 0, 0); ve.rotation.y = -Math.PI / 2;
+  const VV = vfxVolta(g);
   return { ...LUZ_RUA, hand: 0.005,
     update(t) {
-      chicote(t, a, 0.22, -1); floatDust(RU.poeira, t, 0.2, 0.1); PS.forEach((q) => q.upd(t));
+      chicote(t, a, 0.22, -1); RU.upd(t); PS.forEach((q) => q.upd(t)); VV(t, K.volta, su.position, 1.8);
       vive(su, t, 411, { boca: "linha", triste: 0.4, palpebra: 0.95 }, 0.12); pose(su, { neck: [0.25 * smr(t, K.mundo, K.poder) * (1 - smr(t, K.morre, K.morre + 0.4)), 0, 0] }, 1);
       maoEm(su, 0, frenteW(su, 0.1, 1.15, 0.32), smr(t, K.mundo, K.poder) * (1 - smr(t, K.morre, K.morre + 0.4)), { abre: 0.8, poleY: -0.2, poleZ: -0.3 }); sp(0); cabeloVento(su, t, 0.5, [1, 0, 0.2]);
       const ap = smr(t, K.morre - 0.2, K.volta + 0.3) * (1 - smr(t, K.outros, K.outros + 0.8)); ecos.forEach((e, i) => { e.visible = ap > 0.02; e.userData.fm.opacity = 0.18 * ap; restPose(e); idle(e, t, 700 + i, 0.05); if (e.userData.aj) kneelPose(e, 1); maoPeito(e, 1); standFeet(e); });
@@ -84,15 +85,16 @@ addSet("s3-mao", (g) => {
   const su = subaruLP(); g.add(su); su.position.set(SU_POS[0], 0, SU_POS[1]); su.rotation.y = Math.PI / 2; const spS = sombraPe(g, su);
   const em = emiliaLP(); g.add(em); em.position.set(EM_POS[0], 0, EM_POS[1]); em.rotation.y = -Math.PI / 2; const spE = sombraPe(g, em);
   const M = [maoSombra(g), maoSombra(g), maoSombra(g)], bases = [V3(-1.4, 0, 5.6), V3(-1.2, 0, 3.6), V3(-1.9, 0, 4.4)];
+  const VP = vfxParada(g, [SU_POS[0], 0, SU_POS[1]]), FM = vfxFumacaMaos(g, bases), PU = vfxPulso(g);
   return { ...LUZ_JARDIM, hand: 0.004,
     update(t) {
-      const C = cinzaTempo(t, K.parou, K.vez + 0.2, LUZ_JARDIM.look.sat), tc = C.tc;
+      const C = cinzaTempo(t, K.parou, K.vez + 0.2, LUZ_JARDIM.look.sat), tc = C.tc; VP(t, K.parou);
       floatDust(JM.F.jato, tc, 1.4, 0.4); floatDust(JM.vag, tc, 0.4, 0.25);
       const dor = smr(t, K.apertou - 0.2, K.apertou + 0.3) * (1 - smr(t, K.vez + 0.2, K.volta3)) + 0.6 * smr(t, K.volta3 - 0.1, K.volta3 + 0.3);
       vive(su, tc, 411, { boca: dor > 0.4 ? "grito" : t > K.emilia3 - 0.5 && t < K.parou ? "aberta" : "linha", fala: t > K.emilia3 - 0.6 && t < K.parou ? 1 : 0, choque: dor, triste: 0.5 * dor, palpebra: 1.0 }, 0.1);
       if (dor > 0) { pose(su, { spine: [0.35 * dor, 0, 0], neck: [0.15 * dor, 0, 0] }, 1); maoPeito(su, dor); } spS(0);
       vive(em, tc, 421, { boca: "linha", palpebra: 0.95 }, 0.1); spE(0); if (C.k < 0.5) { cabeloVento(em, t, 0.4, [0, 0, 1]); cabeloVento(su, t, 0.4, [0, 0, 1]); }
-      const km = smr(t, K.mao - 0.3, K.peito + 0.2) * (1 - smr(t, K.vez + 0.1, K.vez + 0.6)) + smr(t, K.volta3 - 0.2, K.volta3 + 0.4); M.forEach((m, i) => m.set(bases[i], peitoRZ(su), Math.min(1, km) * (1 - i * 0.12), t, i));
+      const km = smr(t, K.mao - 0.3, K.peito + 0.2) * (1 - smr(t, K.vez + 0.1, K.vez + 0.6)) + smr(t, K.volta3 - 0.2, K.volta3 + 0.4); M.forEach((m, i) => m.set(bases[i], peitoRZ(su), Math.min(1, km) * (1 - i * 0.12), t, i)); FM.forEach((f) => f.upd(t, Math.min(1, km))); PU(t, dor, peitoRZ(su));
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
@@ -112,7 +114,7 @@ addSet("s4-preco", (g) => {
   const su = subaruLP(); g.add(su); su.position.set(SU_POS[0], 0, SU_POS[1]); su.rotation.y = Math.PI / 2; const spS = sombraPe(g, su);
   const em = emiliaLP(); g.add(em); em.position.set(EM_POS[0], 0, EM_POS[1]); em.rotation.y = -Math.PI / 2; const spE = sombraPe(g, em);
   const M = [maoSombra(g), maoSombra(g)], bases = [V3(1.6, 0, 5.4), V3(1.5, 0, 3.7)];
-  const petalas = dustPts(160, [-0.35, 0.35, 0, 1.6, -0.3, 0.3], 0xf0e8ff, 0.04, 0.9); petalas.position.set(EM_POS[0], 0, EM_POS[1]); g.add(petalas);
+  const petalas = dustPts(160, [-0.35, 0.35, 0, 1.6, -0.3, 0.3], 0xf0e8ff, 0.04, 0.9); petalas.position.set(EM_POS[0], 0, EM_POS[1]); g.add(petalas); const FM = vfxFumacaMaos(g, bases), PU = vfxPulso(g);
   return { ...LUZ_JARDIM, hand: 0.004,
     update(t) {
       const C = cinzaTempo(t, a - 1, K.emilia4 + 0.6, LUZ_JARDIM.look.sat), tc = C.tc; floatDust(JM.F.jato, tc, 1.4, 0.4); floatDust(JM.vag, tc, 0.4, 0.25);
@@ -120,7 +122,7 @@ addSet("s4-preco", (g) => {
       const cai = smr(t, K.morreu - 0.2, K.morreu + 0.4), some = smr(t, K.emilia4, K.emilia4 + 0.7);
       em.visible = some < 0.98; vive(em, tc, 421, { boca: t > K.ouvindo ? "aberta" : "linha", choque: smr(t, K.ouvindo - 0.2, K.ouvindo + 0.2), palpebra: lerp(1.0, 0.2, cai) }, 0.05); if (cai > 0) kneelPose(em, cai); maoPeito(em, smr(t, K.ouvindo, K.ouvindo + 0.4)); spE(0);
       petalas.visible = some > 0.01; petalas.material.opacity = 0.9 * (1 - smr(t, K.emilia4 + 1.2, b)); petalas.position.y = 0.6 * some; floatDust(petalas, t, 0.6, 0.3);
-      const km = smr(t, K.dele, K.ouvindo + 0.3) * (1 - smr(t, K.emilia4, K.emilia4 + 0.5)); M.forEach((m, i) => m.set(bases[i], peitoRZ(em), km * (1 - i * 0.12), t, i + 3));
+      const km = smr(t, K.dele, K.ouvindo + 0.3) * (1 - smr(t, K.emilia4, K.emilia4 + 0.5)); M.forEach((m, i) => m.set(bases[i], peitoRZ(em), km * (1 - i * 0.12), t, i + 3)); FM.forEach((f) => f.upd(t, km)); PU(t, smr(t, K.ouvindo, K.ouvindo + 0.3) * (1 - some), peitoRZ(em));
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
