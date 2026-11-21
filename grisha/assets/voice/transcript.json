@@ -1,0 +1,1100 @@
+[
+  {
+    "text": "Esta",
+    "start": 0.07,
+    "end": 0.24,
+    "id": "w0"
+  },
+  {
+    "text": "é",
+    "start": 0.24,
+    "end": 0.25,
+    "id": "w1"
+  },
+  {
+    "text": "a",
+    "start": 0.25,
+    "end": 0.36,
+    "id": "w2"
+  },
+  {
+    "text": "história",
+    "start": 0.36,
+    "end": 0.85,
+    "id": "w3"
+  },
+  {
+    "text": "de",
+    "start": 0.85,
+    "end": 0.97,
+    "id": "w4"
+  },
+  {
+    "text": "um",
+    "start": 0.97,
+    "end": 1,
+    "id": "w5"
+  },
+  {
+    "text": "pai",
+    "start": 1.09,
+    "end": 1.3,
+    "id": "w6"
+  },
+  {
+    "text": "que",
+    "start": 1.3,
+    "end": 1.54,
+    "id": "w7"
+  },
+  {
+    "text": "fez",
+    "start": 1.56,
+    "end": 1.73,
+    "id": "w8"
+  },
+  {
+    "text": "a",
+    "start": 1.87,
+    "end": 1.89,
+    "id": "w9"
+  },
+  {
+    "text": "pior",
+    "start": 1.9,
+    "end": 2.22,
+    "id": "w10"
+  },
+  {
+    "text": "coisa",
+    "start": 2.32,
+    "end": 2.68,
+    "id": "w11"
+  },
+  {
+    "text": "da",
+    "start": 2.68,
+    "end": 2.86,
+    "id": "w12"
+  },
+  {
+    "text": "vida",
+    "start": 2.86,
+    "end": 3.21,
+    "id": "w13"
+  },
+  {
+    "text": "dele.",
+    "start": 3.21,
+    "end": 3.8,
+    "id": "w14"
+  },
+  {
+    "text": "Enão",
+    "start": 3.87,
+    "end": 4.06,
+    "id": "w15"
+  },
+  {
+    "text": "sabia",
+    "start": 4.14,
+    "end": 4.46,
+    "id": "w16"
+  },
+  {
+    "text": "direito",
+    "start": 4.46,
+    "end": 4.98,
+    "id": "w17"
+  },
+  {
+    "text": "por",
+    "start": 4.98,
+    "end": 5.18,
+    "id": "w18"
+  },
+  {
+    "text": "que.",
+    "start": 5.2,
+    "end": 5.68,
+    "id": "w19"
+  },
+  {
+    "text": "No",
+    "start": 5.75,
+    "end": 5.8,
+    "id": "w20"
+  },
+  {
+    "text": "dia",
+    "start": 5.8,
+    "end": 5.94,
+    "id": "w21"
+  },
+  {
+    "text": "em",
+    "start": 6.02,
+    "end": 6.11,
+    "id": "w22"
+  },
+  {
+    "text": "que",
+    "start": 6.11,
+    "end": 6.3,
+    "id": "w23"
+  },
+  {
+    "text": "a",
+    "start": 6.3,
+    "end": 6.36,
+    "id": "w24"
+  },
+  {
+    "text": "Muralha",
+    "start": 6.36,
+    "end": 6.79,
+    "id": "w25"
+  },
+  {
+    "text": "Maria",
+    "start": 6.79,
+    "end": 7.11,
+    "id": "w26"
+  },
+  {
+    "text": "caiu,",
+    "start": 7.11,
+    "end": 7.56,
+    "id": "w27"
+  },
+  {
+    "text": "o",
+    "start": 7.56,
+    "end": 7.64,
+    "id": "w28"
+  },
+  {
+    "text": "Grisha",
+    "start": 7.64,
+    "end": 8.15,
+    "id": "w29"
+  },
+  {
+    "text": "não",
+    "start": 8.15,
+    "end": 8.41,
+    "id": "w30"
+  },
+  {
+    "text": "fugiu.",
+    "start": 8.41,
+    "end": 9.02,
+    "id": "w31"
+  },
+  {
+    "text": "Correu",
+    "start": 9.19,
+    "end": 9.54,
+    "id": "w32"
+  },
+  {
+    "text": "na",
+    "start": 9.54,
+    "end": 9.68,
+    "id": "w33"
+  },
+  {
+    "text": "direção",
+    "start": 9.68,
+    "end": 10.12,
+    "id": "w34"
+  },
+  {
+    "text": "contrária,",
+    "start": 10.21,
+    "end": 10.85,
+    "id": "w35"
+  },
+  {
+    "text": "até",
+    "start": 10.99,
+    "end": 11.16,
+    "id": "w36"
+  },
+  {
+    "text": "a",
+    "start": 11.16,
+    "end": 11.23,
+    "id": "w37"
+  },
+  {
+    "text": "capela",
+    "start": 11.23,
+    "end": 11.65,
+    "id": "w38"
+  },
+  {
+    "text": "dos",
+    "start": 11.65,
+    "end": 11.86,
+    "id": "w39"
+  },
+  {
+    "text": "Rais.",
+    "start": 11.86,
+    "end": 12.44,
+    "id": "w40"
+  },
+  {
+    "text": "Anos",
+    "start": 12.51,
+    "end": 12.7,
+    "id": "w41"
+  },
+  {
+    "text": "antes,",
+    "start": 12.78,
+    "end": 13.23,
+    "id": "w42"
+  },
+  {
+    "text": "o",
+    "start": 13.23,
+    "end": 13.3,
+    "id": "w43"
+  },
+  {
+    "text": "Kruger",
+    "start": 13.3,
+    "end": 13.73,
+    "id": "w44"
+  },
+  {
+    "text": "tinha",
+    "start": 13.73,
+    "end": 14.1,
+    "id": "w45"
+  },
+  {
+    "text": "dado",
+    "start": 14.1,
+    "end": 14.39,
+    "id": "w46"
+  },
+  {
+    "text": "a",
+    "start": 14.39,
+    "end": 14.46,
+    "id": "w47"
+  },
+  {
+    "text": "ele",
+    "start": 14.46,
+    "end": 14.66,
+    "id": "w48"
+  },
+  {
+    "text": "o",
+    "start": 14.66,
+    "end": 14.76,
+    "id": "w49"
+  },
+  {
+    "text": "Titã",
+    "start": 14.76,
+    "end": 15.04,
+    "id": "w50"
+  },
+  {
+    "text": "de",
+    "start": 15.04,
+    "end": 15.18,
+    "id": "w51"
+  },
+  {
+    "text": "Ataque",
+    "start": 15.18,
+    "end": 15.72,
+    "id": "w52"
+  },
+  {
+    "text": "e",
+    "start": 15.72,
+    "end": 15.78,
+    "id": "w53"
+  },
+  {
+    "text": "uma",
+    "start": 15.8,
+    "end": 15.9,
+    "id": "w54"
+  },
+  {
+    "text": "missão.",
+    "start": 16.27,
+    "end": 16.68,
+    "id": "w55"
+  },
+  {
+    "text": "Tomar",
+    "start": 16.75,
+    "end": 17.02,
+    "id": "w56"
+  },
+  {
+    "text": "o",
+    "start": 17.04,
+    "end": 17.1,
+    "id": "w57"
+  },
+  {
+    "text": "Titã",
+    "start": 17.1,
+    "end": 17.38,
+    "id": "w58"
+  },
+  {
+    "text": "Fundador",
+    "start": 17.38,
+    "end": 17.94,
+    "id": "w59"
+  },
+  {
+    "text": "da",
+    "start": 17.94,
+    "end": 18.06,
+    "id": "w60"
+  },
+  {
+    "text": "Família",
+    "start": 18.08,
+    "end": 18.57,
+    "id": "w61"
+  },
+  {
+    "text": "Real.",
+    "start": 18.58,
+    "end": 19.12,
+    "id": "w62"
+  },
+  {
+    "text": "Quem",
+    "start": 19.19,
+    "end": 19.38,
+    "id": "w63"
+  },
+  {
+    "text": "tinha",
+    "start": 19.46,
+    "end": 19.81,
+    "id": "w64"
+  },
+  {
+    "text": "esse",
+    "start": 19.81,
+    "end": 20.12,
+    "id": "w65"
+  },
+  {
+    "text": "poder",
+    "start": 20.12,
+    "end": 20.49,
+    "id": "w66"
+  },
+  {
+    "text": "era",
+    "start": 20.49,
+    "end": 20.73,
+    "id": "w67"
+  },
+  {
+    "text": "Freda",
+    "start": 20.73,
+    "end": 21.11,
+    "id": "w68"
+  },
+  {
+    "text": "Rais.",
+    "start": 21.11,
+    "end": 21.68,
+    "id": "w69"
+  },
+  {
+    "text": "Ela",
+    "start": 21.75,
+    "end": 21.91,
+    "id": "w70"
+  },
+  {
+    "text": "podia",
+    "start": 21.91,
+    "end": 22.25,
+    "id": "w71"
+  },
+  {
+    "text": "salvar",
+    "start": 22.29,
+    "end": 22.68,
+    "id": "w72"
+  },
+  {
+    "text": "as",
+    "start": 22.77,
+    "end": 22.89,
+    "id": "w73"
+  },
+  {
+    "text": "Muralhas,",
+    "start": 22.89,
+    "end": 23.64,
+    "id": "w74"
+  },
+  {
+    "text": "mas",
+    "start": 23.64,
+    "end": 23.83,
+    "id": "w75"
+  },
+  {
+    "text": "o",
+    "start": 23.83,
+    "end": 23.87,
+    "id": "w76"
+  },
+  {
+    "text": "juramento",
+    "start": 23.9,
+    "end": 24.46,
+    "id": "w77"
+  },
+  {
+    "text": "do",
+    "start": 24.46,
+    "end": 24.58,
+    "id": "w78"
+  },
+  {
+    "text": "primeiro",
+    "start": 24.58,
+    "end": 25.01,
+    "id": "w79"
+  },
+  {
+    "text": "rei",
+    "start": 25.01,
+    "end": 25.24,
+    "id": "w80"
+  },
+  {
+    "text": "proibia",
+    "start": 25.49,
+    "end": 25.71,
+    "id": "w81"
+  },
+  {
+    "text": "lutar.",
+    "start": 25.74,
+    "end": 26.32,
+    "id": "w82"
+  },
+  {
+    "text": "O",
+    "start": 26.39,
+    "end": 26.4,
+    "id": "w83"
+  },
+  {
+    "text": "Grisha",
+    "start": 26.4,
+    "end": 26.89,
+    "id": "w84"
+  },
+  {
+    "text": "implorou.",
+    "start": 26.89,
+    "end": 27.77,
+    "id": "w85"
+  },
+  {
+    "text": "Ela",
+    "start": 27.83,
+    "end": 28.05,
+    "id": "w86"
+  },
+  {
+    "text": "se",
+    "start": 28.19,
+    "end": 28.24,
+    "id": "w87"
+  },
+  {
+    "text": "transformou.",
+    "start": 28.24,
+    "end": 29.12,
+    "id": "w88"
+  },
+  {
+    "text": "Na",
+    "start": 29.19,
+    "end": 29.27,
+    "id": "w89"
+  },
+  {
+    "text": "caverna",
+    "start": 29.27,
+    "end": 29.79,
+    "id": "w90"
+  },
+  {
+    "text": "de",
+    "start": 29.79,
+    "end": 29.94,
+    "id": "w91"
+  },
+  {
+    "text": "cristal,",
+    "start": 29.94,
+    "end": 30.6,
+    "id": "w92"
+  },
+  {
+    "text": "ele",
+    "start": 30.6,
+    "end": 30.83,
+    "id": "w93"
+  },
+  {
+    "text": "a",
+    "start": 30.83,
+    "end": 30.85,
+    "id": "w94"
+  },
+  {
+    "text": "devorou",
+    "start": 30.99,
+    "end": 31.34,
+    "id": "w95"
+  },
+  {
+    "text": "e",
+    "start": 31.44,
+    "end": 31.49,
+    "id": "w96"
+  },
+  {
+    "text": "matou",
+    "start": 31.49,
+    "end": 31.86,
+    "id": "w97"
+  },
+  {
+    "text": "os",
+    "start": 31.86,
+    "end": 32.01,
+    "id": "w98"
+  },
+  {
+    "text": "filhos",
+    "start": 32.01,
+    "end": 32.45,
+    "id": "w99"
+  },
+  {
+    "text": "do",
+    "start": 32.45,
+    "end": 32.49,
+    "id": "w100"
+  },
+  {
+    "text": "rode.",
+    "start": 32.49,
+    "end": 33.2,
+    "id": "w101"
+  },
+  {
+    "text": "Link",
+    "start": 33.27,
+    "end": 33.45,
+    "id": "w102"
+  },
+  {
+    "text": "do",
+    "start": 33.54,
+    "end": 33.59,
+    "id": "w103"
+  },
+  {
+    "text": "meu",
+    "start": 33.59,
+    "end": 33.77,
+    "id": "w104"
+  },
+  {
+    "text": "Discord",
+    "start": 33.81,
+    "end": 34.2,
+    "id": "w105"
+  },
+  {
+    "text": "está",
+    "start": 34.29,
+    "end": 34.5,
+    "id": "w106"
+  },
+  {
+    "text": "na",
+    "start": 34.57,
+    "end": 34.64,
+    "id": "w107"
+  },
+  {
+    "text": "bio.",
+    "start": 34.64,
+    "end": 34.88,
+    "id": "w108"
+  },
+  {
+    "text": "O",
+    "start": 34.88,
+    "end": 34.95,
+    "id": "w109"
+  },
+  {
+    "text": "filósofo",
+    "start": 34.95,
+    "end": 35.5,
+    "id": "w110"
+  },
+  {
+    "text": "Sartre",
+    "start": 35.52,
+    "end": 35.88,
+    "id": "w111"
+  },
+  {
+    "text": "escreveu",
+    "start": 35.97,
+    "end": 36.49,
+    "id": "w112"
+  },
+  {
+    "text": "que",
+    "start": 36.49,
+    "end": 36.61,
+    "id": "w113"
+  },
+  {
+    "text": "o",
+    "start": 36.75,
+    "end": 36.77,
+    "id": "w114"
+  },
+  {
+    "text": "homem",
+    "start": 36.78,
+    "end": 37.1,
+    "id": "w115"
+  },
+  {
+    "text": "está",
+    "start": 37.2,
+    "end": 37.4,
+    "id": "w116"
+  },
+  {
+    "text": "condenado",
+    "start": 37.4,
+    "end": 38.03,
+    "id": "w117"
+  },
+  {
+    "text": "a",
+    "start": 38.03,
+    "end": 38.1,
+    "id": "w118"
+  },
+  {
+    "text": "ser",
+    "start": 38.1,
+    "end": 38.22,
+    "id": "w119"
+  },
+  {
+    "text": "livre.",
+    "start": 38.3,
+    "end": 38.96,
+    "id": "w120"
+  },
+  {
+    "text": "O",
+    "start": 38.96,
+    "end": 39.03,
+    "id": "w121"
+  },
+  {
+    "text": "Grisha",
+    "start": 39.03,
+    "end": 39.46,
+    "id": "w122"
+  },
+  {
+    "text": "queria",
+    "start": 39.46,
+    "end": 39.9,
+    "id": "w123"
+  },
+  {
+    "text": "não",
+    "start": 39.9,
+    "end": 40.12,
+    "id": "w124"
+  },
+  {
+    "text": "ter",
+    "start": 40.12,
+    "end": 40.34,
+    "id": "w125"
+  },
+  {
+    "text": "escolha.",
+    "start": 40.34,
+    "end": 41.12,
+    "id": "w126"
+  },
+  {
+    "text": "E,",
+    "start": 41.19,
+    "end": 41.38,
+    "id": "w127"
+  },
+  {
+    "text": "de",
+    "start": 41.46,
+    "end": 41.59,
+    "id": "w128"
+  },
+  {
+    "text": "certo",
+    "start": 41.59,
+    "end": 42.07,
+    "id": "w129"
+  },
+  {
+    "text": "jeito,",
+    "start": 42.07,
+    "end": 42.74,
+    "id": "w130"
+  },
+  {
+    "text": "não",
+    "start": 42.74,
+    "end": 43.01,
+    "id": "w131"
+  },
+  {
+    "text": "teve.",
+    "start": 43.02,
+    "end": 43.72,
+    "id": "w132"
+  },
+  {
+    "text": "Ele",
+    "start": 43.79,
+    "end": 43.95,
+    "id": "w133"
+  },
+  {
+    "text": "parou",
+    "start": 43.95,
+    "end": 44.29,
+    "id": "w134"
+  },
+  {
+    "text": "ali,",
+    "start": 44.33,
+    "end": 44.71,
+    "id": "w135"
+  },
+  {
+    "text": "chorando.",
+    "start": 44.71,
+    "end": 45.6,
+    "id": "w136"
+  },
+  {
+    "text": "Edentro",
+    "start": 45.66,
+    "end": 46.07,
+    "id": "w137"
+  },
+  {
+    "text": "da",
+    "start": 46.07,
+    "end": 46.17,
+    "id": "w138"
+  },
+  {
+    "text": "memória",
+    "start": 46.21,
+    "end": 46.6,
+    "id": "w139"
+  },
+  {
+    "text": "dele,",
+    "start": 46.69,
+    "end": 47.06,
+    "id": "w140"
+  },
+  {
+    "text": "estava",
+    "start": 47.07,
+    "end": 47.48,
+    "id": "w141"
+  },
+  {
+    "text": "o",
+    "start": 47.48,
+    "end": 47.54,
+    "id": "w142"
+  },
+  {
+    "text": "próprio",
+    "start": 47.54,
+    "end": 48.02,
+    "id": "w143"
+  },
+  {
+    "text": "filho,",
+    "start": 48.02,
+    "end": 48.49,
+    "id": "w144"
+  },
+  {
+    "text": "o",
+    "start": 48.49,
+    "end": 48.55,
+    "id": "w145"
+  },
+  {
+    "text": "Eren,",
+    "start": 48.55,
+    "end": 48.94,
+    "id": "w146"
+  },
+  {
+    "text": "dizendo...",
+    "start": 48.94,
+    "end": 49.75,
+    "id": "w147"
+  },
+  {
+    "text": "Siga",
+    "start": 49.83,
+    "end": 50.1,
+    "id": "w148"
+  },
+  {
+    "text": "em",
+    "start": 50.12,
+    "end": 50.3,
+    "id": "w149"
+  },
+  {
+    "text": "frente.",
+    "start": 50.3,
+    "end": 51.15,
+    "id": "w150"
+  },
+  {
+    "text": "Um",
+    "start": 51.23,
+    "end": 51.32,
+    "id": "w151"
+  },
+  {
+    "text": "pai",
+    "start": 51.32,
+    "end": 51.56,
+    "id": "w152"
+  },
+  {
+    "text": "que",
+    "start": 51.56,
+    "end": 51.78,
+    "id": "w153"
+  },
+  {
+    "text": "começou",
+    "start": 51.8,
+    "end": 52.36,
+    "id": "w154"
+  },
+  {
+    "text": "tudo",
+    "start": 52.36,
+    "end": 52.61,
+    "id": "w155"
+  },
+  {
+    "text": "pelo",
+    "start": 52.68,
+    "end": 52.89,
+    "id": "w156"
+  },
+  {
+    "text": "filho.",
+    "start": 53.03,
+    "end": 53.68,
+    "id": "w157"
+  },
+  {
+    "text": "Empurrado",
+    "start": 53.75,
+    "end": 54.37,
+    "id": "w158"
+  },
+  {
+    "text": "pelo",
+    "start": 54.37,
+    "end": 54.68,
+    "id": "w159"
+  },
+  {
+    "text": "filho.",
+    "start": 54.68,
+    "end": 55.32,
+    "id": "w160"
+  },
+  {
+    "text": "Se",
+    "start": 55.39,
+    "end": 55.44,
+    "id": "w161"
+  },
+  {
+    "text": "você",
+    "start": 55.44,
+    "end": 55.66,
+    "id": "w162"
+  },
+  {
+    "text": "pudesse",
+    "start": 55.68,
+    "end": 56.1,
+    "id": "w163"
+  },
+  {
+    "text": "voltar",
+    "start": 56.1,
+    "end": 56.47,
+    "id": "w164"
+  },
+  {
+    "text": "e",
+    "start": 56.47,
+    "end": 56.53,
+    "id": "w165"
+  },
+  {
+    "text": "falar",
+    "start": 56.53,
+    "end": 56.77,
+    "id": "w166"
+  },
+  {
+    "text": "uma",
+    "start": 56.83,
+    "end": 57.02,
+    "id": "w167"
+  },
+  {
+    "text": "frase",
+    "start": 57.02,
+    "end": 57.33,
+    "id": "w168"
+  },
+  {
+    "text": "pra",
+    "start": 57.33,
+    "end": 57.51,
+    "id": "w169"
+  },
+  {
+    "text": "alguém",
+    "start": 57.51,
+    "end": 57.88,
+    "id": "w170"
+  },
+  {
+    "text": "do",
+    "start": 57.88,
+    "end": 58,
+    "id": "w171"
+  },
+  {
+    "text": "seu",
+    "start": 58,
+    "end": 58.18,
+    "id": "w172"
+  },
+  {
+    "text": "passado,",
+    "start": 58.18,
+    "end": 58.66,
+    "id": "w173"
+  },
+  {
+    "text": "Qual",
+    "start": 58.87,
+    "end": 59.06,
+    "id": "w174"
+  },
+  {
+    "text": "seria?",
+    "start": 59.14,
+    "end": 59.8,
+    "id": "w175"
+  },
+  {
+    "text": "Comenta",
+    "start": 59.87,
+    "end": 60.27,
+    "id": "w176"
+  },
+  {
+    "text": "aí",
+    "start": 60.27,
+    "end": 60.37,
+    "id": "w177"
+  },
+  {
+    "text": "e",
+    "start": 60.41,
+    "end": 60.46,
+    "id": "w178"
+  },
+  {
+    "text": "me",
+    "start": 60.46,
+    "end": 60.59,
+    "id": "w179"
+  },
+  {
+    "text": "segue",
+    "start": 60.59,
+    "end": 60.93,
+    "id": "w180"
+  },
+  {
+    "text": "pra",
+    "start": 60.93,
+    "end": 61.1,
+    "id": "w181"
+  },
+  {
+    "text": "mais!",
+    "start": 61.17,
+    "end": 61.47,
+    "id": "w182"
+  }
+]

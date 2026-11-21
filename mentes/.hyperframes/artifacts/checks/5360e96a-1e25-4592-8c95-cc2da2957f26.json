@@ -1,0 +1,375 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 379 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/30-diass/mentes/compositions/caps.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      }
+    ],
+    "filesScanned": 12
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 6,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "warning",
+        "time": 58.466,
+        "selector": "#s9-c0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 341.09,
+          "top": 215,
+          "right": 738.91,
+          "bottom": 408,
+          "width": 397.82,
+          "height": 193
+        },
+        "containerSelector": "#s9-c1",
+        "text": "00:00",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-meianoite.html",
+        "bbox": {
+          "x": 341.09,
+          "y": 215,
+          "width": 397.82,
+          "height": 193
+        },
+        "firstSeen": 58.466,
+        "lastSeen": 58.878,
+        "occurrences": 2,
+        "heldMs": 411.99999999999903,
+        "times": [
+          58.466,
+          58.878
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 4.094,
+        "selector": "#s1-vz-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 93.55,
+          "top": 433.53,
+          "right": 639.59,
+          "bottom": 636.47,
+          "width": 546.04,
+          "height": 202.93
+        },
+        "containerSelector": "#s1-vz",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 100,
+          "top": 470,
+          "right": 633.14,
+          "bottom": 600,
+          "width": 533.14,
+          "height": 130
+        },
+        "overflow": {
+          "left": 6.45,
+          "right": 6.45
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s1-acorda.html",
+        "bbox": {
+          "x": 93.55,
+          "y": 433.53,
+          "width": 546.04,
+          "height": 202.93
+        },
+        "firstSeen": 4.094,
+        "lastSeen": 4.094,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.094
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 10.705,
+        "selector": "#s2-cup",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 631.83,
+          "top": 1191.02,
+          "right": 738.47,
+          "bottom": 1309.99,
+          "width": 106.64,
+          "height": 118.97
+        },
+        "containerSelector": "#cw8-2",
+        "text": "🥛",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s2-bichos.html",
+        "bbox": {
+          "x": 631.83,
+          "y": 1191.02,
+          "width": 106.64,
+          "height": 118.97
+        },
+        "firstSeen": 10.705,
+        "lastSeen": 10.705,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          10.705
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.283,
+        "selector": "#s3-toast",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 250,
+          "top": 1153,
+          "right": 374.78,
+          "bottom": 1264,
+          "width": 124.78,
+          "height": 111
+        },
+        "containerSelector": "#cg9-in",
+        "text": "🍞",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.33,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s3-cafe.html",
+        "bbox": {
+          "x": 250,
+          "y": 1153,
+          "width": 124.78,
+          "height": 111
+        },
+        "firstSeen": 12.283,
+        "lastSeen": 12.283,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.283
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 14.411,
+        "selector": "#s3-toast",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 243.15,
+          "top": 1189.47,
+          "right": 381.63,
+          "bottom": 1316.12,
+          "width": 138.48,
+          "height": 126.65
+        },
+        "containerSelector": "#cw11-1",
+        "text": "🍞",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s3-cafe.html",
+        "bbox": {
+          "x": 243.15,
+          "y": 1189.47,
+          "width": 138.48,
+          "height": 126.65
+        },
+        "firstSeen": 14.411,
+        "lastSeen": 14.411,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          14.411
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 61.417,
+        "selector": "#s9-plim-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 115.58,
+          "top": 584.83,
+          "right": 419.92,
+          "bottom": 715.17,
+          "width": 304.33,
+          "height": 130.34
+        },
+        "containerSelector": "#s9-plim",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 120,
+          "top": 600,
+          "right": 415.5,
+          "bottom": 700,
+          "width": 295.5,
+          "height": 100
+        },
+        "overflow": {
+          "left": 4.42,
+          "right": 4.42
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s9-meianoite.html",
+        "bbox": {
+          "x": 115.58,
+          "y": 584.83,
+          "width": 304.33,
+          "height": 130.34
+        },
+        "firstSeen": 61.417,
+        "lastSeen": 61.417,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.417
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 69.606,
+        "selector": "#s10-a-in > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 139.28,
+          "top": 587.33,
+          "right": 445.28,
+          "bottom": 735.82,
+          "width": 306,
+          "height": 148.49
+        },
+        "containerSelector": "#s10-a-in > div:nth-of-type(1)",
+        "text": "🧠⚡",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.07,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-pergunta.html",
+        "bbox": {
+          "x": 139.28,
+          "y": 587.33,
+          "width": 306,
+          "height": 148.49
+        },
+        "firstSeen": 69.606,
+        "lastSeen": 69.606,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          69.606
+        ]
+      }
+    ],
+    "duration": 73.7,
+    "samples": [
+      4.094,
+      12.283,
+      20.472,
+      28.661,
+      36.85,
+      45.039,
+      53.228,
+      61.417,
+      69.606
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 7,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      4.094,
+      20.472,
+      36.85,
+      53.228,
+      69.606
+    ],
+    "checked": 36,
+    "passed": 36
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 590
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

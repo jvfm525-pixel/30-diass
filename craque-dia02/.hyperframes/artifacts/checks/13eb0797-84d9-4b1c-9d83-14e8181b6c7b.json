@@ -1,0 +1,394 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 318 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/30-diass/craque-dia02/compositions/caps.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "composition_heavy_overlay_count_high",
+        "severity": "warning",
+        "message": "This composition has 48 elements carrying \"heavy overlay\" CSS (filter:blur, radial-gradient, or clip-path). Field signal: a composition with ~40 such elements (including opacity:0 / visibility:hidden ones) captures solid-black for the first ~half of the render, recovering near the end. Reproduces identically via drawElement, forced screenshot capture, and snapshot, so the capture layer itself is the offender (not encoder/mux). Independent of duration. Presence alone matters; only display:none elements are excluded here.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/30-diass/craque-dia02/compositions/caps.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into per-transition mini-compositions and concat the pieces (FFmpeg or the runtime's slideshow) so each capture only sees a small subset of heavy overlays at once. Even hidden overlays (opacity:0 / visibility:hidden) contribute: either remove truly unused ones from the source or scope them into their own per-transition sub-composition. If an overlay is genuinely inert for the whole clip, use display:none so it never enters the render tree. Field ref ts=1784040753 (#hyperframes-cli-feedback)."
+      }
+    ],
+    "filesScanned": 14
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 6,
+    "findings": [
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.851,
+        "selector": "#s1-tap-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 691,
+          "top": 544.74,
+          "right": 895.25,
+          "bottom": 695.26,
+          "width": 204.26,
+          "height": 150.52
+        },
+        "containerSelector": "#s1-tap",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 700,
+          "top": 560,
+          "right": 886.25,
+          "bottom": 680,
+          "width": 186.25,
+          "height": 120
+        },
+        "overflow": {
+          "left": 9,
+          "right": 9
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 691,
+          "y": 544.74,
+          "width": 204.26,
+          "height": 150.52
+        },
+        "firstSeen": 3.851,
+        "lastSeen": 3.851,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.851
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 34.66,
+        "selector": "#s7-mudou-b-in > div:nth-of-type(2)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 151.42,
+          "top": 536.37,
+          "right": 458.78,
+          "bottom": 1098.88,
+          "width": 307.36,
+          "height": 562.51
+        },
+        "containerSelector": "#s7-mudou-b-in",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 51.35,
+          "top": 455.32,
+          "right": 528.65,
+          "bottom": 1034.68,
+          "width": 477.29,
+          "height": 579.35
+        },
+        "overflow": {
+          "bottom": 64.2
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7-mudou.html",
+        "bbox": {
+          "x": 151.42,
+          "y": 536.37,
+          "width": 307.36,
+          "height": 562.51
+        },
+        "firstSeen": 34.66,
+        "lastSeen": 34.66,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          34.66
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 34.66,
+        "selector": "#s7-mudou-a-in > div:nth-of-type(2)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 435.74,
+          "top": 409.83,
+          "right": 1092.21,
+          "bottom": 1288.89,
+          "width": 656.46,
+          "height": 879.07
+        },
+        "containerSelector": "#s7-mudou-a-in",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 345.95,
+          "top": 256.43,
+          "right": 1234.05,
+          "bottom": 1233.57,
+          "width": 888.1,
+          "height": 977.14
+        },
+        "overflow": {
+          "bottom": 55.32
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7-mudou.html",
+        "bbox": {
+          "x": 435.74,
+          "y": 409.83,
+          "width": 656.46,
+          "height": 879.07
+        },
+        "firstSeen": 34.66,
+        "lastSeen": 34.66,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          34.66
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 34.66,
+        "selector": "#s7-mudou-a-in",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 345.95,
+          "top": 256.43,
+          "right": 1234.05,
+          "bottom": 1233.57,
+          "width": 888.1,
+          "height": 977.14
+        },
+        "containerSelector": "#root",
+        "text": "DEPOIS 10 Nº 10 · BIEL",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 154.05
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7-mudou.html",
+        "bbox": {
+          "x": 345.95,
+          "y": 256.43,
+          "width": 888.1,
+          "height": 977.14
+        },
+        "firstSeen": 34.66,
+        "lastSeen": 34.66,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          34.66
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 42.362,
+        "selector": "#s8-home-in",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 90,
+          "top": 1182,
+          "right": 473.3,
+          "bottom": 1253,
+          "width": 383.3,
+          "height": 71
+        },
+        "containerSelector": "#cg31-in",
+        "text": "casa do Biel 🏠",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.19,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-mapa.html",
+        "bbox": {
+          "x": 90,
+          "y": 1182,
+          "width": 383.3,
+          "height": 71
+        },
+        "firstSeen": 42.362,
+        "lastSeen": 42.362,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          42.362
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 46.733,
+        "selector": "#s9-phone > div:nth-of-type(2) > div:nth-of-type(2)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 305.26,
+          "top": 1191.57,
+          "right": 591.57,
+          "bottom": 1271.6,
+          "width": 286.31,
+          "height": 80.03
+        },
+        "containerSelector": "#cw33-2",
+        "text": "@kaua.oficial ✔️",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9-kaua.html",
+        "bbox": {
+          "x": 305.26,
+          "y": 1191.57,
+          "width": 286.31,
+          "height": 80.03
+        },
+        "firstSeen": 46.733,
+        "lastSeen": 46.733,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          46.733
+        ]
+      }
+    ],
+    "duration": 69.32,
+    "samples": [
+      3.851,
+      11.553,
+      19.256,
+      26.958,
+      34.66,
+      42.362,
+      50.064,
+      57.767,
+      65.469
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 6,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      3.851,
+      19.256,
+      34.66,
+      50.064,
+      65.469
+    ],
+    "checked": 40,
+    "passed": 40
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"BIEL: R$ 0,00\" (4 words) is on screen 1.13 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "BIEL: R$ 0,00",
+        "selector": "#s8-biel-in > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-mapa.html",
+        "bbox": {
+          "x": 543.09,
+          "y": 918.76,
+          "width": 328.26,
+          "height": 159.77999999999997
+        },
+        "time": 45.573,
+        "words": 4,
+        "seconds": 1.132,
+        "floorSeconds": 1.275
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 555
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

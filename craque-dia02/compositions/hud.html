@@ -1,0 +1,55 @@
+<template>
+  <style>
+    #root { position:absolute; inset:0; overflow:hidden; background:transparent; }
+    
+  @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/permanent-marker-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Bangers'; src: url('assets/fonts/bangers-latin-400-normal.woff2') format('woff2'); }
+  .full { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .mk { font-family:'Permanent Marker'; color:#1d1a17; line-height:1.1; }
+  .bang { font-family:'Bangers'; letter-spacing:.03em; line-height:1; }
+  .card { position:absolute; background:#fffdf3; border:10px solid #fff; box-shadow:10px 12px 0 rgba(0,0,0,.25); }
+  .strip { display:inline-block; background:#fffdf3; padding:16px 34px; box-shadow:8px 10px 0 rgba(0,0,0,.25);
+    clip-path: polygon(0% 8%, 4% 0%, 9% 6%, 15% 1%, 22% 7%, 30% 0%, 38% 6%, 46% 1%, 55% 7%, 63% 0%, 71% 6%, 79% 1%, 87% 7%, 94% 0%, 100% 6%,
+      99% 92%, 95% 100%, 88% 93%, 80% 99%, 72% 93%, 64% 100%, 56% 94%, 47% 100%, 39% 93%, 31% 99%, 23% 93%, 15% 100%, 8% 94%, 2% 100%); }
+  .onom { position:absolute; font-family:'Bangers'; letter-spacing:.04em; line-height:1; white-space:nowrap;
+    -webkit-text-stroke:10px #fff; paint-order:stroke fill; text-shadow:8px 10px 0 rgba(0,0,0,.3); }
+
+    #root { background: transparent; }
+  </style>
+  <div id="root" data-composition-id="hud" data-width="1080" data-height="1920">
+<div id="hud-box" style="position:absolute;left:70px;top:180px;width:820px;z-index:2">
+      <div id="hud-in" class="card" style="display:flex;align-items:center;gap:18px;padding:8px 18px">
+        <div class="bang" style="font-size:34px;line-height:1;color:#1d1a17;text-align:center">⏳ 28<br>DIAS</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 18px"><div style="display:flex;align-items:center;gap:6px"><div style="font-size:32px">⚽</div><div style="width:96px;height:20px;background:#e9e1cc;border:4px solid #1d1a17;border-radius:10px;overflow:hidden;position:relative"><div style="width:45%;height:100%;background:#4cc9f0"></div><div style="position:absolute;left:70%;top:0;width:4px;height:100%;background:#e63946"></div></div></div><div style="display:flex;align-items:center;gap:6px"><div style="font-size:32px">💪</div><div style="width:96px;height:20px;background:#e9e1cc;border:4px solid #1d1a17;border-radius:10px;overflow:hidden;position:relative"><div style="width:20%;height:100%;background:#ff8fa3"></div><div style="position:absolute;left:70%;top:0;width:4px;height:100%;background:#e63946"></div></div></div><div style="display:flex;align-items:center;gap:6px"><div style="font-size:32px">💰</div><div style="width:96px;height:20px;background:#e9e1cc;border:4px solid #1d1a17;border-radius:10px;overflow:hidden;position:relative"><div style="width:0%;height:100%;background:#ffd23f"></div><div style="position:absolute;left:70%;top:0;width:4px;height:100%;background:#e63946"></div></div></div><div style="display:flex;align-items:center;gap:6px"><div style="font-size:32px">🧠</div><div style="width:96px;height:20px;background:#e9e1cc;border:4px solid #1d1a17;border-radius:10px;overflow:hidden;position:relative"><div style="width:30%;height:100%;background:#b18cff"></div><div style="position:absolute;left:70%;top:0;width:4px;height:100%;background:#e63946"></div></div></div></div></div></div>
+  </div>
+  <script>
+    (function() {
+
+  function hfHash(n) { const s = Math.sin(n * 12.9898) * 43758.5453; return s - Math.floor(s); }
+  // tremidinha de stop motion: muda a cada 1/12 s
+  function hfStop(tl, ids, dur, amp) {
+    const st = { t: 0 }; amp = amp || 1;
+    tl.to(st, { t: dur, duration: dur, ease: 'none', onUpdate: () => {
+      const k = Math.floor(st.t * 12);
+      ids.forEach((id, i) => gsap.set('#' + id, { x: (hfHash(k + i * 7) - .5) * 4 * amp, y: (hfHash(k + i * 7 + 50) - .5) * 4 * amp,
+        rotation: (hfHash(k + i * 7 + 99) - .5) * 1.6 * amp }));
+    } }, 0);
+  }
+  function hfPop(tl, sel, t, rot) {
+    tl.fromTo(sel, { scale: 0, rotation: (rot || 0) - 18 }, { scale: 1, rotation: rot || 0, duration: .3, ease: 'back.out(2.4)' }, t);
+  }
+  function hfSlap(tl, sel, t, rot) {  // figurinha colada: cai de cima, gira e para
+    tl.fromTo(sel, { scale: 1.6, rotation: (rot || 0) + 25, opacity: 0 }, { scale: 1, rotation: rot || 0, opacity: 1, duration: .28, ease: 'steps(4)' }, t);
+  }
+  function hfSet(tl, p, t, show, hide) {
+    hide.forEach(id => tl.set('#' + p + '-' + id, { opacity: 0 }, t));
+    show.forEach(id => tl.set('#' + p + '-' + id, { opacity: 1 }, t));
+  }
+
+      const tl = gsap.timeline({ paused: true });
+tl.fromTo("#hud-in", { y: -260 }, { y: 0, duration: .3, ease: "steps(4)" }, 0);
+      tl.to("#hud-in", { y: -460, duration: .25, ease: "steps(3)" }, 34.33);
+      window.__timelines["hud"] = tl;
+    })();
+  </script>
+</template>

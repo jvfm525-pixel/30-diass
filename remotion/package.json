@@ -1,0 +1,34 @@
+{
+  "name": "remotion-30-diass",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render",
+    "still": "remotion still",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@fontsource/archivo-black": "5.3.0",
+    "@fontsource/cinzel": "5.3.0",
+    "@fontsource/montserrat": "5.3.0",
+    "@fontsource/space-mono": "5.3.0",
+    "@react-three/drei": "9.122.0",
+    "@react-three/fiber": "8.18.0",
+    "@remotion/cli": "4.0.543",
+    "@remotion/three": "4.0.543",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.543",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@types/three": "0.187.0",
+    "typescript": "5.6.3"
+  },
+  "overrides": {
+    "three-mesh-bvh": "0.8.3"
+  }
+}

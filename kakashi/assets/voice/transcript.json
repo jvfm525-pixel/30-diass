@@ -1,0 +1,1442 @@
+[
+  {
+    "text": "O",
+    "start": 0.05,
+    "end": 0.07,
+    "id": "w0"
+  },
+  {
+    "text": "Kakashi",
+    "start": 0.07,
+    "end": 0.56,
+    "id": "w1"
+  },
+  {
+    "text": "usou",
+    "start": 0.56,
+    "end": 0.84,
+    "id": "w2"
+  },
+  {
+    "text": "o",
+    "start": 0.84,
+    "end": 0.91,
+    "id": "w3"
+  },
+  {
+    "text": "Mangueki-O-Sharingan",
+    "start": 0.91,
+    "end": 2.31,
+    "id": "w4"
+  },
+  {
+    "text": "várias",
+    "start": 2.31,
+    "end": 2.72,
+    "id": "w5"
+  },
+  {
+    "text": "vezes,",
+    "start": 2.72,
+    "end": 3.24,
+    "id": "w6"
+  },
+  {
+    "text": "e",
+    "start": 3.24,
+    "end": 3.34,
+    "id": "w7"
+  },
+  {
+    "text": "nunca",
+    "start": 3.34,
+    "end": 3.79,
+    "id": "w8"
+  },
+  {
+    "text": "ficou",
+    "start": 3.79,
+    "end": 4.27,
+    "id": "w9"
+  },
+  {
+    "text": "cego.",
+    "start": 4.27,
+    "end": 4.7,
+    "id": "w10"
+  },
+  {
+    "text": "Mas",
+    "start": 4.7,
+    "end": 4.95,
+    "id": "w11"
+  },
+  {
+    "text": "o",
+    "start": 4.95,
+    "end": 4.99,
+    "id": "w12"
+  },
+  {
+    "text": "Itachi",
+    "start": 5.04,
+    "end": 5.49,
+    "id": "w13"
+  },
+  {
+    "text": "e",
+    "start": 5.49,
+    "end": 5.57,
+    "id": "w14"
+  },
+  {
+    "text": "o",
+    "start": 5.57,
+    "end": 5.63,
+    "id": "w15"
+  },
+  {
+    "text": "Sasuke",
+    "start": 5.66,
+    "end": 6.06,
+    "id": "w16"
+  },
+  {
+    "text": "quase",
+    "start": 6.12,
+    "end": 6.51,
+    "id": "w17"
+  },
+  {
+    "text": "perderam",
+    "start": 6.51,
+    "end": 7.11,
+    "id": "w18"
+  },
+  {
+    "text": "a",
+    "start": 7.13,
+    "end": 7.21,
+    "id": "w19"
+  },
+  {
+    "text": "visão.",
+    "start": 7.21,
+    "end": 7.85,
+    "id": "w20"
+  },
+  {
+    "text": "Por",
+    "start": 8.15,
+    "end": 8.19,
+    "id": "w21"
+  },
+  {
+    "text": "quê?",
+    "start": 8.24,
+    "end": 8.8,
+    "id": "w22"
+  },
+  {
+    "text": "Fica",
+    "start": 9.1,
+    "end": 9.13,
+    "id": "w23"
+  },
+  {
+    "text": "até",
+    "start": 9.15,
+    "end": 9.34,
+    "id": "w24"
+  },
+  {
+    "text": "o",
+    "start": 9.41,
+    "end": 9.47,
+    "id": "w25"
+  },
+  {
+    "text": "final,",
+    "start": 9.47,
+    "end": 10.1,
+    "id": "w26"
+  },
+  {
+    "text": "porque",
+    "start": 10.1,
+    "end": 10.46,
+    "id": "w27"
+  },
+  {
+    "text": "a",
+    "start": 10.46,
+    "end": 10.52,
+    "id": "w28"
+  },
+  {
+    "text": "resposta",
+    "start": 10.52,
+    "end": 10.99,
+    "id": "w29"
+  },
+  {
+    "text": "tem",
+    "start": 11,
+    "end": 11.18,
+    "id": "w30"
+  },
+  {
+    "text": "um",
+    "start": 11.18,
+    "end": 11.3,
+    "id": "w31"
+  },
+  {
+    "text": "detalhe",
+    "start": 11.3,
+    "end": 11.72,
+    "id": "w32"
+  },
+  {
+    "text": "triste.",
+    "start": 11.72,
+    "end": 12.21,
+    "id": "w33"
+  },
+  {
+    "text": "Primeiro,",
+    "start": 12.55,
+    "end": 13.13,
+    "id": "w34"
+  },
+  {
+    "text": "a",
+    "start": 13.13,
+    "end": 13.21,
+    "id": "w35"
+  },
+  {
+    "text": "regra.",
+    "start": 13.21,
+    "end": 13.9,
+    "id": "w36"
+  },
+  {
+    "text": "O",
+    "start": 13.9,
+    "end": 14.15,
+    "id": "w37"
+  },
+  {
+    "text": "Mangueki-O",
+    "start": 14.15,
+    "end": 14.71,
+    "id": "w38"
+  },
+  {
+    "text": "é",
+    "start": 14.72,
+    "end": 14.79,
+    "id": "w39"
+  },
+  {
+    "text": "o",
+    "start": 14.79,
+    "end": 14.83,
+    "id": "w40"
+  },
+  {
+    "text": "Sharingan",
+    "start": 14.86,
+    "end": 15.55,
+    "id": "w41"
+  },
+  {
+    "text": "mais",
+    "start": 15.55,
+    "end": 15.86,
+    "id": "w42"
+  },
+  {
+    "text": "forte,",
+    "start": 15.86,
+    "end": 16.5,
+    "id": "w43"
+  },
+  {
+    "text": "mas",
+    "start": 16.5,
+    "end": 16.71,
+    "id": "w44"
+  },
+  {
+    "text": "cobra",
+    "start": 16.71,
+    "end": 17.04,
+    "id": "w45"
+  },
+  {
+    "text": "um",
+    "start": 17.04,
+    "end": 17.1,
+    "id": "w46"
+  },
+  {
+    "text": "preço.",
+    "start": 17.44,
+    "end": 17.79,
+    "id": "w47"
+  },
+  {
+    "text": "Quanto",
+    "start": 17.95,
+    "end": 18.25,
+    "id": "w48"
+  },
+  {
+    "text": "mais",
+    "start": 18.25,
+    "end": 18.56,
+    "id": "w49"
+  },
+  {
+    "text": "você",
+    "start": 18.56,
+    "end": 18.87,
+    "id": "w50"
+  },
+  {
+    "text": "usa,",
+    "start": 18.87,
+    "end": 19.25,
+    "id": "w51"
+  },
+  {
+    "text": "mais",
+    "start": 19.25,
+    "end": 19.56,
+    "id": "w52"
+  },
+  {
+    "text": "a",
+    "start": 19.56,
+    "end": 19.63,
+    "id": "w53"
+  },
+  {
+    "text": "visão",
+    "start": 19.63,
+    "end": 20.01,
+    "id": "w54"
+  },
+  {
+    "text": "escurece.",
+    "start": 20.01,
+    "end": 20.85,
+    "id": "w55"
+  },
+  {
+    "text": "O",
+    "start": 20.85,
+    "end": 21.05,
+    "id": "w56"
+  },
+  {
+    "text": "Itachi",
+    "start": 21.05,
+    "end": 21.53,
+    "id": "w57"
+  },
+  {
+    "text": "foi",
+    "start": 21.53,
+    "end": 21.8,
+    "id": "w58"
+  },
+  {
+    "text": "ficando",
+    "start": 21.8,
+    "end": 22.43,
+    "id": "w59"
+  },
+  {
+    "text": "cego,",
+    "start": 22.43,
+    "end": 22.8,
+    "id": "w60"
+  },
+  {
+    "text": "e",
+    "start": 22.8,
+    "end": 22.875,
+    "id": "w61"
+  },
+  {
+    "text": "o",
+    "start": 22.875,
+    "end": 22.95,
+    "id": "w62"
+  },
+  {
+    "text": "Sasuke",
+    "start": 22.95,
+    "end": 23.3,
+    "id": "w63"
+  },
+  {
+    "text": "só",
+    "start": 23.3,
+    "end": 23.43,
+    "id": "w64"
+  },
+  {
+    "text": "escapou",
+    "start": 23.43,
+    "end": 23.88,
+    "id": "w65"
+  },
+  {
+    "text": "porque",
+    "start": 23.88,
+    "end": 24.27,
+    "id": "w66"
+  },
+  {
+    "text": "recebeu",
+    "start": 24.27,
+    "end": 24.72,
+    "id": "w67"
+  },
+  {
+    "text": "os",
+    "start": 24.72,
+    "end": 24.85,
+    "id": "w68"
+  },
+  {
+    "text": "olhos",
+    "start": 24.85,
+    "end": 25.17,
+    "id": "w69"
+  },
+  {
+    "text": "do",
+    "start": 25.17,
+    "end": 25.3,
+    "id": "w70"
+  },
+  {
+    "text": "irmão.",
+    "start": 25.3,
+    "end": 25.85,
+    "id": "w71"
+  },
+  {
+    "text": "Eo",
+    "start": 25.85,
+    "end": 26.15,
+    "id": "w72"
+  },
+  {
+    "text": "olho",
+    "start": 26.15,
+    "end": 26.34,
+    "id": "w73"
+  },
+  {
+    "text": "do",
+    "start": 26.41,
+    "end": 26.57,
+    "id": "w74"
+  },
+  {
+    "text": "Kakashi",
+    "start": 26.57,
+    "end": 27.16,
+    "id": "w75"
+  },
+  {
+    "text": "nem",
+    "start": 27.16,
+    "end": 27.41,
+    "id": "w76"
+  },
+  {
+    "text": "era",
+    "start": 27.41,
+    "end": 27.66,
+    "id": "w77"
+  },
+  {
+    "text": "dele.",
+    "start": 27.66,
+    "end": 28.3,
+    "id": "w78"
+  },
+  {
+    "text": "Foi",
+    "start": 28.45,
+    "end": 28.6,
+    "id": "w79"
+  },
+  {
+    "text": "um",
+    "start": 28.6,
+    "end": 28.72,
+    "id": "w80"
+  },
+  {
+    "text": "presente",
+    "start": 28.75,
+    "end": 29.27,
+    "id": "w81"
+  },
+  {
+    "text": "do",
+    "start": 29.27,
+    "end": 29.4,
+    "id": "w82"
+  },
+  {
+    "text": "Obito,",
+    "start": 29.4,
+    "end": 29.9,
+    "id": "w83"
+  },
+  {
+    "text": "o",
+    "start": 29.9,
+    "end": 29.96,
+    "id": "w84"
+  },
+  {
+    "text": "amigo",
+    "start": 29.96,
+    "end": 30.26,
+    "id": "w85"
+  },
+  {
+    "text": "que",
+    "start": 30.27,
+    "end": 30.46,
+    "id": "w86"
+  },
+  {
+    "text": "se",
+    "start": 30.46,
+    "end": 30.58,
+    "id": "w87"
+  },
+  {
+    "text": "sacrificou",
+    "start": 30.58,
+    "end": 31.21,
+    "id": "w88"
+  },
+  {
+    "text": "pra",
+    "start": 31.21,
+    "end": 31.35,
+    "id": "w89"
+  },
+  {
+    "text": "salvar",
+    "start": 31.74,
+    "end": 31.78,
+    "id": "w90"
+  },
+  {
+    "text": "ele.",
+    "start": 31.78,
+    "end": 32.19,
+    "id": "w91"
+  },
+  {
+    "text": "Como",
+    "start": 32.35,
+    "end": 32.5,
+    "id": "w92"
+  },
+  {
+    "text": "o",
+    "start": 32.5,
+    "end": 32.54,
+    "id": "w93"
+  },
+  {
+    "text": "Kakashi",
+    "start": 32.61,
+    "end": 33.1,
+    "id": "w94"
+  },
+  {
+    "text": "não",
+    "start": 33.1,
+    "end": 33.33,
+    "id": "w95"
+  },
+  {
+    "text": "é",
+    "start": 33.33,
+    "end": 33.4,
+    "id": "w96"
+  },
+  {
+    "text": "um",
+    "start": 33.4,
+    "end": 33.55,
+    "id": "w97"
+  },
+  {
+    "text": "utirra,",
+    "start": 33.55,
+    "end": 34.19,
+    "id": "w98"
+  },
+  {
+    "text": "o",
+    "start": 34.2,
+    "end": 34.28,
+    "id": "w99"
+  },
+  {
+    "text": "olho",
+    "start": 34.33,
+    "end": 34.59,
+    "id": "w100"
+  },
+  {
+    "text": "não",
+    "start": 34.59,
+    "end": 34.83,
+    "id": "w101"
+  },
+  {
+    "text": "desliga",
+    "start": 34.83,
+    "end": 35.25,
+    "id": "w102"
+  },
+  {
+    "text": "e",
+    "start": 35.25,
+    "end": 35.55,
+    "id": "w103"
+  },
+  {
+    "text": "fica",
+    "start": 35.55,
+    "end": 35.73,
+    "id": "w104"
+  },
+  {
+    "text": "sugando",
+    "start": 35.73,
+    "end": 36.2,
+    "id": "w105"
+  },
+  {
+    "text": "o",
+    "start": 36.2,
+    "end": 36.23,
+    "id": "w106"
+  },
+  {
+    "text": "chakra",
+    "start": 36.26,
+    "end": 36.66,
+    "id": "w107"
+  },
+  {
+    "text": "o",
+    "start": 36.72,
+    "end": 36.73,
+    "id": "w108"
+  },
+  {
+    "text": "tempo",
+    "start": 36.73,
+    "end": 37.07,
+    "id": "w109"
+  },
+  {
+    "text": "todo.",
+    "start": 37.07,
+    "end": 37.6,
+    "id": "w110"
+  },
+  {
+    "text": "Por",
+    "start": 37.75,
+    "end": 37.79,
+    "id": "w111"
+  },
+  {
+    "text": "isso,",
+    "start": 37.84,
+    "end": 38.16,
+    "id": "w112"
+  },
+  {
+    "text": "ele",
+    "start": 38.16,
+    "end": 38.35,
+    "id": "w113"
+  },
+  {
+    "text": "vivia",
+    "start": 38.35,
+    "end": 38.66,
+    "id": "w114"
+  },
+  {
+    "text": "com",
+    "start": 38.66,
+    "end": 38.85,
+    "id": "w115"
+  },
+  {
+    "text": "o",
+    "start": 38.85,
+    "end": 38.86,
+    "id": "w116"
+  },
+  {
+    "text": "olho",
+    "start": 38.92,
+    "end": 39.16,
+    "id": "w117"
+  },
+  {
+    "text": "tapado.",
+    "start": 39.16,
+    "end": 39.8,
+    "id": "w118"
+  },
+  {
+    "text": "Rapidinho,",
+    "start": 39.95,
+    "end": 40.6,
+    "id": "w119"
+  },
+  {
+    "text": "tem",
+    "start": 40.6,
+    "end": 40.8,
+    "id": "w120"
+  },
+  {
+    "text": "quis",
+    "start": 40.8,
+    "end": 41.06,
+    "id": "w121"
+  },
+  {
+    "text": "aleatórias",
+    "start": 41.06,
+    "end": 41.71,
+    "id": "w122"
+  },
+  {
+    "text": "da",
+    "start": 41.71,
+    "end": 41.84,
+    "id": "w123"
+  },
+  {
+    "text": "Steam",
+    "start": 41.84,
+    "end": 42.2,
+    "id": "w124"
+  },
+  {
+    "text": "bem",
+    "start": 42.2,
+    "end": 42.41,
+    "id": "w125"
+  },
+  {
+    "text": "baratas",
+    "start": 42.41,
+    "end": 42.85,
+    "id": "w126"
+  },
+  {
+    "text": "no",
+    "start": 42.89,
+    "end": 42.91,
+    "id": "w127"
+  },
+  {
+    "text": "link",
+    "start": 42.91,
+    "end": 43.24,
+    "id": "w128"
+  },
+  {
+    "text": "da",
+    "start": 43.24,
+    "end": 43.35,
+    "id": "w129"
+  },
+  {
+    "text": "minha",
+    "start": 43.35,
+    "end": 43.62,
+    "id": "w130"
+  },
+  {
+    "text": "bio.",
+    "start": 43.62,
+    "end": 44,
+    "id": "w131"
+  },
+  {
+    "text": "Agora,",
+    "start": 44.15,
+    "end": 44.61,
+    "id": "w132"
+  },
+  {
+    "text": "a",
+    "start": 44.61,
+    "end": 44.7,
+    "id": "w133"
+  },
+  {
+    "text": "resposta.",
+    "start": 44.7,
+    "end": 45.7,
+    "id": "w134"
+  },
+  {
+    "text": "A",
+    "start": 45.7,
+    "end": 45.85,
+    "id": "w135"
+  },
+  {
+    "text": "explicação",
+    "start": 45.85,
+    "end": 46.54,
+    "id": "w136"
+  },
+  {
+    "text": "mais",
+    "start": 46.56,
+    "end": 46.85,
+    "id": "w137"
+  },
+  {
+    "text": "aceita",
+    "start": 46.85,
+    "end": 47.31,
+    "id": "w138"
+  },
+  {
+    "text": "tem",
+    "start": 47.31,
+    "end": 47.54,
+    "id": "w139"
+  },
+  {
+    "text": "três",
+    "start": 47.54,
+    "end": 47.85,
+    "id": "w140"
+  },
+  {
+    "text": "partes.",
+    "start": 47.85,
+    "end": 48.6,
+    "id": "w141"
+  },
+  {
+    "text": "Primeiro,",
+    "start": 48.75,
+    "end": 49.37,
+    "id": "w142"
+  },
+  {
+    "text": "ele",
+    "start": 49.37,
+    "end": 49.6,
+    "id": "w143"
+  },
+  {
+    "text": "quase",
+    "start": 49.6,
+    "end": 49.92,
+    "id": "w144"
+  },
+  {
+    "text": "não",
+    "start": 49.99,
+    "end": 50.22,
+    "id": "w145"
+  },
+  {
+    "text": "usava.",
+    "start": 50.22,
+    "end": 50.9,
+    "id": "w146"
+  },
+  {
+    "text": "O",
+    "start": 50.9,
+    "end": 51.05,
+    "id": "w147"
+  },
+  {
+    "text": "Kamui",
+    "start": 51.05,
+    "end": 51.35,
+    "id": "w148"
+  },
+  {
+    "text": "gastava",
+    "start": 51.35,
+    "end": 51.89,
+    "id": "w149"
+  },
+  {
+    "text": "tanto",
+    "start": 51.89,
+    "end": 52.22,
+    "id": "w150"
+  },
+  {
+    "text": "chakra",
+    "start": 52.28,
+    "end": 52.8,
+    "id": "w151"
+  },
+  {
+    "text": "que",
+    "start": 52.8,
+    "end": 52.96,
+    "id": "w152"
+  },
+  {
+    "text": "depois",
+    "start": 52.96,
+    "end": 53.29,
+    "id": "w153"
+  },
+  {
+    "text": "de",
+    "start": 53.29,
+    "end": 53.4,
+    "id": "w154"
+  },
+  {
+    "text": "uma",
+    "start": 53.4,
+    "end": 53.56,
+    "id": "w155"
+  },
+  {
+    "text": "luta,",
+    "start": 53.56,
+    "end": 53.8,
+    "id": "w156"
+  },
+  {
+    "text": "ele",
+    "start": 53.95,
+    "end": 53.99,
+    "id": "w157"
+  },
+  {
+    "text": "desmaiou",
+    "start": 54.04,
+    "end": 54.51,
+    "id": "w158"
+  },
+  {
+    "text": "e",
+    "start": 54.52,
+    "end": 54.58,
+    "id": "w159"
+  },
+  {
+    "text": "teve",
+    "start": 54.58,
+    "end": 54.85,
+    "id": "w160"
+  },
+  {
+    "text": "que",
+    "start": 54.85,
+    "end": 55.05,
+    "id": "w161"
+  },
+  {
+    "text": "ser",
+    "start": 55.05,
+    "end": 55.25,
+    "id": "w162"
+  },
+  {
+    "text": "carregado",
+    "start": 55.25,
+    "end": 55.85,
+    "id": "w163"
+  },
+  {
+    "text": "de",
+    "start": 55.85,
+    "end": 55.98,
+    "id": "w164"
+  },
+  {
+    "text": "volta.",
+    "start": 55.98,
+    "end": 56.57,
+    "id": "w165"
+  },
+  {
+    "text": "Segundo,",
+    "start": 56.75,
+    "end": 57.48,
+    "id": "w166"
+  },
+  {
+    "text": "cada",
+    "start": 57.48,
+    "end": 57.83,
+    "id": "w167"
+  },
+  {
+    "text": "uso",
+    "start": 57.83,
+    "end": 58.09,
+    "id": "w168"
+  },
+  {
+    "text": "durava",
+    "start": 58.09,
+    "end": 58.61,
+    "id": "w169"
+  },
+  {
+    "text": "segundos.",
+    "start": 58.61,
+    "end": 59.6,
+    "id": "w170"
+  },
+  {
+    "text": "O",
+    "start": 59.6,
+    "end": 59.75,
+    "id": "w171"
+  },
+  {
+    "text": "Sasuke",
+    "start": 59.75,
+    "end": 60.02,
+    "id": "w172"
+  },
+  {
+    "text": "lutava",
+    "start": 60.04,
+    "end": 60.42,
+    "id": "w173"
+  },
+  {
+    "text": "inteiro",
+    "start": 60.42,
+    "end": 60.86,
+    "id": "w174"
+  },
+  {
+    "text": "com",
+    "start": 60.86,
+    "end": 61.05,
+    "id": "w175"
+  },
+  {
+    "text": "o",
+    "start": 61.05,
+    "end": 61.11,
+    "id": "w176"
+  },
+  {
+    "text": "manguequio",
+    "start": 61.11,
+    "end": 61.72,
+    "id": "w177"
+  },
+  {
+    "text": "ativado.",
+    "start": 61.73,
+    "end": 62.39,
+    "id": "w178"
+  },
+  {
+    "text": "O",
+    "start": 62.39,
+    "end": 62.55,
+    "id": "w179"
+  },
+  {
+    "text": "Kakashi",
+    "start": 62.55,
+    "end": 63.06,
+    "id": "w180"
+  },
+  {
+    "text": "abriu",
+    "start": 63.06,
+    "end": 63.47,
+    "id": "w181"
+  },
+  {
+    "text": "o",
+    "start": 63.47,
+    "end": 63.55,
+    "id": "w182"
+  },
+  {
+    "text": "portal",
+    "start": 63.55,
+    "end": 64.1,
+    "id": "w183"
+  },
+  {
+    "text": "e",
+    "start": 64.1,
+    "end": 64.17,
+    "id": "w184"
+  },
+  {
+    "text": "fechava",
+    "start": 64.17,
+    "end": 64.68,
+    "id": "w185"
+  },
+  {
+    "text": "o",
+    "start": 64.68,
+    "end": 64.75,
+    "id": "w186"
+  },
+  {
+    "text": "olho.",
+    "start": 64.75,
+    "end": 65.3,
+    "id": "w187"
+  },
+  {
+    "text": "Eterceiro,",
+    "start": 65.4,
+    "end": 66.2,
+    "id": "w188"
+  },
+  {
+    "text": "o",
+    "start": 66.2,
+    "end": 66.28,
+    "id": "w189"
+  },
+  {
+    "text": "tempo",
+    "start": 66.28,
+    "end": 66.66,
+    "id": "w190"
+  },
+  {
+    "text": "acabou",
+    "start": 66.69,
+    "end": 67.19,
+    "id": "w191"
+  },
+  {
+    "text": "antes.",
+    "start": 67.19,
+    "end": 67.9,
+    "id": "w192"
+  },
+  {
+    "text": "No",
+    "start": 67.9,
+    "end": 68.05,
+    "id": "w193"
+  },
+  {
+    "text": "fim",
+    "start": 68.05,
+    "end": 68.24,
+    "id": "w194"
+  },
+  {
+    "text": "da",
+    "start": 68.31,
+    "end": 68.39,
+    "id": "w195"
+  },
+  {
+    "text": "guerra,",
+    "start": 68.39,
+    "end": 68.95,
+    "id": "w196"
+  },
+  {
+    "text": "ele",
+    "start": 68.95,
+    "end": 69.16,
+    "id": "w197"
+  },
+  {
+    "text": "perdeu",
+    "start": 69.16,
+    "end": 69.58,
+    "id": "w198"
+  },
+  {
+    "text": "o",
+    "start": 69.58,
+    "end": 69.65,
+    "id": "w199"
+  },
+  {
+    "text": "Sharingan,",
+    "start": 69.65,
+    "end": 70.3,
+    "id": "w200"
+  },
+  {
+    "text": "e",
+    "start": 70.3,
+    "end": 70.45,
+    "id": "w201"
+  },
+  {
+    "text": "hoje",
+    "start": 70.45,
+    "end": 70.64,
+    "id": "w202"
+  },
+  {
+    "text": "tem",
+    "start": 70.71,
+    "end": 70.89,
+    "id": "w203"
+  },
+  {
+    "text": "os",
+    "start": 70.89,
+    "end": 71.04,
+    "id": "w204"
+  },
+  {
+    "text": "dois",
+    "start": 71.04,
+    "end": 71.34,
+    "id": "w205"
+  },
+  {
+    "text": "olhos",
+    "start": 71.34,
+    "end": 71.71,
+    "id": "w206"
+  },
+  {
+    "text": "normais.",
+    "start": 71.71,
+    "end": 72.5,
+    "id": "w207"
+  },
+  {
+    "text": "Ou",
+    "start": 72.65,
+    "end": 72.67,
+    "id": "w208"
+  },
+  {
+    "text": "seja,",
+    "start": 72.67,
+    "end": 73.18,
+    "id": "w209"
+  },
+  {
+    "text": "ele",
+    "start": 73.18,
+    "end": 73.43,
+    "id": "w210"
+  },
+  {
+    "text": "nunca",
+    "start": 73.43,
+    "end": 73.82,
+    "id": "w211"
+  },
+  {
+    "text": "teve",
+    "start": 73.84,
+    "end": 74.19,
+    "id": "w212"
+  },
+  {
+    "text": "chakra",
+    "start": 74.19,
+    "end": 74.7,
+    "id": "w213"
+  },
+  {
+    "text": "nem",
+    "start": 74.7,
+    "end": 74.94,
+    "id": "w214"
+  },
+  {
+    "text": "tempo",
+    "start": 74.94,
+    "end": 75.32,
+    "id": "w215"
+  },
+  {
+    "text": "pra",
+    "start": 75.32,
+    "end": 75.55,
+    "id": "w216"
+  },
+  {
+    "text": "ficar",
+    "start": 75.94,
+    "end": 76.04,
+    "id": "w217"
+  },
+  {
+    "text": "cego.",
+    "start": 76.04,
+    "end": 76.69,
+    "id": "w218"
+  },
+  {
+    "text": "O",
+    "start": 76.69,
+    "end": 76.85,
+    "id": "w219"
+  },
+  {
+    "text": "olho",
+    "start": 76.85,
+    "end": 77.04,
+    "id": "w220"
+  },
+  {
+    "text": "do",
+    "start": 77.11,
+    "end": 77.23,
+    "id": "w221"
+  },
+  {
+    "text": "amigo",
+    "start": 77.23,
+    "end": 77.62,
+    "id": "w222"
+  },
+  {
+    "text": "durou",
+    "start": 77.62,
+    "end": 77.96,
+    "id": "w223"
+  },
+  {
+    "text": "exatamente",
+    "start": 78.02,
+    "end": 78.78,
+    "id": "w224"
+  },
+  {
+    "text": "até",
+    "start": 78.83,
+    "end": 79.01,
+    "id": "w225"
+  },
+  {
+    "text": "onde",
+    "start": 79.01,
+    "end": 79.32,
+    "id": "w226"
+  },
+  {
+    "text": "precisava.",
+    "start": 79.32,
+    "end": 80.3,
+    "id": "w227"
+  },
+  {
+    "text": "Epra",
+    "start": 80.4,
+    "end": 80.64,
+    "id": "w228"
+  },
+  {
+    "text": "você,",
+    "start": 80.71,
+    "end": 81.2,
+    "id": "w229"
+  },
+  {
+    "text": "qual",
+    "start": 81.2,
+    "end": 81.47,
+    "id": "w230"
+  },
+  {
+    "text": "foi",
+    "start": 81.47,
+    "end": 81.67,
+    "id": "w231"
+  },
+  {
+    "text": "o",
+    "start": 81.69,
+    "end": 81.76,
+    "id": "w232"
+  },
+  {
+    "text": "momento",
+    "start": 81.76,
+    "end": 82.25,
+    "id": "w233"
+  },
+  {
+    "text": "mais",
+    "start": 82.25,
+    "end": 82.53,
+    "id": "w234"
+  },
+  {
+    "text": "triste",
+    "start": 82.53,
+    "end": 82.95,
+    "id": "w235"
+  },
+  {
+    "text": "do",
+    "start": 82.95,
+    "end": 83.09,
+    "id": "w236"
+  },
+  {
+    "text": "Kakashi?",
+    "start": 83.09,
+    "end": 83.8,
+    "id": "w237"
+  },
+  {
+    "text": "Comenta",
+    "start": 83.95,
+    "end": 84.29,
+    "id": "w238"
+  },
+  {
+    "text": "aqui.",
+    "start": 84.29,
+    "end": 84.8,
+    "id": "w239"
+  }
+]
