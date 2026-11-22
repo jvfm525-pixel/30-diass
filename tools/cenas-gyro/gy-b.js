@@ -196,7 +196,7 @@ addSet("g9d-vingar", (g) => {
   const __n = "g9d-vingar"; const [a, b] = T.sc[__n];
   const V = vilaNGL(g, { noite: true, destruida: true }); const gy = gyroLP(); g.add(gy); const sp = sombraPe(g, gy, 1.2);
   return { ...LUZ_FORMIGAS, hand: 0.004,
-    update(t) { V.upd(t, 0); restPose(gy); gait(gy, 1.6 * seg(t, a, b), { from: [0, 0, -0.5], ang: 0, step: 0.55 }); olhosK(gy, 1); sp(0); flash(t, K.vingar + 0.2, 0.05, 0.4, [0.22, 0.25, 0.34]); },
+    update(t) { V.upd(t, 0); restPose(gy); gait(gy, 1.6 * seg(t, a, b), { from: [0, 0, -0.5], ang: 0, step: 0.55 }); olhosK(gy, 1); sp(0); flash(t, K.vingar + 0.2, 0.05, 0.4, [0.55, 0.6, 0.8]); GU.uFlash.value *= 0.35; },
     cam(t) { { const d = dbgCam(__n); if (d) return d; } const [a2] = T.sc[__n]; return { ...closeRosto(gy, lerp(1.4, 0.8, E.inOut(seg(t, a2, b))), 0.1, -0.04, 32) }; },
   };
 });
