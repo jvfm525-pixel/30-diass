@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #06060c; }
+      #root { width: 100%; height: 100%; position: relative; }
+    </style>
+  </head>
+  <body>
+    <!-- Quem é Gyro? — 3D (Three.js + Remotion) + texto e áudio (HyperFrames). Gerado por tools/build_gyro.py -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="106.59" data-width="1080" data-height="1920">
+      <video id="c3d" class="clip" src="assets/3d.mp4" data-start="0" data-duration="106.59" muted playsinline data-track-index="0" style="position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover"></video>
+      <div id="texto" data-composition-id="texto" data-composition-src="compositions/texto.html" data-start="0" data-duration="106.59"
+        data-track-index="1" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:10"></div>
+            <audio id="voz" class="clip" src="assets/voice/narracao-gyro.wav" data-start="0.7" data-duration="1.00" data-volume="1" data-track-index="4"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
