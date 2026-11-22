@@ -3552,7 +3552,7 @@ addSet("g8-formigas", (g) => {
         [K.devorado - 1.2, mov([2.2, 0.5, 2.2], [1.6, 0.45, 1.6], [0, 1.4, -1], [0, 1.5, -1], 46, 40)],
         [K.renasceu - 0.4, mov([1.4, 1.2, 2.2], [1.1, 1.3, 1.7], [0, 0.9, -1], [0, 1.4, -1], 44, 40)],
         [K.memorias - 0.3, (tt, u) => ({ ...closeRosto(ga, lerp(1.4, 1.1, E.inOut(u)), 0.4, 0, 34) })],
-        [K.recusou - 0.3, mov([-1.4, 0.6, 2.4], [-1.2, 0.7, 2.0], [0, 1.6, -1], [0, 9, -36], 44, 40)],
+        [K.recusou - 0.3, mov([0.2, 0.8, 2.4], [0.15, 0.75, 2.0], [0, 9, -38], [0, 8.5, -38], 54, 50)], // baixo, atrás/na frente da formiga: ela vira de costas para o Rei no alto do ninho
         [K.embora - 0.3, mov([0, 2.4, -6], [0, 2.8, -7], [0, 1.0, 0], [0, 0.9, 3], 44, 44)],
       ], b); },
   };
@@ -3608,7 +3608,7 @@ addSet("g9d-vingar", (g) => {
   const __n = "g9d-vingar"; const [a, b] = T.sc[__n];
   const V = vilaNGL(g, { noite: true, destruida: true }); const gy = gyroLP(); g.add(gy); const sp = sombraPe(g, gy, 1.2);
   return { ...LUZ_FORMIGAS, hand: 0.004,
-    update(t) { V.upd(t, 0); restPose(gy); gait(gy, 1.6 * seg(t, a, b), { from: [0, 0, -0.5], ang: 0, step: 0.55 }); olhosK(gy, 1); sp(0); flash(t, K.vingar + 0.2, 0.05, 0.4, [0.4, 0.45, 0.6]); },
+    update(t) { V.upd(t, 0); restPose(gy); gait(gy, 1.6 * seg(t, a, b), { from: [0, 0, -0.5], ang: 0, step: 0.55 }); olhosK(gy, 1); sp(0); flash(t, K.vingar + 0.2, 0.05, 0.4, [0.22, 0.25, 0.34]); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; } const [a2] = T.sc[__n]; return { ...closeRosto(gy, lerp(1.4, 0.8, E.inOut(seg(t, a2, b))), 0.1, -0.04, 32) }; },
   };
 });
