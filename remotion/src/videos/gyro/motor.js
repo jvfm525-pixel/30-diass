@@ -3468,7 +3468,7 @@ addSet("g7b-lab", (g) => {
     update(t) { L.upd(t); floatDust(sobe, t, 0.2, 0.6); sobe.position.y = ((t * 0.8) % 1.0) * 0.6;
       W.forEach(({ p, i }) => { restPose(p); idle(p, t, 680 + i, 0.3); standFeet(p); pose(p, { spine: [0.3, 0, 0], neck: [0.3, 0, 0] }, 1); const c = Math.sin(t * 3 + i * 2); maoEm(p, 0, frenteW(p, 0.1, 0.95 + 0.04 * c, 0.42), 1, { abre: 0.4 }); maoEm(p, 1, frenteW(p, -0.15, 0.95 - 0.04 * c, 0.4), 1, { abre: 0.4 }); });
       restPose(gy); gy.position.set(-0.2, 0, 0.6); gy.rotation.y = Math.PI - 0.2; idle(gy, t, 801, 0.2); standFeet(gy); olhosK(gy, 0.8);
-      const f = smr(t, K.espalhava - 0.3, K.fachada - 0.4); cx.position.set(lerp(0.8, 2.5, f), lerp(0, 2.2, smr(t, K.espalhava + 0.3, K.fachada - 0.3)), lerp(-1.0, 2.6, f)); cx.rotation.y = 0.3;
+      const f = smr(t, K.espalhava - 0.3, b - 0.2); cx.position.set(lerp(0.8, 2.5, f), lerp(0, 2.2, smr(t, K.espalhava + 0.3, b)), lerp(-1.0, 2.6, f)); cx.rotation.y = 0.3;
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [

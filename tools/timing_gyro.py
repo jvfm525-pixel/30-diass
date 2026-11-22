@@ -20,7 +20,7 @@ OUT = os.path.join(ROOT, "gyro/assets/timing.js")
 FIX = {"enao": "e nao", "porque": "por que", "para": "pra", "gendin": "genshin", "genchin": "genshin", "jojo": "gojo", "goujo": "gojo", "sugoru": "suguru", "getto": "geto", "sugurugetu": "suguru geto", "sugurugeto": "suguru geto", "eas": "e as", "eo": "e o", "maldicoada": "amaldicoada", "131": "cento e trinta e um", "satela": "satella", "equidna": "echidna", "subaro": "subaru", "emilha": "emilia", "giro": "gyro", "jairo": "gyro", "dedois": "d2", "deedois": "d2", "welfim": "welfin", "gom": "gon", "engel": "ngl", "enegel": "ngl", "neguel": "ngl", "emesmo": "e mesmo", "jairu": "gyro", "jiro": "gyro", "12": "doze", "zumbou": "zombou", "echegou": "e chegou", "ese": "e se", "elfin": "welfin", "equal": "e aqui"}
 DADOS = os.path.join(ROOT, "remotion/src/videos/gyro/dados.json")
 # cortes do 3D que não coincidem com os parágrafos: (nome, parágrafo, chave, deslocamento)
-CORTES = [("g2b-medo", "g2-obra", "medo", -0.3), ("g7b-lab", "g7-ngl", "baixo", 0.45), ("g7c-fachada", "g7-ngl", "fachada", -0.3), ("g9c-amar", "g9b-gyro", "amar", -0.25), ("g9d-vingar", "g9b-gyro", "vingar", -0.25)]
+CORTES = [("g2b-medo", "g2-obra", "medo", -0.3), ("g7b-lab", "g7-ngl", "baixo", 0.45), ("g7c-fachada", "g7-ngl", "fachada", -1.2), ("g9c-amar", "g9b-gyro", "amar", -0.25), ("g9d-vingar", "g9b-gyro", "vingar", -0.25)]
 SEM_3D = set()  # parágrafo sem cenário próprio (o s3b-prisao continua por cima dele)
 
 
