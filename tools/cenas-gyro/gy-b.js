@@ -95,6 +95,7 @@ addSet("g7c-fachada", (g) => {
 });
 
 // ---------------------------------------------------------------- 8 · as formigas: NGL em chamas, o ninho; o Gyro cercado; renasce do casulo; memórias; dá as costas ao Rei e vai embora
+const _cabG = new THREE.Vector3();
 addSet("g8-formigas", (g) => {
   const __n = "g8-formigas"; const [a, b] = T.sc[__n];
   const N = ninhoFormigas(g);
@@ -103,8 +104,16 @@ addSet("g8-formigas", (g) => {
   const rei = formigaSombra({ seed: 645, scale: 2.2, olho: 0xffe080 }); g.add(rei); rei.position.set(0, 25.6, -38); rei.rotation.y = 0;
   const cas = grp(g, 0, 0, -1); const cm = LPmat(0x2a2420, { rim: 0.8 }), luzC = new THREE.MeshBasicMaterial({ color: 0xcfe0ff });
   const met = [0, 1].map((k) => { const h = mesh(new THREE.SphereGeometry(0.5, 14, 10, 0, Math.PI), cm, 0, 0.9, 0, cas); h.scale.set(1, 1.9, 1); h.rotation.y = k * Math.PI; return h; });
-  const fenda = mesh(box(0.02, 1.6, 1.02), luzC, 0, 0.9, 0, cas); const brC = glowSprite(0xcfe0ff, 2.5, 0); brC.position.y = 1; cas.add(brC);
-  const mem = Array.from({ length: 6 }, (_, i) => { const m = mesh(new THREE.PlaneGeometry(0.5, 0.36), new THREE.MeshBasicMaterial({ color: [0xffa060, 0xd8783a, 0xffc080][i % 3], transparent: true, opacity: 0, side: THREE.DoubleSide, blending: ADD, depthWrite: false }), 0, 0, 0, g); m.castShadow = false; return m; });
+  const fenda = mesh(new THREE.TorusGeometry(0.5, 0.012, 6, 48), luzC, 0, 0.9, 0, cas); fenda.scale.set(1, 1.9, 1); fenda.rotation.y = Math.PI / 2; // costura acesa na emenda das metades
+  const miolo = mesh(new THREE.CircleGeometry(0.47, 32), new THREE.MeshBasicMaterial({ color: 0xcfe0ff, side: THREE.DoubleSide }), 0, 0.9, 0, cas); miolo.scale.set(1, 1.9, 1); miolo.rotation.y = Math.PI / 2; const brC = glowSprite(0xcfe0ff, 2.5, 0); brC.position.y = 1; cas.add(brC);
+  const fotoMem = (k) => canvasTex(160, 112, (c, w, h) => { const gr = c.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#f0d29a'); gr.addColorStop(1, '#b07a44'); c.fillStyle = '#f4ead8'; c.fillRect(0, 0, w, h); c.fillStyle = gr; c.fillRect(7, 7, w - 14, h - 14); c.fillStyle = '#2a1a10';
+    const gente = (x, y, s) => { c.beginPath(); c.arc(x, y - 30 * s, 7 * s, 0, 7); c.fill(); c.fillRect(x - 7 * s, y - 23 * s, 14 * s, 25 * s); c.fillRect(x - 6 * s, y, 5 * s, 18 * s); c.fillRect(x + 1 * s, y, 5 * s, 18 * s); };
+    if (k === 0) { gente(62, 70, 1.2); gente(100, 82, 0.7); } // o pai e o menino
+    else if (k === 1) { for (let i = 0; i < 4; i++) c.fillRect(22 + i * 36, 20, 5, 80); for (let j = 0; j < 3; j++) c.fillRect(18, 30 + j * 26, 124, 4); gente(80, 82, 0.7); } // o canteiro
+    else { c.fillRect(30, 80, 70, 10); c.beginPath(); c.arc(40, 74, 7, 0, 7); c.fill(); c.fillRect(112, 58, 11, 30); c.fillRect(115, 46, 5, 14); } // o pai caído e a garrafa
+  });
+  const fotos = [0, 1, 2].map(fotoMem);
+  const mem = Array.from({ length: 6 }, (_, i) => { const m = mesh(new THREE.PlaneGeometry(0.2, 0.14), new THREE.MeshBasicMaterial({ map: fotos[i % 3], color: 0xffd8a8, transparent: true, opacity: 0, side: THREE.DoubleSide, blending: ADD, depthWrite: false }), 0, 0, 0, g); m.castShadow = false; return m; });
   return { ...LUZ_FORMIGAS, hand: 0.005,
     update(t) {
       N.upd(t);
@@ -113,19 +122,21 @@ addSet("g8-formigas", (g) => {
       // o Gyro humano até ser devorado; depois o casulo, que racha no "renasceu"
       gy.visible = t < K.devorado + 0.1; restPose(gy); gy.position.set(0, 0, -1); gy.rotation.y = 0.3; idle(gy, t, 801, 0.2); standFeet(gy); olhosK(gy, 1); pose(gy, { neck: [-0.2, 0.3 * Math.sin(t * 2), 0] }, 1);
       apagao(t, K.devorado, 0.15, 0.25, 0.6, 1);
-      const casV = t > K.devorado + 0.05 && t < K.memorias; cas.visible = casV; const ab = smr(t, K.renasceu - 0.1, K.renasceu + 0.4); met[0].position.x = -0.35 * ab; met[1].position.x = 0.35 * ab; met.forEach((m) => (m.rotation.z = 0)); fenda.visible = ab < 0.3; fenda.material.color.setScalar(0.6 + 0.4 * Math.sin(t * 9)); brC.material.opacity = 0.8 * Math.sin(ab * Math.PI) + 0.2 * (1 - ab);
+      const casV = t > K.devorado + 0.05 && t < K.memorias; cas.visible = casV; const ab = smr(t, K.renasceu - 0.1, K.renasceu + 0.4); met[0].position.x = -0.35 * ab; met[1].position.x = 0.35 * ab; met.forEach((m) => (m.rotation.z = 0)); fenda.visible = ab < 0.05; fenda.material.color.setHex(0xcfe0ff).multiplyScalar(0.55 + 0.25 * Math.sin(t * 9)); miolo.visible = ab > 0.01 && ab < 0.7; miolo.material.color.setHex(0xcfe0ff).multiplyScalar(0.7 * (1 - ab)); brC.material.opacity = 0.4 * Math.sin(ab * Math.PI) + 0.15 * (1 - ab); // luz da rachadura sem estourar
       // a formiga-Gyro: levanta do casulo, memórias giram, vira as costas para o Rei e vai embora
       ga.visible = t > K.renasceu; restPose(ga); const vira = smr(t, K.recusou - 0.1, K.recusou + 0.5);
       if (t < K.embora - 0.3) { ga.position.set(0, 0, -1); ga.rotation.y = lerp(Math.PI, 0, vira); idle(ga, t, 641, 0.25); const lev = smr(t, K.renasceu, K.renasceu + 0.6); if (lev < 1) kneelPose(ga, 1 - lev); standFeet(ga); if (t < K.recusou) pose(ga, { neck: [-0.35, 0, 0] }, smr(t, K.rei - 0.8, K.rei - 0.3)); }
       else gait(ga, 7 * smr(t, K.embora - 0.3, b), { from: [0, 0, -1], ang: 0, step: 0.6 });
       olhosK(ga, ga.visible ? 1 : 0); spA(0);
       restPose(rei); idle(rei, t, 646, 0.2); standFeet(rei); rei.position.y = 25.6; olhosK(rei, 1);
-      const km = smr(t, K.memorias - 0.3, K.memorias + 0.2) * (1 - smr(t, K.recusou - 0.4, K.recusou)); mem.forEach((m, i) => { const an = t * 0.8 + i * 1.05; m.position.set(Math.sin(an) * 0.65, 1.65 + Math.sin(t * 1.3 + i) * 0.2, -1 + Math.cos(an) * 0.65); m.lookAt(m.position.x * 2, m.position.y, m.position.z * 2 + 1); m.material.opacity = 0.95 * km; });
+      const km = smr(t, K.memorias - 0.3, K.memorias + 0.2) * (1 - smr(t, K.recusou - 0.4, K.recusou)); if (km > 0) { ga.updateMatrixWorld(true); ga.userData.headM.getWorldPosition(_cabG); }
+      mem.forEach((m, i) => { const ph = (t * 0.32 + i / 6) % 1; m.visible = km > 0; // sobem devagar atrás da cabeça, de frente para a câmera
+        m.position.set(_cabG.x + Math.sin(i * 2.4) * 0.24 + 0.04 * Math.sin(t + i), _cabG.y - 0.22 + ph * 0.55, _cabG.z + 0.35 + 0.08 * (i % 2)); m.rotation.set(0, ga.rotation.y, 0.12 * Math.sin(i * 1.7 + t * 0.6)); m.material.opacity = 0.9 * km * Math.sin(ph * Math.PI); });
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([1.6, 0.55, 5.2], [1.1, 0.7, 3.9], [0, 1.6, -6], [0, 3.0, -20], 46, 46)], // baixo, as formigas passam contra o fogo
-        [K.tomada - 0.3, mov([10, 20, 24], [8, 18, 20], [0, 3, -16], [0, 5, -26], 46, 46)],
+        [K.tomada - 0.3, mov([-5, 3.2, 4.5], [-4.3, 2.8, 3.8], [0, 0.9, -2.5], [0, 1.0, -2], 46, 44)], // o Gyro cercado, uma formiga vem contra a cabana em chamas
         [K.devorado - 1.2, mov([2.2, 0.5, 2.2], [1.6, 0.45, 1.6], [0, 1.4, -1], [0, 1.5, -1], 46, 40)],
         [K.renasceu - 0.4, mov([1.4, 1.2, 2.2], [1.1, 1.3, 1.7], [0, 0.9, -1], [0, 1.4, -1], 44, 40)],
         [K.memorias - 0.3, (tt, u) => ({ ...closeRosto(ga, lerp(1.4, 1.1, E.inOut(u)), 0.4, 0, 34) })],
