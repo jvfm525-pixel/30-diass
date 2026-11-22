@@ -42,8 +42,8 @@ function uniformeEscola(p, pin, laco = CSM.laco) { const u = p.userData, m = LPm
 // pintinhas no rosto (a Morte tem várias)
 function pintas(p, lista) { const u = p.userData, m = new THREE.MeshBasicMaterial({ color: 0x3a2a2a }); lista.forEach(([x, y]) => { const s = mesh(sph(0.0028, 5, 4), m, x, CAB.EY + y, surfZ(u.headM, x, CAB.EY + y) + 0.001, u.head); s.scale.z = 0.4; s.castShadow = false; }); }
 // brincos verdes compridos com triângulo na ponta
-function brincosMorte(p) { const u = p.userData, m = LPmat(0x3a8a5a, { rim: 0.5, metal: 0.3 }); [-1, 1].forEach((k) => { const g = grp(u.head, k * 0.084, CAB.EY - 0.05, -0.012);
-  mesh(cyl(0.0018, 0.0018, 0.045, 5), m, 0, -0.025, 0, g); const tr = mesh(new THREE.ConeGeometry(0.009, 0.014, 3), m, 0, -0.054, 0, g); tr.rotation.x = Math.PI; tr.scale.z = 0.4; mesh(sph(0.005, 6, 4), m, 0, 0, 0, g); }); }
+function brincosMorte(p) { const u = p.userData, m = LPmat(0x3a8a5a, { rim: 0.5, metal: 0.3 }); [-1, 1].forEach((k) => { const g = grp(u.head, k * 0.08, CAB.EY - 0.05, -0.015);
+  mesh(cyl(0.0015, 0.0015, 0.03, 5), m, 0, -0.017, 0, g); const tr = mesh(new THREE.ConeGeometry(0.007, 0.011, 3), m, 0, -0.037, 0, g); tr.rotation.x = Math.PI; tr.scale.z = 0.4; mesh(sph(0.005, 6, 4), m, 0, 0, 0, g); }); }
 function boneMorte(p) { const u = p.userData, m = LPmat(0x18181c, { rim: 0.6 }), g = grp(u.head, 0, 0.12, 0.0); const c = mesh(new THREE.SphereGeometry(0.108, 16, 8, 0, Math.PI * 2, 0, Math.PI * 0.5), m, 0, 0, 0, g); c.scale.set(1, 0.72, 1.06);
   const ab = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.008, 16, 1, false, -Math.PI * 0.45, Math.PI * 0.9), m, 0, 0.0, 0.05, g); ab.scale.z = 1.25; g.rotation.x = -0.12; u.bone = g; return g; }
 // trança da Makima: contas alternadas descendo pelas costas
