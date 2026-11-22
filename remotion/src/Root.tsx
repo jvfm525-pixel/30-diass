@@ -16,6 +16,8 @@ import gojoDados from "./videos/gojo/dados.json";
 import { TesteCabelo } from "./videos/tcab/TesteCabelo";
 import { Subaru3D, Subaru3DPrev } from "./videos/subaru/Subaru3D";
 import subaruDados from "./videos/subaru/dados.json";
+import { Gyro3D, Gyro3DPrev } from "./videos/gyro/Gyro3D";
+import gyroDados from "./videos/gyro/dados.json";
 
 // Vídeos verticais do TikTok: 1080 x 1920, 60 quadros por segundo
 export const RemotionRoot: React.FC = () => (
@@ -30,6 +32,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Gojo3DPrev" component={Gojo3DPrev} durationInFrames={Math.ceil(gojoDados.total / 0.5)} fps={30} width={1080} height={1920} />
     <Composition id="TesteCabelo" component={TesteCabelo} durationInFrames={60} fps={30} width={1080} height={1920} />
     <Composition id="Subaru3D" component={Subaru3D} durationInFrames={Math.round(subaruDados.total * 30)} fps={30} width={1080} height={1920} />
+    <Composition id="Gyro3D" component={Gyro3D} durationInFrames={Math.round(gyroDados.total * 30)} fps={30} width={1080} height={1920} />
+    <Composition id="Gyro3DPrev" component={Gyro3DPrev} durationInFrames={Math.ceil(gyroDados.total / 0.5)} fps={30} width={1080} height={1920} />
     <Composition id="Subaru3DPrev" component={Subaru3DPrev} durationInFrames={Math.ceil(subaruDados.total / 0.5)} fps={30} width={1080} height={1920} />
     <Composition id="Teste3D" component={Teste3D} durationInFrames={180} fps={60} width={1080} height={1920} />
   </>

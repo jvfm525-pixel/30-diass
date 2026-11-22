@@ -36,7 +36,12 @@ function checar({ dados, passo, t0, t1 }) {
       return !mt || (mt.transparent && (mt.opacity ?? 1) < 0.4) || mt.blending === THREE.AdditiveBlending || mt.visible === false; };
     const nome = (o) => { const c = (Array.isArray(o.material) ? o.material[0] : o.material)?.color; let q = o, n = ""; while (q && !n) { n = q.name || q.userData.nome || ""; q = q.parent; }
       const p = new THREE.Vector3(); o.getWorldPosition(p); return `${n || o.geometry.type}${c ? " #" + c.getHexString() : ""} @(${p.x.toFixed(1)},${p.y.toFixed(1)},${p.z.toFixed(1)})`; };
-    const lados = new Map();
+    const lados = new Map(), _n = new THREE.Vector3();
+    const fechado = (o) => { const g = o.geometry, p = g.parameters || {}; switch (g.type) {
+      case "BoxGeometry": case "IcosahedronGeometry": case "DodecahedronGeometry": case "OctahedronGeometry": case "TorusGeometry": return true;
+      case "SphereGeometry": return (p.phiLength ?? 7) >= 6.28 && (p.thetaLength ?? 4) >= 3.14;
+      case "CylinderGeometry": case "ConeGeometry": return !p.openEnded;
+      default: return false; } };
     window.CHECA_CAM = (camera, group, n, t, s) => {
       group.updateMatrixWorld(true); camera.updateMatrixWorld(); camera.updateProjectionMatrix();
       const cand = [];
@@ -46,14 +51,18 @@ function checar({ dados, passo, t0, t1 }) {
       cand.forEach((o) => { const mt = o.material; if (!lados.has(mt)) lados.set(mt, mt.side); mt.side = THREE.DoubleSide; });
       // ERRO: câmera dentro/encostada; AVISO: objeto perto da lente tapando o assunto (na frente do ponto olhado)
       const dLook = camera.position.distanceTo(window.__LOOK || camera.position), frente = Math.min(1.2, 0.6 * dLook);
-      let colados = 0, tapando = 0, min = Infinity, quem = null, quemT = null;
-      ray.near = 0; ray.far = Math.max(COLADO, frente);
+      let colados = 0, tapando = 0, dentro = 0, quemD = null, min = Infinity, quem = null, quemT = null;
+      ray.near = 0; ray.far = Math.max(COLADO, frente, 3);
       for (const [x, y] of GRADE) { ndc.set(x, y); ray.setFromCamera(ndc, camera); const h = ray.intersectObjects(cand, false)[0];
-        if (!h) continue; if (h.distance < COLADO) colados++; if (h.distance < frente) { tapando++; quemT = quemT || h.object; }
+        if (!h) continue;
+        // face de costas de um sólido fechado = a câmera está dentro dele
+        if (fechado(h.object) && h.face && _n.copy(h.face.normal).transformDirection(h.object.matrixWorld).dot(ray.ray.direction) > 0) { dentro++; quemD = quemD || h.object; continue; }
+        if (h.distance > Math.max(COLADO, frente)) continue; if (h.distance < COLADO) colados++; if (h.distance < frente) { tapando++; quemT = quemT || h.object; }
         if (h.distance < min) { min = h.distance; quem = h.object; } }
       cand.forEach((o) => { o.material.side = lados.get(o.material); });
       const frac = colados / GRADE.length, fracT = tapando / GRADE.length;
-      if (min < PERTO || frac > 0.2) achados.push({ t: +t.toFixed(2), cena: n, tipo: "ERRO", frac: +frac.toFixed(2), min: +min.toFixed(2), quem: quem ? nome(quem) : "" });
+      if (dentro / GRADE.length > 0.3) achados.push({ t: +t.toFixed(2), cena: n, tipo: "ERRO", frac: +(dentro / GRADE.length).toFixed(2), min: 0, quem: "DENTRO de " + nome(quemD) });
+      else if (min < PERTO || frac > 0.2) achados.push({ t: +t.toFixed(2), cena: n, tipo: "ERRO", frac: +frac.toFixed(2), min: +min.toFixed(2), quem: quem ? nome(quem) : "" });
       else if (fracT > 0.12) achados.push({ t: +t.toFixed(2), cena: n, tipo: "AVISO", frac: +fracT.toFixed(2), min: +min.toFixed(2), quem: quemT ? nome(quemT) : "" });
     };
     for (let t = t0; t <= t1 + 1e-6; t += passo) m.renderAt(t);

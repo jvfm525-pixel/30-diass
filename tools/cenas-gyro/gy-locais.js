@@ -20,7 +20,7 @@ function barracoObra(g, x, z, ry = 0, o = {}) { const b = grp(g, x, 0, z); b.rot
   for (let i = 0; i < 14; i++) mesh(cyl(0.05, 0.05, d + 0.5, 6), zinco, -w / 2 - 0.15 + i * ((w + 0.3) / 13), 0, 0, tl).rotation.x = Math.PI / 2;
   mesh(box(0.8, 1.8, 0.05), LPmat(0x2a1e14), -w * 0.22, 0.9, d / 2 + 0.03, b);
   const jan = mesh(new THREE.PlaneGeometry(0.6, 0.45), new THREE.MeshBasicMaterial({ color: o.luz === false ? 0x1a1814 : 0xffb060 }), w * 0.22, 1.4, d / 2 + 0.03, b); jan.castShadow = false;
-  if (o.luz !== false) { const gl = glowSprite(0xffa050, 1.4, 0.35); gl.position.set(w * 0.22, 1.4, d / 2 + 0.2); b.add(gl); }
+  b.userData.jan = jan; if (o.luz !== false) { const gl = glowSprite(0xffa050, 1.4, 0.35); gl.position.set(w * 0.22, 1.4, d / 2 + 0.2); b.add(gl); b.userData.gl = gl; }
   mesh(cyl(0.07, 0.07, 0.9, 8), LPmat(0x3a3a3a, { metal: 0.6 }), w * 0.35, h + 0.5, -d * 0.2, b); // chaminé do fogão
   return b; }
 // betoneira: tambor inclinado laranja no cavalete com rodas
@@ -65,7 +65,7 @@ function canteiroObras(g, o = {}) {
   const plano = (x, z) => { const r = Math.hypot(x, z + 6); return r < 22 ? 0 : (r - 22) * 0.06 * (1 + Math.sin(x * 0.1) * 0.5); };
   terrain(g, { size: 300, segs: 90, grassA: 0x7a5a3a, grassB: 0x8a6a46, dirt: 0x6a4a30, rock: 0x6a6058, h: plano });
   const PO = predioObra(g, 1, -15); grua(g, 14, -32); grua(g, -40, -90, 30, 1.4);
-  barracoObra(g, -6.5, -3, Math.PI / 2, { luz: !noite || o.luzes }); barracoObra(g, -6.8, -7.2, Math.PI / 2 + 0.1); barracoObra(g, -6.2, 1.6, Math.PI / 2 - 0.08, { luz: false }); barracoObra(g, 7, 2.5, -Math.PI / 2 + 0.15, { luz: false });
+  const casaPai = barracoObra(g, -6.5, -3, Math.PI / 2, { luz: !noite || o.luzes !== false }); const casaVelho = barracoObra(g, 7, 2.5, -Math.PI / 2 + 0.15, { luz: true }); barracoObra(g, -6.8, -7.2, Math.PI / 2 + 0.1); barracoObra(g, -6.2, 1.6, Math.PI / 2 - 0.08, { luz: false });
   const BT = betoneira(g, -3.2, -5.2, 0.4); carrinhoMao(g, 2.6, -3.6, -0.5);
   tijolos(g, [...pilhaTijolos(3.6, -6.4, 4, 3, 7, 0.2), ...pilhaTijolos(4.4, -5.6, 4, 3, 5, -0.1), ...pilhaTijolos(-4.2, -9.5, 5, 3, 6, 0.0)]);
   const areia = mesh(new THREE.ConeGeometry(1.5, 1.0, 12), LPmat(0xc8a070, { rough: 1 }), -4.6, 0.5, -10.5, g); areia.scale.z = 0.8;
@@ -76,7 +76,9 @@ function canteiroObras(g, o = {}) {
   montanhasLonge(g, 200, 14, noite ? 0x14121a : 0x6a4a5a, 26); arvoresLonge(g, 40, 70, 120, () => 0, { c1: noite ? 0x141a14 : 0x3a4a2a, c2: noite ? 0x1a221a : 0x4a5a30 });
   const po = dustPts(220, [-8, 8, 0.1, 3, -14, 4], noite ? 0x8a7a6a : 0xffd8a0, 0.035, 0.55); g.add(po);
   const fumo = steam(g, { origin: [-6.5 + 1.1, 3.2, -3 - 0.5], n: 8, size: 0.5, spread: 0.1, rise: 0.8, grow: 2, opacity: 0.25, life: 4, color: 0x8a8080, wind: [0.4, 0, 0] });
-  return { PO, BT, lamp, po, upd(t) { floatDust(po, t, 0.5, 0.25); fumo.upd(t, 1); lamp.forEach((l) => { const f = noite ? 0.75 + 0.25 * noise1(t * 3 + l.i) : 1; l.gl.material.opacity = 0.55 * f; }); } };
+  // caixote do pai na porta do barraco dele
+  mesh(box(0.5, 0.42, 0.42), LPmat(0x6a4a30), -4.6, 0.21, -2.4, g);
+  return { PO, BT, lamp, po, casaPai, casaVelho, upd(t) { floatDust(po, t, 0.5, 0.25); fumo.upd(t, 1); lamp.forEach((l) => { const f = noite ? 0.75 + 0.25 * noise1(t * 3 + l.i) : 1; l.gl.material.opacity = 0.55 * f; }); } };
 }
 
 // ---------------------------------------------------------------- barraco por dentro (febre / a noite do pai)
@@ -113,5 +115,5 @@ function barracoDentro(g, o = {}) {
   const casaco = mesh(box(0.5, 0.75, 0.08), LPmat(0x3a4a5a, { rough: 1 }), 1.97, 1.6, 1.2, g); casaco.rotation.y = -Math.PI / 2;
   const lua = new THREE.PointLight(0x8aa0ff, o.lua ?? 1.2, 7, 1.4); lua.position.set(1.6, 1.6, -0.6); g.add(lua);
   const po = dustPts(80, [-1.8, 1.8, 0.2, 2.4, -1.8, 1.8], 0xffd8a0, 0.018, 0.5); g.add(po);
-  return { dob, luz, chama, halo, po, upd(t, k = 1) { const f = 0.82 + 0.18 * noise1(t * 7) + 0.06 * Math.sin(t * 23); luz.intensity = 5 * f * k; halo.material.opacity = 0.3 * f * k; chama.material.opacity = 0.95 * k; chama.scale.setScalar(0.12 * (0.9 + 0.2 * noise1(t * 9))); floatDust(po, t, 0.2, 0.12); } };
+  return { dob, luz, chama, halo, po, fora, upd(t, k = 1) { const f = 0.82 + 0.18 * noise1(t * 7) + 0.06 * Math.sin(t * 23); luz.intensity = 5 * f * k; halo.material.opacity = 0.3 * f * k; chama.material.opacity = 0.95 * k; chama.scale.setScalar(0.12 * (0.9 + 0.2 * noise1(t * 9))); floatDust(po, t, 0.2, 0.12); } };
 }
