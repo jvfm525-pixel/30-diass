@@ -2994,7 +2994,7 @@ function decorJardim(g) {
   [-1, 1].forEach((k) => { for (let i = 0; i < 5; i++) roseira(g, k * 2.9, -5.2 - i * 2.4, [0xd8304a, 0xf4f0ff, 0xe86aa0][(i + (k > 0 ? 1 : 0)) % 3]); });
   [[-1, 2], [1, -2]].forEach(([k, d]) => estatuaAnjo(g, k * 6.2, d * 1.2 + 0.3, k > 0 ? -Math.PI / 2 : Math.PI / 2));
   arcoFlores(g, 0, -3.4, 0);
-  [[-1.7, 6.8], [1.7, 6.8], [-5.8, -1.6], [5.8, 1.6]].forEach(([x, z], i) => { const v = grp(g, x, 0, z); mesh(cyl(0.3, 0.24, 0.4, 10), LPmat(0x8a5a3a), 0, 0.2, 0, v); const t = mesh(i % 2 ? sph(0.42, 8, 6) : new THREE.ConeGeometry(0.4, 1.1, 8), LPmat(0x1e3a1e, { rim: 0.5 }), 0, i % 2 ? 0.8 : 0.95, 0, v); });
+  [[-5.8, -1.6], [5.8, 1.6]].forEach(([x, z], i) => { const v = grp(g, x, 0, z); mesh(cyl(0.3, 0.24, 0.4, 10), LPmat(0x8a5a3a), 0, 0.2, 0, v); const t = mesh(i % 2 ? sph(0.42, 8, 6) : new THREE.ConeGeometry(0.4, 1.1, 8), LPmat(0x1e3a1e, { rim: 0.5 }), 0, i % 2 ? 0.8 : 0.95, 0, v); });
   [[-9.5, -4, 1.0], [9.5, -6, 1.1], [-11, 6, 0.9], [11, 5, 1.0]].forEach(([x, z, s]) => arvoreRef(g, x, z, s));
   [[-3.2, 6.2, 0.5], [3.2, 6.2, -0.5]].forEach(([x, z, r]) => { const b = grp(g, x, 0, z); b.rotation.y = r; mesh(box(1.4, 0.08, 0.45), LPmat(0xd8d0c0), 0, 0.45, 0, b); [-0.55, 0.55].forEach((xx) => mesh(box(0.1, 0.45, 0.4), LPmat(0xc8c0b0), xx, 0.22, 0, b)); });
   const nuv = []; for (let i = 0; i < 6; i++) { const s = glowSprite(0x2a3450, 50, 0.45, NORM, puffTex); s.material.fog = false; s.position.set(-90 + i * 40, 45 + hash(i) * 12, -140); g.add(s); nuv.push(s); }
@@ -3267,7 +3267,7 @@ addSet("s3-mao", (g) => {
         [a, mov([3, 7, 16], [1.6, 2.4, 10], [0, 3, -10], [0, 1.2, 4.6], 46, 40)],
         [K.emilia3 - 0.3, mov([0.1, 1.5, 7.4], [0.05, 1.45, 6.7], [0, 1.25, 4.6], [0, 1.25, 4.6], 40, 38)],
         [K.mao - 0.3, mov([-2.6, 1.6, 7.6], [-2.3, 1.5, 7.0], [-0.4, 1.0, 4.6], [-0.4, 1.1, 4.6], 42, 40)],
-        [K.apertou - 0.2, (tt, u) => ({ ...closeRosto(su, lerp(0.95, 0.75, E.inOut(u)), -0.3, -0.04, 30) })],
+        [K.apertou - 0.2, (tt, u) => ({ ...closeRosto(su, lerp(0.95, 0.8, E.inOut(u)), -0.6, -0.04, 30) })], // de 3/4: a Emilia fica fora da lente
         [K.vez - 0.2, mov([1.6, 1.5, 6.8], [1.4, 1.45, 6.3], [-0.2, 1.1, 4.6], [-0.2, 1.1, 4.6], 40, 38)],
       ], b); },
   };
@@ -3294,7 +3294,7 @@ addSet("s4-preco", (g) => {
       return planos(t, [
         [a, mov([2.6, 1.6, 7.6], [2.3, 1.5, 7.0], [0.4, 1.0, 4.6], [0.4, 1.1, 4.6], 42, 40)],
         [K.dele - 0.2, (tt, u) => ({ ...closeRosto(su, lerp(0.95, 0.8, E.inOut(u)), -0.2, 0, 30) })],
-        [K.ouvindo - 0.3, (tt, u) => ({ ...closeRosto(em, lerp(1.0, 0.85, E.inOut(u)), 0.2, -0.02, 30) })],
+        [K.ouvindo - 0.3, (tt, u) => ({ ...closeRosto(em, lerp(1.0, 0.85, E.inOut(u)), 0.6, -0.02, 30) })], // de 3/4: fora da cabeça do Subaru
         [K.morreu - 0.3, mov([-1.6, 1.3, 6.9], [-1.4, 1.2, 6.5], [0.4, 0.7, 4.6], [0.4, 0.8, 4.6], 40, 38)],
       ], b); },
   };
@@ -3472,6 +3472,8 @@ function renderAt(t) {
   if (s.fadeIn) { const [a] = T.sc[n]; GU.uFade.value = Math.max(GU.uFade.value, 1 - seg(t, a, a + s.fadeIn)); }
   // transição curta entre cenas (mergulho no escuro) e câmera na mão sutil
   if (T.cut !== false && n !== T.scenes[0][0]) { const a0 = T.sc[n][0], d = t - a0; if (d < 0.2) { GU.uFade.value = Math.max(GU.uFade.value, Math.pow(1 - d / 0.2, 2) * 0.8); GU.uFadeCol.value.set(0, 0, 0); } }
+  // verificador (tools/motor3d/checa_camera.mjs): entrega câmera e cena sem desenhar
+  if (window.CHECA_CAM) { window.__LOOK = new THREE.Vector3(...c.look); window.CHECA_CAM(camera, SETS[n].group, n, t, s); return; }
   composer.render();
 }
 

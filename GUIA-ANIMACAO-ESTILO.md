@@ -229,3 +229,9 @@ Quadros revistos em resolução maior (0–153 s). O que faz a beleza, em ordem 
 ## Regra: cabelo do personagem
 
 Antes de modelar um personagem, estudar o cabelo dele no original e copiar o mais fiel possível: quantidade e formato das mechas, para onde apontam, comprimento, volume, franja, divisão, cor e o jeito de cair.
+
+## Verificador de câmera (rodar antes de todo render)
+
+`cd remotion && node ../tools/motor3d/checa_camera.mjs src/videos/<video>/motor.js src/videos/<video>/dados.json 0.1`
+
+Percorre o vídeo a cada 0,1 s sem desenhar e lança raios da câmera. ERRO = câmera dentro ou encostada em algo (< 0,25 m ou > 20% do quadro colado a < 0,45 m); AVISO = objeto perto da lente tapando mais de 12% do quadro na frente do assunto. Closes de dois personagens frente a frente: usar `lado` ≥ 0,6 em `closeRosto`, senão a câmera entra na cabeça do outro.

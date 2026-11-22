@@ -43,6 +43,8 @@ function renderAt(t) {
   if (s.fadeIn) { const [a] = T.sc[n]; GU.uFade.value = Math.max(GU.uFade.value, 1 - seg(t, a, a + s.fadeIn)); }
   // transição curta entre cenas (mergulho no escuro) e câmera na mão sutil
   if (T.cut !== false && n !== T.scenes[0][0]) { const a0 = T.sc[n][0], d = t - a0; if (d < 0.2) { GU.uFade.value = Math.max(GU.uFade.value, Math.pow(1 - d / 0.2, 2) * 0.8); GU.uFadeCol.value.set(0, 0, 0); } }
+  // verificador (tools/motor3d/checa_camera.mjs): entrega câmera e cena sem desenhar
+  if (window.CHECA_CAM) { window.__LOOK = new THREE.Vector3(...c.look); window.CHECA_CAM(camera, SETS[n].group, n, t, s); return; }
   composer.render();
 }
 window.__hf = window.__hf || {};

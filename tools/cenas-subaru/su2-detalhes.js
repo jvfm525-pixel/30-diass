@@ -53,7 +53,7 @@ function decorJardim(g) {
   [-1, 1].forEach((k) => { for (let i = 0; i < 5; i++) roseira(g, k * 2.9, -5.2 - i * 2.4, [0xd8304a, 0xf4f0ff, 0xe86aa0][(i + (k > 0 ? 1 : 0)) % 3]); });
   [[-1, 2], [1, -2]].forEach(([k, d]) => estatuaAnjo(g, k * 6.2, d * 1.2 + 0.3, k > 0 ? -Math.PI / 2 : Math.PI / 2));
   arcoFlores(g, 0, -3.4, 0);
-  [[-1.7, 6.8], [1.7, 6.8], [-5.8, -1.6], [5.8, 1.6]].forEach(([x, z], i) => { const v = grp(g, x, 0, z); mesh(cyl(0.3, 0.24, 0.4, 10), LPmat(0x8a5a3a), 0, 0.2, 0, v); const t = mesh(i % 2 ? sph(0.42, 8, 6) : new THREE.ConeGeometry(0.4, 1.1, 8), LPmat(0x1e3a1e, { rim: 0.5 }), 0, i % 2 ? 0.8 : 0.95, 0, v); });
+  [[-5.8, -1.6], [5.8, 1.6]].forEach(([x, z], i) => { const v = grp(g, x, 0, z); mesh(cyl(0.3, 0.24, 0.4, 10), LPmat(0x8a5a3a), 0, 0.2, 0, v); const t = mesh(i % 2 ? sph(0.42, 8, 6) : new THREE.ConeGeometry(0.4, 1.1, 8), LPmat(0x1e3a1e, { rim: 0.5 }), 0, i % 2 ? 0.8 : 0.95, 0, v); });
   [[-9.5, -4, 1.0], [9.5, -6, 1.1], [-11, 6, 0.9], [11, 5, 1.0]].forEach(([x, z, s]) => arvoreRef(g, x, z, s));
   [[-3.2, 6.2, 0.5], [3.2, 6.2, -0.5]].forEach(([x, z, r]) => { const b = grp(g, x, 0, z); b.rotation.y = r; mesh(box(1.4, 0.08, 0.45), LPmat(0xd8d0c0), 0, 0.45, 0, b); [-0.55, 0.55].forEach((xx) => mesh(box(0.1, 0.45, 0.4), LPmat(0xc8c0b0), xx, 0.22, 0, b)); });
   const nuv = []; for (let i = 0; i < 6; i++) { const s = glowSprite(0x2a3450, 50, 0.45, NORM, puffTex); s.material.fog = false; s.position.set(-90 + i * 40, 45 + hash(i) * 12, -140); g.add(s); nuv.push(s); }
