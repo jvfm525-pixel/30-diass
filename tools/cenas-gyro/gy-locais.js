@@ -60,7 +60,7 @@ function grua(g, x, z, h = 26, ry = 0.6) { const c = grp(g, x, 0, z); c.rotation
 // área livre para personagens: x -2..2, z -2..4 (chão plano); câmera olhando para -z
 function canteiroObras(g, o = {}) {
   const noite = !!o.noite;
-  skyDome(g, noite ? { top: 0x05060e, mid: 0x1a1428, hor: 0x5a2a2a, ground: 0x0a0808, sunDir: [-0.3, 0.05, -1], sunCol: 0xff6040, sunI: 0.25, disk: 0.4, cov: 0.35, cloudLit: 0x6a2a2a, cloudSh: 0x0a0a14, midY: 0.14 }
+  skyDome(g, noite ? { top: 0x0a1226, mid: 0x1e2c52, hor: 0x5a5a88, ground: 0x0a0a0c, sunDir: [-0.25, 0.22, -1], sunCol: 0xe8eeff, sunI: 0.55, disk: 1.1, cov: 0.35, cloudLit: 0x8a96c8, cloudSh: 0x101428, midY: 0.14 }
     : { top: 0x2a2a5a, mid: 0xb85a4a, hor: 0xffa860, ground: 0x3a2a20, sunDir: [-0.3, 0.07, -1], sunCol: 0xffb070, sunI: 0.85, disk: 1.0, cov: 0.45, cloudLit: 0xffa070, cloudSh: 0x5a3a4a, midY: 0.15 });
   const plano = (x, z) => { const r = Math.hypot(x, z + 6); return r < 22 ? 0 : (r - 22) * 0.06 * (1 + Math.sin(x * 0.1) * 0.5); };
   terrain(g, { size: 300, segs: 90, grassA: 0x7a5a3a, grassB: 0x8a6a46, dirt: 0x6a4a30, rock: 0x6a6058, h: plano });

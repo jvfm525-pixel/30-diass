@@ -55,7 +55,7 @@ addSet("g7-ngl", (g) => {
         [K.maquinas - 0.3, mov([-6.5, 1.4, 6.5], [-6.0, 1.3, 5.5], [-3.6, 0.6, 3.6], [-3.4, 0.6, 3.6], 40, 38)],
         [K.natureza - 0.3, mov([2, 2.0, 4], [-2, 3.0, 3], [0, 3, -14], [-6, 4, -16], 46, 46)],
         [K.paz - 0.3, mov([4.5, 6, 12], [3.5, 5, 10], [0, 1.0, -2], [0, 1.0, -2], 46, 44)],
-        [K.baixo - 0.8, mov([2.6, 1.9, 3.2], [1.7, 0.6, 1.4], [1.6, 0, 1.0], [1.6, -1.0, 1.15], 46, 50)],
+        [K.baixo - 0.8, mov([2.6, 1.9, 3.2], [1.75, 1.0, 1.8], [1.6, 0, 1.0], [1.6, -0.6, 1.15], 46, 50)],
       ], b); },
   };
 });
@@ -112,7 +112,7 @@ addSet("g8-formigas", (g) => {
         gait(p, d, { from: [Math.sin(ang) * (r0 + 6) * 0.6, 0, -1 - Math.cos(ang) * (r0 + 6) * 0.6], ang: ang + Math.PI, step: 0.6 }); p.visible = t < K.renasceu - 0.3; sp(0); });
       // o Gyro humano até ser devorado; depois o casulo, que racha no "renasceu"
       gy.visible = t < K.devorado + 0.1; restPose(gy); gy.position.set(0, 0, -1); gy.rotation.y = 0.3; idle(gy, t, 801, 0.2); standFeet(gy); olhosK(gy, 1); pose(gy, { neck: [-0.2, 0.3 * Math.sin(t * 2), 0] }, 1);
-      escurece(t, K.devorado - 0.15, K.devorado + 0.05, [0, 0, 0], 1); if (t > K.devorado + 0.05) { const v = 1 - smr(t, K.devorado + 0.05, K.devorado + 0.7); if (v > 0) { GU.uFade.value = Math.max(GU.uFade.value, v); GU.uFadeCol.value.set(0, 0, 0); } }
+      apagao(t, K.devorado, 0.15, 0.25, 0.6, 1);
       const casV = t > K.devorado + 0.05 && t < K.memorias; cas.visible = casV; const ab = smr(t, K.renasceu - 0.1, K.renasceu + 0.4); met[0].position.x = -0.35 * ab; met[1].position.x = 0.35 * ab; met.forEach((m) => (m.rotation.z = 0)); fenda.visible = ab < 0.3; fenda.material.color.setScalar(0.6 + 0.4 * Math.sin(t * 9)); brC.material.opacity = 0.8 * Math.sin(ab * Math.PI) + 0.2 * (1 - ab);
       // a formiga-Gyro: levanta do casulo, memórias giram, vira as costas para o Rei e vai embora
       ga.visible = t > K.renasceu; restPose(ga); const vira = smr(t, K.recusou - 0.1, K.recusou + 0.5);
@@ -148,7 +148,7 @@ addSet("g9a-gon", (g) => {
       return planos(t, [
         [a, mov([0.6, 1.0, 1.4], [0.4, 0.9, 0.8], [0, 0.4, -3], [0, 0.5, -8], 46, 44)],
         [K.espelho - 0.3, mov([1.6, 0.9, -4.5], [1.3, 0.85, -4.0], [0, 0.6, -1.55], [0, 0.6, -1.55], 40, 36)],
-        [K.mundo9 - 0.3, mov([-2.5, 2.2, 3.5], [-1.5, 6, 6], [1.5, 0.8, -1.6], [6, 0, -40], 46, 48)],
+        [K.mundo9 - 0.3, mov([1.5, 2.2, 3.5], [3.0, 6, 6], [1.5, 0.8, -1.6], [6, 0, -40], 46, 48)],
       ], b); },
   };
 });
@@ -164,8 +164,8 @@ addSet("g9b-gyro", (g) => {
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([-1.4, 0.8, 0.6], [-1.8, 0.75, 0.2], [-4.3, 0.6, -1.9], [-4.3, 0.6, -1.9], 40, 36)],
-        [K.importou - 0.3, mov([-2.2, 1.6, 1.2], [-1.6, 2.6, 2.4], [-4.3, 0.5, -1.9], [-4.3, 0.5, -1.9], 40, 44)], // afasta e sobe (fora dos barracos)
+        [a, mov([-3.6, 0.42, 0.9], [-3.5, 0.48, 0.6], [-4.3, 0.95, -1.9], [-4.3, 1.0, -1.9], 40, 36)], // de baixo: os dois contra o céu
+        [K.importou - 0.3, mov([-2.6, 0.6, 1.8], [-2.0, 1.4, 3.2], [-4.3, 0.8, -1.9], [-4.3, 0.8, -1.9], 40, 44)], // afasta e sobe (fora dos barracos)
       ], b); },
   };
 });

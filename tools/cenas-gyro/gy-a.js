@@ -2,7 +2,7 @@
 const GDOF_C = { ap: 0.008, max: 0.014 }, GDOF_M = { ap: 0.005, max: 0.012 }, GDOF_L = { ap: 0.0025, max: 0.008 };
 const LUZ_OBRA = { bg: 0xffa860, fog: [25, 200], fogCol: 0xd88a6a, look: { exposure: 1.05, bloom: 0.35, bloomT: 0.82, vig: 0.42, sat: 1.1, con: 1.08, dof: GDOF_M, rosto: 0.3, lift: [0.015, 0.005, 0] },
   sun: { dir: [-0.3, 0.25, -1], col: 0xffa060, I: 2.4, c: [0, 1, -4], r: 22 }, hemi: { sky: 0xd8906a, ground: 0x3a2a20, I: 0.8 }, fill: { col: 0xffc0a0, I: 0.4, dir: [0.4, 0.3, 1] }, rim: { col: 0xffb070, str: 1.2 } };
-const LUZ_OBRA_NOITE = { bg: 0x05060e, fog: [14, 120], fogCol: 0x0a0a14, look: { exposure: 1.12, bloom: 0.5, bloomT: 0.76, vig: 0.55, sat: 1.0, con: 1.1, dof: GDOF_M, rosto: 0.3, lift: [0, 0.006, 0.02] },
+const LUZ_OBRA_NOITE = { bg: 0x1a2238, fog: [18, 140], fogCol: 0x161c30, look: { exposure: 1.12, bloom: 0.5, bloomT: 0.76, vig: 0.55, sat: 1.0, con: 1.1, dof: GDOF_M, rosto: 0.3, lift: [0, 0.006, 0.02] },
   sun: { dir: [0.3, 0.6, -0.7], col: 0x8aa0ff, I: 0.7, c: [0, 1, -3], r: 18 }, hemi: { sky: 0x2a3050, ground: 0x0a0a0a, I: 0.5 }, fill: { col: 0xffa060, I: 0.15, dir: [0.4, 0.3, 1] }, rim: { col: 0x9ab0ff, str: 1.3 } };
 const LUZ_BARRACO = { bg: 0x05050a, fog: [10, 40], fogCol: 0x0a0a10, look: { exposure: 1.12, bloom: 0.5, bloomT: 0.75, vig: 0.55, sat: 1.05, con: 1.1, dof: GDOF_C, rosto: 0.3 },
   sun: { dir: [0.4, 0.8, -0.3], col: 0x8aa0ff, I: 0.15, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x2a2a3a, ground: 0x1a120a, I: 0.45 }, fill: { col: 0xffa060, I: 0.1, dir: [0.3, 0.3, 1] }, rim: { col: 0xffb070, str: 1.0 } };
@@ -22,7 +22,7 @@ function deitado(p, x, y, z, ry = 0) { restPose(p); p.position.set(x, y, z); p.r
 // carregar / segurar: um objeto preso na mão i
 function naMaoG(p, i, obj, dx = 0, dy = -0.1, dz = 0.04) { p.userData.wr[i].add(obj); obj.position.set(dx, dy, dz); return obj; }
 // fumaça escura que sobe de alguém (maldade)
-function fumacaEscura(g) { return steam(g, { origin: [0, 0, 0], n: 18, size: 0.5, spread: 0.5, rise: 0.9, grow: 2.2, opacity: 0.55, life: 2.4, color: 0x0a0610, wind: [0.1, 0, 0] }); }
+function fumacaEscura(g) { return steam(g, { origin: [0, 0, 0], n: 18, size: 0.5, spread: 0.5, rise: 0.9, grow: 2.2, opacity: 0.55, life: 2.4, color: 0x6a1428, wind: [0.1, 0, 0] }); }
 
 // ---------------------------------------------------------------- 0 · capa: o Gyro de capuz na NGL à noite, olhos acesos
 addSet("s0-capa", (g) => {
@@ -39,12 +39,13 @@ addSet("g1-abertura", (g) => {
   const nev = steam(g, { origin: [0, 0.1, 2], n: 16, size: 2.4, spread: 6, rise: 0.15, grow: 1.2, opacity: 0.22, life: 6, color: 0x8a98c0, wind: [0.25, 0, 0] });
   return { ...LUZ_NGL_NOITE, hand: 0.004,
     update(t) { V.upd(t, 0); nev.upd(t, 1); vive(gy, t, 801, {}, 0.15); sp(0); gy.rotation.y = lerp(0.4, 0, smr(t, K.rosto - 0.6, K.rosto));
-      olhosK(gy, t < K.rosto - 0.2 ? 0.25 : 1); flash(t, K.gyro, 0.08, 0.5, [0.55, 0.6, 0.8]); },
+      olhosK(gy, t < K.rosto - 0.2 ? 0.25 : 1); flash(t, K.gyro, 0.08, 0.5, [0.22, 0.25, 0.35]); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([7, 7, 16], [3.2, 3.2, 10], [0, 1.5, 0], [0, 1.4, 1.5], 46, 42)],
         [K.lutou - 0.3, mov([0.7, 1.75, -1.6], [0.55, 1.7, -0.9], [0, 1.4, 6], [0, 1.5, 6], 44, 40)],
         [K.rosto - 0.3, (tt, u) => ({ ...closeRosto(gy, lerp(1.2, 0.95, E.inOut(u)), 0.25, -0.04, 32) })],
+        [K.rosto + 1.3, mov([-2.4, 1.3, 4.6], [-2.0, 1.4, 4.2], [0, 1.3, 2], [0, 1.4, 2], 40, 38)],
         [K.ultimo - 0.3, mov([2.0, 0.35, 6.8], [1.6, 0.45, 5.8], [0, 1.9, 1.5], [0, 2.0, 1.5], 40, 38)],
         [K.gyro - 0.35, (tt, u) => ({ ...closeRosto(gy, lerp(0.95, 0.72, E.inOut(u)), 0.05, -0.04, 30) })],
       ], b); },
@@ -76,20 +77,22 @@ addSet("g2-obra", (g) => {
       const lev = smr(t, K.batia - 0.9, K.batia - 0.3); if (lev < 1) sitPose(pai, 1 - lev, { seatY: 0.42 / 1.04, lean: 0.15 }); standFeet(pai);
       const gole = t > K.bebia - 0.4 && t < K.batia - 0.9 ? Math.max(0, Math.sin((t - K.bebia + 0.4) * 2.2)) : 0; maoEm(pai, 1, lerp3v(frenteW(pai, -0.15, 0.85, 0.3), corpoW(pai, "head", 0.02, -0.02, 0.12), gole), 1, { abre: 0.4 }); pose(pai, { neck: [-0.35 * gole, 0, 0] }, 1);
       if (t > K.batia - 0.9) { k.position.set(-3.6, 0, -2.0); k.rotation.y = -Math.PI / 2 - 0.3; restPose(k); idle(k, t, 701, 0.2); const enc = smr(t, K.batia, K.batia + 0.3); kneelPose(k, enc * 0.6); pose(k, { neck: [0.5 * enc, 0, 0], spine: [0.3 * enc, 0, 0] }, 1); standFeet(k); maoEm(pai, 0, frenteW(pai, 0.15, lerp(1.0, 1.7, smr(t, K.batia - 0.5, K.batia - 0.1)), 0.35), 1, { abre: 0.5 }); }
-      spP(0); escurece(t, K.batia - 0.05, K.batia + 0.05, [0, 0, 0], 0.85); if (t > K.batia + 0.05) { const v = 1 - smr(t, K.batia + 0.05, K.batia + 0.5); if (v > 0) { GU.uFade.value = Math.max(GU.uFade.value, 0.85 * v); GU.uFadeCol.value.set(0, 0, 0); } }
+      spP(0); apagao(t, K.batia, 0.08, 0.12, 0.45, 0.85);
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([9, 9, 9], [5, 3.5, 2.5], [1, 1, -8], [2.2, 0.6, -8], 44, 40)],
+        [a, mov([5.8, 0.5, -1.6], [4.6, 0.45, -2.6], [1.5, 0.8, -7.5], [1.0, 0.8, -8.2], 42, 40)], // baixo, o menino passa contra o céu
         [K.cimento - 0.3, mov([-0.6, 0.9, -2.6], [-0.9, 0.85, -3.0], [-2.7, 0.6, -4.6], [-2.8, 0.6, -4.8], 40, 36)],
         [K.tijolo - 0.3, mov([2.0, 1.0, -9.2], [1.5, 0.9, -9.8], [0.3, 0.6, -11.8], [0.3, 0.6, -11.8], 40, 36)],
         [K.falar - 0.3, mov([0.5, 0.75, 0.9], [0.3, 0.72, 0.4], [-1.0, 0.75, -1.2], [-1.0, 0.75, -1.2], 36, 32)],
-        [tPai, mov([-2.0, 1.1, -0.6], [-2.4, 1.05, -1.0], [-4.6, 0.9, -2.4], [-4.6, 0.95, -2.4], 40, 36)],
+        [tPai, mov([-3.9, 0.42, 0.7], [-3.85, 0.48, 0.3], [-4.6, 1.15, -2.4], [-4.6, 1.2, -2.4], 40, 36)], // de baixo: o pai contra o pôr do sol
         [K.batia - 0.9, mov([-2.7, 0.35, -1.5], [-2.8, 0.32, -1.7], [-4.3, 1.4, -2.3], [-4.3, 1.5, -2.3], 44, 42)],
       ], b); },
   };
 });
 const lerp3v = (a, b, k) => a.clone().lerp(b, clamp(k));
+// apagão curto em volta de t0 (entra, fica, volta) — escurece() sozinho não volta
+function apagao(t, t0, entra = 0.12, fica = 0.15, sai = 0.5, max = 0.9) { const k = smr(t, t0 - entra, t0) * (1 - smr(t, t0 + fica, t0 + fica + sai)) * max; if (k > 0) { GU.uFade.value = Math.max(GU.uFade.value, k); GU.uFadeCol.value.set(0, 0, 0); } }
 
 // ---------------------------------------------------------------- 2b · o medo do barulho: o pai dorme na esteira; o menino anda na ponta dos pés; uma garrafa rola
 addSet("g2b-medo", (g) => {
@@ -128,7 +131,7 @@ addSet("g3-febre", (g) => {
       const noite = smr(t, tF - 0.2, tF + 0.2); B.upd(t, t < tF ? 0.6 : 1); B.dob.rotation.y = t < tF ? -1.3 : 0;
       fora.material.color.copy(corTarde).lerp(corNoite, noite);
       // antes da febre: o menino na porta olhando o pai lá fora (contra o pôr do sol)
-      pai.visible = t < tF; restPose(pai); pai.position.set(0.6, 0, 4.2); pai.rotation.y = 2.6; idle(pai, t, 702, 0.25); standFeet(pai);
+      pai.visible = t < tF; restPose(pai); pai.position.set(-0.15, 0, 4.4); pai.rotation.y = 0.2; idle(pai, t, 702, 0.25); standFeet(pai);
       if (t < tF) { restPose(k); k.position.set(-0.2, 0, 1.3); k.rotation.y = 0.1; idle(k, t, 701, 0.25); standFeet(k); pose(k, { neck: [-0.15, 0, 0] }, 1); v.visible = false; }
       else {
         deitado(k, -1.3, 0.1, -0.6); pose(k, { neck: [0, -0.4, 0] }, 1);
@@ -142,7 +145,7 @@ addSet("g3-febre", (g) => {
       return planos(t, [
         [a, mov([0.4, 0.95, -0.6], [0.3, 0.9, -0.2], [-0.1, 0.9, 4], [-0.1, 1.0, 4], 46, 42)],
         [tF, mov([0.6, 1.9, 0.2], [0.3, 1.75, -0.2], [-1.3, 0.1, -1.0], [-1.3, 0.15, -1.1], 46, 40)],
-        [K.alguem - 0.3, mov([0.8, 0.55, -1.0], [0.7, 0.5, -1.15], [-1.0, 0.5, -1.3], [-1.0, 0.55, -1.3], 42, 38)],
+        [K.alguem - 0.3, mov([-1.3, 1.5, 0.7], [-1.25, 1.4, 0.45], [-1.0, 0.35, -1.35], [-1.0, 0.35, -1.4], 46, 42)], // dos pés da esteira: o menino deitado e o vulto ao lado
         [K.pai3 - 0.35, mov([-1.5, 0.35, -0.2], [-1.4, 0.32, -0.35], [-0.7, 0.85, -1.25], [-0.7, 0.9, -1.25], 40, 34)],
       ], b); },
   };
@@ -179,8 +182,8 @@ addSet("g4-verdade", (g) => {
         [K.zombou - 0.3, mov([-0.6, 0.85, 1.6], [-0.4, 0.8, 1.3], [1.25, 0.9, 0.35], [1.25, 0.9, 0.35], 40, 36)],
         [K.cima - 0.3, mov([0.2, 1.4, 3.6], [0.4, 1.3, 3.0], [0.4, 0.6, 0.6], [0.8, 0.5, 0.5], 44, 40)],
         [K.verdade - 0.3, mov([2.6, 0.5, 0.9], [2.55, 0.48, 1.0], [1.45, 1.55, 1.75], [1.45, 1.6, 1.75], 42, 38)], // de baixo, o homem falando (o menino fica fora do quadro)
-        [K.vizinho - 0.3, mov([3.2, 1.1, 2.0], [3.6, 1.05, 2.2], [5.5, 1.0, 2.7], [5.5, 1.0, 2.7], 40, 34)],
-        [K.importava - 0.3, mov([-1.0, 0.9, 1.0], [-0.2, 1.0, 1.8], [-4.6, 0.8, -2.4], [-4.6, 0.8, -2.4], 34, 40)],
+        [K.vizinho - 0.3, mov([4.6, 0.5, 5.6], [4.7, 0.55, 5.2], [5.5, 1.2, 1.5], [5.5, 1.25, 1.5], 40, 36)], // o velho contra o céu
+        [K.importava - 0.3, mov([-3.8, 0.45, 1.4], [-3.5, 0.55, 2.6], [-4.6, 1.15, -2.4], [-4.6, 1.15, -2.4], 34, 40)],
       ], b); },
   };
 });
@@ -197,12 +200,12 @@ addSet("g5-noite", (g) => {
       C.upd(t); const jan = C.casaPai.userData.jan, gl = C.casaPai.userData.gl;
       const apaga = smr(t, K.matou + 0.1, K.matou + 0.5), tremula = t > K.matou - 0.3 && t < K.matou + 0.1 ? (Math.sin(t * 40) > 0 ? 1 : 0.3) : 1;
       jan.material.color.setRGB(lerp(1, 0.08, apaga) * tremula, lerp(0.69, 0.06, apaga) * tremula, lerp(0.38, 0.05, apaga) * tremula); if (gl) gl.material.opacity = 0.35 * (1 - apaga) * tremula;
-      flash(t, K.matou + 0.1, 0.05, 0.9, [0.5, 0.0, 0.02]);
+      flash(t, K.matou + 0.1, 0.05, 0.9, [0.22, 0.0, 0.01]);
       restPose(k); saco.visible = t > K.dinheiro - 0.3; moeda.material.opacity = saco.visible ? 0.6 + 0.4 * Math.sin(t * 7) : 0;
       if (t < K.matou - 0.4) { k.position.set(-3.6, 0, -2.0); k.rotation.y = -Math.PI / 2 - 0.25; idle(k, t, 701, 0.2); standFeet(k); }
       else if (t < K.dinheiro - 0.3) { const f = smr(t, K.matou - 0.4, K.matou); gait(k, 1.4 * f, { from: [-3.6, 0, -2.0], ang: -Math.PI / 2 - 0.25, step: 0.45 }); k.visible = f < 0.98; }
       else if (t < K.conclusao - 0.3) { k.visible = true; const f = seg(t, K.dinheiro - 0.3, K.conclusao - 0.3); gait(k, 1.0 + 16 * f * f, { from: [-5.0, 0, -2.7], ang: Math.PI * 0.62, step: 0.75, run: smr(t, K.fugiu - 0.3, K.fugiu) }); }
-      else { k.visible = true; k.position.set(2.0, 0, 3.0); k.rotation.y = Math.PI * 0.85; idle(k, t, 701, 0.3); standFeet(k); pose(k, { neck: [0.25 - 0.45 * smr(t, K.mundo - 0.3, K.mundo + 0.5), 0, 0] }, 1); }
+      else { k.visible = true; k.position.set(2.0, 0, 3.0); k.rotation.y = t > K.devolver - 0.3 ? 0.15 : Math.PI * 0.85; idle(k, t, 701, 0.3); standFeet(k); pose(k, { neck: [0.25 - 0.45 * smr(t, K.mundo - 0.3, K.mundo + 0.5), 0, 0] }, 1); }
       spK(0); const mal = smr(t, K.devolver - 0.3, K.maldade + 0.2); olhosK(k, smr(t, K.maldade - 0.2, K.maldade + 0.2)); FU.upd(t, mal, V3(k.position.x, 0.2, k.position.z));
       floatDust(est, t, 0.02, 0.05);
     },
@@ -210,10 +213,10 @@ addSet("g5-noite", (g) => {
       return planos(t, [
         [a, mov([-1.4, 1.2, 0.2], [-1.8, 1.15, -0.4], [-4.8, 1.0, -2.6], [-4.8, 1.0, -2.6], 42, 40)],
         [K.matou - 0.4, mov([-1.0, 2.0, 1.4], [-1.3, 1.9, 1.0], [-5.6, 1.3, -2.9], [-5.6, 1.3, -2.9], 40, 38)],
-        [K.dinheiro - 0.3, mov([-3.4, 0.9, 0.4], [-3.2, 0.95, 0.6], [-4.8, 0.7, -2.4], [-3.6, 0.6, -1.0], 42, 42)],
-        [K.fugiu - 0.3, mov([6, 8, 9], [7, 9, 11], [0, 0, 0], [3, 0, 4], 46, 46)],
+        [K.dinheiro - 0.3, mov([-3.4, 0.35, 0.6], [-3.2, 0.4, 0.8], [-4.8, 1.0, -2.4], [-3.8, 1.0, -1.2], 42, 42)],
+        [K.fugiu - 0.3, mov([3.5, 0.45, 2.5], [4.0, 0.5, 2.0], [-1.0, 1.4, -8], [3.0, 1.4, -9], 46, 46)], // baixo: ele corre contra o horizonte
         [K.conclusao - 0.3, mov([4.0, 0.9, 6.2], [3.6, 0.9, 5.6], [2.0, 0.8, 3.0], [2.0, 0.8, 3.0], 42, 38)],
-        [K.mundo - 0.3, mov([3.0, 1.6, 5.0], [6, 14, 16], [2.0, 0.6, 3.0], [2.0, 0.4, 2.6], 42, 54)],
+        [K.mundo - 0.3, mov([3.0, 1.2, 5.6], [5.0, 6.5, 12], [2.0, 1.0, 3.0], [0, 4, -40], 42, 52)], // sobe e mostra o mundo enorme
         [K.devolver - 0.3, (tt, u) => ({ ...closeRosto(k, lerp(1.1, 0.75, E.inOut(u)), 0.1, -0.03, 32) })],
       ], b); },
   };

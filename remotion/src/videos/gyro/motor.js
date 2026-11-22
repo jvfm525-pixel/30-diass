@@ -2889,8 +2889,9 @@ const CAB_GY = {
 function gonLP(o = {}) { return pessoaLP({ seed: 82, pele: 0xf6d2ac, olho: "#5a3418", olhoAlt: 1.0, olhoTam: 1.12, brava: 0.05, roupa: 0x2f7a3a, calca: 0x2a6a32, sapato: 0x1e5a2a, sola: 0xe8e4d8, botoes: false, sobrancelha: 0x14180f, cabelo: CAB_GY.gon, scale: 0.78, ...o }); }
 
 // silhueta preta chapada (flashback do mangá); mantém sombra projetada
-function silhueta(p, cor = 0x060607) { const m = new THREE.MeshBasicMaterial({ color: cor });
-  p.traverse((x) => { if (!x.isMesh) return; if (x.userData.isDecal) { x.visible = false; return; } x.material = m; x.castShadow = true; }); p.userData.silM = m; return p; }
+const INVIS_G = new THREE.MeshBasicMaterial({ visible: false });
+function silhueta(p, cor = 0x0a0a0c) { const m = LPmat(cor, { rim: 1.4, rough: 1 }); // preta, mas com contorno de luz (lê no escuro)
+  p.traverse((x) => { if (!x.isMesh) return; if (x.userData.isDecal) { x.material = INVIS_G; return; } x.material = m; x.castShadow = true; }); p.userData.silM = m; return p; }
 
 // dois riscos de olho acesos (rosto na sombra / formiga)
 function olhosAcesos(p, cor = 0xd8e8ff, tam = 1) { const u = p.userData, m = new THREE.MeshBasicMaterial({ color: cor }), ey = CAB.EY, out = [];
@@ -2908,17 +2909,23 @@ function gyroLP(o = {}) {
     for (let i = 0; i <= 32; i++) { const u = i / 32, y = y0 + (y1 - y0) * u, f = (u * n) % 1; pts.push([r0 + (r1 - r0) * Math.sin(u * Math.PI * 0.5 + (r1 < r0 ? 0 : 0)) * 1 + amp * Math.pow(Math.sin(f * Math.PI), 0.7), y]); }
     if (fecha) pts.push([0.001, y1]); const m = mesh(lathe(pts, 18), mat, 0, 0, 0, par); m.scale.z = sz; return m; };
   const cmD = LPmat(GY.casaco, { rim: 0.6, rough: 0.55, side: THREE.DoubleSide });
-  gomos(-0.07, 0.22, 0.158, 0.162, 3, 0.022, u.spine, 0.8, cm, true);
-  gomos(-0.03, 0.29, 0.176, 0.17, 4, 0.024, u.chest, 0.76, cm, false);
+  gomos(-0.07, 0.22, 0.158, 0.162, 3, 0.012, u.spine, 0.8, cm, true);
+  gomos(-0.03, 0.29, 0.176, 0.17, 4, 0.014, u.chest, 0.76, cm, false);
   mesh(new THREE.SphereGeometry(0.17, 18, 8, 0, Math.PI * 2, 0, Math.PI * 0.5), cm, 0, 0.27, 0, u.chest).scale.set(1, 0.45, 0.76); // ombros arredondados
-  gomos(0.08, -0.44, 0.18, 0.225, 3, 0.02, u.hips, 0.84, cmD, false); // barra até a coxa
-  u.sh.forEach((sh) => gomos(0.05, -0.3, 0.074, 0.07, 3, 0.016, sh, 1, cm, true));
-  u.el.forEach((el) => gomos(0.03, -0.235, 0.066, 0.064, 2, 0.014, el, 1, cm, true));
+  gomos(0.08, -0.44, 0.18, 0.225, 3, 0.012, u.hips, 0.84, cmD, false); // barra até a coxa
+  u.sh.forEach((sh) => gomos(0.05, -0.3, 0.074, 0.07, 3, 0.01, sh, 1, cm, true));
+  u.el.forEach((el) => gomos(0.03, -0.235, 0.066, 0.064, 2, 0.009, el, 1, cm, true));
   mesh(new THREE.TorusGeometry(0.085, 0.04, 8, 18), cm, 0, 0.33, 0, u.chest).rotation.x = Math.PI / 2; // gola gorda
   // capuz: casca aberta na frente, maior que a cabeça, bordas com pelo escuro
-  const cap = mesh(new THREE.SphereGeometry(1, 16, 12, Math.PI * 0.5 + 0.75, Math.PI * 2 - 1.5, 0, Math.PI * 0.78), ce, 0, 0.085, -0.02, u.head); cap.scale.set(0.14, 0.155, 0.15);
-  const borda = mesh(new THREE.TorusGeometry(0.105, 0.022, 6, 16, Math.PI * 1.25), LPmat(0x4a4a3c, { rim: 0.8, rough: 0.95 }), 0, 0.075, 0.06, u.head); borda.rotation.set(0, 0, -Math.PI * 0.125 + Math.PI);
-  olhosAcesos(p, 0xcfe0ff, 0.9);
+  // rosto = um vazio escuro (sem luz nenhuma): tudo que está na cabeça vira preto chapado; decalques (boca, nariz, sobrancelha) somem
+  const vazioM = new THREE.MeshBasicMaterial({ color: 0x020203 }), INVIS = new THREE.MeshBasicMaterial({ visible: false });
+  u.head.traverse((x) => { if (!x.isMesh) return; x.material = x.userData.isDecal ? INVIS : vazioM; });
+  // capuz fundo e pontudo atrás, com borda fofa de pelo (anel com vértices bagunçados) em volta da abertura
+  const cap = mesh(new THREE.SphereGeometry(1, 18, 14, Math.PI * 0.5 + 0.7, Math.PI * 2 - 1.4, 0, Math.PI * 0.84), ce, 0, 0.09, -0.03, u.head); cap.scale.set(0.155, 0.17, 0.17);
+  const bico = mesh(new THREE.ConeGeometry(0.06, 0.12, 10), ce, 0, 0.13, -0.17, u.head); bico.rotation.x = -1.45; // ponta do capuz caída nas costas
+  const pg = new THREE.TorusGeometry(0.118, 0.026, 7, 40), pp = pg.attributes.position; for (let i = 0; i < pp.count; i++) { const j = 1 + 0.35 * (hash(i * 1.37) - 0.5); pp.setXYZ(i, pp.getX(i) * (1 + 0.06 * (hash(i * 2.1) - 0.5)), pp.getY(i) * (1 + 0.06 * (hash(i * 3.3) - 0.5)), pp.getZ(i) * j); } pg.computeVertexNormals();
+  const pelo = mesh(pg, LPmat(0x4a443a, { rim: 0.7, rough: 1 }), 0, 0.075, 0.075, u.head); pelo.scale.set(0.95, 1.08, 1); pelo.castShadow = false;
+  olhosAcesos(p, 0xcfe0ff, 0.72);
   return p; }
 
 // formiga-sombra (as Quimeras): corpo humano escuro, antenas, mandíbulas, olhos acesos
@@ -3000,7 +3007,7 @@ function grua(g, x, z, h = 26, ry = 0.6) { const c = grp(g, x, 0, z); c.rotation
 // área livre para personagens: x -2..2, z -2..4 (chão plano); câmera olhando para -z
 function canteiroObras(g, o = {}) {
   const noite = !!o.noite;
-  skyDome(g, noite ? { top: 0x05060e, mid: 0x1a1428, hor: 0x5a2a2a, ground: 0x0a0808, sunDir: [-0.3, 0.05, -1], sunCol: 0xff6040, sunI: 0.25, disk: 0.4, cov: 0.35, cloudLit: 0x6a2a2a, cloudSh: 0x0a0a14, midY: 0.14 }
+  skyDome(g, noite ? { top: 0x0a1226, mid: 0x1e2c52, hor: 0x5a5a88, ground: 0x0a0a0c, sunDir: [-0.25, 0.22, -1], sunCol: 0xe8eeff, sunI: 0.55, disk: 1.1, cov: 0.35, cloudLit: 0x8a96c8, cloudSh: 0x101428, midY: 0.14 }
     : { top: 0x2a2a5a, mid: 0xb85a4a, hor: 0xffa860, ground: 0x3a2a20, sunDir: [-0.3, 0.07, -1], sunCol: 0xffb070, sunI: 0.85, disk: 1.0, cov: 0.45, cloudLit: 0xffa070, cloudSh: 0x5a3a4a, midY: 0.15 });
   const plano = (x, z) => { const r = Math.hypot(x, z + 6); return r < 22 ? 0 : (r - 22) * 0.06 * (1 + Math.sin(x * 0.1) * 0.5); };
   terrain(g, { size: 300, segs: 90, grassA: 0x7a5a3a, grassB: 0x8a6a46, dirt: 0x6a4a30, rock: 0x6a6058, h: plano });
@@ -3123,7 +3130,7 @@ function laboratorioD2(g) {
   [[-3.4, -6.4], [-3.4, -5.6], [3.3, -0.5]].forEach(([x, z]) => mesh(cyl(0.3, 0.3, 0.9, 12), LPmat(0x3a4a6a, { metal: 0.4 }), x, 0.45, z, g)); // barris
   [[3.2, 1.6, 0.8], [-3.2, 1.6, 0.7]].forEach(([x, z, s]) => { for (let i = 0; i < 3; i++) mesh(box(0.7 * s, 0.5 * s, 0.6 * s), LPmat(0x7a5a3a), x, 0.25 * s + i * 0.5 * s, z, g); });
   const esc = grp(g, 2.5, 0, 2.6); [-1, 1].forEach((k) => mesh(box(0.05, 3.2, 0.05), LPmat(0x5a3a24), k * 0.22, 1.6, 0, esc)); for (let i = 0; i < 9; i++) mesh(box(0.44, 0.04, 0.05), LPmat(0x5a3a24), 0, 0.3 + i * 0.34, 0, esc);
-  const facho = mesh(new THREE.CylinderGeometry(0.5, 0.7, 3, 10, 1, true), new THREE.MeshBasicMaterial({ color: 0xfff0d0, transparent: true, opacity: 0.08, blending: ADD, depthWrite: false, side: THREE.DoubleSide }), 2.5, 1.5, 2.6, g); facho.castShadow = false;
+  const luzAlto = glowSprite(0xfff0d0, 1.6, 0.35); luzAlto.position.set(2.5, 2.9, 2.6); g.add(luzAlto); // luz do alçapão lá em cima
   const nevoa = dustPts(160, [-3.6, 3.6, 0.2, 2.8, -6.8, 2.6], 0xc8a0ff, 0.025, 0.45); g.add(nevoa);
   const brilho = glowSprite(0xa050ff, 3, 0.08); brilho.position.set(0, 1.2, -3.5); g.add(brilho);
   return { tubos, nevoa, upd(t) { floatDust(nevoa, t, 0.3, 0.15); tubos.forEach((u) => { const pisca = u.i === 1 && (Math.sin(t * 17) > 0.93 || noise1(t * 3) > 0.85) ? 0.35 : 1; u.l.intensity = 4 * pisca; u.tb.material.color.setScalar(pisca > 0.5 ? 0.92 : 0.4); }); } };
@@ -3163,7 +3170,7 @@ function cidadeMeteoro(g) {
 // borda do penhasco em z = -2; Gon senta em (0, 0, -1.6)
 function penhascoMar(g) {
   skyDome(g, { top: 0x2a74d8, mid: 0x7ab8ec, hor: 0xe0f2ff, ground: 0x4a6a8a, sunDir: [0.5, 0.45, -1], sunCol: 0xfff4d8, sunI: 1.0, disk: 1.2, cov: 0.45 });
-  const top = mesh(lathe([[0.001, 0], [30, 0], [30, -40]], 24), LPmat(0x5a8a3a, { rough: 1 }), 0, 0, 30 - 2, g); // platô (meia-lua cortada pela borda)
+  const top = mesh(new THREE.CircleGeometry(30, 48), LPmat(0x5a8a3a, { rough: 1 }), 0, 0.002, 28, g); top.rotation.x = -Math.PI / 2; // platô de grama (a borda do círculo é a beira do penhasco)
   const pedra = LPmat(0x8a8072, { rough: 1, rim: 0.4 });
   const borda = mesh(box(60, 40, 2), pedra, 0, -20.03, -1.0, g); // topo escondido sob a grama: a borda cai direto no mar for (let i = 0; i < 14; i++) rock(g, -14 + i * 2.2, -1 - hash(i) * 2, -3.2 - hash(i * 3) * 1.2, 0.9 + hash(i * 2) * 0.8, i);
   marSimples(g, -40, 0x2a6aa8);
@@ -3178,7 +3185,7 @@ function penhascoMar(g) {
 const GDOF_C = { ap: 0.008, max: 0.014 }, GDOF_M = { ap: 0.005, max: 0.012 }, GDOF_L = { ap: 0.0025, max: 0.008 };
 const LUZ_OBRA = { bg: 0xffa860, fog: [25, 200], fogCol: 0xd88a6a, look: { exposure: 1.05, bloom: 0.35, bloomT: 0.82, vig: 0.42, sat: 1.1, con: 1.08, dof: GDOF_M, rosto: 0.3, lift: [0.015, 0.005, 0] },
   sun: { dir: [-0.3, 0.25, -1], col: 0xffa060, I: 2.4, c: [0, 1, -4], r: 22 }, hemi: { sky: 0xd8906a, ground: 0x3a2a20, I: 0.8 }, fill: { col: 0xffc0a0, I: 0.4, dir: [0.4, 0.3, 1] }, rim: { col: 0xffb070, str: 1.2 } };
-const LUZ_OBRA_NOITE = { bg: 0x05060e, fog: [14, 120], fogCol: 0x0a0a14, look: { exposure: 1.12, bloom: 0.5, bloomT: 0.76, vig: 0.55, sat: 1.0, con: 1.1, dof: GDOF_M, rosto: 0.3, lift: [0, 0.006, 0.02] },
+const LUZ_OBRA_NOITE = { bg: 0x1a2238, fog: [18, 140], fogCol: 0x161c30, look: { exposure: 1.12, bloom: 0.5, bloomT: 0.76, vig: 0.55, sat: 1.0, con: 1.1, dof: GDOF_M, rosto: 0.3, lift: [0, 0.006, 0.02] },
   sun: { dir: [0.3, 0.6, -0.7], col: 0x8aa0ff, I: 0.7, c: [0, 1, -3], r: 18 }, hemi: { sky: 0x2a3050, ground: 0x0a0a0a, I: 0.5 }, fill: { col: 0xffa060, I: 0.15, dir: [0.4, 0.3, 1] }, rim: { col: 0x9ab0ff, str: 1.3 } };
 const LUZ_BARRACO = { bg: 0x05050a, fog: [10, 40], fogCol: 0x0a0a10, look: { exposure: 1.12, bloom: 0.5, bloomT: 0.75, vig: 0.55, sat: 1.05, con: 1.1, dof: GDOF_C, rosto: 0.3 },
   sun: { dir: [0.4, 0.8, -0.3], col: 0x8aa0ff, I: 0.15, c: [0, 1, 0], r: 6 }, hemi: { sky: 0x2a2a3a, ground: 0x1a120a, I: 0.45 }, fill: { col: 0xffa060, I: 0.1, dir: [0.3, 0.3, 1] }, rim: { col: 0xffb070, str: 1.0 } };
@@ -3198,7 +3205,7 @@ function deitado(p, x, y, z, ry = 0) { restPose(p); p.position.set(x, y, z); p.r
 // carregar / segurar: um objeto preso na mão i
 function naMaoG(p, i, obj, dx = 0, dy = -0.1, dz = 0.04) { p.userData.wr[i].add(obj); obj.position.set(dx, dy, dz); return obj; }
 // fumaça escura que sobe de alguém (maldade)
-function fumacaEscura(g) { return steam(g, { origin: [0, 0, 0], n: 18, size: 0.5, spread: 0.5, rise: 0.9, grow: 2.2, opacity: 0.55, life: 2.4, color: 0x0a0610, wind: [0.1, 0, 0] }); }
+function fumacaEscura(g) { return steam(g, { origin: [0, 0, 0], n: 18, size: 0.5, spread: 0.5, rise: 0.9, grow: 2.2, opacity: 0.55, life: 2.4, color: 0x6a1428, wind: [0.1, 0, 0] }); }
 
 // ---------------------------------------------------------------- 0 · capa: o Gyro de capuz na NGL à noite, olhos acesos
 addSet("s0-capa", (g) => {
@@ -3215,12 +3222,13 @@ addSet("g1-abertura", (g) => {
   const nev = steam(g, { origin: [0, 0.1, 2], n: 16, size: 2.4, spread: 6, rise: 0.15, grow: 1.2, opacity: 0.22, life: 6, color: 0x8a98c0, wind: [0.25, 0, 0] });
   return { ...LUZ_NGL_NOITE, hand: 0.004,
     update(t) { V.upd(t, 0); nev.upd(t, 1); vive(gy, t, 801, {}, 0.15); sp(0); gy.rotation.y = lerp(0.4, 0, smr(t, K.rosto - 0.6, K.rosto));
-      olhosK(gy, t < K.rosto - 0.2 ? 0.25 : 1); flash(t, K.gyro, 0.08, 0.5, [0.55, 0.6, 0.8]); },
+      olhosK(gy, t < K.rosto - 0.2 ? 0.25 : 1); flash(t, K.gyro, 0.08, 0.5, [0.22, 0.25, 0.35]); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([7, 7, 16], [3.2, 3.2, 10], [0, 1.5, 0], [0, 1.4, 1.5], 46, 42)],
         [K.lutou - 0.3, mov([0.7, 1.75, -1.6], [0.55, 1.7, -0.9], [0, 1.4, 6], [0, 1.5, 6], 44, 40)],
         [K.rosto - 0.3, (tt, u) => ({ ...closeRosto(gy, lerp(1.2, 0.95, E.inOut(u)), 0.25, -0.04, 32) })],
+        [K.rosto + 1.3, mov([-2.4, 1.3, 4.6], [-2.0, 1.4, 4.2], [0, 1.3, 2], [0, 1.4, 2], 40, 38)],
         [K.ultimo - 0.3, mov([2.0, 0.35, 6.8], [1.6, 0.45, 5.8], [0, 1.9, 1.5], [0, 2.0, 1.5], 40, 38)],
         [K.gyro - 0.35, (tt, u) => ({ ...closeRosto(gy, lerp(0.95, 0.72, E.inOut(u)), 0.05, -0.04, 30) })],
       ], b); },
@@ -3252,20 +3260,22 @@ addSet("g2-obra", (g) => {
       const lev = smr(t, K.batia - 0.9, K.batia - 0.3); if (lev < 1) sitPose(pai, 1 - lev, { seatY: 0.42 / 1.04, lean: 0.15 }); standFeet(pai);
       const gole = t > K.bebia - 0.4 && t < K.batia - 0.9 ? Math.max(0, Math.sin((t - K.bebia + 0.4) * 2.2)) : 0; maoEm(pai, 1, lerp3v(frenteW(pai, -0.15, 0.85, 0.3), corpoW(pai, "head", 0.02, -0.02, 0.12), gole), 1, { abre: 0.4 }); pose(pai, { neck: [-0.35 * gole, 0, 0] }, 1);
       if (t > K.batia - 0.9) { k.position.set(-3.6, 0, -2.0); k.rotation.y = -Math.PI / 2 - 0.3; restPose(k); idle(k, t, 701, 0.2); const enc = smr(t, K.batia, K.batia + 0.3); kneelPose(k, enc * 0.6); pose(k, { neck: [0.5 * enc, 0, 0], spine: [0.3 * enc, 0, 0] }, 1); standFeet(k); maoEm(pai, 0, frenteW(pai, 0.15, lerp(1.0, 1.7, smr(t, K.batia - 0.5, K.batia - 0.1)), 0.35), 1, { abre: 0.5 }); }
-      spP(0); escurece(t, K.batia - 0.05, K.batia + 0.05, [0, 0, 0], 0.85); if (t > K.batia + 0.05) { const v = 1 - smr(t, K.batia + 0.05, K.batia + 0.5); if (v > 0) { GU.uFade.value = Math.max(GU.uFade.value, 0.85 * v); GU.uFadeCol.value.set(0, 0, 0); } }
+      spP(0); apagao(t, K.batia, 0.08, 0.12, 0.45, 0.85);
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([9, 9, 9], [5, 3.5, 2.5], [1, 1, -8], [2.2, 0.6, -8], 44, 40)],
+        [a, mov([5.8, 0.5, -1.6], [4.6, 0.45, -2.6], [1.5, 0.8, -7.5], [1.0, 0.8, -8.2], 42, 40)], // baixo, o menino passa contra o céu
         [K.cimento - 0.3, mov([-0.6, 0.9, -2.6], [-0.9, 0.85, -3.0], [-2.7, 0.6, -4.6], [-2.8, 0.6, -4.8], 40, 36)],
         [K.tijolo - 0.3, mov([2.0, 1.0, -9.2], [1.5, 0.9, -9.8], [0.3, 0.6, -11.8], [0.3, 0.6, -11.8], 40, 36)],
         [K.falar - 0.3, mov([0.5, 0.75, 0.9], [0.3, 0.72, 0.4], [-1.0, 0.75, -1.2], [-1.0, 0.75, -1.2], 36, 32)],
-        [tPai, mov([-2.0, 1.1, -0.6], [-2.4, 1.05, -1.0], [-4.6, 0.9, -2.4], [-4.6, 0.95, -2.4], 40, 36)],
+        [tPai, mov([-3.9, 0.42, 0.7], [-3.85, 0.48, 0.3], [-4.6, 1.15, -2.4], [-4.6, 1.2, -2.4], 40, 36)], // de baixo: o pai contra o pôr do sol
         [K.batia - 0.9, mov([-2.7, 0.35, -1.5], [-2.8, 0.32, -1.7], [-4.3, 1.4, -2.3], [-4.3, 1.5, -2.3], 44, 42)],
       ], b); },
   };
 });
 const lerp3v = (a, b, k) => a.clone().lerp(b, clamp(k));
+// apagão curto em volta de t0 (entra, fica, volta) — escurece() sozinho não volta
+function apagao(t, t0, entra = 0.12, fica = 0.15, sai = 0.5, max = 0.9) { const k = smr(t, t0 - entra, t0) * (1 - smr(t, t0 + fica, t0 + fica + sai)) * max; if (k > 0) { GU.uFade.value = Math.max(GU.uFade.value, k); GU.uFadeCol.value.set(0, 0, 0); } }
 
 // ---------------------------------------------------------------- 2b · o medo do barulho: o pai dorme na esteira; o menino anda na ponta dos pés; uma garrafa rola
 addSet("g2b-medo", (g) => {
@@ -3304,7 +3314,7 @@ addSet("g3-febre", (g) => {
       const noite = smr(t, tF - 0.2, tF + 0.2); B.upd(t, t < tF ? 0.6 : 1); B.dob.rotation.y = t < tF ? -1.3 : 0;
       fora.material.color.copy(corTarde).lerp(corNoite, noite);
       // antes da febre: o menino na porta olhando o pai lá fora (contra o pôr do sol)
-      pai.visible = t < tF; restPose(pai); pai.position.set(0.6, 0, 4.2); pai.rotation.y = 2.6; idle(pai, t, 702, 0.25); standFeet(pai);
+      pai.visible = t < tF; restPose(pai); pai.position.set(-0.15, 0, 4.4); pai.rotation.y = 0.2; idle(pai, t, 702, 0.25); standFeet(pai);
       if (t < tF) { restPose(k); k.position.set(-0.2, 0, 1.3); k.rotation.y = 0.1; idle(k, t, 701, 0.25); standFeet(k); pose(k, { neck: [-0.15, 0, 0] }, 1); v.visible = false; }
       else {
         deitado(k, -1.3, 0.1, -0.6); pose(k, { neck: [0, -0.4, 0] }, 1);
@@ -3318,7 +3328,7 @@ addSet("g3-febre", (g) => {
       return planos(t, [
         [a, mov([0.4, 0.95, -0.6], [0.3, 0.9, -0.2], [-0.1, 0.9, 4], [-0.1, 1.0, 4], 46, 42)],
         [tF, mov([0.6, 1.9, 0.2], [0.3, 1.75, -0.2], [-1.3, 0.1, -1.0], [-1.3, 0.15, -1.1], 46, 40)],
-        [K.alguem - 0.3, mov([0.8, 0.55, -1.0], [0.7, 0.5, -1.15], [-1.0, 0.5, -1.3], [-1.0, 0.55, -1.3], 42, 38)],
+        [K.alguem - 0.3, mov([-1.3, 1.5, 0.7], [-1.25, 1.4, 0.45], [-1.0, 0.35, -1.35], [-1.0, 0.35, -1.4], 46, 42)], // dos pés da esteira: o menino deitado e o vulto ao lado
         [K.pai3 - 0.35, mov([-1.5, 0.35, -0.2], [-1.4, 0.32, -0.35], [-0.7, 0.85, -1.25], [-0.7, 0.9, -1.25], 40, 34)],
       ], b); },
   };
@@ -3355,8 +3365,8 @@ addSet("g4-verdade", (g) => {
         [K.zombou - 0.3, mov([-0.6, 0.85, 1.6], [-0.4, 0.8, 1.3], [1.25, 0.9, 0.35], [1.25, 0.9, 0.35], 40, 36)],
         [K.cima - 0.3, mov([0.2, 1.4, 3.6], [0.4, 1.3, 3.0], [0.4, 0.6, 0.6], [0.8, 0.5, 0.5], 44, 40)],
         [K.verdade - 0.3, mov([2.6, 0.5, 0.9], [2.55, 0.48, 1.0], [1.45, 1.55, 1.75], [1.45, 1.6, 1.75], 42, 38)], // de baixo, o homem falando (o menino fica fora do quadro)
-        [K.vizinho - 0.3, mov([3.2, 1.1, 2.0], [3.6, 1.05, 2.2], [5.5, 1.0, 2.7], [5.5, 1.0, 2.7], 40, 34)],
-        [K.importava - 0.3, mov([-1.0, 0.9, 1.0], [-0.2, 1.0, 1.8], [-4.6, 0.8, -2.4], [-4.6, 0.8, -2.4], 34, 40)],
+        [K.vizinho - 0.3, mov([4.6, 0.5, 5.6], [4.7, 0.55, 5.2], [5.5, 1.2, 1.5], [5.5, 1.25, 1.5], 40, 36)], // o velho contra o céu
+        [K.importava - 0.3, mov([-3.8, 0.45, 1.4], [-3.5, 0.55, 2.6], [-4.6, 1.15, -2.4], [-4.6, 1.15, -2.4], 34, 40)],
       ], b); },
   };
 });
@@ -3373,12 +3383,12 @@ addSet("g5-noite", (g) => {
       C.upd(t); const jan = C.casaPai.userData.jan, gl = C.casaPai.userData.gl;
       const apaga = smr(t, K.matou + 0.1, K.matou + 0.5), tremula = t > K.matou - 0.3 && t < K.matou + 0.1 ? (Math.sin(t * 40) > 0 ? 1 : 0.3) : 1;
       jan.material.color.setRGB(lerp(1, 0.08, apaga) * tremula, lerp(0.69, 0.06, apaga) * tremula, lerp(0.38, 0.05, apaga) * tremula); if (gl) gl.material.opacity = 0.35 * (1 - apaga) * tremula;
-      flash(t, K.matou + 0.1, 0.05, 0.9, [0.5, 0.0, 0.02]);
+      flash(t, K.matou + 0.1, 0.05, 0.9, [0.22, 0.0, 0.01]);
       restPose(k); saco.visible = t > K.dinheiro - 0.3; moeda.material.opacity = saco.visible ? 0.6 + 0.4 * Math.sin(t * 7) : 0;
       if (t < K.matou - 0.4) { k.position.set(-3.6, 0, -2.0); k.rotation.y = -Math.PI / 2 - 0.25; idle(k, t, 701, 0.2); standFeet(k); }
       else if (t < K.dinheiro - 0.3) { const f = smr(t, K.matou - 0.4, K.matou); gait(k, 1.4 * f, { from: [-3.6, 0, -2.0], ang: -Math.PI / 2 - 0.25, step: 0.45 }); k.visible = f < 0.98; }
       else if (t < K.conclusao - 0.3) { k.visible = true; const f = seg(t, K.dinheiro - 0.3, K.conclusao - 0.3); gait(k, 1.0 + 16 * f * f, { from: [-5.0, 0, -2.7], ang: Math.PI * 0.62, step: 0.75, run: smr(t, K.fugiu - 0.3, K.fugiu) }); }
-      else { k.visible = true; k.position.set(2.0, 0, 3.0); k.rotation.y = Math.PI * 0.85; idle(k, t, 701, 0.3); standFeet(k); pose(k, { neck: [0.25 - 0.45 * smr(t, K.mundo - 0.3, K.mundo + 0.5), 0, 0] }, 1); }
+      else { k.visible = true; k.position.set(2.0, 0, 3.0); k.rotation.y = t > K.devolver - 0.3 ? 0.15 : Math.PI * 0.85; idle(k, t, 701, 0.3); standFeet(k); pose(k, { neck: [0.25 - 0.45 * smr(t, K.mundo - 0.3, K.mundo + 0.5), 0, 0] }, 1); }
       spK(0); const mal = smr(t, K.devolver - 0.3, K.maldade + 0.2); olhosK(k, smr(t, K.maldade - 0.2, K.maldade + 0.2)); FU.upd(t, mal, V3(k.position.x, 0.2, k.position.z));
       floatDust(est, t, 0.02, 0.05);
     },
@@ -3386,10 +3396,10 @@ addSet("g5-noite", (g) => {
       return planos(t, [
         [a, mov([-1.4, 1.2, 0.2], [-1.8, 1.15, -0.4], [-4.8, 1.0, -2.6], [-4.8, 1.0, -2.6], 42, 40)],
         [K.matou - 0.4, mov([-1.0, 2.0, 1.4], [-1.3, 1.9, 1.0], [-5.6, 1.3, -2.9], [-5.6, 1.3, -2.9], 40, 38)],
-        [K.dinheiro - 0.3, mov([-3.4, 0.9, 0.4], [-3.2, 0.95, 0.6], [-4.8, 0.7, -2.4], [-3.6, 0.6, -1.0], 42, 42)],
-        [K.fugiu - 0.3, mov([6, 8, 9], [7, 9, 11], [0, 0, 0], [3, 0, 4], 46, 46)],
+        [K.dinheiro - 0.3, mov([-3.4, 0.35, 0.6], [-3.2, 0.4, 0.8], [-4.8, 1.0, -2.4], [-3.8, 1.0, -1.2], 42, 42)],
+        [K.fugiu - 0.3, mov([3.5, 0.45, 2.5], [4.0, 0.5, 2.0], [-1.0, 1.4, -8], [3.0, 1.4, -9], 46, 46)], // baixo: ele corre contra o horizonte
         [K.conclusao - 0.3, mov([4.0, 0.9, 6.2], [3.6, 0.9, 5.6], [2.0, 0.8, 3.0], [2.0, 0.8, 3.0], 42, 38)],
-        [K.mundo - 0.3, mov([3.0, 1.6, 5.0], [6, 14, 16], [2.0, 0.6, 3.0], [2.0, 0.4, 2.6], 42, 54)],
+        [K.mundo - 0.3, mov([3.0, 1.2, 5.6], [5.0, 6.5, 12], [2.0, 1.0, 3.0], [0, 4, -40], 42, 52)], // sobe e mostra o mundo enorme
         [K.devolver - 0.3, (tt, u) => ({ ...closeRosto(k, lerp(1.1, 0.75, E.inOut(u)), 0.1, -0.03, 32) })],
       ], b); },
   };
@@ -3452,7 +3462,7 @@ addSet("g7-ngl", (g) => {
         [K.maquinas - 0.3, mov([-6.5, 1.4, 6.5], [-6.0, 1.3, 5.5], [-3.6, 0.6, 3.6], [-3.4, 0.6, 3.6], 40, 38)],
         [K.natureza - 0.3, mov([2, 2.0, 4], [-2, 3.0, 3], [0, 3, -14], [-6, 4, -16], 46, 46)],
         [K.paz - 0.3, mov([4.5, 6, 12], [3.5, 5, 10], [0, 1.0, -2], [0, 1.0, -2], 46, 44)],
-        [K.baixo - 0.8, mov([2.6, 1.9, 3.2], [1.7, 0.6, 1.4], [1.6, 0, 1.0], [1.6, -1.0, 1.15], 46, 50)],
+        [K.baixo - 0.8, mov([2.6, 1.9, 3.2], [1.75, 1.0, 1.8], [1.6, 0, 1.0], [1.6, -0.6, 1.15], 46, 50)],
       ], b); },
   };
 });
@@ -3509,7 +3519,7 @@ addSet("g8-formigas", (g) => {
         gait(p, d, { from: [Math.sin(ang) * (r0 + 6) * 0.6, 0, -1 - Math.cos(ang) * (r0 + 6) * 0.6], ang: ang + Math.PI, step: 0.6 }); p.visible = t < K.renasceu - 0.3; sp(0); });
       // o Gyro humano até ser devorado; depois o casulo, que racha no "renasceu"
       gy.visible = t < K.devorado + 0.1; restPose(gy); gy.position.set(0, 0, -1); gy.rotation.y = 0.3; idle(gy, t, 801, 0.2); standFeet(gy); olhosK(gy, 1); pose(gy, { neck: [-0.2, 0.3 * Math.sin(t * 2), 0] }, 1);
-      escurece(t, K.devorado - 0.15, K.devorado + 0.05, [0, 0, 0], 1); if (t > K.devorado + 0.05) { const v = 1 - smr(t, K.devorado + 0.05, K.devorado + 0.7); if (v > 0) { GU.uFade.value = Math.max(GU.uFade.value, v); GU.uFadeCol.value.set(0, 0, 0); } }
+      apagao(t, K.devorado, 0.15, 0.25, 0.6, 1);
       const casV = t > K.devorado + 0.05 && t < K.memorias; cas.visible = casV; const ab = smr(t, K.renasceu - 0.1, K.renasceu + 0.4); met[0].position.x = -0.35 * ab; met[1].position.x = 0.35 * ab; met.forEach((m) => (m.rotation.z = 0)); fenda.visible = ab < 0.3; fenda.material.color.setScalar(0.6 + 0.4 * Math.sin(t * 9)); brC.material.opacity = 0.8 * Math.sin(ab * Math.PI) + 0.2 * (1 - ab);
       // a formiga-Gyro: levanta do casulo, memórias giram, vira as costas para o Rei e vai embora
       ga.visible = t > K.renasceu; restPose(ga); const vira = smr(t, K.recusou - 0.1, K.recusou + 0.5);
@@ -3545,7 +3555,7 @@ addSet("g9a-gon", (g) => {
       return planos(t, [
         [a, mov([0.6, 1.0, 1.4], [0.4, 0.9, 0.8], [0, 0.4, -3], [0, 0.5, -8], 46, 44)],
         [K.espelho - 0.3, mov([1.6, 0.9, -4.5], [1.3, 0.85, -4.0], [0, 0.6, -1.55], [0, 0.6, -1.55], 40, 36)],
-        [K.mundo9 - 0.3, mov([-2.5, 2.2, 3.5], [-1.5, 6, 6], [1.5, 0.8, -1.6], [6, 0, -40], 46, 48)],
+        [K.mundo9 - 0.3, mov([1.5, 2.2, 3.5], [3.0, 6, 6], [1.5, 0.8, -1.6], [6, 0, -40], 46, 48)],
       ], b); },
   };
 });
@@ -3561,8 +3571,8 @@ addSet("g9b-gyro", (g) => {
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([-1.4, 0.8, 0.6], [-1.8, 0.75, 0.2], [-4.3, 0.6, -1.9], [-4.3, 0.6, -1.9], 40, 36)],
-        [K.importou - 0.3, mov([-2.2, 1.6, 1.2], [-1.6, 2.6, 2.4], [-4.3, 0.5, -1.9], [-4.3, 0.5, -1.9], 40, 44)], // afasta e sobe (fora dos barracos)
+        [a, mov([-3.6, 0.42, 0.9], [-3.5, 0.48, 0.6], [-4.3, 0.95, -1.9], [-4.3, 1.0, -1.9], 40, 36)], // de baixo: os dois contra o céu
+        [K.importou - 0.3, mov([-2.6, 0.6, 1.8], [-2.0, 1.4, 3.2], [-4.3, 0.8, -1.9], [-4.3, 0.8, -1.9], 40, 44)], // afasta e sobe (fora dos barracos)
       ], b); },
   };
 });

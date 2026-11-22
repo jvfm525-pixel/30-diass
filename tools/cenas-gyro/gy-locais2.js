@@ -63,7 +63,7 @@ function laboratorioD2(g) {
   [[-3.4, -6.4], [-3.4, -5.6], [3.3, -0.5]].forEach(([x, z]) => mesh(cyl(0.3, 0.3, 0.9, 12), LPmat(0x3a4a6a, { metal: 0.4 }), x, 0.45, z, g)); // barris
   [[3.2, 1.6, 0.8], [-3.2, 1.6, 0.7]].forEach(([x, z, s]) => { for (let i = 0; i < 3; i++) mesh(box(0.7 * s, 0.5 * s, 0.6 * s), LPmat(0x7a5a3a), x, 0.25 * s + i * 0.5 * s, z, g); });
   const esc = grp(g, 2.5, 0, 2.6); [-1, 1].forEach((k) => mesh(box(0.05, 3.2, 0.05), LPmat(0x5a3a24), k * 0.22, 1.6, 0, esc)); for (let i = 0; i < 9; i++) mesh(box(0.44, 0.04, 0.05), LPmat(0x5a3a24), 0, 0.3 + i * 0.34, 0, esc);
-  const facho = mesh(new THREE.CylinderGeometry(0.5, 0.7, 3, 10, 1, true), new THREE.MeshBasicMaterial({ color: 0xfff0d0, transparent: true, opacity: 0.08, blending: ADD, depthWrite: false, side: THREE.DoubleSide }), 2.5, 1.5, 2.6, g); facho.castShadow = false;
+  const luzAlto = glowSprite(0xfff0d0, 1.6, 0.35); luzAlto.position.set(2.5, 2.9, 2.6); g.add(luzAlto); // luz do alçapão lá em cima
   const nevoa = dustPts(160, [-3.6, 3.6, 0.2, 2.8, -6.8, 2.6], 0xc8a0ff, 0.025, 0.45); g.add(nevoa);
   const brilho = glowSprite(0xa050ff, 3, 0.08); brilho.position.set(0, 1.2, -3.5); g.add(brilho);
   return { tubos, nevoa, upd(t) { floatDust(nevoa, t, 0.3, 0.15); tubos.forEach((u) => { const pisca = u.i === 1 && (Math.sin(t * 17) > 0.93 || noise1(t * 3) > 0.85) ? 0.35 : 1; u.l.intensity = 4 * pisca; u.tb.material.color.setScalar(pisca > 0.5 ? 0.92 : 0.4); }); } };
@@ -103,7 +103,7 @@ function cidadeMeteoro(g) {
 // borda do penhasco em z = -2; Gon senta em (0, 0, -1.6)
 function penhascoMar(g) {
   skyDome(g, { top: 0x2a74d8, mid: 0x7ab8ec, hor: 0xe0f2ff, ground: 0x4a6a8a, sunDir: [0.5, 0.45, -1], sunCol: 0xfff4d8, sunI: 1.0, disk: 1.2, cov: 0.45 });
-  const top = mesh(lathe([[0.001, 0], [30, 0], [30, -40]], 24), LPmat(0x5a8a3a, { rough: 1 }), 0, 0, 30 - 2, g); // platô (meia-lua cortada pela borda)
+  const top = mesh(new THREE.CircleGeometry(30, 48), LPmat(0x5a8a3a, { rough: 1 }), 0, 0.002, 28, g); top.rotation.x = -Math.PI / 2; // platô de grama (a borda do círculo é a beira do penhasco)
   const pedra = LPmat(0x8a8072, { rough: 1, rim: 0.4 });
   const borda = mesh(box(60, 40, 2), pedra, 0, -20.03, -1.0, g); // topo escondido sob a grama: a borda cai direto no mar for (let i = 0; i < 14; i++) rock(g, -14 + i * 2.2, -1 - hash(i) * 2, -3.2 - hash(i * 3) * 1.2, 0.9 + hash(i * 2) * 0.8, i);
   marSimples(g, -40, 0x2a6aa8);

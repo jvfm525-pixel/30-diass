@@ -14,8 +14,9 @@ const CAB_GY = {
 function gonLP(o = {}) { return pessoaLP({ seed: 82, pele: 0xf6d2ac, olho: "#5a3418", olhoAlt: 1.0, olhoTam: 1.12, brava: 0.05, roupa: 0x2f7a3a, calca: 0x2a6a32, sapato: 0x1e5a2a, sola: 0xe8e4d8, botoes: false, sobrancelha: 0x14180f, cabelo: CAB_GY.gon, scale: 0.78, ...o }); }
 
 // silhueta preta chapada (flashback do mangá); mantém sombra projetada
-function silhueta(p, cor = 0x060607) { const m = new THREE.MeshBasicMaterial({ color: cor });
-  p.traverse((x) => { if (!x.isMesh) return; if (x.userData.isDecal) { x.visible = false; return; } x.material = m; x.castShadow = true; }); p.userData.silM = m; return p; }
+const INVIS_G = new THREE.MeshBasicMaterial({ visible: false });
+function silhueta(p, cor = 0x0a0a0c) { const m = LPmat(cor, { rim: 1.4, rough: 1 }); // preta, mas com contorno de luz (lê no escuro)
+  p.traverse((x) => { if (!x.isMesh) return; if (x.userData.isDecal) { x.material = INVIS_G; return; } x.material = m; x.castShadow = true; }); p.userData.silM = m; return p; }
 
 // dois riscos de olho acesos (rosto na sombra / formiga)
 function olhosAcesos(p, cor = 0xd8e8ff, tam = 1) { const u = p.userData, m = new THREE.MeshBasicMaterial({ color: cor }), ey = CAB.EY, out = [];
@@ -33,17 +34,23 @@ function gyroLP(o = {}) {
     for (let i = 0; i <= 32; i++) { const u = i / 32, y = y0 + (y1 - y0) * u, f = (u * n) % 1; pts.push([r0 + (r1 - r0) * Math.sin(u * Math.PI * 0.5 + (r1 < r0 ? 0 : 0)) * 1 + amp * Math.pow(Math.sin(f * Math.PI), 0.7), y]); }
     if (fecha) pts.push([0.001, y1]); const m = mesh(lathe(pts, 18), mat, 0, 0, 0, par); m.scale.z = sz; return m; };
   const cmD = LPmat(GY.casaco, { rim: 0.6, rough: 0.55, side: THREE.DoubleSide });
-  gomos(-0.07, 0.22, 0.158, 0.162, 3, 0.022, u.spine, 0.8, cm, true);
-  gomos(-0.03, 0.29, 0.176, 0.17, 4, 0.024, u.chest, 0.76, cm, false);
+  gomos(-0.07, 0.22, 0.158, 0.162, 3, 0.012, u.spine, 0.8, cm, true);
+  gomos(-0.03, 0.29, 0.176, 0.17, 4, 0.014, u.chest, 0.76, cm, false);
   mesh(new THREE.SphereGeometry(0.17, 18, 8, 0, Math.PI * 2, 0, Math.PI * 0.5), cm, 0, 0.27, 0, u.chest).scale.set(1, 0.45, 0.76); // ombros arredondados
-  gomos(0.08, -0.44, 0.18, 0.225, 3, 0.02, u.hips, 0.84, cmD, false); // barra até a coxa
-  u.sh.forEach((sh) => gomos(0.05, -0.3, 0.074, 0.07, 3, 0.016, sh, 1, cm, true));
-  u.el.forEach((el) => gomos(0.03, -0.235, 0.066, 0.064, 2, 0.014, el, 1, cm, true));
+  gomos(0.08, -0.44, 0.18, 0.225, 3, 0.012, u.hips, 0.84, cmD, false); // barra até a coxa
+  u.sh.forEach((sh) => gomos(0.05, -0.3, 0.074, 0.07, 3, 0.01, sh, 1, cm, true));
+  u.el.forEach((el) => gomos(0.03, -0.235, 0.066, 0.064, 2, 0.009, el, 1, cm, true));
   mesh(new THREE.TorusGeometry(0.085, 0.04, 8, 18), cm, 0, 0.33, 0, u.chest).rotation.x = Math.PI / 2; // gola gorda
   // capuz: casca aberta na frente, maior que a cabeça, bordas com pelo escuro
-  const cap = mesh(new THREE.SphereGeometry(1, 16, 12, Math.PI * 0.5 + 0.75, Math.PI * 2 - 1.5, 0, Math.PI * 0.78), ce, 0, 0.085, -0.02, u.head); cap.scale.set(0.14, 0.155, 0.15);
-  const borda = mesh(new THREE.TorusGeometry(0.105, 0.022, 6, 16, Math.PI * 1.25), LPmat(0x4a4a3c, { rim: 0.8, rough: 0.95 }), 0, 0.075, 0.06, u.head); borda.rotation.set(0, 0, -Math.PI * 0.125 + Math.PI);
-  olhosAcesos(p, 0xcfe0ff, 0.9);
+  // rosto = um vazio escuro (sem luz nenhuma): tudo que está na cabeça vira preto chapado; decalques (boca, nariz, sobrancelha) somem
+  const vazioM = new THREE.MeshBasicMaterial({ color: 0x020203 }), INVIS = new THREE.MeshBasicMaterial({ visible: false });
+  u.head.traverse((x) => { if (!x.isMesh) return; x.material = x.userData.isDecal ? INVIS : vazioM; });
+  // capuz fundo e pontudo atrás, com borda fofa de pelo (anel com vértices bagunçados) em volta da abertura
+  const cap = mesh(new THREE.SphereGeometry(1, 18, 14, Math.PI * 0.5 + 0.7, Math.PI * 2 - 1.4, 0, Math.PI * 0.84), ce, 0, 0.09, -0.03, u.head); cap.scale.set(0.155, 0.17, 0.17);
+  const bico = mesh(new THREE.ConeGeometry(0.06, 0.12, 10), ce, 0, 0.13, -0.17, u.head); bico.rotation.x = -1.45; // ponta do capuz caída nas costas
+  const pg = new THREE.TorusGeometry(0.118, 0.026, 7, 40), pp = pg.attributes.position; for (let i = 0; i < pp.count; i++) { const j = 1 + 0.35 * (hash(i * 1.37) - 0.5); pp.setXYZ(i, pp.getX(i) * (1 + 0.06 * (hash(i * 2.1) - 0.5)), pp.getY(i) * (1 + 0.06 * (hash(i * 3.3) - 0.5)), pp.getZ(i) * j); } pg.computeVertexNormals();
+  const pelo = mesh(pg, LPmat(0x4a443a, { rim: 0.7, rough: 1 }), 0, 0.075, 0.075, u.head); pelo.scale.set(0.95, 1.08, 1); pelo.castShadow = false;
+  olhosAcesos(p, 0xcfe0ff, 0.72);
   return p; }
 
 // formiga-sombra (as Quimeras): corpo humano escuro, antenas, mandíbulas, olhos acesos
