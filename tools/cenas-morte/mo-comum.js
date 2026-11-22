@@ -30,11 +30,12 @@ const CSM = { pinMorte: 0x6a2634, pinAsa: 0x2c2a34, pinFome: 0x5a3a2c, camisa: 0
 
 // uniforme feminino da escola (Quarta Escola do Leste): camisa de manga comprida, jardineira-vestido abaixo do joelho, cinto largo, laço na gola, meias pretas
 function uniformeEscola(p, pin, laco = CSM.laco) { const u = p.userData, m = LPmat(pin, { rim: 0.8, side: THREE.DoubleSide }), mp = LPmat(CSM.preto, { rim: 0.5 });
-  const peito = mesh(new THREE.CylinderGeometry(0.168, 0.162, 0.2, 18, 1, true), m, 0, 0.09, 0.004, u.chest); peito.scale.z = 0.8;
+  const F = u.P && u.P.fem; const peito = mesh(new THREE.CylinderGeometry(F ? 0.158 : 0.168, F ? 0.15 : 0.162, 0.2, 18, 1, true), m, 0, 0.09, 0.004, u.chest); peito.scale.z = 0.8;
+  if (F) [-1, 1].forEach((k) => { const b = mesh(sph(0.05, 12, 8), LPmat(pin, { rim: 0.8 }), k * 0.054, 0.125, 0.076, u.chest); b.scale.set(1, 0.88, 0.7); }); // busto por cima da jardineira
   [-1, 1].forEach((k) => { const al = mesh(box(0.035, 0.02, 0.2), m, k * 0.085, 0.215, 0.0, u.chest); al.rotation.z = -k * 0.15; }); // alças
-  const cint = mesh(new THREE.CylinderGeometry(0.16, 0.158, 0.26, 18, 1, true), m, 0, 0.06, 0, u.spine); cint.scale.z = 0.8;
-  const cinto = mesh(new THREE.CylinderGeometry(0.162, 0.162, 0.05, 18, 1, true), mp, 0, -0.04, 0, u.spine); cinto.scale.z = 0.8;
-  const saia = mesh(new THREE.CylinderGeometry(0.172, 0.28, 0.52, 24, 1, true), m, 0, -0.23, 0, u.hips); saia.scale.z = 0.86; // pregas = facetas
+  const cint = mesh(new THREE.CylinderGeometry(F ? 0.132 : 0.16, F ? 0.146 : 0.158, 0.26, 18, 1, true), m, 0, 0.06, 0, u.spine); cint.scale.z = 0.8;
+  const cinto = mesh(new THREE.CylinderGeometry(F ? 0.148 : 0.162, F ? 0.148 : 0.162, 0.05, 18, 1, true), mp, 0, -0.04, 0, u.spine); cinto.scale.z = 0.8;
+  const saia = mesh(new THREE.CylinderGeometry(F ? 0.18 : 0.172, F ? 0.3 : 0.28, 0.52, 24, 1, true), m, 0, -0.23, 0, u.hips); saia.scale.z = 0.86; // pregas = facetas
   const lc = LPmat(laco, { rim: 0.6, side: THREE.DoubleSide }), gl = grp(u.chest, 0, 0.3, 0.115);
   [-1, 1].forEach((k) => { const a = mesh(new THREE.ConeGeometry(0.028, 0.06, 4), lc, k * 0.032, 0, 0, gl); a.rotation.z = k * Math.PI / 2; a.scale.z = 0.35; const f = mesh(box(0.022, 0.09, 0.006), lc, k * 0.014, -0.05, 0.004, gl); f.rotation.z = k * 0.2; });
   mesh(sph(0.013, 6, 5), lc, 0, 0, 0.004, gl);
@@ -55,17 +56,17 @@ function cicatrizesYoru(p) { const u = p.userData, m = new THREE.MeshBasicMateri
 function camisaFrente(p, cor = CSM.camisa) { const u = p.userData; mesh(box(0.11, 0.3, 0.012), LPmat(cor, { rim: 0.6 }), 0, 0.15, 0.124, u.chest); mesh(box(0.09, 0.14, 0.012), LPmat(cor, { rim: 0.6 }), 0, 0.08, 0.118, u.spine); }
 
 function morteLP(o = {}) { // "Fami": olhos vermelhos de anéis, cara cansada, pintinhas, brincos verdes, jardineira vinho com laço
-  const p = pessoaLP({ seed: 711, pele: 0xf6e6e0, olho: "#d83a52", olhoAlt: 0.62, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#5a0a18" }, brava: 0.0, browW: 0.05, queixo: 0.66, sobrancelha: 0x8a7080, roupa: CSM.camisa, calca: CSM.preto, sapato: 0xeeeeee, sola: 0xd8d8d8, botoes: false, scale: 0.93, cabelo: CAB_CSM.morte, ...o });
+  const p = pessoaLP({ seed: 711, fem: true, blush: true, pele: 0xf6e6e0, olho: "#d83a52", olhoAlt: 0.66, olhoTam: 1.06, olhoOpts: { aneis: 4, corAnel: "#5a0a18" }, brava: 0.0, browW: 0.046, queixo: 0.6, sobrancelha: 0x8a7080, roupa: CSM.camisa, calca: CSM.preto, sapato: 0xeeeeee, sola: 0xd8d8d8, botoes: false, scale: 0.93, cabelo: CAB_CSM.morte, ...o });
   uniformeEscola(p, CSM.pinMorte); pintas(p, [[0.046, -0.042], [0.058, -0.056], [-0.03, -0.098], [0.035, -0.1]]); brincosMorte(p); if (o.bone) boneMorte(p); return p; }
 function famiFalsa(o = {}) { return morteLP(o); }
 function denjiLP(o = {}) { // Parte 2: gakuran preto aberto por cima da camisa branca; olhos amarelados com olheira
   const p = pessoaLP({ seed: 712, pele: 0xf6dcc4, olho: "#b8902a", olhoAlt: 0.78, olhoTam: 0.95, brava: 0.1, browW: 0.056, queixo: 0.72, sobrancelha: 0xb89a50, roupa: CSM.gak, calca: CSM.gak, sapato: 0x2a2a2e, sola: 0xe8e4dc, botoes: false, cabelo: CAB_CSM.denji, ...o });
   camisaFrente(p); return p; }
-function yoruLP(o = {}) { const p = pessoaLP({ seed: 713, pele: 0xf4dcd0, olho: "#c8303a", olhoAlt: 0.8, olhoTam: 1.02, olhoOpts: { aneis: 4, corAnel: "#4a0a10" }, brava: 0.35, browW: 0.054, queixo: 0.66, sobrancelha: 0x141218, roupa: 0xd8d2c4, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.yoru, ...o });
+function yoruLP(o = {}) { const p = pessoaLP({ seed: 713, fem: true, blush: true, pele: 0xf4dcd0, olho: "#c8303a", olhoAlt: 0.84, olhoTam: 1.08, olhoOpts: { aneis: 4, corAnel: "#4a0a10" }, brava: 0.35, browW: 0.048, queixo: 0.6, sobrancelha: 0x141218, roupa: 0xd8d2c4, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.yoru, ...o });
   uniformeEscola(p, CSM.pinAsa, 0x1a1a22); cicatrizesYoru(p); return p; }
-function makimaLP(o = {}) { const p = pessoaLP({ seed: 714, pele: 0xf8e2d4, olho: "#e8c048", olhoAlt: 0.72, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#a01818" }, brava: 0.0, browW: 0.054, queixo: 0.64, sobrancelha: 0xb84a3a, roupa: 0xf4f2ee, calca: 0x141418, sapato: 0x6a3a22, sola: 0x3a2014, botoes: false, scale: 0.97, cabelo: CAB_CSM.makima, ...o });
+function makimaLP(o = {}) { const p = pessoaLP({ seed: 714, fem: true, blush: true, pele: 0xf8e2d4, olho: "#e8c048", olhoAlt: 0.76, olhoTam: 1.06, olhoOpts: { aneis: 4, corAnel: "#a01818" }, brava: 0.0, browW: 0.048, queixo: 0.58, sobrancelha: 0xb84a3a, roupa: 0xf4f2ee, calca: 0x141418, sapato: 0x6a3a22, sola: 0x3a2014, botoes: false, scale: 0.97, cabelo: CAB_CSM.makima, ...o });
   tranca(p, CAB_CSM.makima.cor); gravata(p, 0x111114); return p; }
-function fomeLP(o = {}) { const p = pessoaLP({ seed: 715, pele: 0xf6e0cc, olho: "#4a9a5a", olhoAlt: 0.9, olhoTam: 1.06, olhoOpts: { aneis: 4, corAnel: "#103a1a" }, brava: 0.0, browW: 0.05, queixo: 0.66, sobrancelha: 0xa88a5a, roupa: 0xc49494, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.fome, ...o });
+function fomeLP(o = {}) { const p = pessoaLP({ seed: 715, fem: true, blush: true, pele: 0xf6e0cc, olho: "#4a9a5a", olhoAlt: 0.94, olhoTam: 1.12, olhoOpts: { aneis: 4, corAnel: "#103a1a" }, brava: 0.0, browW: 0.045, queixo: 0.6, sobrancelha: 0xa88a5a, roupa: 0xc49494, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.fome, ...o });
   uniformeEscola(p, CSM.pinFome, 0x3a2418); return p; }
 
 // cabeça de motosserra (Chainsaw Man) e serras nos antebraços
@@ -118,6 +119,7 @@ function corvo(g) { const c = grp(g), m = LPmat(0x0c0c10, { rim: 0.9 }); const b
 function bateAsas(c, t, f = 14) { c.userData.asas.forEach((a, i) => (a.rotation.z = (i ? -1 : 1) * Math.sin(t * f) * 0.7)); }
 // civil comum (multidão) com cara simples
 function civilLP(i, o = {}) { const cores = [0x3a4a6a, 0x6a3a3a, 0x3a5a4a, 0x5a5a5a, 0x7a6a4a, 0x2a2a34, 0x8a8478], cab = [0x1a1414, 0x2a1e16, 0x14121a, 0x3a2a1e];
-  return pessoaLP({ seed: 760 + i, pele: [0xf2d4b8, 0xe8c4a0, 0xf6dcc8][i % 3], olho: "#3a2a20", roupa: cores[i % cores.length], calca: cores[(i + 3) % cores.length], botoes: false, scale: 0.9 + hash(i) * 0.15,
-    cabelo: { ...CAB_CSM.denji, cor: cab[i % cab.length], seed: 780 + i, pontas: [] }, ...o }); }
+  const f = i % 2 === 1; // metade da multidão é mulher: corpo feminino, cílios, blush e cabelo comprido/chanel
+  return pessoaLP({ seed: 760 + i, fem: f, blush: f, pele: [0xf2d4b8, 0xe8c4a0, 0xf6dcc8][i % 3], olho: "#3a2a20", roupa: cores[i % cores.length], calca: cores[(i + 3) % cores.length], botoes: false, scale: (f ? 0.86 : 0.92) + hash(i) * 0.12,
+    cabelo: f ? { ...(i % 4 === 1 ? CAB_CSM.yoru : CAB_CSM.morte), cor: cab[i % cab.length], seed: 780 + i } : { ...CAB_CSM.denji, cor: cab[i % cab.length], seed: 780 + i, pontas: [] }, ...o }); }
 function olhosK(p, k) { (p.userData.olhosAc || []).forEach((o) => { if (o.isSprite) { o.material.opacity = 0.55 * k; o.visible = k > 0.02; } else o.visible = k > 0.05; }); }

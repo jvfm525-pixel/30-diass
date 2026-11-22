@@ -98,6 +98,7 @@ function olhoTex(iris, o = {}) {
     pts.forEach((q, i) => { const [nx, ny] = nrm(i), e = esp(i); i ? c.lineTo(q[0] + nx * e, q[1] + ny * e) : c.moveTo(q[0] + nx * e, q[1] + ny * e); });
     for (let i = pts.length - 1; i >= 0; i--) { const [nx, ny] = nrm(i), e = esp(i); c.lineTo(pts[i][0] - nx * e * 0.6, pts[i][1] - ny * e * 0.6); }
     c.closePath(); c.fill();
+    if (o.femi) { c.strokeStyle = o.cilio ?? "#141010"; c.lineWidth = 5; [[R - 30, T + 2, R - 18, T - 18], [R - 12, T + 10, R + 6, T - 6], [R + 2, T + 26, R + 20, T + 16]].forEach(([x0, y0, x1, y1]) => { c.beginPath(); c.moveTo(x0, y0); c.quadraticCurveTo((x0 + x1) / 2 + 4, y1 + 4, x1, y1); c.stroke(); }); }
   }));
 }
 // olho fechado (medido no Eren dormindo): arco escuro grosso curvado pra baixo, com cílios curtos embaixo
@@ -256,25 +257,27 @@ function cabeloLP(head, o) {
 function perfilR(pts, y) { for (let i = 0; i < pts.length - 1; i++) if (y <= pts[i + 1][1]) return lerp(pts[i][0], pts[i + 1][0], (y - pts[i][1]) / (pts[i + 1][1] - pts[i][1])); return pts[pts.length - 1][0]; }
 function pessoaLP(o = {}) {
   const P = { pele: 0xf2d4b8, olho: "#2a8a7a", roupa: 0x1b2232, calca: 0x1b2232, sapato: 0x141418, sola: 0xe4e0d8, botao: 0xd4aa50, seed: 1, scale: 1, ...o };
-  const S = skeleton({ ...HUMANO, ...(o.dims || {}) });
+  const S = skeleton({ ...HUMANO, ...(o.fem ? { shW: 0.164, hipW: 0.1, upper: 0.28, fore: 0.245, neckY: 0.27 } : {}), ...(o.dims || {}) });
+  const FEM = !!o.fem, kb = FEM ? 0.84 : 1, kp = FEM ? 0.9 : 1; // braços e canelas mais finos
   const skin = LPmat(P.pele, { rim: 0.45, liso: true, rough: 0.7 }), roupa = LPmat(P.roupa, { rim: 1, liso: true }), roupa2 = LPmat(P.roupa, { rim: 1, liso: true, side: THREE.DoubleSide }), calca = LPmat(P.calca, { liso: true }), sapato = LPmat(P.sapato, { rough: 0.5 }), botao = LPmat(P.botao, { metal: 0.6, rough: 0.35, rim: 0.4 });
   const R = 12;
   // quadril, pernas e tênis
-  mesh(sph(1, R, 6), calca, 0, -0.01, 0, S.hips).scale.set(0.15, 0.11, 0.11);
+  mesh(sph(1, R, 6), calca, 0, -0.01, 0, S.hips).scale.set(FEM ? 0.165 : 0.15, 0.11, FEM ? 0.12 : 0.11);
   S.hipJ.forEach((hj, i) => {
     mesh(lathe([[0.001, -0.45], [0.058, -0.44], [0.066, -0.3], [0.078, -0.1], [0.082, 0.0], [0.062, 0.05], [0.001, 0.065]], R), calca, 0, 0, 0, hj);
     mesh(sph(0.058, R, 6), calca, 0, 0, 0.004, S.knee[i]);
-    mesh(lathe([[0.001, -0.44], [0.054, -0.42], [0.058, -0.26], [0.062, -0.1], [0.06, 0.0], [0.001, 0.03]], R), calca, 0, 0, 0, S.knee[i]);
+    { const cn = mesh(lathe([[0.001, -0.44], [0.054, -0.42], [0.058, -0.26], [0.062, -0.1], [0.06, 0.0], [0.001, 0.03]], R), calca, 0, 0, 0, S.knee[i]); cn.scale.set(kp, 1, kp); }
     mesh(box(0.1, 0.075, 0.23), sapato, 0, -0.03, 0.05, S.ankle[i]);
     mesh(box(0.104, 0.022, 0.236), LPmat(P.sola), 0, -0.07, 0.05, S.ankle[i]);
   });
   // tronco: casaco fechado de gola alta, barra até o quadril, botões
-  const abdP = [[0.001, -0.06], [0.136, -0.06], [0.14, 0.05], [0.136, 0.13], [0.14, 0.21], [0.001, 0.21]];
+  const abdP = FEM ? [[0.001, -0.06], [0.142, -0.06], [0.132, 0.05], [0.118, 0.13], [0.126, 0.21], [0.001, 0.21]] : [[0.001, -0.06], [0.136, -0.06], [0.14, 0.05], [0.136, 0.13], [0.14, 0.21], [0.001, 0.21]];
   const abd = mesh(lathe(abdP, R + 2), roupa, 0, 0, 0, S.spine); abd.scale.z = 0.76;
-  const chP = [[0.001, -0.02], [0.138, -0.02], [0.16, 0.06], [0.176, 0.15], [0.174, 0.22], [0.148, 0.27], [0.086, 0.305], [0.001, 0.31]];
+  const chP = FEM ? [[0.001, -0.02], [0.126, -0.02], [0.146, 0.06], [0.158, 0.14], [0.152, 0.21], [0.128, 0.262], [0.076, 0.296], [0.001, 0.3]] : [[0.001, -0.02], [0.138, -0.02], [0.16, 0.06], [0.176, 0.15], [0.174, 0.22], [0.148, 0.27], [0.086, 0.305], [0.001, 0.31]];
   const ch = mesh(lathe(chP, R + 2), roupa, 0, 0, 0, S.chest); ch.scale.z = 0.72;
-  const hem = mesh(lathe([[0.152, 0.07], [0.16, -0.03], [0.172, -0.13]], R + 2), roupa2, 0, 0, 0, S.hips); hem.scale.z = 0.84;
-  const gola = mesh(new THREE.CylinderGeometry(0.058, 0.07, 0.06, R + 2, 1, true), roupa2, 0, 0.326, -0.004, S.chest); gola.scale.z = 0.94;
+  if (FEM) [-1, 1].forEach((k) => { const b = mesh(sph(0.048, R, 8), roupa, k * 0.054, 0.125, 0.07, S.chest); b.scale.set(1, 0.88, 0.7); }); // busto discreto
+  const hem = mesh(lathe(FEM ? [[0.148, 0.07], [0.168, -0.03], [0.184, -0.13]] : [[0.152, 0.07], [0.16, -0.03], [0.172, -0.13]], R + 2), roupa2, 0, 0, 0, S.hips); hem.scale.z = 0.84;
+  const gola = mesh(new THREE.CylinderGeometry(FEM ? 0.05 : 0.058, FEM ? 0.062 : 0.07, 0.06, R + 2, 1, true), roupa2, 0, FEM ? 0.314 : 0.326, -0.004, S.chest); gola.scale.z = 0.94;
   if (P.botoes !== false) {
     [0.07, 0.15, 0.23].forEach((y) => { const b = mesh(cyl(0.012, 0.012, 0.006, 8), botao, 0, y, perfilR(chP.slice(1), y) * 0.72 + 0.002, S.chest); b.rotation.x = Math.PI / 2; });
     [0.04, 0.13].forEach((y) => { const b = mesh(cyl(0.012, 0.012, 0.006, 8), botao, 0, y, 0.137 * 0.76 + 0.002, S.spine); b.rotation.x = Math.PI / 2; });
@@ -286,15 +289,15 @@ function pessoaLP(o = {}) {
   }
   // braços e mãos
   const hands = S.sh.map((sh, i) => {
-    mesh(sph(0.06, R, 6), roupa, 0, -0.012, 0, sh);
-    mesh(lathe([[0.001, -0.3], [0.048, -0.29], [0.052, -0.2], [0.056, -0.08], [0.06, 0.0], [0.042, 0.04], [0.001, 0.05]], R), roupa, 0, 0, 0, sh);
-    mesh(sph(0.046, R, 6), roupa, 0, 0, 0, S.el[i]);
-    mesh(lathe([[0.001, -0.235], [0.046, -0.228], [0.047, -0.15], [0.048, -0.05], [0.049, 0.0], [0.001, 0.03]], R), roupa, 0, 0, 0, S.el[i]);
-    mesh(cyl(0.051, 0.051, 0.028, R), roupa, 0, -0.222, 0, S.el[i]);
-    return hand(S.wr[i], i ? 1 : -1, skin, 1, true);
+    mesh(sph(0.06, R, 6), roupa, 0, -0.012, 0, sh).scale.setScalar(kb);
+    mesh(lathe([[0.001, -0.3], [0.048, -0.29], [0.052, -0.2], [0.056, -0.08], [0.06, 0.0], [0.042, 0.04], [0.001, 0.05]], R), roupa, 0, 0, 0, sh).scale.set(kb, 1, kb);
+    mesh(sph(0.046, R, 6), roupa, 0, 0, 0, S.el[i]).scale.setScalar(kb);
+    mesh(lathe([[0.001, -0.235], [0.046, -0.228], [0.047, -0.15], [0.048, -0.05], [0.049, 0.0], [0.001, 0.03]], R), roupa, 0, 0, 0, S.el[i]).scale.set(kb, 1, kb);
+    mesh(cyl(0.051, 0.051, 0.028, R), roupa, 0, -0.222, 0, S.el[i]).scale.set(kb, 1, kb);
+    return hand(S.wr[i], i ? 1 : -1, skin, FEM ? 0.86 : 1, true);
   });
   // pescoço, cabeça, orelhas
-  mesh(cyl(0.036, 0.042, 0.1, R), skin, 0, 0.03, 0, S.neck);
+  mesh(cyl(FEM ? 0.03 : 0.036, FEM ? 0.035 : 0.042, 0.1, R), skin, 0, 0.03, 0, S.neck);
   const V2 = P.rosto !== 1; // rosto v2: queixo mais curto, boca perto do nariz, sobrancelha afinando, rugas opcionais
   const headM = mesh(headGeoLP({ queixo: V2 ? (P.queixo ?? 0.7) : 1, ...(P.cabeca || {}) }), skin, 0, 0, 0);
   const zAt = (x, y) => { let z = surfZ(headM, x, y); if (z === 0) z = surfZ(headM, Math.sign(x) * Math.min(Math.abs(x), CAB.HW * 0.9), y) - 0.006; return z; };
@@ -304,7 +307,7 @@ function pessoaLP(o = {}) {
   const olhos = [], fechados = [];
   if (!P.venda) [-1, 1].forEach((k) => {
     const g = grp(S.head, k * EX, EY, 0); g.rotation.set(0, 0, k * (P.olhoInc ?? 0));
-    decalSup(g, olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.olhoOpts || {}) }), OW, OH, 0, 0, (x, y) => zAt(k * EX + x, EY + y), { espelho: k < 0, ei: 0.28, dz: 0.0028 });
+    decalSup(g, olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.fem ? { femi: true } : {}), ...(P.olhoOpts || {}) }), OW, OH, 0, 0, (x, y) => zAt(k * EX + x, EY + y), { espelho: k < 0, ei: 0.28, dz: 0.0028 });
     const f = decalSup(S.head, olhoFechadoTex, OW, OH, k * EX, EY - 0.002, zAt, { espelho: k < 0, dz: 0.0032 }); f.visible = false;
     olhos.push(g); fechados.push(f);
   });
@@ -357,7 +360,7 @@ function rostoLP(p, t, f = {}) {
   if (L.extras) L.extras.forEach((g) => (g.visible = !fecha));
   L.brows.forEach((g, i) => { const k = i ? 1 : -1; g.rotation.z = g.userData.rz0 - k * ((f.bravo ?? 0) * 0.32 - (f.triste ?? 0) * 0.3); g.position.y = g.userData.y0 + (f.sobe ?? 0) * 0.006 - (f.bravo ?? 0) * 0.003; });
   const chq = (f.choque ?? 0) > 0.5;
-  L.olhos.forEach((g) => { const m = g.children[0]; if (!m || !m.material.map) return; if (!m.userData.texN) { const P = u.P, base = olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.olhoOpts || {}), ir: 0.52 * (P.olhoOpts?.ir ?? 1) }); m.userData.texN = m.material.map; m.userData.texC = m.material.map.repeat.x < 0 ? espelho(base) : base; } const want = chq ? m.userData.texC : m.userData.texN; if (m.material.map !== want) { m.material.map = want; if (m.material.emissiveMap) m.material.emissiveMap = want; m.material.needsUpdate = true; } });
+  L.olhos.forEach((g) => { const m = g.children[0]; if (!m || !m.material.map) return; if (!m.userData.texN) { const P = u.P, base = olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.fem ? { femi: true } : {}), ...(P.olhoOpts || {}), ir: 0.52 * (P.olhoOpts?.ir ?? 1) }); m.userData.texN = m.material.map; m.userData.texC = m.material.map.repeat.x < 0 ? espelho(base) : base; } const want = chq ? m.userData.texC : m.userData.texN; if (m.material.map !== want) { m.material.map = want; if (m.material.emissiveMap) m.material.emissiveMap = want; m.material.needsUpdate = true; } });
   if (L.sombra) { L.sombra.visible = (f.sombra ?? 0) > 0.02; L.sombra.material.opacity = clamp(f.sombra ?? 0); }
   if (L.suor) { L.suor.visible = (f.suor ?? 0) > 0.02; L.suor.position.y = CAB.EY + 0.05 - ((t * 0.03) % 0.03) * (f.suor ?? 0); }
   if (L.lagrimas) L.lagrimas.forEach((m) => { m.visible = (f.choro ?? 0) > 0.02; m.scale.y = Math.max(0.05, f.choro ?? 0); });

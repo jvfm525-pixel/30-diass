@@ -1518,6 +1518,7 @@ function olhoTex(iris, o = {}) {
     pts.forEach((q, i) => { const [nx, ny] = nrm(i), e = esp(i); i ? c.lineTo(q[0] + nx * e, q[1] + ny * e) : c.moveTo(q[0] + nx * e, q[1] + ny * e); });
     for (let i = pts.length - 1; i >= 0; i--) { const [nx, ny] = nrm(i), e = esp(i); c.lineTo(pts[i][0] - nx * e * 0.6, pts[i][1] - ny * e * 0.6); }
     c.closePath(); c.fill();
+    if (o.femi) { c.strokeStyle = o.cilio ?? "#141010"; c.lineWidth = 5; [[R - 30, T + 2, R - 18, T - 18], [R - 12, T + 10, R + 6, T - 6], [R + 2, T + 26, R + 20, T + 16]].forEach(([x0, y0, x1, y1]) => { c.beginPath(); c.moveTo(x0, y0); c.quadraticCurveTo((x0 + x1) / 2 + 4, y1 + 4, x1, y1); c.stroke(); }); }
   }));
 }
 // olho fechado (medido no Eren dormindo): arco escuro grosso curvado pra baixo, com cílios curtos embaixo
@@ -1676,25 +1677,27 @@ function cabeloLP(head, o) {
 function perfilR(pts, y) { for (let i = 0; i < pts.length - 1; i++) if (y <= pts[i + 1][1]) return lerp(pts[i][0], pts[i + 1][0], (y - pts[i][1]) / (pts[i + 1][1] - pts[i][1])); return pts[pts.length - 1][0]; }
 function pessoaLP(o = {}) {
   const P = { pele: 0xf2d4b8, olho: "#2a8a7a", roupa: 0x1b2232, calca: 0x1b2232, sapato: 0x141418, sola: 0xe4e0d8, botao: 0xd4aa50, seed: 1, scale: 1, ...o };
-  const S = skeleton({ ...HUMANO, ...(o.dims || {}) });
+  const S = skeleton({ ...HUMANO, ...(o.fem ? { shW: 0.164, hipW: 0.1, upper: 0.28, fore: 0.245, neckY: 0.27 } : {}), ...(o.dims || {}) });
+  const FEM = !!o.fem, kb = FEM ? 0.84 : 1, kp = FEM ? 0.9 : 1; // braços e canelas mais finos
   const skin = LPmat(P.pele, { rim: 0.45, liso: true, rough: 0.7 }), roupa = LPmat(P.roupa, { rim: 1, liso: true }), roupa2 = LPmat(P.roupa, { rim: 1, liso: true, side: THREE.DoubleSide }), calca = LPmat(P.calca, { liso: true }), sapato = LPmat(P.sapato, { rough: 0.5 }), botao = LPmat(P.botao, { metal: 0.6, rough: 0.35, rim: 0.4 });
   const R = 12;
   // quadril, pernas e tênis
-  mesh(sph(1, R, 6), calca, 0, -0.01, 0, S.hips).scale.set(0.15, 0.11, 0.11);
+  mesh(sph(1, R, 6), calca, 0, -0.01, 0, S.hips).scale.set(FEM ? 0.165 : 0.15, 0.11, FEM ? 0.12 : 0.11);
   S.hipJ.forEach((hj, i) => {
     mesh(lathe([[0.001, -0.45], [0.058, -0.44], [0.066, -0.3], [0.078, -0.1], [0.082, 0.0], [0.062, 0.05], [0.001, 0.065]], R), calca, 0, 0, 0, hj);
     mesh(sph(0.058, R, 6), calca, 0, 0, 0.004, S.knee[i]);
-    mesh(lathe([[0.001, -0.44], [0.054, -0.42], [0.058, -0.26], [0.062, -0.1], [0.06, 0.0], [0.001, 0.03]], R), calca, 0, 0, 0, S.knee[i]);
+    { const cn = mesh(lathe([[0.001, -0.44], [0.054, -0.42], [0.058, -0.26], [0.062, -0.1], [0.06, 0.0], [0.001, 0.03]], R), calca, 0, 0, 0, S.knee[i]); cn.scale.set(kp, 1, kp); }
     mesh(box(0.1, 0.075, 0.23), sapato, 0, -0.03, 0.05, S.ankle[i]);
     mesh(box(0.104, 0.022, 0.236), LPmat(P.sola), 0, -0.07, 0.05, S.ankle[i]);
   });
   // tronco: casaco fechado de gola alta, barra até o quadril, botões
-  const abdP = [[0.001, -0.06], [0.136, -0.06], [0.14, 0.05], [0.136, 0.13], [0.14, 0.21], [0.001, 0.21]];
+  const abdP = FEM ? [[0.001, -0.06], [0.142, -0.06], [0.132, 0.05], [0.118, 0.13], [0.126, 0.21], [0.001, 0.21]] : [[0.001, -0.06], [0.136, -0.06], [0.14, 0.05], [0.136, 0.13], [0.14, 0.21], [0.001, 0.21]];
   const abd = mesh(lathe(abdP, R + 2), roupa, 0, 0, 0, S.spine); abd.scale.z = 0.76;
-  const chP = [[0.001, -0.02], [0.138, -0.02], [0.16, 0.06], [0.176, 0.15], [0.174, 0.22], [0.148, 0.27], [0.086, 0.305], [0.001, 0.31]];
+  const chP = FEM ? [[0.001, -0.02], [0.126, -0.02], [0.146, 0.06], [0.158, 0.14], [0.152, 0.21], [0.128, 0.262], [0.076, 0.296], [0.001, 0.3]] : [[0.001, -0.02], [0.138, -0.02], [0.16, 0.06], [0.176, 0.15], [0.174, 0.22], [0.148, 0.27], [0.086, 0.305], [0.001, 0.31]];
   const ch = mesh(lathe(chP, R + 2), roupa, 0, 0, 0, S.chest); ch.scale.z = 0.72;
-  const hem = mesh(lathe([[0.152, 0.07], [0.16, -0.03], [0.172, -0.13]], R + 2), roupa2, 0, 0, 0, S.hips); hem.scale.z = 0.84;
-  const gola = mesh(new THREE.CylinderGeometry(0.058, 0.07, 0.06, R + 2, 1, true), roupa2, 0, 0.326, -0.004, S.chest); gola.scale.z = 0.94;
+  if (FEM) [-1, 1].forEach((k) => { const b = mesh(sph(0.048, R, 8), roupa, k * 0.054, 0.125, 0.07, S.chest); b.scale.set(1, 0.88, 0.7); }); // busto discreto
+  const hem = mesh(lathe(FEM ? [[0.148, 0.07], [0.168, -0.03], [0.184, -0.13]] : [[0.152, 0.07], [0.16, -0.03], [0.172, -0.13]], R + 2), roupa2, 0, 0, 0, S.hips); hem.scale.z = 0.84;
+  const gola = mesh(new THREE.CylinderGeometry(FEM ? 0.05 : 0.058, FEM ? 0.062 : 0.07, 0.06, R + 2, 1, true), roupa2, 0, FEM ? 0.314 : 0.326, -0.004, S.chest); gola.scale.z = 0.94;
   if (P.botoes !== false) {
     [0.07, 0.15, 0.23].forEach((y) => { const b = mesh(cyl(0.012, 0.012, 0.006, 8), botao, 0, y, perfilR(chP.slice(1), y) * 0.72 + 0.002, S.chest); b.rotation.x = Math.PI / 2; });
     [0.04, 0.13].forEach((y) => { const b = mesh(cyl(0.012, 0.012, 0.006, 8), botao, 0, y, 0.137 * 0.76 + 0.002, S.spine); b.rotation.x = Math.PI / 2; });
@@ -1706,15 +1709,15 @@ function pessoaLP(o = {}) {
   }
   // braços e mãos
   const hands = S.sh.map((sh, i) => {
-    mesh(sph(0.06, R, 6), roupa, 0, -0.012, 0, sh);
-    mesh(lathe([[0.001, -0.3], [0.048, -0.29], [0.052, -0.2], [0.056, -0.08], [0.06, 0.0], [0.042, 0.04], [0.001, 0.05]], R), roupa, 0, 0, 0, sh);
-    mesh(sph(0.046, R, 6), roupa, 0, 0, 0, S.el[i]);
-    mesh(lathe([[0.001, -0.235], [0.046, -0.228], [0.047, -0.15], [0.048, -0.05], [0.049, 0.0], [0.001, 0.03]], R), roupa, 0, 0, 0, S.el[i]);
-    mesh(cyl(0.051, 0.051, 0.028, R), roupa, 0, -0.222, 0, S.el[i]);
-    return hand(S.wr[i], i ? 1 : -1, skin, 1, true);
+    mesh(sph(0.06, R, 6), roupa, 0, -0.012, 0, sh).scale.setScalar(kb);
+    mesh(lathe([[0.001, -0.3], [0.048, -0.29], [0.052, -0.2], [0.056, -0.08], [0.06, 0.0], [0.042, 0.04], [0.001, 0.05]], R), roupa, 0, 0, 0, sh).scale.set(kb, 1, kb);
+    mesh(sph(0.046, R, 6), roupa, 0, 0, 0, S.el[i]).scale.setScalar(kb);
+    mesh(lathe([[0.001, -0.235], [0.046, -0.228], [0.047, -0.15], [0.048, -0.05], [0.049, 0.0], [0.001, 0.03]], R), roupa, 0, 0, 0, S.el[i]).scale.set(kb, 1, kb);
+    mesh(cyl(0.051, 0.051, 0.028, R), roupa, 0, -0.222, 0, S.el[i]).scale.set(kb, 1, kb);
+    return hand(S.wr[i], i ? 1 : -1, skin, FEM ? 0.86 : 1, true);
   });
   // pescoço, cabeça, orelhas
-  mesh(cyl(0.036, 0.042, 0.1, R), skin, 0, 0.03, 0, S.neck);
+  mesh(cyl(FEM ? 0.03 : 0.036, FEM ? 0.035 : 0.042, 0.1, R), skin, 0, 0.03, 0, S.neck);
   const V2 = P.rosto !== 1; // rosto v2: queixo mais curto, boca perto do nariz, sobrancelha afinando, rugas opcionais
   const headM = mesh(headGeoLP({ queixo: V2 ? (P.queixo ?? 0.7) : 1, ...(P.cabeca || {}) }), skin, 0, 0, 0);
   const zAt = (x, y) => { let z = surfZ(headM, x, y); if (z === 0) z = surfZ(headM, Math.sign(x) * Math.min(Math.abs(x), CAB.HW * 0.9), y) - 0.006; return z; };
@@ -1724,7 +1727,7 @@ function pessoaLP(o = {}) {
   const olhos = [], fechados = [];
   if (!P.venda) [-1, 1].forEach((k) => {
     const g = grp(S.head, k * EX, EY, 0); g.rotation.set(0, 0, k * (P.olhoInc ?? 0));
-    decalSup(g, olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.olhoOpts || {}) }), OW, OH, 0, 0, (x, y) => zAt(k * EX + x, EY + y), { espelho: k < 0, ei: 0.28, dz: 0.0028 });
+    decalSup(g, olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.fem ? { femi: true } : {}), ...(P.olhoOpts || {}) }), OW, OH, 0, 0, (x, y) => zAt(k * EX + x, EY + y), { espelho: k < 0, ei: 0.28, dz: 0.0028 });
     const f = decalSup(S.head, olhoFechadoTex, OW, OH, k * EX, EY - 0.002, zAt, { espelho: k < 0, dz: 0.0032 }); f.visible = false;
     olhos.push(g); fechados.push(f);
   });
@@ -1777,7 +1780,7 @@ function rostoLP(p, t, f = {}) {
   if (L.extras) L.extras.forEach((g) => (g.visible = !fecha));
   L.brows.forEach((g, i) => { const k = i ? 1 : -1; g.rotation.z = g.userData.rz0 - k * ((f.bravo ?? 0) * 0.32 - (f.triste ?? 0) * 0.3); g.position.y = g.userData.y0 + (f.sobe ?? 0) * 0.006 - (f.bravo ?? 0) * 0.003; });
   const chq = (f.choque ?? 0) > 0.5;
-  L.olhos.forEach((g) => { const m = g.children[0]; if (!m || !m.material.map) return; if (!m.userData.texN) { const P = u.P, base = olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.olhoOpts || {}), ir: 0.52 * (P.olhoOpts?.ir ?? 1) }); m.userData.texN = m.material.map; m.userData.texC = m.material.map.repeat.x < 0 ? espelho(base) : base; } const want = chq ? m.userData.texC : m.userData.texN; if (m.material.map !== want) { m.material.map = want; if (m.material.emissiveMap) m.material.emissiveMap = want; m.material.needsUpdate = true; } });
+  L.olhos.forEach((g) => { const m = g.children[0]; if (!m || !m.material.map) return; if (!m.userData.texN) { const P = u.P, base = olhoTex(P.olho, { fenda: P.fenda, alt: P.olhoAlt ?? 1, ...(P.fem ? { femi: true } : {}), ...(P.olhoOpts || {}), ir: 0.52 * (P.olhoOpts?.ir ?? 1) }); m.userData.texN = m.material.map; m.userData.texC = m.material.map.repeat.x < 0 ? espelho(base) : base; } const want = chq ? m.userData.texC : m.userData.texN; if (m.material.map !== want) { m.material.map = want; if (m.material.emissiveMap) m.material.emissiveMap = want; m.material.needsUpdate = true; } });
   if (L.sombra) { L.sombra.visible = (f.sombra ?? 0) > 0.02; L.sombra.material.opacity = clamp(f.sombra ?? 0); }
   if (L.suor) { L.suor.visible = (f.suor ?? 0) > 0.02; L.suor.position.y = CAB.EY + 0.05 - ((t * 0.03) % 0.03) * (f.suor ?? 0); }
   if (L.lagrimas) L.lagrimas.forEach((m) => { m.visible = (f.choro ?? 0) > 0.02; m.scale.y = Math.max(0.05, f.choro ?? 0); });
@@ -2982,11 +2985,12 @@ const CSM = { pinMorte: 0x6a2634, pinAsa: 0x2c2a34, pinFome: 0x5a3a2c, camisa: 0
 
 // uniforme feminino da escola (Quarta Escola do Leste): camisa de manga comprida, jardineira-vestido abaixo do joelho, cinto largo, laço na gola, meias pretas
 function uniformeEscola(p, pin, laco = CSM.laco) { const u = p.userData, m = LPmat(pin, { rim: 0.8, side: THREE.DoubleSide }), mp = LPmat(CSM.preto, { rim: 0.5 });
-  const peito = mesh(new THREE.CylinderGeometry(0.168, 0.162, 0.2, 18, 1, true), m, 0, 0.09, 0.004, u.chest); peito.scale.z = 0.8;
+  const F = u.P && u.P.fem; const peito = mesh(new THREE.CylinderGeometry(F ? 0.158 : 0.168, F ? 0.15 : 0.162, 0.2, 18, 1, true), m, 0, 0.09, 0.004, u.chest); peito.scale.z = 0.8;
+  if (F) [-1, 1].forEach((k) => { const b = mesh(sph(0.05, 12, 8), LPmat(pin, { rim: 0.8 }), k * 0.054, 0.125, 0.076, u.chest); b.scale.set(1, 0.88, 0.7); }); // busto por cima da jardineira
   [-1, 1].forEach((k) => { const al = mesh(box(0.035, 0.02, 0.2), m, k * 0.085, 0.215, 0.0, u.chest); al.rotation.z = -k * 0.15; }); // alças
-  const cint = mesh(new THREE.CylinderGeometry(0.16, 0.158, 0.26, 18, 1, true), m, 0, 0.06, 0, u.spine); cint.scale.z = 0.8;
-  const cinto = mesh(new THREE.CylinderGeometry(0.162, 0.162, 0.05, 18, 1, true), mp, 0, -0.04, 0, u.spine); cinto.scale.z = 0.8;
-  const saia = mesh(new THREE.CylinderGeometry(0.172, 0.28, 0.52, 24, 1, true), m, 0, -0.23, 0, u.hips); saia.scale.z = 0.86; // pregas = facetas
+  const cint = mesh(new THREE.CylinderGeometry(F ? 0.132 : 0.16, F ? 0.146 : 0.158, 0.26, 18, 1, true), m, 0, 0.06, 0, u.spine); cint.scale.z = 0.8;
+  const cinto = mesh(new THREE.CylinderGeometry(F ? 0.148 : 0.162, F ? 0.148 : 0.162, 0.05, 18, 1, true), mp, 0, -0.04, 0, u.spine); cinto.scale.z = 0.8;
+  const saia = mesh(new THREE.CylinderGeometry(F ? 0.18 : 0.172, F ? 0.3 : 0.28, 0.52, 24, 1, true), m, 0, -0.23, 0, u.hips); saia.scale.z = 0.86; // pregas = facetas
   const lc = LPmat(laco, { rim: 0.6, side: THREE.DoubleSide }), gl = grp(u.chest, 0, 0.3, 0.115);
   [-1, 1].forEach((k) => { const a = mesh(new THREE.ConeGeometry(0.028, 0.06, 4), lc, k * 0.032, 0, 0, gl); a.rotation.z = k * Math.PI / 2; a.scale.z = 0.35; const f = mesh(box(0.022, 0.09, 0.006), lc, k * 0.014, -0.05, 0.004, gl); f.rotation.z = k * 0.2; });
   mesh(sph(0.013, 6, 5), lc, 0, 0, 0.004, gl);
@@ -3007,17 +3011,17 @@ function cicatrizesYoru(p) { const u = p.userData, m = new THREE.MeshBasicMateri
 function camisaFrente(p, cor = CSM.camisa) { const u = p.userData; mesh(box(0.11, 0.3, 0.012), LPmat(cor, { rim: 0.6 }), 0, 0.15, 0.124, u.chest); mesh(box(0.09, 0.14, 0.012), LPmat(cor, { rim: 0.6 }), 0, 0.08, 0.118, u.spine); }
 
 function morteLP(o = {}) { // "Fami": olhos vermelhos de anéis, cara cansada, pintinhas, brincos verdes, jardineira vinho com laço
-  const p = pessoaLP({ seed: 711, pele: 0xf6e6e0, olho: "#d83a52", olhoAlt: 0.62, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#5a0a18" }, brava: 0.0, browW: 0.05, queixo: 0.66, sobrancelha: 0x8a7080, roupa: CSM.camisa, calca: CSM.preto, sapato: 0xeeeeee, sola: 0xd8d8d8, botoes: false, scale: 0.93, cabelo: CAB_CSM.morte, ...o });
+  const p = pessoaLP({ seed: 711, fem: true, blush: true, pele: 0xf6e6e0, olho: "#d83a52", olhoAlt: 0.66, olhoTam: 1.06, olhoOpts: { aneis: 4, corAnel: "#5a0a18" }, brava: 0.0, browW: 0.046, queixo: 0.6, sobrancelha: 0x8a7080, roupa: CSM.camisa, calca: CSM.preto, sapato: 0xeeeeee, sola: 0xd8d8d8, botoes: false, scale: 0.93, cabelo: CAB_CSM.morte, ...o });
   uniformeEscola(p, CSM.pinMorte); pintas(p, [[0.046, -0.042], [0.058, -0.056], [-0.03, -0.098], [0.035, -0.1]]); brincosMorte(p); if (o.bone) boneMorte(p); return p; }
 function famiFalsa(o = {}) { return morteLP(o); }
 function denjiLP(o = {}) { // Parte 2: gakuran preto aberto por cima da camisa branca; olhos amarelados com olheira
   const p = pessoaLP({ seed: 712, pele: 0xf6dcc4, olho: "#b8902a", olhoAlt: 0.78, olhoTam: 0.95, brava: 0.1, browW: 0.056, queixo: 0.72, sobrancelha: 0xb89a50, roupa: CSM.gak, calca: CSM.gak, sapato: 0x2a2a2e, sola: 0xe8e4dc, botoes: false, cabelo: CAB_CSM.denji, ...o });
   camisaFrente(p); return p; }
-function yoruLP(o = {}) { const p = pessoaLP({ seed: 713, pele: 0xf4dcd0, olho: "#c8303a", olhoAlt: 0.8, olhoTam: 1.02, olhoOpts: { aneis: 4, corAnel: "#4a0a10" }, brava: 0.35, browW: 0.054, queixo: 0.66, sobrancelha: 0x141218, roupa: 0xd8d2c4, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.yoru, ...o });
+function yoruLP(o = {}) { const p = pessoaLP({ seed: 713, fem: true, blush: true, pele: 0xf4dcd0, olho: "#c8303a", olhoAlt: 0.84, olhoTam: 1.08, olhoOpts: { aneis: 4, corAnel: "#4a0a10" }, brava: 0.35, browW: 0.048, queixo: 0.6, sobrancelha: 0x141218, roupa: 0xd8d2c4, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.yoru, ...o });
   uniformeEscola(p, CSM.pinAsa, 0x1a1a22); cicatrizesYoru(p); return p; }
-function makimaLP(o = {}) { const p = pessoaLP({ seed: 714, pele: 0xf8e2d4, olho: "#e8c048", olhoAlt: 0.72, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#a01818" }, brava: 0.0, browW: 0.054, queixo: 0.64, sobrancelha: 0xb84a3a, roupa: 0xf4f2ee, calca: 0x141418, sapato: 0x6a3a22, sola: 0x3a2014, botoes: false, scale: 0.97, cabelo: CAB_CSM.makima, ...o });
+function makimaLP(o = {}) { const p = pessoaLP({ seed: 714, fem: true, blush: true, pele: 0xf8e2d4, olho: "#e8c048", olhoAlt: 0.76, olhoTam: 1.06, olhoOpts: { aneis: 4, corAnel: "#a01818" }, brava: 0.0, browW: 0.048, queixo: 0.58, sobrancelha: 0xb84a3a, roupa: 0xf4f2ee, calca: 0x141418, sapato: 0x6a3a22, sola: 0x3a2014, botoes: false, scale: 0.97, cabelo: CAB_CSM.makima, ...o });
   tranca(p, CAB_CSM.makima.cor); gravata(p, 0x111114); return p; }
-function fomeLP(o = {}) { const p = pessoaLP({ seed: 715, pele: 0xf6e0cc, olho: "#4a9a5a", olhoAlt: 0.9, olhoTam: 1.06, olhoOpts: { aneis: 4, corAnel: "#103a1a" }, brava: 0.0, browW: 0.05, queixo: 0.66, sobrancelha: 0xa88a5a, roupa: 0xc49494, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.fome, ...o });
+function fomeLP(o = {}) { const p = pessoaLP({ seed: 715, fem: true, blush: true, pele: 0xf6e0cc, olho: "#4a9a5a", olhoAlt: 0.94, olhoTam: 1.12, olhoOpts: { aneis: 4, corAnel: "#103a1a" }, brava: 0.0, browW: 0.045, queixo: 0.6, sobrancelha: 0xa88a5a, roupa: 0xc49494, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.fome, ...o });
   uniformeEscola(p, CSM.pinFome, 0x3a2418); return p; }
 
 // cabeça de motosserra (Chainsaw Man) e serras nos antebraços
@@ -3070,8 +3074,9 @@ function corvo(g) { const c = grp(g), m = LPmat(0x0c0c10, { rim: 0.9 }); const b
 function bateAsas(c, t, f = 14) { c.userData.asas.forEach((a, i) => (a.rotation.z = (i ? -1 : 1) * Math.sin(t * f) * 0.7)); }
 // civil comum (multidão) com cara simples
 function civilLP(i, o = {}) { const cores = [0x3a4a6a, 0x6a3a3a, 0x3a5a4a, 0x5a5a5a, 0x7a6a4a, 0x2a2a34, 0x8a8478], cab = [0x1a1414, 0x2a1e16, 0x14121a, 0x3a2a1e];
-  return pessoaLP({ seed: 760 + i, pele: [0xf2d4b8, 0xe8c4a0, 0xf6dcc8][i % 3], olho: "#3a2a20", roupa: cores[i % cores.length], calca: cores[(i + 3) % cores.length], botoes: false, scale: 0.9 + hash(i) * 0.15,
-    cabelo: { ...CAB_CSM.denji, cor: cab[i % cab.length], seed: 780 + i, pontas: [] }, ...o }); }
+  const f = i % 2 === 1; // metade da multidão é mulher: corpo feminino, cílios, blush e cabelo comprido/chanel
+  return pessoaLP({ seed: 760 + i, fem: f, blush: f, pele: [0xf2d4b8, 0xe8c4a0, 0xf6dcc8][i % 3], olho: "#3a2a20", roupa: cores[i % cores.length], calca: cores[(i + 3) % cores.length], botoes: false, scale: (f ? 0.86 : 0.92) + hash(i) * 0.12,
+    cabelo: f ? { ...(i % 4 === 1 ? CAB_CSM.yoru : CAB_CSM.morte), cor: cab[i % cab.length], seed: 780 + i } : { ...CAB_CSM.denji, cor: cab[i % cab.length], seed: 780 + i, pontas: [] }, ...o }); }
 function olhosK(p, k) { (p.userData.olhosAc || []).forEach((o) => { if (o.isSprite) { o.material.opacity = 0.55 * k; o.visible = k > 0.02; } else o.visible = k > 0.05; }); }
 
 // ================================================================ vídeo: Demônio da Morte · cenários
@@ -3352,7 +3357,7 @@ function pilhaComida(g, x, y, z) { const c = grp(g, x, y, z); for (let i = 0; i 
   const pr = mesh(cyl(0.16, 0.13, 0.03, 18), LPmat(0xf2f0ea, { rim: 0.3 }), 0.25, 0.015, 0.0, c); const mac = mesh(sph(0.12, 10, 6), LPmat(0xe8c070, { rim: 0.4, rough: 0.7 }), 0.25, 0.05, 0, c); mac.scale.y = 0.45; // prato de macarrão
   return c; }
 // fenda escura e oca no tronco da Morte (sem sangue: um rasgo negro com brilho roxo por dentro)
-function fendaOca(p) { const u = p.userData, g = grp(u.spine, 0, 0.1, 0.165); const m = mesh(box(0.022, 0.36, 0.01), new THREE.MeshBasicMaterial({ color: 0x050008 }), 0, 0, 0, g); m.castShadow = false;
+function fendaOca(p) { const u = p.userData, g = grp(u.spine, 0, 0.1, 0.118); const m = mesh(box(0.022, 0.36, 0.01), new THREE.MeshBasicMaterial({ color: 0x050008 }), 0, 0, 0, g); m.castShadow = false;
   const gl = glowSprite(0x9a4aff, 0.15, 0); gl.position.z = 0.02; g.add(gl); const ln = mesh(box(0.006, 0.34, 0.004), new THREE.MeshBasicMaterial({ color: 0xc08aff, transparent: true, opacity: 0, blending: ADD, depthWrite: false }), 0, 0, 0.007, g); ln.castShadow = false;
   g.visible = false; return { set(k) { g.visible = k > 0.01; g.scale.set(1, Math.max(0.01, k), 1); gl.material.opacity = 0.55 * k; ln.material.opacity = 0.9 * k; } }; }
 function flor(g, x, z) { const f = grp(g, x, 0, z), cau = LPmat(0x2a5a2a, { rim: 0.4 }); const h = grp(f); mesh(cyl(0.008, 0.01, 0.45, 5), cau, 0, 0.225, 0, h); const top = grp(h, 0, 0.45, 0);

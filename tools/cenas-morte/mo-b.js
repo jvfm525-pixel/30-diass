@@ -5,7 +5,7 @@ function pilhaComida(g, x, y, z) { const c = grp(g, x, y, z); for (let i = 0; i 
   const pr = mesh(cyl(0.16, 0.13, 0.03, 18), LPmat(0xf2f0ea, { rim: 0.3 }), 0.25, 0.015, 0.0, c); const mac = mesh(sph(0.12, 10, 6), LPmat(0xe8c070, { rim: 0.4, rough: 0.7 }), 0.25, 0.05, 0, c); mac.scale.y = 0.45; // prato de macarrão
   return c; }
 // fenda escura e oca no tronco da Morte (sem sangue: um rasgo negro com brilho roxo por dentro)
-function fendaOca(p) { const u = p.userData, g = grp(u.spine, 0, 0.1, 0.165); const m = mesh(box(0.022, 0.36, 0.01), new THREE.MeshBasicMaterial({ color: 0x050008 }), 0, 0, 0, g); m.castShadow = false;
+function fendaOca(p) { const u = p.userData, g = grp(u.spine, 0, 0.1, 0.118); const m = mesh(box(0.022, 0.36, 0.01), new THREE.MeshBasicMaterial({ color: 0x050008 }), 0, 0, 0, g); m.castShadow = false;
   const gl = glowSprite(0x9a4aff, 0.15, 0); gl.position.z = 0.02; g.add(gl); const ln = mesh(box(0.006, 0.34, 0.004), new THREE.MeshBasicMaterial({ color: 0xc08aff, transparent: true, opacity: 0, blending: ADD, depthWrite: false }), 0, 0, 0.007, g); ln.castShadow = false;
   g.visible = false; return { set(k) { g.visible = k > 0.01; g.scale.set(1, Math.max(0.01, k), 1); gl.material.opacity = 0.55 * k; ln.material.opacity = 0.9 * k; } }; }
 function flor(g, x, z) { const f = grp(g, x, 0, z), cau = LPmat(0x2a5a2a, { rim: 0.4 }); const h = grp(f); mesh(cyl(0.008, 0.01, 0.45, 5), cau, 0, 0.225, 0, h); const top = grp(h, 0, 0.45, 0);
