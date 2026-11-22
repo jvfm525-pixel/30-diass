@@ -1537,6 +1537,34 @@ const sombraTex = canvasTex(128, 128, (c, w, h) => { const g = c.createLinearGra
 const suorTex = canvasTex(64, 96, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "rgba(200,230,255,.95)"; c.strokeStyle = "#5a8ab8"; c.lineWidth = 4; c.beginPath(); c.moveTo(32, 6); c.bezierCurveTo(40, 30, 58, 50, 54, 68); c.arc(32, 66, 22, 0.1, Math.PI - 0.1); c.bezierCurveTo(6, 50, 24, 30, 32, 6); c.fill(); c.stroke(); c.fillStyle = "#fff"; c.beginPath(); c.ellipse(24, 64, 5, 9, -0.3, 0, Math.PI * 2); c.fill(); });
 const lagrimaTex = canvasTex(64, 128, (c, w, h) => { c.clearRect(0, 0, w, h); const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(190,225,255,.9)"); g.addColorStop(1, "rgba(190,225,255,0)"); c.fillStyle = g; c.beginPath(); c.roundRect(22, 0, 20, h, 10); c.fill(); });
 const BOCAT = {};
+// bocas v2 (estilo mangá: traço fino e escuro, sombra do lábio de baixo, dentes de tubarão do Denji, choro aberto)
+const BOCAT2 = {};
+function bocaTex2(tipo) {
+  if (BOCAT2[tipo]) return BOCAT2[tipo];
+  return (BOCAT2[tipo] = canvasTex(256, 128, (c, w, h) => {
+    c.clearRect(0, 0, w, h); c.lineCap = "round"; c.lineJoin = "round"; const cx = w / 2, cy = h / 2, tr = "#4a1c18", int = "#2a0a0c", den = "#f6f2ea", lin = "#c0444a";
+    const labio = (y = 16, l = 16) => { c.strokeStyle = "rgba(150,80,70,.32)"; c.lineWidth = 5; c.beginPath(); c.moveTo(cx - l, cy + y); c.quadraticCurveTo(cx, cy + y + 4, cx + l, cy + y); c.stroke(); };
+    const traco = (pts, lw = 7) => { c.strokeStyle = tr; c.lineWidth = lw; c.beginPath(); c.moveTo(...pts[0]); for (let i = 1; i < pts.length; i += 2) c.quadraticCurveTo(...pts[i], ...pts[i + 1]); c.stroke(); };
+    const abre = (desenha, dentesCima = true, lingua = true) => { c.fillStyle = int; c.beginPath(); desenha(); c.fill(); c.save(); c.beginPath(); desenha(); c.clip();
+      if (dentesCima) { c.fillStyle = den; c.fillRect(0, 0, w, cy - 8); } if (lingua) { c.fillStyle = lin; c.beginPath(); c.ellipse(cx, cy + 26, 26, 12, 0, 0, Math.PI * 2); c.fill(); } c.restore();
+      c.strokeStyle = tr; c.lineWidth = 5; c.beginPath(); desenha(); c.stroke(); };
+    if (tipo === "linha") { traco([[cx - 42, cy + 2], [cx, cy + 6], [cx + 42, cy + 1]]); labio(); }
+    else if (tipo === "sorriso") { traco([[cx - 48, cy - 6], [cx, cy + 16], [cx + 48, cy - 6]]); c.lineWidth = 4; [-1, 1].forEach((k) => { c.beginPath(); c.moveTo(cx + k * 46, cy - 12); c.lineTo(cx + k * 52, cy - 2); c.stroke(); }); labio(22, 14); }
+    else if (tipo === "triste") { traco([[cx - 42, cy + 10], [cx, cy - 8], [cx + 42, cy + 10]]); labio(20, 12); }
+    else if (tipo === "smirk") { c.strokeStyle = tr; c.lineWidth = 7; c.beginPath(); c.moveTo(cx - 38, cy + 4); c.bezierCurveTo(cx - 8, cy + 10, cx + 22, cy + 6, cx + 50, cy - 14); c.stroke(); labio(18, 12); }
+    else if (tipo === "aberta") abre(() => { c.moveTo(cx - 28, cy - 10); c.quadraticCurveTo(cx, cy - 16, cx + 28, cy - 10); c.quadraticCurveTo(cx + 34, cy + 24, cx, cy + 28); c.quadraticCurveTo(cx - 34, cy + 24, cx - 28, cy - 10); });
+    else if (tipo === "choro") abre(() => { c.moveTo(cx - 36, cy - 6); c.quadraticCurveTo(cx, cy - 14, cx + 36, cy - 6); c.quadraticCurveTo(cx + 44, cy + 30, cx, cy + 32); c.quadraticCurveTo(cx - 44, cy + 30, cx - 36, cy - 6); });
+    else if (tipo === "grito") abre(() => { c.moveTo(cx - 34, cy - 18); c.quadraticCurveTo(cx, cy - 28, cx + 34, cy - 18); c.quadraticCurveTo(cx + 46, cy + 34, cx, cy + 40); c.quadraticCurveTo(cx - 46, cy + 34, cx - 34, cy - 18); });
+    else if (tipo === "risada") abre(() => { c.moveTo(cx - 56, cy - 14); c.quadraticCurveTo(cx, cy - 6, cx + 56, cy - 14); c.quadraticCurveTo(cx + 40, cy + 34, cx, cy + 36); c.quadraticCurveTo(cx - 40, cy + 34, cx - 56, cy - 14); });
+    else if (tipo === "dentes") { // sorriso de tubarão do Denji: boca larga, fileiras de dentes em serra em cima e embaixo
+      const forma = () => { c.moveTo(cx - 76, cy - 16); c.quadraticCurveTo(cx, cy + 2, cx + 76, cy - 16); c.quadraticCurveTo(cx, cy + 44, cx - 76, cy - 16); };
+      c.fillStyle = int; c.beginPath(); forma(); c.fill(); c.save(); c.beginPath(); forma(); c.clip(); c.fillStyle = den;
+      const topo = (x) => cy - 16 + (1 - Math.pow((x - cx) / 76, 2)) * 9, base = (x) => cy - 16 + (1 - Math.pow((x - cx) / 76, 2)) * 30;
+      for (let x = cx - 76; x < cx + 76; x += 12) { c.beginPath(); c.moveTo(x, topo(x) - 4); c.lineTo(x + 12, topo(x + 12) - 4); c.lineTo(x + 6, topo(x + 6) + 13); c.fill(); c.beginPath(); c.moveTo(x, base(x) + 4); c.lineTo(x + 12, base(x + 12) + 4); c.lineTo(x + 6, base(x + 6) - 11); c.fill(); }
+      c.restore(); c.strokeStyle = tr; c.lineWidth = 5; c.beginPath(); forma(); c.stroke(); }
+    else if (tipo === "mastiga") { traco([[cx - 30, cy + 2], [cx, cy + 8], [cx + 30, cy + 2]], 7); c.strokeStyle = "rgba(150,80,70,.4)"; c.lineWidth = 4; [-1, 1].forEach((k) => { c.beginPath(); c.arc(cx + k * 50, cy, 10, k > 0 ? -1.2 : 1.9, k > 0 ? 1.2 : 4.3); c.stroke(); }); }
+  }));
+}
 function bocaTex(tipo) {
   if (BOCAT[tipo]) return BOCAT[tipo];
   return (BOCAT[tipo] = canvasTex(256, 128, (c, w, h) => {
@@ -1738,10 +1766,11 @@ function pessoaLP(o = {}) {
   if (P.rugas) { const r = decalSup(S.head, rugasTex, 0.15, 0.1125, 0, 0.058, zAt, { dz: 0.0026, suave: true }); r.material.opacity = Math.min(1, P.rugas); }
   if (P.barba3d != null) { const bm = LPmat(P.barba3d, { rim: 0.6 }); const zc = zAt(0, -0.02); const b = mesh(new THREE.ConeGeometry(0.03, 0.07, 5), bm, 0, -0.045, zc - 0.012, S.head); b.rotation.x = Math.PI + 0.35; b.scale.z = 0.7;
     [-1, 1].forEach((k) => { const m = mesh(box(0.034, 0.008, 0.012), bm, k * 0.019, MY + 0.011, zAt(k * 0.019, MY + 0.011) + 0.002, S.head); m.rotation.z = -k * 0.32; }); }
-  const bocas = {};
-  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), V2 && t === "linha" ? 0.044 : 0.056, V2 && t === "linha" ? 0.022 : 0.028, 0, MY, zAt, { dz: 0.003 })));
-  bocas.risada = decalSup(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
-  ["smirk", "mastiga"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 }))); ["dentes", "grito"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.07, 0.036, 0, MY - 0.002, zAt, { dz: 0.0034 })));
+  const bocas = {}, BT = P.boca2 ? bocaTex2 : bocaTex; // boca2 = bocas no estilo mangá (traço fino)
+  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, BT(t), V2 && t === "linha" ? 0.044 : 0.056, V2 && t === "linha" ? 0.022 : 0.028, 0, MY, zAt, { dz: 0.003 })));
+  bocas.risada = decalSup(S.head, BT("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
+  ["smirk", "mastiga"].forEach((t) => (bocas[t] = decalSup(S.head, BT(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 }))); ["dentes", "grito"].forEach((t) => (bocas[t] = decalSup(S.head, BT(t), 0.07, 0.036, 0, MY - 0.002, zAt, { dz: 0.0034 })));
+  if (P.boca2) bocas.choro = decalSup(S.head, BT("choro"), 0.06, 0.03, 0, MY - 0.001, zAt, { dz: 0.003 });
   if (P.bocaRyuk) bocas.ryuk = decalSup(S.head, bocaTex("ryuk"), 0.12, 0.06, 0, MY + 0.004, zAt, { dz: 0.0034 });
   const sombra = decalSup(S.head, sombraTex, 0.15, 0.08, 0, EY + 0.012, zAt, { dz: 0.0042, suave: true, sx: 16, sy: 6 }); sombra.visible = false;
   const suor = decal(S.head, suorTex, 0.016, 0.024, 0.068, EY + 0.05, zAt(0.068, EY + 0.05) + 0.004, 0.5, 0, { suave: true }); suor.visible = false;
@@ -1786,7 +1815,13 @@ function rostoLP(p, t, f = {}) {
   if (L.suor) { L.suor.visible = (f.suor ?? 0) > 0.02; L.suor.position.y = CAB.EY + 0.05 - ((t * 0.03) % 0.03) * (f.suor ?? 0); }
   if (L.lagrimas) L.lagrimas.forEach((m) => { m.visible = (f.choro ?? 0) > 0.02; m.scale.y = Math.max(0.05, f.choro ?? 0); });
   let tipo = f.boca ?? "linha";
+  for (const k in L.bocas) L.bocas[k].scale.set(1, 1, 1);
   if (f.fala) { const a = Math.abs(Math.sin(t * 12.5)) * f.fala; if (a > 0.4) tipo = "aberta"; L.bocas.aberta.scale.y = 0.6 + a * 0.5; }
+  if (f.mastigar) { const a = Math.sin(t * 9.5); tipo = a > 0 ? "mastiga" : (f.boca ?? "linha"); L.bocas[tipo].scale.y = 0.85 + 0.3 * Math.abs(a) * f.mastigar; }
+  if (f.ri && L.bocas.risada) { const a = Math.abs(Math.sin(t * 10)) * f.ri; tipo = a > 0.35 ? "risada" : (f.boca ?? "smirk"); L.bocas.risada.scale.y = 0.6 + 0.5 * a; }
+  if (f.treme && L.bocas[tipo]) { L.bocas[tipo].scale.x = 1 + 0.07 * Math.sin(t * 29) * f.treme; L.bocas[tipo].scale.y *= 1 + 0.12 * Math.sin(t * 23 + 1) * f.treme; }
+  if (f.abre != null && L.bocas[tipo]) L.bocas[tipo].scale.y *= f.abre;
+  if (!L.bocas[tipo]) tipo = "linha";
   for (const k in L.bocas) L.bocas[k].visible = k === tipo;
 }
 
@@ -3026,17 +3061,17 @@ function camisaFrente(p, cor = CSM.camisa) { const u = p.userData, mc = LPmat(co
   golaCamisa(p, cor); }
 
 function morteLP(o = {}) { // "Fami": olhos vermelhos de anéis, cara cansada, pintinhas, brincos verdes, jardineira vinho com laço
-  const p = pessoaLP({ seed: 711, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf6e6e0, olho: "#d83a52", olhoAlt: 0.58, olhoTam: 0.98, olhoOpts: { aneis: 4, corAnel: "#5a0a18" }, brava: 0.0, browW: 0.046, queixo: 0.6, sobrancelha: 0x8a7080, roupa: CSM.camisa, calca: CSM.preto, sapato: 0xeeeeee, sola: 0xd8d8d8, botoes: false, scale: 0.93, cabelo: CAB_CSM.morte, ...o });
+  const p = pessoaLP({ seed: 711, boca2: true, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf6e6e0, olho: "#d83a52", olhoAlt: 0.58, olhoTam: 0.98, olhoOpts: { aneis: 4, corAnel: "#5a0a18" }, brava: 0.0, browW: 0.046, queixo: 0.6, sobrancelha: 0x8a7080, roupa: CSM.camisa, calca: CSM.preto, sapato: 0xeeeeee, sola: 0xd8d8d8, botoes: false, scale: 0.93, cabelo: CAB_CSM.morte, ...o });
   uniformeEscola(p, CSM.pinMorte, 0x5a1a28, { lacoGrande: true }); pintas(p, [[0.046, -0.042], [0.058, -0.056], [-0.03, -0.098], [0.035, -0.1]]); brincosMorte(p); if (o.bone) boneMorte(p); return p; }
 function famiFalsa(o = {}) { return morteLP(o); }
 function denjiLP(o = {}) { // Parte 2: gakuran preto aberto por cima da camisa branca; olhos amarelados com olheira
-  const p = pessoaLP({ seed: 712, cabeca: { mand: 0.9 }, pele: 0xf6dcc4, olho: "#b8902a", olhoAlt: 0.66, olhoTam: 0.9, brava: 0.1, browW: 0.056, queixo: 0.72, sobrancelha: 0xb89a50, roupa: CSM.gak, calca: CSM.gak, sapato: 0x2a2a2e, sola: 0xe8e4dc, botoes: false, cabelo: CAB_CSM.denji, ...o });
+  const p = pessoaLP({ seed: 712, boca2: true, cabeca: { mand: 0.9 }, pele: 0xf6dcc4, olho: "#b8902a", olhoAlt: 0.66, olhoTam: 0.9, brava: 0.1, browW: 0.056, queixo: 0.72, sobrancelha: 0xb89a50, roupa: CSM.gak, calca: CSM.gak, sapato: 0x2a2a2e, sola: 0xe8e4dc, botoes: false, cabelo: CAB_CSM.denji, ...o });
   camisaFrente(p); return p; }
-function yoruLP(o = {}) { const p = pessoaLP({ seed: 713, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf4dcd0, olho: "#c8303a", olhoAlt: 0.74, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#4a0a10" }, brava: 0.35, browW: 0.048, queixo: 0.6, sobrancelha: 0x141218, roupa: 0xd8d2c4, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.yoru, ...o });
+function yoruLP(o = {}) { const p = pessoaLP({ seed: 713, boca2: true, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf4dcd0, olho: "#c8303a", olhoAlt: 0.74, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#4a0a10" }, brava: 0.35, browW: 0.048, queixo: 0.6, sobrancelha: 0x141218, roupa: 0xd8d2c4, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.yoru, ...o });
   uniformeEscola(p, CSM.pinAsa, 0x1a1a22); cicatrizesYoru(p); return p; }
-function makimaLP(o = {}) { const p = pessoaLP({ seed: 714, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf8e2d4, olho: "#e8a040", olhoAlt: 0.66, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#a01818" }, brava: 0.0, browW: 0.048, queixo: 0.58, sobrancelha: 0xb84a3a, roupa: 0xf4f2ee, calca: 0x141418, sapato: 0x6a3a22, sola: 0x3a2014, botoes: false, scale: 0.97, cabelo: CAB_CSM.makima, ...o });
+function makimaLP(o = {}) { const p = pessoaLP({ seed: 714, boca2: true, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf8e2d4, olho: "#e8a040", olhoAlt: 0.66, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#a01818" }, brava: 0.0, browW: 0.048, queixo: 0.58, sobrancelha: 0xb84a3a, roupa: 0xf4f2ee, calca: 0x141418, sapato: 0x6a3a22, sola: 0x3a2014, botoes: false, scale: 0.97, cabelo: CAB_CSM.makima, ...o });
   tranca(p, CAB_CSM.makima.cor); gravata(p, 0x111114); golaCamisa(p, 0xf4f2ee); return p; }
-function fomeLP(o = {}) { const p = pessoaLP({ seed: 715, fem: true, blush: true, cabeca: { mand: 0.94 }, pele: 0xf6e0cc, olho: "#4a9a5a", olhoAlt: 1.0, olhoTam: 1.14, olhoOpts: { aneis: 4, corAnel: "#103a1a" }, brava: 0.0, browW: 0.045, queixo: 0.6, sobrancelha: 0xa88a5a, roupa: 0xc49494, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.fome, ...o });
+function fomeLP(o = {}) { const p = pessoaLP({ seed: 715, boca2: true, fem: true, blush: true, cabeca: { mand: 0.94 }, pele: 0xf6e0cc, olho: "#4a9a5a", olhoAlt: 1.0, olhoTam: 1.14, olhoOpts: { aneis: 4, corAnel: "#103a1a" }, brava: 0.0, browW: 0.045, queixo: 0.6, sobrancelha: 0xa88a5a, roupa: 0xc49494, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.fome, ...o });
   uniformeEscola(p, CSM.pinFome, 0x3a2418); return p; }
 
 // cabeça de motosserra (Chainsaw Man) e serras nos antebraços
@@ -3048,6 +3083,8 @@ function cabecaSerra(p, o = {}) { const u = p.userData, lar = LPmat(o.cor ?? CSM
   for (let i = 0; i < 10; i++) [-1, 1].forEach((k) => { const d = mesh(new THREE.ConeGeometry(0.011, 0.026, 4), esc, 0, 0.03 + i * 0.032, k * 0.056, lm); d.rotation.x = k * Math.PI / 2; });
   const al = mesh(new THREE.TorusGeometry(0.045, 0.01, 5, 10, Math.PI), esc, 0, 0.07, -0.06, g); al.rotation.y = Math.PI / 2; // alça em cima da carcaça
   const boca = grp(g, 0, -0.085, 0.05); for (let i = 0; i < 7; i++) { const d = mesh(new THREE.ConeGeometry(0.008, 0.03, 4), LPmat(0xf2eee4, { rim: 0.3 }), -0.045 + i * 0.015, 0, 0, boca); d.rotation.x = Math.PI; }
+  const mand = grp(g, 0, -0.07, -0.06); mesh(box(0.13, 0.024, 0.15), lar, 0, -0.014, 0.065, mand); mesh(box(0.12, 0.02, 0.13), LPmat(0x3a0a0c, { rim: 0.2 }), 0, 0.0, 0.06, mand);
+  for (let i = 0; i < 7; i++) mesh(new THREE.ConeGeometry(0.008, 0.028, 4), LPmat(0xf2eee4, { rim: 0.3 }), -0.045 + i * 0.015, 0.012, 0.125, mand); u.serraMand = mand; // mandíbula com dentes (abre no rugido)
   if (o.olhos) { [-1, 1].forEach((k) => { const gl = glowSprite(o.olhos, 0.07, 0.9); gl.position.set(k * 0.035, -0.02, 0.1); g.add(gl); }); }
   u.serraCab = g; u.serraLam = lm; return g; }
 function serrasBracos(p, o = {}) { const u = p.userData, lam = LPmat(CSM.lamina, { metal: 0.85, rough: 0.3, rim: 0.4 }), esc = LPmat(0x1a1a1e, { rim: 0.4 }), out = [];
@@ -3091,7 +3128,7 @@ function bateAsas(c, t, f = 14) { c.userData.asas.forEach((a, i) => (a.rotation.
 // civil comum (multidão) com cara simples
 function civilLP(i, o = {}) { const cores = [0x3a4a6a, 0x6a3a3a, 0x3a5a4a, 0x5a5a5a, 0x7a6a4a, 0x2a2a34, 0x8a8478], cab = [0x1a1414, 0x2a1e16, 0x14121a, 0x3a2a1e];
   const f = i % 2 === 1; // metade da multidão é mulher: corpo feminino, cílios, blush e cabelo comprido/chanel
-  return pessoaLP({ seed: 760 + i, fem: f, blush: f, pele: [0xf2d4b8, 0xe8c4a0, 0xf6dcc8][i % 3], olho: "#3a2a20", roupa: cores[i % cores.length], calca: cores[(i + 3) % cores.length], botoes: false, scale: (f ? 0.86 : 0.92) + hash(i) * 0.12,
+  return pessoaLP({ seed: 760 + i, boca2: true, fem: f, blush: f, pele: [0xf2d4b8, 0xe8c4a0, 0xf6dcc8][i % 3], olho: "#3a2a20", roupa: cores[i % cores.length], calca: cores[(i + 3) % cores.length], botoes: false, scale: (f ? 0.86 : 0.92) + hash(i) * 0.12,
     cabelo: f ? { ...(i % 4 === 1 ? CAB_CSM.yoru : CAB_CSM.morte), cor: cab[i % cab.length], seed: 780 + i } : { ...CAB_CSM.denji, cor: cab[i % cab.length], seed: 780 + i, pontas: [] }, ...o }); }
 function olhosK(p, k) { (p.userData.olhosAc || []).forEach((o) => { if (o.isSprite) { o.material.opacity = 0.55 * k; o.visible = k > 0.02; } else o.visible = k > 0.05; }); }
 
@@ -3151,7 +3188,7 @@ function igrejaCSM(g) { const pedra = LPmat(0x2a2426, { rim: 0.4, rough: 0.95 })
   return { fieis, upd(t, medo = 0) { velas.forEach((v, i) => (v.material.opacity = 0.6 + 0.3 * noise1(t * 5 + i))); fieis.forEach((f, i) => { const kk = f.userData.k; f.rotation.x = 0.35 + 0.15 * Math.sin(t * 2.2 + kk * 6) * medo; f.position.y = -0.02 * medo * Math.abs(Math.sin(t * 3 + kk * 5)); }); } }; }
 
 // soldado (a guerra sem fim): uniforme oliva, capacete, fuzil na mão
-function soldadoLP(i) { const p = pessoaLP({ seed: 790 + i, pele: [0xe8c4a0, 0xf2d4b8, 0xc89a78][i % 3], olho: "#2a2018", roupa: 0x4a5236, calca: 0x3e4630, sapato: 0x1e1a16, sola: 0x1e1a16, botoes: false, scale: 0.95 + hash(i) * 0.08 });
+function soldadoLP(i) { const p = pessoaLP({ seed: 790 + i, boca2: true, pele: [0xe8c4a0, 0xf2d4b8, 0xc89a78][i % 3], olho: "#2a2018", roupa: 0x4a5236, calca: 0x3e4630, sapato: 0x1e1a16, sola: 0x1e1a16, botoes: false, scale: 0.95 + hash(i) * 0.08 });
   const u = p.userData, m = LPmat(0x3a4228, { rim: 0.6 }); const c = mesh(new THREE.SphereGeometry(0.12, 12, 6, 0, Math.PI * 2, 0, Math.PI * 0.55), m, 0, 0.115, 0, u.head); c.scale.set(1, 0.8, 1.08);
   const fz = grp(u.wr[1], 0, -0.06, 0.02); mesh(box(0.035, 0.05, 0.62), LPmat(0x1a1a1c, { metal: 0.4 }), 0, 0, 0.2, fz); fz.rotation.x = -0.2; u.fuzil = fz; return p; }
 
@@ -3223,9 +3260,9 @@ addSet("m1b-escola", (g) => {
   const pa = pao(); naMao(mo, 1, pa, { dy: -0.07, dz: 0.03 });
   const po = dustPts(120, [-4.5, 4.5, 0.3, 3, -5, 6], 0xffe0b0, 0.025, 0.6); g.add(po);
   return { ...LUZ_SALA_POR, hand: 0.004,
-    update(t) { floatDust(po, t, 0.2, 0.1); S.senta(de, 2, 1); idle(de, t, 712, 0.1); rostoLP(de, t, { boca: "linha", palpebra: 0.55 }); pose(de, { spine: [0.12, 0, 0], neck: [0.2, 0.25, 0.15] }, 1);
+    update(t) { floatDust(po, t, 0.2, 0.1); S.senta(de, 2, 1); idle(de, t, 712, 0.1); rostoLP(de, t, { boca: "dentes", palpebra: 0.55, abre: 0.85 }); // o sorriso de tubarão do Denji pose(de, { spine: [0.12, 0, 0], neck: [0.2, 0.25, 0.15] }, 1);
       S.senta(mo, 3, 1); idle(mo, t, 711, 0.08); const vira = smr(t, K.spoiler - 0.3, K.spoiler + 0.3); pose(mo, { neck: [0.05, -0.9 * vira, 0] }, 1);
-      const mord = mordidas(t, [a + 0.5, a + 1.9], 0.9); maoEm(mo, 1, bocaW(mo, 0.06), 0.35 + 0.65 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: mord > 0.3 ? "mastiga" : "linha", palpebra: 0.6, piscaCada: 99 }); brilhoK(mo, smr(t, K.spoiler - 0.1, K.spoiler + 0.3)); },
+      const mord = mordidas(t, [a + 0.5, a + 1.9], 0.9); maoEm(mo, 1, bocaW(mo, 0.06), 0.35 + 0.65 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: "linha", mastigar: mord > 0.3 ? 1 : 0, palpebra: 0.6, piscaCada: 99 }); brilhoK(mo, smr(t, K.spoiler - 0.1, K.spoiler + 0.3)); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0.2, 1.2, -2.7], [0.15, 1.18, -2.45], [0.05, 1.05, -0.9], [0.05, 1.05, -0.9], 40, 38)],
@@ -3250,7 +3287,7 @@ addSet("m2-regra", (g) => {
       const kf = smr(t, K.forte - 0.4, K.forte + 1.0); som.visible = kf > 0.01; som.position.y = -10 * (1 - kf); restPose(som); idle(som, t, 730, 0.2); olhosK(som, kf);
       const ka = smr(t, K.arma - 0.2, K.arma + 0.2) * (1 - smr(t, K.escuro, K.escuro + 0.3)); pi.visible = ka > 0.01; pi.rotation.y = t * 0.8; piL.material.opacity = 0.22 * ka;
       esc.material.opacity = 0.92 * smr(t, K.escuro - 0.1, K.escuro + 0.2) * (1 - smr(t, K.altura, K.altura + 0.3));
-      const olha = smr(t, K.todo - 0.2, K.todo + 1.2); C.forEach((p, i) => { vive(p, t, 760 + i, { boca: olha > 0.5 ? "aberta" : "linha", palpebra: 1 }, 0.25); pose(p, { neck: [-0.75 * olha, 0, 0], chest: [-0.15 * olha, 0, 0] }, 1); });
+      const olha = smr(t, K.todo - 0.2, K.todo + 1.2); C.forEach((p, i) => { vive(p, t, 760 + i, { boca: olha > 0.5 ? "aberta" : "linha", treme: olha, abre: 0.6 + 0.5 * olha, palpebra: 1 }, 0.25); pose(p, { neck: [-0.75 * olha, 0, 0], chest: [-0.15 * olha, 0, 0] }, 1); });
       OC.set(0.9 * smr(t, K.morrer - 1.2, K.morrer + 0.4)); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
@@ -3275,7 +3312,8 @@ addSet("m3-cavaleiros", (g) => {
   olhosBrilho(mk, 0xffd060, 0.05); olhosBrilho(yo, 0xff3a3a, 0.05); olhosBrilho(mo, 0xff4a6a, 0.06); olhosBrilho(fo, 0x6aff8a, 0.05);
   return { ...LUZ_SANGUE, hand: 0.004,
     update(t) { M.upd(t); const tn = [K.makima, K.yoru, K.morte, K.fome];
-      Q.forEach((p, i) => { vive(p, t, 740 + i, { boca: "linha", palpebra: i === 2 ? 0.62 : 0.85, piscaCada: 99 }, 0.12); cabeloVento(p, t, 0.6, [1, 0, 0.2]);
+      const RO = [{ boca: "sorriso", palpebra: 0.8 }, { boca: "smirk", palpebra: 0.9, bravo: 0.4 }, { boca: "linha", palpebra: 0.6 }, { boca: "triste", palpebra: 0.95, triste: 0.8, choro: 0.6 }];
+      Q.forEach((p, i) => { vive(p, t, 740 + i, { ...RO[i], piscaCada: 99 }, 0.12); cabeloVento(p, t, 0.6, [1, 0, 0.2]);
         const k = i === 2 ? smr(t, K.morte - 0.3, K.morte + 0.3) : smr(t, tn[i] - 0.25, tn[i] + 0.3); brilhoK(p, Math.max(k, smr(t, K.cavaleiros - 0.2, K.cavaleiros + 0.5))); });
       if (mk.userData.tranca) mk.userData.tranca.rotation.z = 0.08 * Math.sin(t * 1.6); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
@@ -3304,7 +3342,7 @@ addSet("m4-profecia", (g) => {
       const de = smr(t, K.descer, K.humanidade + 0.6); mo.visible = de > 0.005; mo.position.set(0, 30 - 30 * de, -64 + 40 * de); restPose(mo); idle(mo, t, 711, 0.05); brilhoK(mo, de);
       escurece(t, K.humanidade - 0.2, K.humanidade + 0.8, [0, 0, 0], 0.45);
       const ke = smr(t, K.era - 0.3, K.era + 0.6); dm.forEach((d, i) => { d.visible = ke > 0.02; restPose(d); idle(d, t, 750 + i, 0.2); d.position.y = -4 * (1 - smr(t, K.era - 0.3 + i * 0.06, K.era + 0.4 + i * 0.06)); olhosK(d, ke); });
-      C.forEach((p, i) => { vive(p, t, 770 + i, { boca: t > K.descer ? "aberta" : "linha", palpebra: 1 }, 0.2); pose(p, { neck: [-0.7, 0, 0] }, 1); }); },
+      C.forEach((p, i) => { vive(p, t, 770 + i, { boca: t > K.descer ? "aberta" : "linha", treme: t > K.descer ? 1 : 0, palpebra: 1 }, 0.2); pose(p, { neck: [-0.7, 0, 0] }, 1); }); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0, 1.2, 14], [0, 1.0, 12], [0, 18, -60], [0, 26, -70], 52, 52)],
@@ -3333,7 +3371,7 @@ addSet("m4b-onda", (g) => {
       aneis.forEach((r, i) => { const ph = ((t - K.sozinho) * 0.45 + i / 4) % 1, on = t > K.sozinho - 0.2 ? 1 : 0; r.scale.setScalar(0.5 + ph * 12); r.material.opacity = on * 0.8 * (1 - ph); });
       const R = Math.max(0.01, (t - tOnda) * vel); onda.visible = t > tOnda; onda.scale.set(R, R * 0.35, R);
       C.forEach((p, i) => { const d = Math.hypot(p.position.x, p.position.z + 40), cai = smr(t, tOnda + (d - 1) / vel, tOnda + (d - 1) / vel + 0.6);
-        vive(p, t, 790 + i, { boca: cai > 0.1 ? "aberta" : "linha", palpebra: 1 - cai }, 0.2 * (1 - cai)); p.rotation.x = -1.45 * cai; p.position.y = 0.12 * cai; }); },
+        vive(p, t, 790 + i, { boca: cai > 0.02 && cai < 0.7 ? "grito" : cai >= 0.7 ? "aberta" : "linha", treme: cai < 0.7 ? cai * 2 : 0, palpebra: 1 - cai }, 0.2 * (1 - cai)); p.rotation.x = -1.45 * cai; p.position.y = 0.12 * cai; }); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       const sono = () => (tt, u) => ({ ...closeRosto(mo, lerp(1.6, 1.1, E.inOut(u)), 0.3, 0.1, 34) });
       return planos(t, [
@@ -3388,9 +3426,9 @@ addSet("m6-fami", (g) => {
   const D = S.D(2, 2); pilhaComida(g, D.x + 1.2, 0.74, D.z - 0.02); const pa = pao(); naMao(mo, 1, pa, { dy: -0.07, dz: 0.03 });
   const po = dustPts(120, [-4.5, 4.5, 0.3, 3, -5, 6], 0xffe0b0, 0.025, 0.6); g.add(po);
   return { ...LUZ_SALA_POR, hand: 0.004,
-    update(t) { floatDust(po, t, 0.2, 0.1); S.senta(de, 2, 2); idle(de, t, 712, 0.1); const olha = smr(t, K.comendo - 0.4, K.comendo); pose(de, { neck: [0.05, -0.8 * olha, 0] }, 1); rostoLP(de, t, { boca: olha > 0.5 ? "aberta" : "linha", palpebra: 0.95, choque: olha * 0.6 });
+    update(t) { floatDust(po, t, 0.2, 0.1); S.senta(de, 2, 2); idle(de, t, 712, 0.1); const olha = smr(t, K.comendo - 0.4, K.comendo); pose(de, { neck: [0.05, -0.8 * olha, 0] }, 1); rostoLP(de, t, { boca: olha > 0.5 ? "aberta" : "dentes", abre: olha > 0.5 ? 0.7 : 0.8, palpebra: 0.95, choque: olha * 0.6 });
       S.senta(mo, 3, 2); idle(mo, t, 711, 0.08); const mord = mordidas(t, [a + 0.3, a + 1.5, K.fami - 0.8, K.comendo - 0.3, K.comendo + 0.7], 0.8);
-      maoEm(mo, 1, bocaW(mo, 0.06), 0.3 + 0.7 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: mord > 0.3 ? "mastiga" : "linha", palpebra: 0.6, piscaCada: 99 }); brilhoK(mo, smr(t, K.fami - 0.2, K.fami + 0.3) * (1 - smr(t, K.comendo - 0.3, K.comendo))); },
+      maoEm(mo, 1, bocaW(mo, 0.06), 0.3 + 0.7 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: "linha", mastigar: mord > 0.3 ? 1 : 0, palpebra: 0.6, piscaCada: 99 }); brilhoK(mo, smr(t, K.fami - 0.2, K.fami + 0.3) * (1 - smr(t, K.comendo - 0.3, K.comendo))); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; } const P = S.D(3, 2);
       return planos(t, [
         [a, mov([-1.5, 1.9, -4.6], [-1.2, 1.8, -4.2], [0.5, 1.0, 0], [0.6, 1.0, 0], 44, 42)],
@@ -3439,7 +3477,7 @@ addSet("m7b-queda", (g) => {
     update(t) { vive(mo, t, 711, { boca: "linha", palpebra: 0.62 }, 0.06); brilhoK(mo, 0.6);
       const ch = smr(t, a, K.queda); qd.position.set(0, 14 * (1 - ch), -4); restPose(qd); idle(qd, t, 717, 0.15); const cv = smr(t, K.servo - 0.3, K.servo + 0.9); kneelPose(qd, cv); pose(qd, { spine: [0.75 * cv, 0, 0], chest: [0.3 * cv, 0, 0] }, 1); standFeet(qd);
       qd.userData.extras.forEach((e, i) => (e.rotation.x = -0.5 + 0.15 * Math.sin(t * 1.5 + i)));
-      fo.visible = t > tI - 0.2; vive(fo, t, 715, { boca: "triste", palpebra: 0.85, choro: 1, triste: 1 }, 0.15); const ke = seg(t, tI + 0.3, b);
+      fo.visible = t > tI - 0.2; vive(fo, t, 715, { boca: "choro", treme: 1, palpebra: 0.95, choro: 1, triste: 1 }, 0.15); const ke = seg(t, tI + 0.3, b);
       cs.forEach((c, i) => { c.visible = ke > 0 && ke < 0.98; const an = t * 3.4 + i * 0.35, r = 0.7 - 0.35 * ke; c.position.set(1.6 + Math.sin(an) * r, 0.5 + (i % 6) * 0.22, 1.2 + Math.cos(an) * r); c.rotation.y = an + Math.PI / 2; bateAsas(c, t + i); });
       if (ke > 0.6) fo.scale.setScalar(Math.max(0.01, 1 - (ke - 0.6) * 2.5)); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
@@ -3460,7 +3498,7 @@ addSet("m8-oca", (g) => {
   const raio = mesh(new THREE.PlaneGeometry(2.4, 3.2), new THREE.MeshBasicMaterial({ color: 0x9ab0ff, transparent: true, opacity: 0.07, blending: ADD, depthWrite: false, side: THREE.DoubleSide }), -3.6, 1.4, D.z, g); raio.rotation.set(0, Math.PI / 2, 0.5); raio.castShadow = false;
   const tL = K.matar - 0.4;
   return { ...LUZ_SALA_NOITE, hand: 0.004,
-    update(t) { if (t < tL) { S.senta(mo, 0, 1); idle(mo, t, 711, 0.06); const mord = mordidas(t, [a + 0.4, K.comida - 0.4, K.comida + 0.6], 0.8); maoEm(mo, 1, bocaW(mo, 0.06), 0.25 + 0.75 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: mord > 0.3 ? "mastiga" : "linha", palpebra: 0.6, piscaCada: 99 }); }
+    update(t) { if (t < tL) { S.senta(mo, 0, 1); idle(mo, t, 711, 0.06); const mord = mordidas(t, [a + 0.4, K.comida - 0.4, K.comida + 0.6], 0.8); maoEm(mo, 1, bocaW(mo, 0.06), 0.25 + 0.75 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: "linha", mastigar: mord > 0.3 ? 1 : 0, palpebra: 0.6, piscaCada: 99 }); }
       else { restPose(mo); const { x, z } = S.D(0, 1); mo.position.set(x - 0.7, 0, z + 0.6); idle(mo, t, 711, 0.05); standFeet(mo); const vira = smr(t, K.viva - 0.4, K.viva + 0.2); mo.rotation.y = lerp(Math.PI / 2 - 0.25, Math.PI / 2 - 0.6, vira); rostoLP(mo, t, { boca: "linha", palpebra: 0.62, piscaCada: 99 });
         const ab = smr(t, K.orgaos - 0.5, K.orgaos + 0.4); pose(mo, { armR: [0.25 * ab, 0, -0.2 * ab, -1.6 * ab], armL: [0.25 * ab, 0, 0.2 * ab, -1.6 * ab], neck: [0.3 * ab * (1 - vira), 0, 0] }, 1); FE.set(ab); }
       brilhoK(mo, smr(t, K.naomorre - 0.4, K.naomorre)); },
@@ -3486,7 +3524,7 @@ addSet("m9-plano", (g) => {
   return { ...LUZ_VAZIO_M, hand: 0.004,
     update(t) { const kd = smr(t, K.morresse - 0.2, K.morresse + 1.2); mo.visible = kd < 0.45; vive(mo, t, 711, { boca: "linha", palpebra: 0.62 }, 0.06); brilhoK(mo, 0.6); PO.upd(kd);
       const kn = smr(t, K.nasceria - 0.5, K.nasceria + 1.4); nv.visible = kn > 0.01; nv.position.y = -16 * (1 - kn); restPose(nv); idle(nv, t, 732, 0.2); olhosK(nv, kn); OC.set(0.85 * smr(t, K.nasceria + 0.6, K.nasceria + 1.4)); pose(nv, { neck: [0.45 * smr(t, K.gente - 0.8, K.gente), 0, 0] }, 1);
-      C.forEach((p, i) => { p.visible = t > K.gente - 1.0; vive(p, t, 800 + i, { boca: "aberta", palpebra: 1 }, 0.25); pose(p, { neck: [-0.8, 0, 0] }, 1); }); },
+      C.forEach((p, i) => { p.visible = t > K.gente - 1.0; vive(p, t, 800 + i, { boca: "grito", treme: 1, palpebra: 1 }, 0.25); pose(p, { neck: [-0.8, 0, 0] }, 1); }); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, (tt, u) => ({ ...closeRosto(mo, lerp(1.2, 1.6, E.inOut(u)), 0.1, -0.1, 34) })],
@@ -3507,8 +3545,8 @@ addSet("m9b-igreja", (g) => {
     sun: { dir: [0, 0.9, 0.6], col: 0xffc890, I: 1.3, c: [0, 1, -12], r: 10 }, hemi: { sky: 0x3a2420, ground: 0x0a0606, I: 0.5 }, fill: { col: 0xffa060, I: 0.45, dir: [0, 0.3, 1] }, rim: { col: 0xffa060, str: 1.5 },
     update(t) { const kf = smr(t, K.fortes - 0.3, K.fortes + 1.6); I.upd(t, 0.4 + kf); aura.forEach((s) => s.upd(t, kf));
       const sc = 1.25 + 0.65 * kf; [cm, yo].forEach((p, i) => { restPose(p); p.scale.setScalar(sc); p.position.set(i ? 0.9 : -0.9, 0.6, -12.5); p.rotation.y = 0; idle(p, t, 760 + i, 0.08); standFeet(p); });
-      rostoLP(yo, t, { boca: "smirk", palpebra: 0.85 }); brilhoK(yo, smr(t, K.yoru9 - 0.3, K.yoru9 + 0.2));
-      const ra = smr(t, K.matarela - 0.5, K.matarela); pose(cm, { armR: [-2.6 * ra, 0, -0.4 * ra, -0.2], armL: [-2.6 * ra, 0, 0.4 * ra, -0.2] }, 1); if (cm.userData.serraLam) cm.userData.serraLam.position.y = 0.06 + 0.004 * Math.sin(t * 90) * ra; },
+      rostoLP(yo, t, { boca: "smirk", ri: 0.9 * smr(t, K.fortes - 0.2, K.fortes + 0.4), palpebra: 0.85 }); brilhoK(yo, smr(t, K.yoru9 - 0.3, K.yoru9 + 0.2));
+      const ra = smr(t, K.matarela - 0.5, K.matarela); pose(cm, { armR: [-2.6 * ra, 0, -0.4 * ra, -0.2], armL: [-2.6 * ra, 0, 0.4 * ra, -0.2] }, 1); if (cm.userData.serraLam) cm.userData.serraLam.position.y = 0.06 + 0.004 * Math.sin(t * 90) * ra; if (cm.userData.serraMand) cm.userData.serraMand.rotation.x = 0.55 * ra + 0.06 * Math.sin(t * 40) * ra; }, // rugido: a mandíbula abre
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0, 3.2, 2], [0, 2.8, -1], [0, 1.6, -12], [0, 1.8, -12], 46, 44)],
@@ -3527,7 +3565,7 @@ addSet("m10-fim", (g) => {
   return { ...LUZ_VAZIO_M, hand: 0.005, rim: { col: 0xff4a5a, str: 2.2 }, fill: { col: 0xffb0c0, I: 0.8, dir: [0.2, 0.4, 1] },
     update(t) { vive(mo, t, 711, { boca: "linha", palpebra: 0.6 }, 0.05); brilhoK(mo, 0.6); const ln = smr(t, K.devorou - 0.45, K.devorou + 0.05);
       restPose(po); idle(po, t, 716, 0.15); po.position.z = -3.5 + 3.6 * ln; pose(po, { spine: [0.6 * ln, 0, 0], chest: [0.3 * ln, 0, 0], armR: [-1.2 * ln, 0, -0.5, -0.5], armL: [-1.2 * ln, 0, 0.5, -0.5] }, 1); standFeet(po);
-      (po.userData.tripas || []).forEach((tb, i) => (tb.rotation.x = 0.15 * Math.sin(t * 2 + i)));
+      (po.userData.tripas || []).forEach((tb, i) => (tb.rotation.x = 0.15 * Math.sin(t * 2 + i))); if (po.userData.serraMand) po.userData.serraMand.rotation.x = 0.15 + 0.6 * ln + 0.05 * Math.sin(t * 7); // boca abrindo pra devorar
       const sm_ = smr(t, K.devorou - 0.05, K.devorou + 0.1); mo.visible = sm_ < 0.5; mo.updateMatrixWorld(true); PO.p.position.set(0, 0, 1.2); PO.upd(smr(t, K.devorou, K.devorou + 1.4), 2.4, 1.8);
       flash(t, K.devorou + 0.02, 0.03, 0.4, [0.05, 0, 0.02]); escurece(t, K.apagou - 0.2, K.apagou + 2.2, [0.8, 0.8, 0.82], 0.55); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
@@ -3550,8 +3588,8 @@ addSet("m10b-guerra", (g) => {
   const bomba = [[-6, -14], [7, -18], [0, -26]].map(([x, z]) => { const s = glowSprite(0xffa040, 10, 0); s.position.set(x, 3, z); g.add(s); return s; });
   return { bg: 0x1a0a08, fog: [16, 120], fogCol: 0x2a120c, hand: 0.006, look: { exposure: 1.15, bloom: 0.6, bloomT: 0.75, vig: 0.5, sat: 1.05, con: 1.1, dof: MDOF_L, rosto: 0.45, lift: [0.02, 0.006, 0] },
     sun: { dir: [0.2, 0.4, -1], col: 0xff8a4a, I: 1.4, c: [0, 1, -6], r: 18 }, hemi: { sky: 0x6a2a1a, ground: 0x1a0a06, I: 0.6 }, fill: { col: 0xffa070, I: 0.4, dir: [0.3, 0.3, 1] }, rim: { col: 0xff7a3a, str: 1.5 },
-    update(t) { fg.forEach((f) => f.update(t)); fum.upd(t, 1); vive(yo, t, 713, { boca: "sorriso", palpebra: 0.8 }, 0.1); cabeloVento(yo, t, 0.8, [1, 0, 0.2]); brilhoK(yo, 0.8);
-      SD.forEach((p, i) => { restPose(p); idle(p, t, 790 + i, 0.15); pose(p, { armR: [-1.4, 0, -0.1, -0.3], armL: [-1.2, 0, 0.4, -1.0], neck: [0.1, 0, 0] }, 1); standFeet(p); rostoLP(p, t, { boca: "dentes", palpebra: 0.9 }); tiros[i].material.opacity = (noise1(t * 20 + i * 7) > 0.55 ? 0.9 : 0); });
+    update(t) { fg.forEach((f) => f.update(t)); fum.upd(t, 1); vive(yo, t, 713, { boca: "smirk", ri: 0.9, palpebra: 0.8 }, 0.1); // a Yoru rindo da guerra cabeloVento(yo, t, 0.8, [1, 0, 0.2]); brilhoK(yo, 0.8);
+      SD.forEach((p, i) => { restPose(p); idle(p, t, 790 + i, 0.15); pose(p, { armR: [-1.4, 0, -0.1, -0.3], armL: [-1.2, 0, 0.4, -1.0], neck: [0.1, 0, 0] }, 1); standFeet(p); rostoLP(p, t, { boca: noise1(t * 2.5 + i * 3) > 0.15 ? "grito" : "dentes", treme: 0.6, palpebra: 0.9 }); tiros[i].material.opacity = (noise1(t * 20 + i * 7) > 0.55 ? 0.9 : 0); });
       const q = SD[3], cai = smr(t, K.ninguem - 0.3, K.ninguem + 0.1) * (1 - smr(t, K.ninguem + 0.5, K.ninguem + 1.3)); q.rotation.x = 1.3 * cai; q.position.y = 0.1 * cai;
       bomba.forEach((s, i) => (s.material.opacity = 0.8 * Math.max(0, Math.sin(Math.PI * seg(t, K.guerra - 0.2 + i * 0.5, K.guerra + 0.6 + i * 0.5))))); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; } const Q = SD[3].position;

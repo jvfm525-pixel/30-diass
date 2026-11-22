@@ -54,7 +54,7 @@ function igrejaCSM(g) { const pedra = LPmat(0x2a2426, { rim: 0.4, rough: 0.95 })
   return { fieis, upd(t, medo = 0) { velas.forEach((v, i) => (v.material.opacity = 0.6 + 0.3 * noise1(t * 5 + i))); fieis.forEach((f, i) => { const kk = f.userData.k; f.rotation.x = 0.35 + 0.15 * Math.sin(t * 2.2 + kk * 6) * medo; f.position.y = -0.02 * medo * Math.abs(Math.sin(t * 3 + kk * 5)); }); } }; }
 
 // soldado (a guerra sem fim): uniforme oliva, capacete, fuzil na mão
-function soldadoLP(i) { const p = pessoaLP({ seed: 790 + i, pele: [0xe8c4a0, 0xf2d4b8, 0xc89a78][i % 3], olho: "#2a2018", roupa: 0x4a5236, calca: 0x3e4630, sapato: 0x1e1a16, sola: 0x1e1a16, botoes: false, scale: 0.95 + hash(i) * 0.08 });
+function soldadoLP(i) { const p = pessoaLP({ seed: 790 + i, boca2: true, pele: [0xe8c4a0, 0xf2d4b8, 0xc89a78][i % 3], olho: "#2a2018", roupa: 0x4a5236, calca: 0x3e4630, sapato: 0x1e1a16, sola: 0x1e1a16, botoes: false, scale: 0.95 + hash(i) * 0.08 });
   const u = p.userData, m = LPmat(0x3a4228, { rim: 0.6 }); const c = mesh(new THREE.SphereGeometry(0.12, 12, 6, 0, Math.PI * 2, 0, Math.PI * 0.55), m, 0, 0.115, 0, u.head); c.scale.set(1, 0.8, 1.08);
   const fz = grp(u.wr[1], 0, -0.06, 0.02); mesh(box(0.035, 0.05, 0.62), LPmat(0x1a1a1c, { metal: 0.4 }), 0, 0, 0.2, fz); fz.rotation.x = -0.2; u.fuzil = fz; return p; }
 

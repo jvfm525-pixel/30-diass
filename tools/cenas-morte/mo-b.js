@@ -20,9 +20,9 @@ addSet("m6-fami", (g) => {
   const D = S.D(2, 2); pilhaComida(g, D.x + 1.2, 0.74, D.z - 0.02); const pa = pao(); naMao(mo, 1, pa, { dy: -0.07, dz: 0.03 });
   const po = dustPts(120, [-4.5, 4.5, 0.3, 3, -5, 6], 0xffe0b0, 0.025, 0.6); g.add(po);
   return { ...LUZ_SALA_POR, hand: 0.004,
-    update(t) { floatDust(po, t, 0.2, 0.1); S.senta(de, 2, 2); idle(de, t, 712, 0.1); const olha = smr(t, K.comendo - 0.4, K.comendo); pose(de, { neck: [0.05, -0.8 * olha, 0] }, 1); rostoLP(de, t, { boca: olha > 0.5 ? "aberta" : "linha", palpebra: 0.95, choque: olha * 0.6 });
+    update(t) { floatDust(po, t, 0.2, 0.1); S.senta(de, 2, 2); idle(de, t, 712, 0.1); const olha = smr(t, K.comendo - 0.4, K.comendo); pose(de, { neck: [0.05, -0.8 * olha, 0] }, 1); rostoLP(de, t, { boca: olha > 0.5 ? "aberta" : "dentes", abre: olha > 0.5 ? 0.7 : 0.8, palpebra: 0.95, choque: olha * 0.6 });
       S.senta(mo, 3, 2); idle(mo, t, 711, 0.08); const mord = mordidas(t, [a + 0.3, a + 1.5, K.fami - 0.8, K.comendo - 0.3, K.comendo + 0.7], 0.8);
-      maoEm(mo, 1, bocaW(mo, 0.06), 0.3 + 0.7 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: mord > 0.3 ? "mastiga" : "linha", palpebra: 0.6, piscaCada: 99 }); brilhoK(mo, smr(t, K.fami - 0.2, K.fami + 0.3) * (1 - smr(t, K.comendo - 0.3, K.comendo))); },
+      maoEm(mo, 1, bocaW(mo, 0.06), 0.3 + 0.7 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: "linha", mastigar: mord > 0.3 ? 1 : 0, palpebra: 0.6, piscaCada: 99 }); brilhoK(mo, smr(t, K.fami - 0.2, K.fami + 0.3) * (1 - smr(t, K.comendo - 0.3, K.comendo))); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; } const P = S.D(3, 2);
       return planos(t, [
         [a, mov([-1.5, 1.9, -4.6], [-1.2, 1.8, -4.2], [0.5, 1.0, 0], [0.6, 1.0, 0], 44, 42)],
@@ -71,7 +71,7 @@ addSet("m7b-queda", (g) => {
     update(t) { vive(mo, t, 711, { boca: "linha", palpebra: 0.62 }, 0.06); brilhoK(mo, 0.6);
       const ch = smr(t, a, K.queda); qd.position.set(0, 14 * (1 - ch), -4); restPose(qd); idle(qd, t, 717, 0.15); const cv = smr(t, K.servo - 0.3, K.servo + 0.9); kneelPose(qd, cv); pose(qd, { spine: [0.75 * cv, 0, 0], chest: [0.3 * cv, 0, 0] }, 1); standFeet(qd);
       qd.userData.extras.forEach((e, i) => (e.rotation.x = -0.5 + 0.15 * Math.sin(t * 1.5 + i)));
-      fo.visible = t > tI - 0.2; vive(fo, t, 715, { boca: "triste", palpebra: 0.85, choro: 1, triste: 1 }, 0.15); const ke = seg(t, tI + 0.3, b);
+      fo.visible = t > tI - 0.2; vive(fo, t, 715, { boca: "choro", treme: 1, palpebra: 0.95, choro: 1, triste: 1 }, 0.15); const ke = seg(t, tI + 0.3, b);
       cs.forEach((c, i) => { c.visible = ke > 0 && ke < 0.98; const an = t * 3.4 + i * 0.35, r = 0.7 - 0.35 * ke; c.position.set(1.6 + Math.sin(an) * r, 0.5 + (i % 6) * 0.22, 1.2 + Math.cos(an) * r); c.rotation.y = an + Math.PI / 2; bateAsas(c, t + i); });
       if (ke > 0.6) fo.scale.setScalar(Math.max(0.01, 1 - (ke - 0.6) * 2.5)); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
@@ -92,7 +92,7 @@ addSet("m8-oca", (g) => {
   const raio = mesh(new THREE.PlaneGeometry(2.4, 3.2), new THREE.MeshBasicMaterial({ color: 0x9ab0ff, transparent: true, opacity: 0.07, blending: ADD, depthWrite: false, side: THREE.DoubleSide }), -3.6, 1.4, D.z, g); raio.rotation.set(0, Math.PI / 2, 0.5); raio.castShadow = false;
   const tL = K.matar - 0.4;
   return { ...LUZ_SALA_NOITE, hand: 0.004,
-    update(t) { if (t < tL) { S.senta(mo, 0, 1); idle(mo, t, 711, 0.06); const mord = mordidas(t, [a + 0.4, K.comida - 0.4, K.comida + 0.6], 0.8); maoEm(mo, 1, bocaW(mo, 0.06), 0.25 + 0.75 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: mord > 0.3 ? "mastiga" : "linha", palpebra: 0.6, piscaCada: 99 }); }
+    update(t) { if (t < tL) { S.senta(mo, 0, 1); idle(mo, t, 711, 0.06); const mord = mordidas(t, [a + 0.4, K.comida - 0.4, K.comida + 0.6], 0.8); maoEm(mo, 1, bocaW(mo, 0.06), 0.25 + 0.75 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: "linha", mastigar: mord > 0.3 ? 1 : 0, palpebra: 0.6, piscaCada: 99 }); }
       else { restPose(mo); const { x, z } = S.D(0, 1); mo.position.set(x - 0.7, 0, z + 0.6); idle(mo, t, 711, 0.05); standFeet(mo); const vira = smr(t, K.viva - 0.4, K.viva + 0.2); mo.rotation.y = lerp(Math.PI / 2 - 0.25, Math.PI / 2 - 0.6, vira); rostoLP(mo, t, { boca: "linha", palpebra: 0.62, piscaCada: 99 });
         const ab = smr(t, K.orgaos - 0.5, K.orgaos + 0.4); pose(mo, { armR: [0.25 * ab, 0, -0.2 * ab, -1.6 * ab], armL: [0.25 * ab, 0, 0.2 * ab, -1.6 * ab], neck: [0.3 * ab * (1 - vira), 0, 0] }, 1); FE.set(ab); }
       brilhoK(mo, smr(t, K.naomorre - 0.4, K.naomorre)); },
@@ -118,7 +118,7 @@ addSet("m9-plano", (g) => {
   return { ...LUZ_VAZIO_M, hand: 0.004,
     update(t) { const kd = smr(t, K.morresse - 0.2, K.morresse + 1.2); mo.visible = kd < 0.45; vive(mo, t, 711, { boca: "linha", palpebra: 0.62 }, 0.06); brilhoK(mo, 0.6); PO.upd(kd);
       const kn = smr(t, K.nasceria - 0.5, K.nasceria + 1.4); nv.visible = kn > 0.01; nv.position.y = -16 * (1 - kn); restPose(nv); idle(nv, t, 732, 0.2); olhosK(nv, kn); OC.set(0.85 * smr(t, K.nasceria + 0.6, K.nasceria + 1.4)); pose(nv, { neck: [0.45 * smr(t, K.gente - 0.8, K.gente), 0, 0] }, 1);
-      C.forEach((p, i) => { p.visible = t > K.gente - 1.0; vive(p, t, 800 + i, { boca: "aberta", palpebra: 1 }, 0.25); pose(p, { neck: [-0.8, 0, 0] }, 1); }); },
+      C.forEach((p, i) => { p.visible = t > K.gente - 1.0; vive(p, t, 800 + i, { boca: "grito", treme: 1, palpebra: 1 }, 0.25); pose(p, { neck: [-0.8, 0, 0] }, 1); }); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, (tt, u) => ({ ...closeRosto(mo, lerp(1.2, 1.6, E.inOut(u)), 0.1, -0.1, 34) })],
@@ -139,8 +139,8 @@ addSet("m9b-igreja", (g) => {
     sun: { dir: [0, 0.9, 0.6], col: 0xffc890, I: 1.3, c: [0, 1, -12], r: 10 }, hemi: { sky: 0x3a2420, ground: 0x0a0606, I: 0.5 }, fill: { col: 0xffa060, I: 0.45, dir: [0, 0.3, 1] }, rim: { col: 0xffa060, str: 1.5 },
     update(t) { const kf = smr(t, K.fortes - 0.3, K.fortes + 1.6); I.upd(t, 0.4 + kf); aura.forEach((s) => s.upd(t, kf));
       const sc = 1.25 + 0.65 * kf; [cm, yo].forEach((p, i) => { restPose(p); p.scale.setScalar(sc); p.position.set(i ? 0.9 : -0.9, 0.6, -12.5); p.rotation.y = 0; idle(p, t, 760 + i, 0.08); standFeet(p); });
-      rostoLP(yo, t, { boca: "smirk", palpebra: 0.85 }); brilhoK(yo, smr(t, K.yoru9 - 0.3, K.yoru9 + 0.2));
-      const ra = smr(t, K.matarela - 0.5, K.matarela); pose(cm, { armR: [-2.6 * ra, 0, -0.4 * ra, -0.2], armL: [-2.6 * ra, 0, 0.4 * ra, -0.2] }, 1); if (cm.userData.serraLam) cm.userData.serraLam.position.y = 0.06 + 0.004 * Math.sin(t * 90) * ra; },
+      rostoLP(yo, t, { boca: "smirk", ri: 0.9 * smr(t, K.fortes - 0.2, K.fortes + 0.4), palpebra: 0.85 }); brilhoK(yo, smr(t, K.yoru9 - 0.3, K.yoru9 + 0.2));
+      const ra = smr(t, K.matarela - 0.5, K.matarela); pose(cm, { armR: [-2.6 * ra, 0, -0.4 * ra, -0.2], armL: [-2.6 * ra, 0, 0.4 * ra, -0.2] }, 1); if (cm.userData.serraLam) cm.userData.serraLam.position.y = 0.06 + 0.004 * Math.sin(t * 90) * ra; if (cm.userData.serraMand) cm.userData.serraMand.rotation.x = 0.55 * ra + 0.06 * Math.sin(t * 40) * ra; }, // rugido: a mandíbula abre
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0, 3.2, 2], [0, 2.8, -1], [0, 1.6, -12], [0, 1.8, -12], 46, 44)],
@@ -159,7 +159,7 @@ addSet("m10-fim", (g) => {
   return { ...LUZ_VAZIO_M, hand: 0.005, rim: { col: 0xff4a5a, str: 2.2 }, fill: { col: 0xffb0c0, I: 0.8, dir: [0.2, 0.4, 1] },
     update(t) { vive(mo, t, 711, { boca: "linha", palpebra: 0.6 }, 0.05); brilhoK(mo, 0.6); const ln = smr(t, K.devorou - 0.45, K.devorou + 0.05);
       restPose(po); idle(po, t, 716, 0.15); po.position.z = -3.5 + 3.6 * ln; pose(po, { spine: [0.6 * ln, 0, 0], chest: [0.3 * ln, 0, 0], armR: [-1.2 * ln, 0, -0.5, -0.5], armL: [-1.2 * ln, 0, 0.5, -0.5] }, 1); standFeet(po);
-      (po.userData.tripas || []).forEach((tb, i) => (tb.rotation.x = 0.15 * Math.sin(t * 2 + i)));
+      (po.userData.tripas || []).forEach((tb, i) => (tb.rotation.x = 0.15 * Math.sin(t * 2 + i))); if (po.userData.serraMand) po.userData.serraMand.rotation.x = 0.15 + 0.6 * ln + 0.05 * Math.sin(t * 7); // boca abrindo pra devorar
       const sm_ = smr(t, K.devorou - 0.05, K.devorou + 0.1); mo.visible = sm_ < 0.5; mo.updateMatrixWorld(true); PO.p.position.set(0, 0, 1.2); PO.upd(smr(t, K.devorou, K.devorou + 1.4), 2.4, 1.8);
       flash(t, K.devorou + 0.02, 0.03, 0.4, [0.05, 0, 0.02]); escurece(t, K.apagou - 0.2, K.apagou + 2.2, [0.8, 0.8, 0.82], 0.55); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
@@ -182,8 +182,8 @@ addSet("m10b-guerra", (g) => {
   const bomba = [[-6, -14], [7, -18], [0, -26]].map(([x, z]) => { const s = glowSprite(0xffa040, 10, 0); s.position.set(x, 3, z); g.add(s); return s; });
   return { bg: 0x1a0a08, fog: [16, 120], fogCol: 0x2a120c, hand: 0.006, look: { exposure: 1.15, bloom: 0.6, bloomT: 0.75, vig: 0.5, sat: 1.05, con: 1.1, dof: MDOF_L, rosto: 0.45, lift: [0.02, 0.006, 0] },
     sun: { dir: [0.2, 0.4, -1], col: 0xff8a4a, I: 1.4, c: [0, 1, -6], r: 18 }, hemi: { sky: 0x6a2a1a, ground: 0x1a0a06, I: 0.6 }, fill: { col: 0xffa070, I: 0.4, dir: [0.3, 0.3, 1] }, rim: { col: 0xff7a3a, str: 1.5 },
-    update(t) { fg.forEach((f) => f.update(t)); fum.upd(t, 1); vive(yo, t, 713, { boca: "sorriso", palpebra: 0.8 }, 0.1); cabeloVento(yo, t, 0.8, [1, 0, 0.2]); brilhoK(yo, 0.8);
-      SD.forEach((p, i) => { restPose(p); idle(p, t, 790 + i, 0.15); pose(p, { armR: [-1.4, 0, -0.1, -0.3], armL: [-1.2, 0, 0.4, -1.0], neck: [0.1, 0, 0] }, 1); standFeet(p); rostoLP(p, t, { boca: "dentes", palpebra: 0.9 }); tiros[i].material.opacity = (noise1(t * 20 + i * 7) > 0.55 ? 0.9 : 0); });
+    update(t) { fg.forEach((f) => f.update(t)); fum.upd(t, 1); vive(yo, t, 713, { boca: "smirk", ri: 0.9, palpebra: 0.8 }, 0.1); // a Yoru rindo da guerra cabeloVento(yo, t, 0.8, [1, 0, 0.2]); brilhoK(yo, 0.8);
+      SD.forEach((p, i) => { restPose(p); idle(p, t, 790 + i, 0.15); pose(p, { armR: [-1.4, 0, -0.1, -0.3], armL: [-1.2, 0, 0.4, -1.0], neck: [0.1, 0, 0] }, 1); standFeet(p); rostoLP(p, t, { boca: noise1(t * 2.5 + i * 3) > 0.15 ? "grito" : "dentes", treme: 0.6, palpebra: 0.9 }); tiros[i].material.opacity = (noise1(t * 20 + i * 7) > 0.55 ? 0.9 : 0); });
       const q = SD[3], cai = smr(t, K.ninguem - 0.3, K.ninguem + 0.1) * (1 - smr(t, K.ninguem + 0.5, K.ninguem + 1.3)); q.rotation.x = 1.3 * cai; q.position.y = 0.1 * cai;
       bomba.forEach((s, i) => (s.material.opacity = 0.8 * Math.max(0, Math.sin(Math.PI * seg(t, K.guerra - 0.2 + i * 0.5, K.guerra + 0.6 + i * 0.5))))); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; } const Q = SD[3].position;

@@ -61,9 +61,9 @@ addSet("m1b-escola", (g) => {
   const pa = pao(); naMao(mo, 1, pa, { dy: -0.07, dz: 0.03 });
   const po = dustPts(120, [-4.5, 4.5, 0.3, 3, -5, 6], 0xffe0b0, 0.025, 0.6); g.add(po);
   return { ...LUZ_SALA_POR, hand: 0.004,
-    update(t) { floatDust(po, t, 0.2, 0.1); S.senta(de, 2, 1); idle(de, t, 712, 0.1); rostoLP(de, t, { boca: "linha", palpebra: 0.55 }); pose(de, { spine: [0.12, 0, 0], neck: [0.2, 0.25, 0.15] }, 1);
+    update(t) { floatDust(po, t, 0.2, 0.1); S.senta(de, 2, 1); idle(de, t, 712, 0.1); rostoLP(de, t, { boca: "dentes", palpebra: 0.55, abre: 0.85 }); // o sorriso de tubarão do Denji pose(de, { spine: [0.12, 0, 0], neck: [0.2, 0.25, 0.15] }, 1);
       S.senta(mo, 3, 1); idle(mo, t, 711, 0.08); const vira = smr(t, K.spoiler - 0.3, K.spoiler + 0.3); pose(mo, { neck: [0.05, -0.9 * vira, 0] }, 1);
-      const mord = mordidas(t, [a + 0.5, a + 1.9], 0.9); maoEm(mo, 1, bocaW(mo, 0.06), 0.35 + 0.65 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: mord > 0.3 ? "mastiga" : "linha", palpebra: 0.6, piscaCada: 99 }); brilhoK(mo, smr(t, K.spoiler - 0.1, K.spoiler + 0.3)); },
+      const mord = mordidas(t, [a + 0.5, a + 1.9], 0.9); maoEm(mo, 1, bocaW(mo, 0.06), 0.35 + 0.65 * mord, { abre: 0.3 }); rostoLP(mo, t, { boca: "linha", mastigar: mord > 0.3 ? 1 : 0, palpebra: 0.6, piscaCada: 99 }); brilhoK(mo, smr(t, K.spoiler - 0.1, K.spoiler + 0.3)); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0.2, 1.2, -2.7], [0.15, 1.18, -2.45], [0.05, 1.05, -0.9], [0.05, 1.05, -0.9], 40, 38)],
@@ -88,7 +88,7 @@ addSet("m2-regra", (g) => {
       const kf = smr(t, K.forte - 0.4, K.forte + 1.0); som.visible = kf > 0.01; som.position.y = -10 * (1 - kf); restPose(som); idle(som, t, 730, 0.2); olhosK(som, kf);
       const ka = smr(t, K.arma - 0.2, K.arma + 0.2) * (1 - smr(t, K.escuro, K.escuro + 0.3)); pi.visible = ka > 0.01; pi.rotation.y = t * 0.8; piL.material.opacity = 0.22 * ka;
       esc.material.opacity = 0.92 * smr(t, K.escuro - 0.1, K.escuro + 0.2) * (1 - smr(t, K.altura, K.altura + 0.3));
-      const olha = smr(t, K.todo - 0.2, K.todo + 1.2); C.forEach((p, i) => { vive(p, t, 760 + i, { boca: olha > 0.5 ? "aberta" : "linha", palpebra: 1 }, 0.25); pose(p, { neck: [-0.75 * olha, 0, 0], chest: [-0.15 * olha, 0, 0] }, 1); });
+      const olha = smr(t, K.todo - 0.2, K.todo + 1.2); C.forEach((p, i) => { vive(p, t, 760 + i, { boca: olha > 0.5 ? "aberta" : "linha", treme: olha, abre: 0.6 + 0.5 * olha, palpebra: 1 }, 0.25); pose(p, { neck: [-0.75 * olha, 0, 0], chest: [-0.15 * olha, 0, 0] }, 1); });
       OC.set(0.9 * smr(t, K.morrer - 1.2, K.morrer + 0.4)); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
@@ -113,7 +113,8 @@ addSet("m3-cavaleiros", (g) => {
   olhosBrilho(mk, 0xffd060, 0.05); olhosBrilho(yo, 0xff3a3a, 0.05); olhosBrilho(mo, 0xff4a6a, 0.06); olhosBrilho(fo, 0x6aff8a, 0.05);
   return { ...LUZ_SANGUE, hand: 0.004,
     update(t) { M.upd(t); const tn = [K.makima, K.yoru, K.morte, K.fome];
-      Q.forEach((p, i) => { vive(p, t, 740 + i, { boca: "linha", palpebra: i === 2 ? 0.62 : 0.85, piscaCada: 99 }, 0.12); cabeloVento(p, t, 0.6, [1, 0, 0.2]);
+      const RO = [{ boca: "sorriso", palpebra: 0.8 }, { boca: "smirk", palpebra: 0.9, bravo: 0.4 }, { boca: "linha", palpebra: 0.6 }, { boca: "triste", palpebra: 0.95, triste: 0.8, choro: 0.6 }];
+      Q.forEach((p, i) => { vive(p, t, 740 + i, { ...RO[i], piscaCada: 99 }, 0.12); cabeloVento(p, t, 0.6, [1, 0, 0.2]);
         const k = i === 2 ? smr(t, K.morte - 0.3, K.morte + 0.3) : smr(t, tn[i] - 0.25, tn[i] + 0.3); brilhoK(p, Math.max(k, smr(t, K.cavaleiros - 0.2, K.cavaleiros + 0.5))); });
       if (mk.userData.tranca) mk.userData.tranca.rotation.z = 0.08 * Math.sin(t * 1.6); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
@@ -142,7 +143,7 @@ addSet("m4-profecia", (g) => {
       const de = smr(t, K.descer, K.humanidade + 0.6); mo.visible = de > 0.005; mo.position.set(0, 30 - 30 * de, -64 + 40 * de); restPose(mo); idle(mo, t, 711, 0.05); brilhoK(mo, de);
       escurece(t, K.humanidade - 0.2, K.humanidade + 0.8, [0, 0, 0], 0.45);
       const ke = smr(t, K.era - 0.3, K.era + 0.6); dm.forEach((d, i) => { d.visible = ke > 0.02; restPose(d); idle(d, t, 750 + i, 0.2); d.position.y = -4 * (1 - smr(t, K.era - 0.3 + i * 0.06, K.era + 0.4 + i * 0.06)); olhosK(d, ke); });
-      C.forEach((p, i) => { vive(p, t, 770 + i, { boca: t > K.descer ? "aberta" : "linha", palpebra: 1 }, 0.2); pose(p, { neck: [-0.7, 0, 0] }, 1); }); },
+      C.forEach((p, i) => { vive(p, t, 770 + i, { boca: t > K.descer ? "aberta" : "linha", treme: t > K.descer ? 1 : 0, palpebra: 1 }, 0.2); pose(p, { neck: [-0.7, 0, 0] }, 1); }); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0, 1.2, 14], [0, 1.0, 12], [0, 18, -60], [0, 26, -70], 52, 52)],
@@ -171,7 +172,7 @@ addSet("m4b-onda", (g) => {
       aneis.forEach((r, i) => { const ph = ((t - K.sozinho) * 0.45 + i / 4) % 1, on = t > K.sozinho - 0.2 ? 1 : 0; r.scale.setScalar(0.5 + ph * 12); r.material.opacity = on * 0.8 * (1 - ph); });
       const R = Math.max(0.01, (t - tOnda) * vel); onda.visible = t > tOnda; onda.scale.set(R, R * 0.35, R);
       C.forEach((p, i) => { const d = Math.hypot(p.position.x, p.position.z + 40), cai = smr(t, tOnda + (d - 1) / vel, tOnda + (d - 1) / vel + 0.6);
-        vive(p, t, 790 + i, { boca: cai > 0.1 ? "aberta" : "linha", palpebra: 1 - cai }, 0.2 * (1 - cai)); p.rotation.x = -1.45 * cai; p.position.y = 0.12 * cai; }); },
+        vive(p, t, 790 + i, { boca: cai > 0.02 && cai < 0.7 ? "grito" : cai >= 0.7 ? "aberta" : "linha", treme: cai < 0.7 ? cai * 2 : 0, palpebra: 1 - cai }, 0.2 * (1 - cai)); p.rotation.x = -1.45 * cai; p.position.y = 0.12 * cai; }); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       const sono = () => (tt, u) => ({ ...closeRosto(mo, lerp(1.6, 1.1, E.inOut(u)), 0.3, 0.1, 34) });
       return planos(t, [

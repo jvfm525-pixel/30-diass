@@ -117,6 +117,34 @@ const sombraTex = canvasTex(128, 128, (c, w, h) => { const g = c.createLinearGra
 const suorTex = canvasTex(64, 96, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = "rgba(200,230,255,.95)"; c.strokeStyle = "#5a8ab8"; c.lineWidth = 4; c.beginPath(); c.moveTo(32, 6); c.bezierCurveTo(40, 30, 58, 50, 54, 68); c.arc(32, 66, 22, 0.1, Math.PI - 0.1); c.bezierCurveTo(6, 50, 24, 30, 32, 6); c.fill(); c.stroke(); c.fillStyle = "#fff"; c.beginPath(); c.ellipse(24, 64, 5, 9, -0.3, 0, Math.PI * 2); c.fill(); });
 const lagrimaTex = canvasTex(64, 128, (c, w, h) => { c.clearRect(0, 0, w, h); const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(190,225,255,.9)"); g.addColorStop(1, "rgba(190,225,255,0)"); c.fillStyle = g; c.beginPath(); c.roundRect(22, 0, 20, h, 10); c.fill(); });
 const BOCAT = {};
+// bocas v2 (estilo mangá: traço fino e escuro, sombra do lábio de baixo, dentes de tubarão do Denji, choro aberto)
+const BOCAT2 = {};
+function bocaTex2(tipo) {
+  if (BOCAT2[tipo]) return BOCAT2[tipo];
+  return (BOCAT2[tipo] = canvasTex(256, 128, (c, w, h) => {
+    c.clearRect(0, 0, w, h); c.lineCap = "round"; c.lineJoin = "round"; const cx = w / 2, cy = h / 2, tr = "#4a1c18", int = "#2a0a0c", den = "#f6f2ea", lin = "#c0444a";
+    const labio = (y = 16, l = 16) => { c.strokeStyle = "rgba(150,80,70,.32)"; c.lineWidth = 5; c.beginPath(); c.moveTo(cx - l, cy + y); c.quadraticCurveTo(cx, cy + y + 4, cx + l, cy + y); c.stroke(); };
+    const traco = (pts, lw = 7) => { c.strokeStyle = tr; c.lineWidth = lw; c.beginPath(); c.moveTo(...pts[0]); for (let i = 1; i < pts.length; i += 2) c.quadraticCurveTo(...pts[i], ...pts[i + 1]); c.stroke(); };
+    const abre = (desenha, dentesCima = true, lingua = true) => { c.fillStyle = int; c.beginPath(); desenha(); c.fill(); c.save(); c.beginPath(); desenha(); c.clip();
+      if (dentesCima) { c.fillStyle = den; c.fillRect(0, 0, w, cy - 8); } if (lingua) { c.fillStyle = lin; c.beginPath(); c.ellipse(cx, cy + 26, 26, 12, 0, 0, Math.PI * 2); c.fill(); } c.restore();
+      c.strokeStyle = tr; c.lineWidth = 5; c.beginPath(); desenha(); c.stroke(); };
+    if (tipo === "linha") { traco([[cx - 42, cy + 2], [cx, cy + 6], [cx + 42, cy + 1]]); labio(); }
+    else if (tipo === "sorriso") { traco([[cx - 48, cy - 6], [cx, cy + 16], [cx + 48, cy - 6]]); c.lineWidth = 4; [-1, 1].forEach((k) => { c.beginPath(); c.moveTo(cx + k * 46, cy - 12); c.lineTo(cx + k * 52, cy - 2); c.stroke(); }); labio(22, 14); }
+    else if (tipo === "triste") { traco([[cx - 42, cy + 10], [cx, cy - 8], [cx + 42, cy + 10]]); labio(20, 12); }
+    else if (tipo === "smirk") { c.strokeStyle = tr; c.lineWidth = 7; c.beginPath(); c.moveTo(cx - 38, cy + 4); c.bezierCurveTo(cx - 8, cy + 10, cx + 22, cy + 6, cx + 50, cy - 14); c.stroke(); labio(18, 12); }
+    else if (tipo === "aberta") abre(() => { c.moveTo(cx - 28, cy - 10); c.quadraticCurveTo(cx, cy - 16, cx + 28, cy - 10); c.quadraticCurveTo(cx + 34, cy + 24, cx, cy + 28); c.quadraticCurveTo(cx - 34, cy + 24, cx - 28, cy - 10); });
+    else if (tipo === "choro") abre(() => { c.moveTo(cx - 36, cy - 6); c.quadraticCurveTo(cx, cy - 14, cx + 36, cy - 6); c.quadraticCurveTo(cx + 44, cy + 30, cx, cy + 32); c.quadraticCurveTo(cx - 44, cy + 30, cx - 36, cy - 6); });
+    else if (tipo === "grito") abre(() => { c.moveTo(cx - 34, cy - 18); c.quadraticCurveTo(cx, cy - 28, cx + 34, cy - 18); c.quadraticCurveTo(cx + 46, cy + 34, cx, cy + 40); c.quadraticCurveTo(cx - 46, cy + 34, cx - 34, cy - 18); });
+    else if (tipo === "risada") abre(() => { c.moveTo(cx - 56, cy - 14); c.quadraticCurveTo(cx, cy - 6, cx + 56, cy - 14); c.quadraticCurveTo(cx + 40, cy + 34, cx, cy + 36); c.quadraticCurveTo(cx - 40, cy + 34, cx - 56, cy - 14); });
+    else if (tipo === "dentes") { // sorriso de tubarão do Denji: boca larga, fileiras de dentes em serra em cima e embaixo
+      const forma = () => { c.moveTo(cx - 76, cy - 16); c.quadraticCurveTo(cx, cy + 2, cx + 76, cy - 16); c.quadraticCurveTo(cx, cy + 44, cx - 76, cy - 16); };
+      c.fillStyle = int; c.beginPath(); forma(); c.fill(); c.save(); c.beginPath(); forma(); c.clip(); c.fillStyle = den;
+      const topo = (x) => cy - 16 + (1 - Math.pow((x - cx) / 76, 2)) * 9, base = (x) => cy - 16 + (1 - Math.pow((x - cx) / 76, 2)) * 30;
+      for (let x = cx - 76; x < cx + 76; x += 12) { c.beginPath(); c.moveTo(x, topo(x) - 4); c.lineTo(x + 12, topo(x + 12) - 4); c.lineTo(x + 6, topo(x + 6) + 13); c.fill(); c.beginPath(); c.moveTo(x, base(x) + 4); c.lineTo(x + 12, base(x + 12) + 4); c.lineTo(x + 6, base(x + 6) - 11); c.fill(); }
+      c.restore(); c.strokeStyle = tr; c.lineWidth = 5; c.beginPath(); forma(); c.stroke(); }
+    else if (tipo === "mastiga") { traco([[cx - 30, cy + 2], [cx, cy + 8], [cx + 30, cy + 2]], 7); c.strokeStyle = "rgba(150,80,70,.4)"; c.lineWidth = 4; [-1, 1].forEach((k) => { c.beginPath(); c.arc(cx + k * 50, cy, 10, k > 0 ? -1.2 : 1.9, k > 0 ? 1.2 : 4.3); c.stroke(); }); }
+  }));
+}
 function bocaTex(tipo) {
   if (BOCAT[tipo]) return BOCAT[tipo];
   return (BOCAT[tipo] = canvasTex(256, 128, (c, w, h) => {
@@ -318,10 +346,11 @@ function pessoaLP(o = {}) {
   if (P.rugas) { const r = decalSup(S.head, rugasTex, 0.15, 0.1125, 0, 0.058, zAt, { dz: 0.0026, suave: true }); r.material.opacity = Math.min(1, P.rugas); }
   if (P.barba3d != null) { const bm = LPmat(P.barba3d, { rim: 0.6 }); const zc = zAt(0, -0.02); const b = mesh(new THREE.ConeGeometry(0.03, 0.07, 5), bm, 0, -0.045, zc - 0.012, S.head); b.rotation.x = Math.PI + 0.35; b.scale.z = 0.7;
     [-1, 1].forEach((k) => { const m = mesh(box(0.034, 0.008, 0.012), bm, k * 0.019, MY + 0.011, zAt(k * 0.019, MY + 0.011) + 0.002, S.head); m.rotation.z = -k * 0.32; }); }
-  const bocas = {};
-  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), V2 && t === "linha" ? 0.044 : 0.056, V2 && t === "linha" ? 0.022 : 0.028, 0, MY, zAt, { dz: 0.003 })));
-  bocas.risada = decalSup(S.head, bocaTex("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
-  ["smirk", "mastiga"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 }))); ["dentes", "grito"].forEach((t) => (bocas[t] = decalSup(S.head, bocaTex(t), 0.07, 0.036, 0, MY - 0.002, zAt, { dz: 0.0034 })));
+  const bocas = {}, BT = P.boca2 ? bocaTex2 : bocaTex; // boca2 = bocas no estilo mangá (traço fino)
+  ["linha", "sorriso", "triste", "aberta"].forEach((t) => (bocas[t] = decalSup(S.head, BT(t), V2 && t === "linha" ? 0.044 : 0.056, V2 && t === "linha" ? 0.022 : 0.028, 0, MY, zAt, { dz: 0.003 })));
+  bocas.risada = decalSup(S.head, BT("risada"), 0.066, 0.033, 0, MY, zAt, { dz: 0.0034 });
+  ["smirk", "mastiga"].forEach((t) => (bocas[t] = decalSup(S.head, BT(t), 0.056, 0.028, 0, MY, zAt, { dz: 0.003 }))); ["dentes", "grito"].forEach((t) => (bocas[t] = decalSup(S.head, BT(t), 0.07, 0.036, 0, MY - 0.002, zAt, { dz: 0.0034 })));
+  if (P.boca2) bocas.choro = decalSup(S.head, BT("choro"), 0.06, 0.03, 0, MY - 0.001, zAt, { dz: 0.003 });
   if (P.bocaRyuk) bocas.ryuk = decalSup(S.head, bocaTex("ryuk"), 0.12, 0.06, 0, MY + 0.004, zAt, { dz: 0.0034 });
   const sombra = decalSup(S.head, sombraTex, 0.15, 0.08, 0, EY + 0.012, zAt, { dz: 0.0042, suave: true, sx: 16, sy: 6 }); sombra.visible = false;
   const suor = decal(S.head, suorTex, 0.016, 0.024, 0.068, EY + 0.05, zAt(0.068, EY + 0.05) + 0.004, 0.5, 0, { suave: true }); suor.visible = false;
@@ -366,7 +395,13 @@ function rostoLP(p, t, f = {}) {
   if (L.suor) { L.suor.visible = (f.suor ?? 0) > 0.02; L.suor.position.y = CAB.EY + 0.05 - ((t * 0.03) % 0.03) * (f.suor ?? 0); }
   if (L.lagrimas) L.lagrimas.forEach((m) => { m.visible = (f.choro ?? 0) > 0.02; m.scale.y = Math.max(0.05, f.choro ?? 0); });
   let tipo = f.boca ?? "linha";
+  for (const k in L.bocas) L.bocas[k].scale.set(1, 1, 1);
   if (f.fala) { const a = Math.abs(Math.sin(t * 12.5)) * f.fala; if (a > 0.4) tipo = "aberta"; L.bocas.aberta.scale.y = 0.6 + a * 0.5; }
+  if (f.mastigar) { const a = Math.sin(t * 9.5); tipo = a > 0 ? "mastiga" : (f.boca ?? "linha"); L.bocas[tipo].scale.y = 0.85 + 0.3 * Math.abs(a) * f.mastigar; }
+  if (f.ri && L.bocas.risada) { const a = Math.abs(Math.sin(t * 10)) * f.ri; tipo = a > 0.35 ? "risada" : (f.boca ?? "smirk"); L.bocas.risada.scale.y = 0.6 + 0.5 * a; }
+  if (f.treme && L.bocas[tipo]) { L.bocas[tipo].scale.x = 1 + 0.07 * Math.sin(t * 29) * f.treme; L.bocas[tipo].scale.y *= 1 + 0.12 * Math.sin(t * 23 + 1) * f.treme; }
+  if (f.abre != null && L.bocas[tipo]) L.bocas[tipo].scale.y *= f.abre;
+  if (!L.bocas[tipo]) tipo = "linha";
   for (const k in L.bocas) L.bocas[k].visible = k === tipo;
 }
 
