@@ -70,6 +70,7 @@ function decorVazio(g) {
 }
 function decorCha(g) {
   for (let i = 0; i < 9; i++) { const a = Math.PI * 0.95 + (i / 8) * Math.PI * 1.1, r = 6.5; colunaRuina(g, Math.cos(a) * r, Math.sin(a) * r, 2.4 + hash(i) * 1.2, a, i % 3 === 1); }
+  mesh(lathe([[0.001, 0.3], [18, 0.1], [28, -6], [46, -30]], 18), LPmat(0x5a7a4a, { rough: 1, rim: 0.3 }), 50, 0, -150, g); // morro sob o castelo (não flutua)
   const cas = castelo(g, 50, -150, 1.0); cas.traverse((m) => { if (m.isMesh && m.material && m.material.color && m.material.color.getHex() === 0x3a4a7a) m.material = LPmat(0x6a5a9a, { rim: 0.5 }); });
   const fl = [], cores = [0xf4f0ff, 0xffd8e8, 0xd8c8ff, 0xfff0a0]; for (let i = 0; i < 320; i++) { const a = hash(i * 2.3) * 6.28, r = 1.6 + hash(i * 4.1) * 13; fl.push([Math.cos(a) * r, 0.2, Math.sin(a) * r]); }
   cores.forEach((c, k) => instG(g, sph(0.05, 6, 5), LPmat(c, { rim: 0.4 }), fl.filter((_, i) => i % 4 === k), false));

@@ -3011,6 +3011,7 @@ function decorVazio(g) {
 }
 function decorCha(g) {
   for (let i = 0; i < 9; i++) { const a = Math.PI * 0.95 + (i / 8) * Math.PI * 1.1, r = 6.5; colunaRuina(g, Math.cos(a) * r, Math.sin(a) * r, 2.4 + hash(i) * 1.2, a, i % 3 === 1); }
+  mesh(lathe([[0.001, 0.3], [18, 0.1], [28, -6], [46, -30]], 18), LPmat(0x5a7a4a, { rough: 1, rim: 0.3 }), 50, 0, -150, g); // morro sob o castelo (não flutua)
   const cas = castelo(g, 50, -150, 1.0); cas.traverse((m) => { if (m.isMesh && m.material && m.material.color && m.material.color.getHex() === 0x3a4a7a) m.material = LPmat(0x6a5a9a, { rim: 0.5 }); });
   const fl = [], cores = [0xf4f0ff, 0xffd8e8, 0xd8c8ff, 0xfff0a0]; for (let i = 0; i < 320; i++) { const a = hash(i * 2.3) * 6.28, r = 1.6 + hash(i * 4.1) * 13; fl.push([Math.cos(a) * r, 0.2, Math.sin(a) * r]); }
   cores.forEach((c, k) => instG(g, sph(0.05, 6, 5), LPmat(c, { rim: 0.4 }), fl.filter((_, i) => i % 4 === k), false));
@@ -3362,8 +3363,8 @@ addSet("s7-echidna", (g) => {
   const senta = (p, t, seed, o) => { restPose(p); idle(p, t, seed, 0.08); sitPose(p, 1, { seatY: 0.49, lean: o.lean ?? 0.05 }); pose(p, { neck: o.neck ?? [0, 0, 0] }, 1);
     maoEm(p, 0, frenteW(p, 0.14, 0.78, 0.34), 1, { abre: 0.6, poleY: 0.1, poleZ: -0.3 }); maoEm(p, 1, frenteW(p, -0.14, 0.78, 0.34), 1, { abre: 0.6, poleY: 0.1, poleZ: -0.3 }); };
   return { bg: 0x9ac8f0, fog: [60, 420], fogCol: 0xd8ecff, hand: 0.004,
-    look: { exposure: 0.98, bloom: 0.4, bloomT: 0.86, vig: 0.38, sat: 1.12, con: 1.06, dof: RDOF_M, rosto: 0.2, lift: [0.01, 0.008, 0] },
-    sun: { dir: [0.5, 0.65, 0.55], col: 0xfff2d8, I: 2.0, c: [0, 1, 0], r: 12 }, hemi: { sky: 0xcfe6ff, ground: 0x5a7a3a, I: 0.85 }, fill: { col: 0xffe8d0, I: 0.5, dir: [-0.3, 0.3, 1] }, rim: { col: 0xfff4e0, str: 1.1 },
+    look: { exposure: 0.98, bloom: 0.4, bloomT: 0.86, vig: 0.38, sat: 1.12, con: 1.06, dof: RDOF_M, rosto: 0.32, lift: [0.01, 0.008, 0] },
+    sun: { dir: [0.9, 0.7, 0.12], col: 0xfff2d8, I: 2.0, c: [0, 1, 0], r: 12 }, hemi: { sky: 0xcfe6ff, ground: 0x5a7a3a, I: 0.85 }, fill: { col: 0xffe8d0, I: 0.5, dir: [-0.6, 0.3, -0.4] }, rim: { col: 0xfff4e0, str: 1.1 },
     update(t) {
       CC.upd(t);
       senta(ec, t, 431, { lean: 0.02 }); rostoLP(ec, t, { boca: t > K.sabia - 0.3 ? "sorriso" : "linha", palpebra: 0.85, piscaCada: 4.1 }); cabeloVento(ec, t, 0.6, [1, 0, 0.2]);
@@ -3373,7 +3374,7 @@ addSet("s7-echidna", (g) => {
       return planos(t, [
         [a, mov([4.5, 3.2, 7.5], [3.2, 2.0, 5.0], [0, 0.9, 0], [0, 0.95, 0], 44, 40)],
         [K.echidna - 0.2, (tt, u) => ({ ...closeRosto(ec, lerp(1.0, 0.85, E.inOut(u)), 0.22, -0.02, 30) })],
-        [K.castelo - 0.2, mov([0.9, 1.15, 2.6], [0.8, 1.25, 3.2], [0, 1.4, -6], [0, 4, -80], 44, 46)],
+        [K.castelo - 0.2, mov([0.9, 1.15, 2.6], [1.7, 1.35, 3.4], [0.5, 1.4, -6], [48, 12, -150], 44, 34)], // vira da mesa para o castelo (x 50, z -150)
         [K.falou - 0.3, (tt, u) => ({ ...closeRosto(su, lerp(1.0, 0.85, E.inOut(u)), -0.22, -0.02, 30) })],
         [K.sabia - 0.3, (tt, u) => ({ ...closeRosto(ec, lerp(0.9, 0.78, E.inOut(u)), 0.2, -0.02, 30) })],
       ], b); },
