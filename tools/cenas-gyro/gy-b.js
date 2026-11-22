@@ -104,7 +104,7 @@ addSet("g8-formigas", (g) => {
   const cas = grp(g, 0, 0, -1); const cm = LPmat(0x2a2420, { rim: 0.8 }), luzC = new THREE.MeshBasicMaterial({ color: 0xcfe0ff });
   const met = [0, 1].map((k) => { const h = mesh(new THREE.SphereGeometry(0.5, 14, 10, 0, Math.PI), cm, 0, 0.9, 0, cas); h.scale.set(1, 1.9, 1); h.rotation.y = k * Math.PI; return h; });
   const fenda = mesh(box(0.02, 1.6, 1.02), luzC, 0, 0.9, 0, cas); const brC = glowSprite(0xcfe0ff, 2.5, 0); brC.position.y = 1; cas.add(brC);
-  const mem = Array.from({ length: 6 }, (_, i) => { const m = mesh(new THREE.PlaneGeometry(0.34, 0.24), new THREE.MeshBasicMaterial({ color: [0xffa060, 0xd8783a, 0xffc080][i % 3], transparent: true, opacity: 0, side: THREE.DoubleSide, blending: ADD, depthWrite: false }), 0, 0, 0, g); m.castShadow = false; return m; });
+  const mem = Array.from({ length: 6 }, (_, i) => { const m = mesh(new THREE.PlaneGeometry(0.5, 0.36), new THREE.MeshBasicMaterial({ color: [0xffa060, 0xd8783a, 0xffc080][i % 3], transparent: true, opacity: 0, side: THREE.DoubleSide, blending: ADD, depthWrite: false }), 0, 0, 0, g); m.castShadow = false; return m; });
   return { ...LUZ_FORMIGAS, hand: 0.005,
     update(t) {
       N.upd(t);
@@ -120,16 +120,16 @@ addSet("g8-formigas", (g) => {
       else gait(ga, 7 * smr(t, K.embora - 0.3, b), { from: [0, 0, -1], ang: 0, step: 0.6 });
       olhosK(ga, ga.visible ? 1 : 0); spA(0);
       restPose(rei); idle(rei, t, 646, 0.2); standFeet(rei); rei.position.y = 25.6; olhosK(rei, 1);
-      const km = smr(t, K.memorias - 0.3, K.memorias + 0.2) * (1 - smr(t, K.recusou - 0.4, K.recusou)); mem.forEach((m, i) => { const an = t * 0.8 + i * 1.05; m.position.set(Math.sin(an) * 0.8, 1.4 + Math.sin(t * 1.3 + i) * 0.25, -1 + Math.cos(an) * 0.8); m.lookAt(m.position.x * 2, m.position.y, m.position.z * 2 + 1); m.material.opacity = 0.7 * km; });
+      const km = smr(t, K.memorias - 0.3, K.memorias + 0.2) * (1 - smr(t, K.recusou - 0.4, K.recusou)); mem.forEach((m, i) => { const an = t * 0.8 + i * 1.05; m.position.set(Math.sin(an) * 0.65, 1.65 + Math.sin(t * 1.3 + i) * 0.2, -1 + Math.cos(an) * 0.65); m.lookAt(m.position.x * 2, m.position.y, m.position.z * 2 + 1); m.material.opacity = 0.95 * km; });
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([3, 2.2, 12], [2, 1.6, 9], [0, 1.2, 0], [0, 4, -20], 46, 46)],
-        [K.tomada - 0.3, mov([12, 14, 22], [10, 12, 18], [0, 4, -20], [0, 6, -26], 46, 46)],
+        [a, mov([1.6, 0.55, 5.2], [1.1, 0.7, 3.9], [0, 1.6, -6], [0, 3.0, -20], 46, 46)], // baixo, as formigas passam contra o fogo
+        [K.tomada - 0.3, mov([10, 20, 24], [8, 18, 20], [0, 3, -16], [0, 5, -26], 46, 46)],
         [K.devorado - 1.2, mov([2.2, 0.5, 2.2], [1.6, 0.45, 1.6], [0, 1.4, -1], [0, 1.5, -1], 46, 40)],
         [K.renasceu - 0.4, mov([1.4, 1.2, 2.2], [1.1, 1.3, 1.7], [0, 0.9, -1], [0, 1.4, -1], 44, 40)],
         [K.memorias - 0.3, (tt, u) => ({ ...closeRosto(ga, lerp(1.4, 1.1, E.inOut(u)), 0.4, 0, 34) })],
-        [K.recusou - 0.3, mov([-1.4, 0.6, 2.4], [-1.2, 0.7, 2.0], [0, 3, -20], [0, 12, -36], 44, 40)],
+        [K.recusou - 0.3, mov([-1.4, 0.6, 2.4], [-1.2, 0.7, 2.0], [0, 1.6, -1], [0, 9, -36], 44, 40)],
         [K.embora - 0.3, mov([0, 2.4, -6], [0, 2.8, -7], [0, 1.0, 0], [0, 0.9, 3], 44, 44)],
       ], b); },
   };
@@ -148,7 +148,7 @@ addSet("g9a-gon", (g) => {
       return planos(t, [
         [a, mov([0.6, 1.0, 1.4], [0.4, 0.9, 0.8], [0, 0.4, -3], [0, 0.5, -8], 46, 44)],
         [K.espelho - 0.3, mov([1.6, 0.9, -4.5], [1.3, 0.85, -4.0], [0, 0.6, -1.55], [0, 0.6, -1.55], 40, 36)],
-        [K.mundo9 - 0.3, mov([1.5, 2.2, 3.5], [3.0, 6, 6], [1.5, 0.8, -1.6], [6, 0, -40], 46, 48)],
+        [K.mundo9 - 0.3, mov([1.5, 2.2, 3.5], [2.0, 6.5, -1.0], [1.5, 0.8, -1.6], [4, 0, -40], 46, 48)], // sobe na direção do mar, longe das árvores
       ], b); },
   };
 });

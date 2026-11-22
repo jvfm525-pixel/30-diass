@@ -81,7 +81,7 @@ addSet("g2-obra", (g) => {
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([5.8, 0.5, -1.6], [4.6, 0.45, -2.6], [1.5, 0.8, -7.5], [1.0, 0.8, -8.2], 42, 40)], // baixo, o menino passa contra o céu
+        [a, mov([5.2, 0.5, -0.6], [4.4, 0.45, -1.8], [1.5, 0.8, -7.5], [1.0, 0.8, -8.2], 42, 40)], // baixo, o menino passa contra o céu
         [K.cimento - 0.3, mov([-0.6, 0.9, -2.6], [-0.9, 0.85, -3.0], [-2.7, 0.6, -4.6], [-2.8, 0.6, -4.8], 40, 36)],
         [K.tijolo - 0.3, mov([2.0, 1.0, -9.2], [1.5, 0.9, -9.8], [0.3, 0.6, -11.8], [0.3, 0.6, -11.8], 40, 36)],
         [K.falar - 0.3, mov([0.5, 0.75, 0.9], [0.3, 0.72, 0.4], [-1.0, 0.75, -1.2], [-1.0, 0.75, -1.2], 36, 32)],
@@ -200,7 +200,7 @@ addSet("g5-noite", (g) => {
       C.upd(t); const jan = C.casaPai.userData.jan, gl = C.casaPai.userData.gl;
       const apaga = smr(t, K.matou + 0.1, K.matou + 0.5), tremula = t > K.matou - 0.3 && t < K.matou + 0.1 ? (Math.sin(t * 40) > 0 ? 1 : 0.3) : 1;
       jan.material.color.setRGB(lerp(1, 0.08, apaga) * tremula, lerp(0.69, 0.06, apaga) * tremula, lerp(0.38, 0.05, apaga) * tremula); if (gl) gl.material.opacity = 0.35 * (1 - apaga) * tremula;
-      flash(t, K.matou + 0.1, 0.05, 0.9, [0.22, 0.0, 0.01]);
+      flash(t, K.matou + 0.1, 0.05, 0.6, [0.1, 0.0, 0.0]);
       restPose(k); saco.visible = t > K.dinheiro - 0.3; moeda.material.opacity = saco.visible ? 0.6 + 0.4 * Math.sin(t * 7) : 0;
       if (t < K.matou - 0.4) { k.position.set(-3.6, 0, -2.0); k.rotation.y = -Math.PI / 2 - 0.25; idle(k, t, 701, 0.2); standFeet(k); }
       else if (t < K.dinheiro - 0.3) { const f = smr(t, K.matou - 0.4, K.matou); gait(k, 1.4 * f, { from: [-3.6, 0, -2.0], ang: -Math.PI / 2 - 0.25, step: 0.45 }); k.visible = f < 0.98; }
@@ -213,7 +213,7 @@ addSet("g5-noite", (g) => {
       return planos(t, [
         [a, mov([-1.4, 1.2, 0.2], [-1.8, 1.15, -0.4], [-4.8, 1.0, -2.6], [-4.8, 1.0, -2.6], 42, 40)],
         [K.matou - 0.4, mov([-1.0, 2.0, 1.4], [-1.3, 1.9, 1.0], [-5.6, 1.3, -2.9], [-5.6, 1.3, -2.9], 40, 38)],
-        [K.dinheiro - 0.3, mov([-3.4, 0.35, 0.6], [-3.2, 0.4, 0.8], [-4.8, 1.0, -2.4], [-3.8, 1.0, -1.2], 42, 42)],
+        [K.dinheiro - 0.3, (tt, u) => ({ pos: lerp3([-3.0, 0.35, 0.9], [-2.6, 0.4, 0.6], E.inOut(u)), look: [k.position.x, 0.95, k.position.z], fov: 42, near: 0.03 })], // segue o menino saindo com o saco
         [K.fugiu - 0.3, mov([3.5, 0.45, 2.5], [4.0, 0.5, 2.0], [-1.0, 1.4, -8], [3.0, 1.4, -9], 46, 46)], // baixo: ele corre contra o horizonte
         [K.conclusao - 0.3, mov([4.0, 0.9, 6.2], [3.6, 0.9, 5.6], [2.0, 0.8, 3.0], [2.0, 0.8, 3.0], 42, 38)],
         [K.mundo - 0.3, mov([3.0, 1.2, 5.6], [5.0, 6.5, 12], [2.0, 1.0, 3.0], [0, 4, -40], 42, 52)], // sobe e mostra o mundo enorme

@@ -40,10 +40,10 @@ function vilaNGL(g, o = {}) {
   // alçapão de madeira no chão, perto da casa da direita
   const alc = grp(g, 1.6, 0.02, 1.2), tampa = grp(alc, -0.5, 0, 0); mesh(box(1.0, 0.06, 1.0), SM(0xffffff, { map: texPlanks([96, 70, 44], [76, 54, 34]).map }), 0.5, 0.03, 0, tampa);
   const buraco = mesh(new THREE.PlaneGeometry(0.96, 0.96), new THREE.MeshBasicMaterial({ color: 0x0a0410 }), 0, 0.005, 0, alc); buraco.rotation.x = -Math.PI / 2; buraco.castShadow = false;
-  const roxo = glowSprite(0xa050ff, 2.2, 0); roxo.position.set(0, 0.3, 0); alc.add(roxo);
+  const roxo = glowSprite(0xa050ff, 1.0, 0); roxo.position.set(0, 0.3, 0); alc.add(roxo);
   const fogos = dest ? [[-5.5, -3], [6.5, -11], [-10, 3]].map(([x, z]) => fogoLonge(g, x, z, 0.9)) : [];
   const pa = dustPts(200, [-10, 10, 0.2, 4, -14, 6], noite ? (dest ? 0xff8a4a : 0x9ac8ff) : 0xfff4c8, 0.035, 0.6); g.add(pa);
-  return { alc, tampa, roxo, upd(t, abre = 0) { tampa.rotation.z = abre * 1.9; roxo.material.opacity = 0.5 * abre; floatDust(pa, t, 0.4, 0.2); fogos.forEach((f) => f.update(t)); } };
+  return { alc, tampa, roxo, upd(t, abre = 0) { tampa.rotation.z = abre * 1.9; roxo.material.opacity = 0.35 * abre; floatDust(pa, t, 0.4, 0.2); fogos.forEach((f) => f.update(t)); } };
 }
 
 // ---------------------------------------------------------------- laboratório subterrâneo da D²: bunker de concreto, mesas, frascos, pó roxo

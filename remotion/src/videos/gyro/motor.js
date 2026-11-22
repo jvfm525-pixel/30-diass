@@ -3107,10 +3107,10 @@ function vilaNGL(g, o = {}) {
   // alçapão de madeira no chão, perto da casa da direita
   const alc = grp(g, 1.6, 0.02, 1.2), tampa = grp(alc, -0.5, 0, 0); mesh(box(1.0, 0.06, 1.0), SM(0xffffff, { map: texPlanks([96, 70, 44], [76, 54, 34]).map }), 0.5, 0.03, 0, tampa);
   const buraco = mesh(new THREE.PlaneGeometry(0.96, 0.96), new THREE.MeshBasicMaterial({ color: 0x0a0410 }), 0, 0.005, 0, alc); buraco.rotation.x = -Math.PI / 2; buraco.castShadow = false;
-  const roxo = glowSprite(0xa050ff, 2.2, 0); roxo.position.set(0, 0.3, 0); alc.add(roxo);
+  const roxo = glowSprite(0xa050ff, 1.0, 0); roxo.position.set(0, 0.3, 0); alc.add(roxo);
   const fogos = dest ? [[-5.5, -3], [6.5, -11], [-10, 3]].map(([x, z]) => fogoLonge(g, x, z, 0.9)) : [];
   const pa = dustPts(200, [-10, 10, 0.2, 4, -14, 6], noite ? (dest ? 0xff8a4a : 0x9ac8ff) : 0xfff4c8, 0.035, 0.6); g.add(pa);
-  return { alc, tampa, roxo, upd(t, abre = 0) { tampa.rotation.z = abre * 1.9; roxo.material.opacity = 0.5 * abre; floatDust(pa, t, 0.4, 0.2); fogos.forEach((f) => f.update(t)); } };
+  return { alc, tampa, roxo, upd(t, abre = 0) { tampa.rotation.z = abre * 1.9; roxo.material.opacity = 0.35 * abre; floatDust(pa, t, 0.4, 0.2); fogos.forEach((f) => f.update(t)); } };
 }
 
 // ---------------------------------------------------------------- laboratório subterrâneo da D²: bunker de concreto, mesas, frascos, pó roxo
@@ -3264,7 +3264,7 @@ addSet("g2-obra", (g) => {
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([5.8, 0.5, -1.6], [4.6, 0.45, -2.6], [1.5, 0.8, -7.5], [1.0, 0.8, -8.2], 42, 40)], // baixo, o menino passa contra o céu
+        [a, mov([5.2, 0.5, -0.6], [4.4, 0.45, -1.8], [1.5, 0.8, -7.5], [1.0, 0.8, -8.2], 42, 40)], // baixo, o menino passa contra o céu
         [K.cimento - 0.3, mov([-0.6, 0.9, -2.6], [-0.9, 0.85, -3.0], [-2.7, 0.6, -4.6], [-2.8, 0.6, -4.8], 40, 36)],
         [K.tijolo - 0.3, mov([2.0, 1.0, -9.2], [1.5, 0.9, -9.8], [0.3, 0.6, -11.8], [0.3, 0.6, -11.8], 40, 36)],
         [K.falar - 0.3, mov([0.5, 0.75, 0.9], [0.3, 0.72, 0.4], [-1.0, 0.75, -1.2], [-1.0, 0.75, -1.2], 36, 32)],
@@ -3383,7 +3383,7 @@ addSet("g5-noite", (g) => {
       C.upd(t); const jan = C.casaPai.userData.jan, gl = C.casaPai.userData.gl;
       const apaga = smr(t, K.matou + 0.1, K.matou + 0.5), tremula = t > K.matou - 0.3 && t < K.matou + 0.1 ? (Math.sin(t * 40) > 0 ? 1 : 0.3) : 1;
       jan.material.color.setRGB(lerp(1, 0.08, apaga) * tremula, lerp(0.69, 0.06, apaga) * tremula, lerp(0.38, 0.05, apaga) * tremula); if (gl) gl.material.opacity = 0.35 * (1 - apaga) * tremula;
-      flash(t, K.matou + 0.1, 0.05, 0.9, [0.22, 0.0, 0.01]);
+      flash(t, K.matou + 0.1, 0.05, 0.6, [0.1, 0.0, 0.0]);
       restPose(k); saco.visible = t > K.dinheiro - 0.3; moeda.material.opacity = saco.visible ? 0.6 + 0.4 * Math.sin(t * 7) : 0;
       if (t < K.matou - 0.4) { k.position.set(-3.6, 0, -2.0); k.rotation.y = -Math.PI / 2 - 0.25; idle(k, t, 701, 0.2); standFeet(k); }
       else if (t < K.dinheiro - 0.3) { const f = smr(t, K.matou - 0.4, K.matou); gait(k, 1.4 * f, { from: [-3.6, 0, -2.0], ang: -Math.PI / 2 - 0.25, step: 0.45 }); k.visible = f < 0.98; }
@@ -3396,7 +3396,7 @@ addSet("g5-noite", (g) => {
       return planos(t, [
         [a, mov([-1.4, 1.2, 0.2], [-1.8, 1.15, -0.4], [-4.8, 1.0, -2.6], [-4.8, 1.0, -2.6], 42, 40)],
         [K.matou - 0.4, mov([-1.0, 2.0, 1.4], [-1.3, 1.9, 1.0], [-5.6, 1.3, -2.9], [-5.6, 1.3, -2.9], 40, 38)],
-        [K.dinheiro - 0.3, mov([-3.4, 0.35, 0.6], [-3.2, 0.4, 0.8], [-4.8, 1.0, -2.4], [-3.8, 1.0, -1.2], 42, 42)],
+        [K.dinheiro - 0.3, (tt, u) => ({ pos: lerp3([-3.0, 0.35, 0.9], [-2.6, 0.4, 0.6], E.inOut(u)), look: [k.position.x, 0.95, k.position.z], fov: 42, near: 0.03 })], // segue o menino saindo com o saco
         [K.fugiu - 0.3, mov([3.5, 0.45, 2.5], [4.0, 0.5, 2.0], [-1.0, 1.4, -8], [3.0, 1.4, -9], 46, 46)], // baixo: ele corre contra o horizonte
         [K.conclusao - 0.3, mov([4.0, 0.9, 6.2], [3.6, 0.9, 5.6], [2.0, 0.8, 3.0], [2.0, 0.8, 3.0], 42, 38)],
         [K.mundo - 0.3, mov([3.0, 1.2, 5.6], [5.0, 6.5, 12], [2.0, 1.0, 3.0], [0, 4, -40], 42, 52)], // sobe e mostra o mundo enorme
@@ -3511,7 +3511,7 @@ addSet("g8-formigas", (g) => {
   const cas = grp(g, 0, 0, -1); const cm = LPmat(0x2a2420, { rim: 0.8 }), luzC = new THREE.MeshBasicMaterial({ color: 0xcfe0ff });
   const met = [0, 1].map((k) => { const h = mesh(new THREE.SphereGeometry(0.5, 14, 10, 0, Math.PI), cm, 0, 0.9, 0, cas); h.scale.set(1, 1.9, 1); h.rotation.y = k * Math.PI; return h; });
   const fenda = mesh(box(0.02, 1.6, 1.02), luzC, 0, 0.9, 0, cas); const brC = glowSprite(0xcfe0ff, 2.5, 0); brC.position.y = 1; cas.add(brC);
-  const mem = Array.from({ length: 6 }, (_, i) => { const m = mesh(new THREE.PlaneGeometry(0.34, 0.24), new THREE.MeshBasicMaterial({ color: [0xffa060, 0xd8783a, 0xffc080][i % 3], transparent: true, opacity: 0, side: THREE.DoubleSide, blending: ADD, depthWrite: false }), 0, 0, 0, g); m.castShadow = false; return m; });
+  const mem = Array.from({ length: 6 }, (_, i) => { const m = mesh(new THREE.PlaneGeometry(0.5, 0.36), new THREE.MeshBasicMaterial({ color: [0xffa060, 0xd8783a, 0xffc080][i % 3], transparent: true, opacity: 0, side: THREE.DoubleSide, blending: ADD, depthWrite: false }), 0, 0, 0, g); m.castShadow = false; return m; });
   return { ...LUZ_FORMIGAS, hand: 0.005,
     update(t) {
       N.upd(t);
@@ -3527,16 +3527,16 @@ addSet("g8-formigas", (g) => {
       else gait(ga, 7 * smr(t, K.embora - 0.3, b), { from: [0, 0, -1], ang: 0, step: 0.6 });
       olhosK(ga, ga.visible ? 1 : 0); spA(0);
       restPose(rei); idle(rei, t, 646, 0.2); standFeet(rei); rei.position.y = 25.6; olhosK(rei, 1);
-      const km = smr(t, K.memorias - 0.3, K.memorias + 0.2) * (1 - smr(t, K.recusou - 0.4, K.recusou)); mem.forEach((m, i) => { const an = t * 0.8 + i * 1.05; m.position.set(Math.sin(an) * 0.8, 1.4 + Math.sin(t * 1.3 + i) * 0.25, -1 + Math.cos(an) * 0.8); m.lookAt(m.position.x * 2, m.position.y, m.position.z * 2 + 1); m.material.opacity = 0.7 * km; });
+      const km = smr(t, K.memorias - 0.3, K.memorias + 0.2) * (1 - smr(t, K.recusou - 0.4, K.recusou)); mem.forEach((m, i) => { const an = t * 0.8 + i * 1.05; m.position.set(Math.sin(an) * 0.65, 1.65 + Math.sin(t * 1.3 + i) * 0.2, -1 + Math.cos(an) * 0.65); m.lookAt(m.position.x * 2, m.position.y, m.position.z * 2 + 1); m.material.opacity = 0.95 * km; });
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([3, 2.2, 12], [2, 1.6, 9], [0, 1.2, 0], [0, 4, -20], 46, 46)],
-        [K.tomada - 0.3, mov([12, 14, 22], [10, 12, 18], [0, 4, -20], [0, 6, -26], 46, 46)],
+        [a, mov([1.6, 0.55, 5.2], [1.1, 0.7, 3.9], [0, 1.6, -6], [0, 3.0, -20], 46, 46)], // baixo, as formigas passam contra o fogo
+        [K.tomada - 0.3, mov([10, 20, 24], [8, 18, 20], [0, 3, -16], [0, 5, -26], 46, 46)],
         [K.devorado - 1.2, mov([2.2, 0.5, 2.2], [1.6, 0.45, 1.6], [0, 1.4, -1], [0, 1.5, -1], 46, 40)],
         [K.renasceu - 0.4, mov([1.4, 1.2, 2.2], [1.1, 1.3, 1.7], [0, 0.9, -1], [0, 1.4, -1], 44, 40)],
         [K.memorias - 0.3, (tt, u) => ({ ...closeRosto(ga, lerp(1.4, 1.1, E.inOut(u)), 0.4, 0, 34) })],
-        [K.recusou - 0.3, mov([-1.4, 0.6, 2.4], [-1.2, 0.7, 2.0], [0, 3, -20], [0, 12, -36], 44, 40)],
+        [K.recusou - 0.3, mov([-1.4, 0.6, 2.4], [-1.2, 0.7, 2.0], [0, 1.6, -1], [0, 9, -36], 44, 40)],
         [K.embora - 0.3, mov([0, 2.4, -6], [0, 2.8, -7], [0, 1.0, 0], [0, 0.9, 3], 44, 44)],
       ], b); },
   };
@@ -3555,7 +3555,7 @@ addSet("g9a-gon", (g) => {
       return planos(t, [
         [a, mov([0.6, 1.0, 1.4], [0.4, 0.9, 0.8], [0, 0.4, -3], [0, 0.5, -8], 46, 44)],
         [K.espelho - 0.3, mov([1.6, 0.9, -4.5], [1.3, 0.85, -4.0], [0, 0.6, -1.55], [0, 0.6, -1.55], 40, 36)],
-        [K.mundo9 - 0.3, mov([1.5, 2.2, 3.5], [3.0, 6, 6], [1.5, 0.8, -1.6], [6, 0, -40], 46, 48)],
+        [K.mundo9 - 0.3, mov([1.5, 2.2, 3.5], [2.0, 6.5, -1.0], [1.5, 0.8, -1.6], [4, 0, -40], 46, 48)], // sobe na direção do mar, longe das árvores
       ], b); },
   };
 });
