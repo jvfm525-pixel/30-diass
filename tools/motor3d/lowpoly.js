@@ -275,7 +275,7 @@ function pessoaLP(o = {}) {
   const abd = mesh(lathe(abdP, R + 2), roupa, 0, 0, 0, S.spine); abd.scale.z = 0.76;
   const chP = FEM ? [[0.001, -0.02], [0.126, -0.02], [0.146, 0.06], [0.158, 0.14], [0.152, 0.21], [0.128, 0.262], [0.076, 0.296], [0.001, 0.3]] : [[0.001, -0.02], [0.138, -0.02], [0.16, 0.06], [0.176, 0.15], [0.174, 0.22], [0.148, 0.27], [0.086, 0.305], [0.001, 0.31]];
   const ch = mesh(lathe(chP, R + 2), roupa, 0, 0, 0, S.chest); ch.scale.z = 0.72;
-  if (FEM) [-1, 1].forEach((k) => { const b = mesh(sph(0.048, R, 8), roupa, k * 0.054, 0.125, 0.07, S.chest); b.scale.set(1, 0.88, 0.7); }); // busto discreto
+  if (FEM) [-1, 1].forEach((k) => { const b = mesh(sph(0.046, R + 4, 10), roupa, k * 0.052, 0.122, 0.066, S.chest); b.scale.set(1.05, 0.85, 0.68); }); // busto discreto
   const hem = mesh(lathe(FEM ? [[0.148, 0.07], [0.168, -0.03], [0.184, -0.13]] : [[0.152, 0.07], [0.16, -0.03], [0.172, -0.13]], R + 2), roupa2, 0, 0, 0, S.hips); hem.scale.z = 0.84;
   const gola = mesh(new THREE.CylinderGeometry(FEM ? 0.05 : 0.058, FEM ? 0.062 : 0.07, 0.06, R + 2, 1, true), roupa2, 0, FEM ? 0.314 : 0.326, -0.004, S.chest); gola.scale.z = 0.94;
   if (P.botoes !== false) {
