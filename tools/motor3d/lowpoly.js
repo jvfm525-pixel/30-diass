@@ -73,9 +73,14 @@ function olhoTex(iris, o = {}) {
     const g = c.createRadialGradient(ix, iy + ir * 0.4, ir * 0.1, ix, iy, ir);
     g.addColorStop(0, corCSS(iris, 0.22)); g.addColorStop(0.6, corCSS(iris, 0.04)); g.addColorStop(1, corCSS(iris, -0.14));
     c.fillStyle = g; c.beginPath(); c.arc(ix, iy, ir, 0, Math.PI * 2); c.fill();
+    if (o.aneis) { // olhos dos Quatro Cavaleiros (Chainsaw Man): anéis concêntricos na íris, pupila pequena
+      c.strokeStyle = o.corAnel ?? corCSS(iris, -0.45); c.lineWidth = 5; for (let i = 1; i <= o.aneis; i++) { c.beginPath(); c.arc(ix, iy - 2, ir * (0.2 + 0.78 * i / (o.aneis + 0.4)), 0, Math.PI * 2); c.stroke(); }
+      c.fillStyle = "#0b0809"; c.beginPath(); c.arc(ix, iy - 2, ir * 0.12, 0, Math.PI * 2); c.fill();
+    } else {
     c.strokeStyle = "rgba(255,255,255,.16)"; c.lineWidth = 3; for (let i = 0; i < 14; i++) { const an = (i / 14) * Math.PI * 2; c.beginPath(); c.moveTo(ix + Math.cos(an) * ir * 0.4, iy + Math.sin(an) * ir * 0.4); c.lineTo(ix + Math.cos(an) * ir * 0.86, iy + Math.sin(an) * ir * 0.86); c.stroke(); }
     c.strokeStyle = corCSS(iris, -0.34); c.lineWidth = 7; c.beginPath(); c.arc(ix, iy, ir - 3.5, 0, Math.PI * 2); c.stroke();
     c.fillStyle = "#0b0809"; c.beginPath(); if (o.fenda) c.ellipse(ix, iy - 4, ir * 0.13, ir * 0.58, 0, 0, Math.PI * 2); else c.ellipse(ix + 2, iy - 6, ir * 0.33, ir * 0.37, 0, 0, Math.PI * 2); c.fill();
+    }
     c.fillStyle = "#ffffff"; c.beginPath(); c.ellipse(ix + ir * 0.3, iy - ir * 0.42, ir * 0.24, ir * 0.2, -0.3, 0, Math.PI * 2); c.fill();
     c.globalAlpha = 0.85; c.beginPath(); c.arc(ix - ir * 0.36, iy + ir * 0.42, ir * 0.1, 0, Math.PI * 2); c.fill(); c.globalAlpha = 1;
     const sh = c.createLinearGradient(0, T, 0, T + 44); sh.addColorStop(0, "rgba(60,40,40,.5)"); sh.addColorStop(1, "rgba(60,40,40,0)"); c.fillStyle = sh; c.fillRect(0, 0, w, h);
