@@ -18,6 +18,8 @@ const curvado = (p, k = 1) => pose(p, { spine: [0.32, 0, 0], chest: [0.15, 0, 0]
 // liga/desliga o brilho dos olhos (Gyro, formigas, o menino no fim da cena 5)
 function olhosK(p, k) { (p.userData.olhosAc || []).forEach((o) => { if (o.isSprite) { o.material.opacity = 0.55 * k; o.visible = k > 0.02; } else o.visible = k > 0.05; }); }
 // deitado de barriga pra cima (pés em z, cabeça para -z) sobre uma superfície em altura y
+const _cabK = new THREE.Vector3(-1.3, 0.25, -1.5); // cabeça do menino deitado (g3)
+DBGC["g3-febre"] = [{ pos: [-1.05, 2.3, -1.2], look: [-1.05, 0, -1.35], fov: 45 }, { pos: [-1.9, 0.5, -0.3], look: [-1.0, 0.35, -1.45], fov: 45 }]; // vista de lado do menino deitado (só teste)
 function deitado(p, x, y, z, ry = 0) { restPose(p); p.position.set(x, y, z); p.rotation.set(-Math.PI / 2, 0, ry); }
 // carregar / segurar: um objeto preso na mão i
 function naMaoG(p, i, obj, dx = 0, dy = -0.1, dz = 0.04) { p.userData.wr[i].add(obj); obj.position.set(dx, dy, dz); return obj; }
@@ -134,19 +136,22 @@ addSet("g3-febre", (g) => {
       pai.visible = t < tF; restPose(pai); pai.position.set(-0.15, 0, 4.4); pai.rotation.y = 0.2; idle(pai, t, 702, 0.25); standFeet(pai);
       if (t < tF) { restPose(k); k.position.set(-0.2, 0, 1.3); k.rotation.y = 0.1; idle(k, t, 701, 0.25); standFeet(k); pose(k, { neck: [-0.15, 0, 0] }, 1); v.visible = false; }
       else {
-        deitado(k, -1.3, 0.1, -0.6); pose(k, { neck: [0, -0.4, 0] }, 1);
-        v.visible = t > K.alguem - 0.5; restPose(v); v.position.set(-0.62, 0, -1.25); v.rotation.y = -Math.PI / 2; idle(v, t, 703, 0.2); kneelPose(v, 1); curvado(v, 0.5); standFeet(v);
-        const pano = 0.5 + 0.5 * Math.sin((t - K.alguem) * 1.3); maoEm(v, 1, V3(-1.3, 0.2 + 0.04 * pano, -1.45 + 0.06 * pano), smr(t, K.alguem - 0.3, K.alguem + 0.4), { abre: 0.5, poleY: 0.2 });
+        // deitado com a cabeça apoiada EM CIMA do travesseiro (antes a cabeça ficava dentro dele)
+        deitado(k, -1.3, 0.1, -0.6); k.rotation.x = -Math.PI / 2 + 0.15; pose(k, { neck: [0, -0.4, 0] }, 1);
+        k.updateMatrixWorld(true); k.userData.headM.getWorldPosition(_cabK);
+        v.visible = t > K.alguem - 0.5; restPose(v); v.position.set(-0.84, 0, _cabK.z + 0.05); v.rotation.y = -Math.PI / 2; idle(v, t, 703, 0.2); kneelPose(v, 1); pose(v, { spine: [0.85, 0, 0], chest: [0.35, 0, 0], neck: [0.3, 0, 0] }, 1); standFeet(v); // ajoelhado e bem debruçado sobre o menino
+        // a mão do vulto pousa na testa do menino (pano molhado), num vai e vem lento
+        const pano = 0.5 + 0.5 * Math.sin((t - K.alguem) * 1.3); maoEm(v, 1, V3(_cabK.x + 0.02, _cabK.y + 0.09 + 0.02 * pano, _cabK.z + 0.02 + 0.04 * pano), smr(t, K.alguem - 0.3, K.alguem + 0.4), { abre: 0.5, poleY: 0.2 });
       }
-      const fe = t > tF ? 0.5 + 0.35 * Math.sin(t * 3.1) : 0; calor.position.set(-1.3, 0.3, -1.5); calor.material.opacity = fe * 0.6; calor2.position.set(-1.3, 0.25, -1.5); calor2.material.opacity = fe * 0.5;
-      const kp = smr(t, K.pai3 - 0.4, K.pai3 + 0.3); halo.position.set(-0.62, 0.9, -1.25); halo.material.opacity = 0.35 * kp; // o menino vê no vulto o pai (luz quente)
+      const fe = t > tF ? 0.5 + 0.35 * Math.sin(t * 3.1) : 0; calor.position.set(_cabK.x, _cabK.y + 0.05, _cabK.z); calor.material.opacity = fe * 0.6; calor2.position.set(_cabK.x, _cabK.y, _cabK.z); calor2.material.opacity = fe * 0.5;
+      const kp = smr(t, K.pai3 - 0.4, K.pai3 + 0.3); if (v.visible) { v.updateMatrixWorld(true); v.userData.headM.getWorldPosition(halo.position); } halo.material.opacity = 0.35 * kp; // o menino vê no vulto o pai (luz quente)
     },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
         [a, mov([0.4, 0.95, -0.6], [0.3, 0.9, -0.2], [-0.1, 0.9, 4], [-0.1, 1.0, 4], 46, 42)],
         [tF, mov([0.6, 1.9, 0.2], [0.3, 1.75, -0.2], [-1.3, 0.1, -1.0], [-1.3, 0.15, -1.1], 46, 40)],
         [K.alguem - 0.3, mov([-1.3, 1.5, 0.7], [-1.25, 1.4, 0.45], [-1.0, 0.35, -1.35], [-1.0, 0.35, -1.4], 46, 42)], // dos pés da esteira: o menino deitado e o vulto ao lado
-        [K.pai3 - 0.35, mov([-1.5, 0.35, -0.2], [-1.4, 0.32, -0.35], [-0.7, 0.85, -1.25], [-0.7, 0.9, -1.25], 40, 34)],
+        [K.pai3 - 0.35, (tt, u) => ({ pos: lerp3([-1.5, 0.35, -0.2], [-1.4, 0.32, -0.35], E.inOut(u)), look: [halo.position.x, halo.position.y - 0.05 + 0.04 * u, halo.position.z], fov: 40 - 6 * E.inOut(u) })], // mira a cabeça do vulto curvado
       ], b); },
   };
 });
