@@ -1,0 +1,182 @@
+<template>
+  <style>
+    @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/EBGaramond-400.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/EBGaramond-700.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "Cinzel"; src: url("../assets/fonts/cinzel-900.woff2") format("woff2"); font-weight: 900; }
+    #root { position:absolute; inset:0; overflow:hidden; background:transparent; }
+    .titulo { position:absolute; left:0; right:0; top:560px; text-align:center; color:#fff; text-shadow:0 4px 30px rgba(0,0,0,.85); }
+    .tl1 { font-family:"EB Garamond"; font-style:italic; font-size:72px; line-height:1.05; }
+    .tl2 { font-family:"Cinzel"; font-weight:900; font-size:72px; letter-spacing:.0em; line-height:1.25; margin:6px 0; white-space:nowrap; color:#ff8aa8; text-shadow:0 0 40px rgba(255,90,130,.55), 0 4px 30px rgba(0,0,0,.85); }
+    .tl3 { font-family:"Cinzel"; font-weight:900; font-size:66px; letter-spacing:.02em; color:#fff; line-height:1.1; white-space:nowrap; text-shadow:0 4px 30px rgba(0,0,0,.85); }
+    .cap { position:absolute; left:0; right:0; top:200px; text-align:center; font-family:"Cinzel"; font-weight:900; font-size:44px;
+            color:#f2ece0; letter-spacing:.32em; text-shadow:0 2px 18px rgba(0,0,0,.9); white-space:nowrap; }
+    .leg { position:absolute; left:70px; right:70px; text-align:center; }
+    .mancha { position:absolute; left:-60px; right:-60px; top:-50px; bottom:-50px; background:url("../assets/img/mancha.png") center / 100% 100% no-repeat; }
+    .lt { position:relative; font-family:"EB Garamond"; font-style:italic; font-weight:700; font-size:62px; line-height:1.18; color:#fff;
+           text-shadow:0 2px 10px rgba(0,0,0,.8); }
+    .quem { font-family:"Cinzel"; font-style:normal; font-weight:900; font-size:46px; letter-spacing:.08em; color:#ff8aa8; }
+    .ficha { position:absolute; left:240px; width:600px; top:1290px; padding:22px 30px; border-radius:18px; background:rgba(12,10,16,.78);
+              border:2px solid rgba(255,245,230,.55); text-align:center; color:#fff; }
+    .fa { font-family:"EB Garamond"; font-weight:700; font-size:44px; }
+    .fo { font-family:"EB Garamond"; font-style:italic; font-size:38px; color:#e8e0d0; }
+    .fn { font-family:"EB Garamond"; font-style:italic; font-size:30px; color:#ff8aa8; margin-top:6px; }
+    .disc { position:absolute; left:190px; width:700px; top:1250px; padding:26px 30px; border-radius:22px; background:rgba(14,20,34,.84);
+             border:2px solid #ff8aa8; text-align:center; color:#fff; box-shadow:0 0 50px rgba(120,255,160,.35); }
+    .d1 { font-family:"Cinzel"; font-weight:900; font-size:40px; letter-spacing:.06em; white-space:nowrap; }
+    .d2 { font-family:"EB Garamond"; font-style:italic; font-weight:700; font-size:50px; color:#ff8aa8; }
+    .bal { position:absolute; left:330px; top:1120px; padding:16px 34px; border-radius:26px; background:#fff; color:#2a2440; font-family:"EB Garamond"; font-weight:700; font-size:44px; box-shadow:0 6px 24px rgba(0,0,0,.35); }
+    .d3 { font-family:"EB Garamond"; font-style:italic; font-size:40px; margin-top:4px; }
+  </style>
+  <div id="root" data-composition-id="texto" data-width="1080" data-height="1920">
+<div id="titulo" class="clip titulo" data-start="0.75" data-duration="4.53">
+  <div class="tl1">Por que o</div><div class="tl2">DEMÔNIO DA MORTE</div><div class="tl1">é mais assustador que</div><div class="tl3">QUALQUER OUTRO?</div></div>
+<div id="cap0" class="clip cap" data-start="9.98" data-duration="2.60">— A REGRA —</div>
+<div id="cap1" class="clip cap" style="font-size:34px;letter-spacing:.2em" data-start="24.64" data-duration="2.60">— OS CAVALEIROS —</div>
+<div id="cap2" class="clip cap" data-start="34.94" data-duration="2.60">— A PROFECIA —</div>
+<div id="cap3" class="clip cap" data-start="56.38" data-duration="2.60">— A FAMI —</div>
+<div id="cap4" class="clip cap" data-start="66.57" data-duration="2.60">— OS PODERES —</div>
+<div id="cap5" class="clip cap" style="font-size:34px;letter-spacing:.2em" data-start="78.07" data-duration="2.60">— A MORTE NÃO MORRE —</div>
+<div id="cap6" class="clip cap" data-start="90.14" data-duration="2.60">— O PLANO —</div>
+<div id="cap7" class="clip cap" data-start="102.97" data-duration="2.60">— O FIM —</div>
+<div id="lg1" class="clip leg" data-start="5.24" data-duration="3.44" style="top:250px"><div class="mancha"></div><div class="lt">e ele passou a história inteira escondido do lado do Denji.</div></div>
+<div id="lg2" class="clip leg" data-start="8.73" data-duration="1.30" style="top:250px"><div class="mancha"></div><div class="lt">Spoiler do mangá, hein.</div></div>
+<div id="lg3" class="clip leg" data-start="10.08" data-duration="2.03" style="top:330px"><div class="mancha"></div><div class="lt">A regra desse mundo é simples:</div></div>
+<div id="lg4" class="clip leg" data-start="12.16" data-duration="2.41" style="top:330px"><div class="mancha"></div><div class="lt">quanto mais as pessoas têm medo de alguma coisa,</div></div>
+<div id="lg5" class="clip leg" data-start="14.62" data-duration="1.87" style="top:250px"><div class="mancha"></div><div class="lt">mais forte fica o demônio dela.</div></div>
+<div id="lg6" class="clip leg" data-start="16.54" data-duration="1.88" style="top:250px"><div class="mancha"></div><div class="lt">Tem gente que não tem medo de arma,</div></div>
+<div id="lg7" class="clip leg" data-start="18.47" data-duration="1.42" style="top:250px"><div class="mancha"></div><div class="lt">de escuro ou de altura.</div></div>
+<div id="lg8" class="clip leg" data-start="19.94" data-duration="3.35" style="top:250px"><div class="mancha"></div><div class="lt">Mas todo mundo, em qualquer lugar e em qualquer época,</div></div>
+<div id="lg9" class="clip leg" data-start="23.34" data-duration="1.35" style="top:250px"><div class="mancha"></div><div class="lt">tem medo de morrer.</div></div>
+<div id="lg10" class="clip leg" data-start="24.74" data-duration="4.28" style="top:330px"><div class="mancha"></div><div class="lt">Por isso, o Demônio da Morte é o demônio mais forte que existe.</div></div>
+<div id="lg11" class="clip leg" data-start="29.07" data-duration="1.81" style="top:250px"><div class="mancha"></div><div class="lt">Ela é a irmã mais velha da Makima,</div></div>
+<div id="lg12" class="clip leg" data-start="30.93" data-duration="1.75" style="top:250px"><div class="mancha"></div><div class="lt">da Yoru e do Demônio da Fome:</div></div>
+<div id="lg13" class="clip leg" data-start="32.73" data-duration="2.26" style="top:250px"><div class="mancha"></div><div class="lt">os Quatro Cavaleiros do Apocalipse.</div></div>
+<div id="lg14" class="clip leg" data-start="35.04" data-duration="2.51" style="top:330px"><div class="mancha"></div><div class="lt">E a profecia de Nostradamus diz que,</div></div>
+<div id="lg15" class="clip leg" data-start="37.60" data-duration="2.02" style="top:250px"><div class="mancha"></div><div class="lt">em julho de 1999,</div></div>
+<div id="lg16" class="clip leg" data-start="39.67" data-duration="1.20" style="top:250px"><div class="mancha"></div><div class="lt">ela vai descer à Terra,</div></div>
+<div id="lg17" class="clip leg" data-start="40.92" data-duration="1.38" style="top:250px"><div class="mancha"></div><div class="lt">acabar com a humanidade</div></div>
+<div id="lg18" class="clip leg" data-start="42.35" data-duration="2.14" style="top:250px"><div class="mancha"></div><div class="lt">e começar a Era dos Demônios.</div></div>
+<div id="lg19" class="clip leg" data-start="44.54" data-duration="2.85" style="top:250px"><div class="mancha"></div><div class="lt">E o pior: esse poder acorda sozinho.</div></div>
+<div id="lg20" class="clip leg" data-start="47.44" data-duration="2.65" style="top:250px"><div class="mancha"></div><div class="lt">Basta o medo da morte explodir no mundo...</div></div>
+<div id="lg21" class="clip leg" data-start="50.14" data-duration="3.16" style="top:250px"><div class="mancha"></div><div class="lt">e ela mata todo mundo, mesmo inconsciente.</div></div>
+<div id="lg22" class="clip leg" data-start="53.37" data-duration="1.43" style="top:250px"><div class="mancha"></div><div class="lt">Quer aprender a fazer esses vídeos?</div></div>
+<div id="lg23" class="clip leg" data-start="54.85" data-duration="1.58" style="top:250px"><div class="mancha"></div><div class="lt">Link do meu Discord na bio.</div></div>
+<div id="lg24" class="clip leg" data-start="56.48" data-duration="2.54" style="top:330px"><div class="mancha"></div><div class="lt">Agora vem a parte que ninguém esperava.</div></div>
+<div id="lg25" class="clip leg" data-start="59.07" data-duration="2.95" style="top:250px"><div class="mancha"></div><div class="lt">Ela estava na escola do Denji o tempo todo.</div></div>
+<div id="lg26" class="clip leg" data-start="62.07" data-duration="0.80" style="top:250px"><div class="mancha"></div><div class="lt">Era a Fami,</div></div>
+<div id="lg27" class="clip leg" data-start="62.92" data-duration="1.87" style="top:250px"><div class="mancha"></div><div class="lt">a menina calma que vivia comendo</div></div>
+<div id="lg28" class="clip leg" data-start="64.84" data-duration="1.78" style="top:250px"><div class="mancha"></div><div class="lt">e dizia ser o Demônio da Fome.</div></div>
+<div id="lg29" class="clip leg" data-start="66.67" data-duration="0.81" style="top:330px"><div class="mancha"></div><div class="lt">Ela mata na hora,</div></div>
+<div id="lg30" class="clip leg" data-start="67.53" data-duration="1.26" style="top:330px"><div class="mancha"></div><div class="lt">ressuscita os mortos</div></div>
+<div id="lg31" class="clip leg" data-start="68.84" data-duration="1.64" style="top:330px"><div class="mancha"></div><div class="lt">e come outros demônios vivos</div></div>
+<div id="lg32" class="clip leg" data-start="70.53" data-duration="1.59" style="top:250px"><div class="mancha"></div><div class="lt">pra transformar em fantoches.</div></div>
+<div id="lg33" class="clip leg" data-start="72.17" data-duration="1.29" style="top:250px"><div class="mancha"></div><div class="lt">Até um Medo Primordial,</div></div>
+<div id="lg34" class="clip leg" data-start="73.51" data-duration="2.38" style="top:250px"><div class="mancha"></div><div class="lt">o Demônio da Queda, virou servo dela.</div></div>
+<div id="lg35" class="clip leg" data-start="75.94" data-duration="2.18" style="top:250px"><div class="mancha"></div><div class="lt">E ela fez isso com a própria irmã.</div></div>
+<div id="lg36" class="clip leg" data-start="78.17" data-duration="2.15" style="top:330px"><div class="mancha"></div><div class="lt">Mas ela não queria acabar com a humanidade.</div></div>
+<div id="lg37" class="clip leg" data-start="80.37" data-duration="1.86" style="top:330px"><div class="mancha"></div><div class="lt">Ela ama a comida dos humanos.</div></div>
+<div id="lg38" class="clip leg" data-start="82.28" data-duration="1.64" style="top:250px"><div class="mancha"></div><div class="lt">Então tentou se matar:</div></div>
+<div id="lg39" class="clip leg" data-start="83.97" data-duration="2.52" style="top:250px"><div class="mancha"></div><div class="lt">tirou todos os órgãos do próprio corpo...</div></div>
+<div id="lg40" class="clip leg" data-start="86.54" data-duration="1.59" style="top:250px"><div class="mancha"></div><div class="lt">e continuou viva.</div></div>
+<div id="lg41" class="clip leg" data-start="88.18" data-duration="2.01" style="top:250px"><div class="mancha"></div><div class="lt">Porque a morte não morre.</div></div>
+<div id="lg42" class="clip leg" data-start="90.24" data-duration="1.25" style="top:330px"><div class="mancha"></div><div class="lt">E, se um dia morresse,</div></div>
+<div id="lg43" class="clip leg" data-start="91.54" data-duration="2.28" style="top:330px"><div class="mancha"></div><div class="lt">outro Demônio da Morte nasceria.</div></div>
+<div id="lg44" class="clip leg" data-start="93.87" data-duration="2.95" style="top:250px"><div class="mancha"></div><div class="lt">Um que talvez não gostasse nem um pouco da gente.</div></div>
+<div id="lg45" class="clip leg" data-start="96.87" data-duration="2.06" style="top:250px"><div class="mancha"></div><div class="lt">Por isso ela deixou o Chainsaw Man e a Yoru</div></div>
+<div id="lg46" class="clip leg" data-start="98.98" data-duration="1.34" style="top:250px"><div class="mancha"></div><div class="lt">cada vez mais fortes:</div></div>
+<div id="lg47" class="clip leg" data-start="100.37" data-duration="2.65" style="top:250px"><div class="mancha"></div><div class="lt">pra que um dia alguém conseguisse matar ela.</div></div>
+<div id="lg48" class="clip leg" data-start="103.07" data-duration="2.03" style="top:330px"><div class="mancha"></div><div class="lt">No fim, o Pochita devorou a Morte</div></div>
+<div id="lg49" class="clip leg" data-start="105.15" data-duration="2.04" style="top:330px"><div class="mancha"></div><div class="lt">e apagou a morte do mundo.</div></div>
+<div id="lg50" class="clip leg" data-start="107.24" data-duration="2.48" style="top:250px"><div class="mancha"></div><div class="lt">E era exatamente isso que a Yoru queria:</div></div>
+<div id="lg51" class="clip leg" data-start="109.77" data-duration="1.92" style="top:250px"><div class="mancha"></div><div class="lt">um mundo onde ninguém morre...</div></div>
+<div id="lg52" class="clip leg" data-start="111.74" data-duration="1.75" style="top:250px"><div class="mancha"></div><div class="lt">e a guerra nunca acaba.</div></div>
+<div id="lg53" class="clip leg" data-start="113.54" data-duration="1.85" style="top:250px"><div class="mancha"></div><div class="lt">A morte só voltou a existir</div></div>
+<div id="lg54" class="clip leg" data-start="115.44" data-duration="2.69" style="top:250px"><div class="mancha"></div><div class="lt">quando o próprio Chainsaw Man foi apagado da história.</div></div>
+<div id="lg55" class="clip leg" data-start="118.18" data-duration="2.04" style="top:250px"><div class="mancha"></div><div class="lt">Então, o que dá mais medo:</div></div>
+<div id="lg56" class="clip leg" data-start="120.27" data-duration="1.92" style="top:250px"><div class="mancha"></div><div class="lt">um mundo com o Demônio da Morte...</div></div>
+<div id="lg57" class="clip leg" data-start="122.24" data-duration="1.38" style="top:250px"><div class="mancha"></div><div class="lt">ou um mundo sem ela?</div></div>
+<div id="lg58" class="clip leg" data-start="123.67" data-duration="1.10" style="top:250px"><div class="mancha"></div><div class="lt">Comenta aí.</div></div>
+<div id="f1" class="clip ficha" data-start="37.47" data-duration="3.49"><div class="fa">Julho de 1999</div><div class="fo">a profecia de Nostradamus</div><div class="fn">o Grande Rei do Terror desce à Terra</div></div>
+<div id="f2" class="clip ficha" data-start="62.48" data-duration="3.97"><div class="fa">“Fami”</div><div class="fo">Chainsaw Man · capítulo 198</div><div class="fn">a Morte se revela</div></div>
+<div id="f3" class="clip ficha" data-start="103.98" data-duration="2.46"><div class="fa">Capítulo 219</div><div class="fo">Chainsaw Man</div><div class="fn">o Pochita devora a Morte</div></div>
+<div id="disc" class="clip disc" data-start="53.14" data-duration="3.36"><div class="d1">QUER APRENDER?</div><div class="d3">link do Discord na bio</div></div>
+  </div>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#titulo",{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:"power2.out"},0.75);tl.fromTo("#titulo .tl3",{opacity:0,scale:1.3},{opacity:1,scale:1,duration:.45,ease:"back.out(2)"},1.05);tl.to("#titulo",{opacity:0,duration:.35},4.93);
+      tl.fromTo("#cap0",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},9.98);tl.to("#cap0",{opacity:0,duration:.4},12.18);
+      tl.fromTo("#cap1",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},24.64);tl.to("#cap1",{opacity:0,duration:.4},26.84);
+      tl.fromTo("#cap2",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},34.94);tl.to("#cap2",{opacity:0,duration:.4},37.14);
+      tl.fromTo("#cap3",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},56.38);tl.to("#cap3",{opacity:0,duration:.4},58.58);
+      tl.fromTo("#cap4",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},66.57);tl.to("#cap4",{opacity:0,duration:.4},68.77);
+      tl.fromTo("#cap5",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},78.07);tl.to("#cap5",{opacity:0,duration:.4},80.27);
+      tl.fromTo("#cap6",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},90.14);tl.to("#cap6",{opacity:0,duration:.4},92.34);
+      tl.fromTo("#cap7",{opacity:0,scale:1.06},{opacity:1,scale:1,duration:.7,ease:"power2.out"},102.97);tl.to("#cap7",{opacity:0,duration:.4},105.17);
+      tl.fromTo("#lg1",{opacity:0},{opacity:1,duration:.25},5.24);tl.to("#lg1",{opacity:0,duration:.25},8.43);
+      tl.fromTo("#lg2",{opacity:0},{opacity:1,duration:.25},8.73);tl.to("#lg2",{opacity:0,duration:.25},9.78);
+      tl.fromTo("#lg3",{opacity:0},{opacity:1,duration:.25},10.08);tl.to("#lg3",{opacity:0,duration:.25},11.86);
+      tl.fromTo("#lg4",{opacity:0},{opacity:1,duration:.25},12.16);tl.to("#lg4",{opacity:0,duration:.25},14.32);
+      tl.fromTo("#lg5",{opacity:0},{opacity:1,duration:.25},14.62);tl.to("#lg5",{opacity:0,duration:.25},16.24);
+      tl.fromTo("#lg6",{opacity:0},{opacity:1,duration:.25},16.54);tl.to("#lg6",{opacity:0,duration:.25},18.17);
+      tl.fromTo("#lg7",{opacity:0},{opacity:1,duration:.25},18.47);tl.to("#lg7",{opacity:0,duration:.25},19.64);
+      tl.fromTo("#lg8",{opacity:0},{opacity:1,duration:.25},19.94);tl.to("#lg8",{opacity:0,duration:.25},23.04);
+      tl.fromTo("#lg9",{opacity:0},{opacity:1,duration:.25},23.34);tl.to("#lg9",{opacity:0,duration:.25},24.44);
+      tl.fromTo("#lg10",{opacity:0},{opacity:1,duration:.25},24.74);tl.to("#lg10",{opacity:0,duration:.25},28.77);
+      tl.fromTo("#lg11",{opacity:0},{opacity:1,duration:.25},29.07);tl.to("#lg11",{opacity:0,duration:.25},30.63);
+      tl.fromTo("#lg12",{opacity:0},{opacity:1,duration:.25},30.93);tl.to("#lg12",{opacity:0,duration:.25},32.43);
+      tl.fromTo("#lg13",{opacity:0},{opacity:1,duration:.25},32.73);tl.to("#lg13",{opacity:0,duration:.25},34.74);
+      tl.fromTo("#lg14",{opacity:0},{opacity:1,duration:.25},35.04);tl.to("#lg14",{opacity:0,duration:.25},37.30);
+      tl.fromTo("#lg15",{opacity:0},{opacity:1,duration:.25},37.60);tl.to("#lg15",{opacity:0,duration:.25},39.37);
+      tl.fromTo("#lg16",{opacity:0},{opacity:1,duration:.25},39.67);tl.to("#lg16",{opacity:0,duration:.25},40.62);
+      tl.fromTo("#lg17",{opacity:0},{opacity:1,duration:.25},40.92);tl.to("#lg17",{opacity:0,duration:.25},42.05);
+      tl.fromTo("#lg18",{opacity:0},{opacity:1,duration:.25},42.35);tl.to("#lg18",{opacity:0,duration:.25},44.24);
+      tl.fromTo("#lg19",{opacity:0},{opacity:1,duration:.25},44.54);tl.to("#lg19",{opacity:0,duration:.25},47.14);
+      tl.fromTo("#lg20",{opacity:0},{opacity:1,duration:.25},47.44);tl.to("#lg20",{opacity:0,duration:.25},49.84);
+      tl.fromTo("#lg21",{opacity:0},{opacity:1,duration:.25},50.14);tl.to("#lg21",{opacity:0,duration:.25},53.05);
+      tl.fromTo("#lg22",{opacity:0},{opacity:1,duration:.25},53.37);tl.to("#lg22",{opacity:0,duration:.25},54.55);
+      tl.fromTo("#lg23",{opacity:0},{opacity:1,duration:.25},54.85);tl.to("#lg23",{opacity:0,duration:.25},56.18);
+      tl.fromTo("#lg24",{opacity:0},{opacity:1,duration:.25},56.48);tl.to("#lg24",{opacity:0,duration:.25},58.77);
+      tl.fromTo("#lg25",{opacity:0},{opacity:1,duration:.25},59.07);tl.to("#lg25",{opacity:0,duration:.25},61.77);
+      tl.fromTo("#lg26",{opacity:0},{opacity:1,duration:.25},62.07);tl.to("#lg26",{opacity:0,duration:.25},62.62);
+      tl.fromTo("#lg27",{opacity:0},{opacity:1,duration:.25},62.92);tl.to("#lg27",{opacity:0,duration:.25},64.54);
+      tl.fromTo("#lg28",{opacity:0},{opacity:1,duration:.25},64.84);tl.to("#lg28",{opacity:0,duration:.25},66.37);
+      tl.fromTo("#lg29",{opacity:0},{opacity:1,duration:.25},66.67);tl.to("#lg29",{opacity:0,duration:.25},67.23);
+      tl.fromTo("#lg30",{opacity:0},{opacity:1,duration:.25},67.53);tl.to("#lg30",{opacity:0,duration:.25},68.54);
+      tl.fromTo("#lg31",{opacity:0},{opacity:1,duration:.25},68.84);tl.to("#lg31",{opacity:0,duration:.25},70.23);
+      tl.fromTo("#lg32",{opacity:0},{opacity:1,duration:.25},70.53);tl.to("#lg32",{opacity:0,duration:.25},71.87);
+      tl.fromTo("#lg33",{opacity:0},{opacity:1,duration:.25},72.17);tl.to("#lg33",{opacity:0,duration:.25},73.21);
+      tl.fromTo("#lg34",{opacity:0},{opacity:1,duration:.25},73.51);tl.to("#lg34",{opacity:0,duration:.25},75.64);
+      tl.fromTo("#lg35",{opacity:0},{opacity:1,duration:.25},75.94);tl.to("#lg35",{opacity:0,duration:.25},77.87);
+      tl.fromTo("#lg36",{opacity:0},{opacity:1,duration:.25},78.17);tl.to("#lg36",{opacity:0,duration:.25},80.07);
+      tl.fromTo("#lg37",{opacity:0},{opacity:1,duration:.25},80.37);tl.to("#lg37",{opacity:0,duration:.25},81.98);
+      tl.fromTo("#lg38",{opacity:0},{opacity:1,duration:.25},82.28);tl.to("#lg38",{opacity:0,duration:.25},83.67);
+      tl.fromTo("#lg39",{opacity:0},{opacity:1,duration:.25},83.97);tl.to("#lg39",{opacity:0,duration:.25},86.24);
+      tl.fromTo("#lg40",{opacity:0},{opacity:1,duration:.25},86.54);tl.to("#lg40",{opacity:0,duration:.25},87.88);
+      tl.fromTo("#lg41",{opacity:0},{opacity:1,duration:.25},88.18);tl.to("#lg41",{opacity:0,duration:.25},89.94);
+      tl.fromTo("#lg42",{opacity:0},{opacity:1,duration:.25},90.24);tl.to("#lg42",{opacity:0,duration:.25},91.24);
+      tl.fromTo("#lg43",{opacity:0},{opacity:1,duration:.25},91.54);tl.to("#lg43",{opacity:0,duration:.25},93.57);
+      tl.fromTo("#lg44",{opacity:0},{opacity:1,duration:.25},93.87);tl.to("#lg44",{opacity:0,duration:.25},96.57);
+      tl.fromTo("#lg45",{opacity:0},{opacity:1,duration:.25},96.87);tl.to("#lg45",{opacity:0,duration:.25},98.68);
+      tl.fromTo("#lg46",{opacity:0},{opacity:1,duration:.25},98.98);tl.to("#lg46",{opacity:0,duration:.25},100.07);
+      tl.fromTo("#lg47",{opacity:0},{opacity:1,duration:.25},100.37);tl.to("#lg47",{opacity:0,duration:.25},102.77);
+      tl.fromTo("#lg48",{opacity:0},{opacity:1,duration:.25},103.07);tl.to("#lg48",{opacity:0,duration:.25},104.85);
+      tl.fromTo("#lg49",{opacity:0},{opacity:1,duration:.25},105.15);tl.to("#lg49",{opacity:0,duration:.25},106.94);
+      tl.fromTo("#lg50",{opacity:0},{opacity:1,duration:.25},107.24);tl.to("#lg50",{opacity:0,duration:.25},109.47);
+      tl.fromTo("#lg51",{opacity:0},{opacity:1,duration:.25},109.77);tl.to("#lg51",{opacity:0,duration:.25},111.44);
+      tl.fromTo("#lg52",{opacity:0},{opacity:1,duration:.25},111.74);tl.to("#lg52",{opacity:0,duration:.25},113.24);
+      tl.fromTo("#lg53",{opacity:0},{opacity:1,duration:.25},113.54);tl.to("#lg53",{opacity:0,duration:.25},115.14);
+      tl.fromTo("#lg54",{opacity:0},{opacity:1,duration:.25},115.44);tl.to("#lg54",{opacity:0,duration:.25},117.88);
+      tl.fromTo("#lg55",{opacity:0},{opacity:1,duration:.25},118.18);tl.to("#lg55",{opacity:0,duration:.25},119.97);
+      tl.fromTo("#lg56",{opacity:0},{opacity:1,duration:.25},120.27);tl.to("#lg56",{opacity:0,duration:.25},121.94);
+      tl.fromTo("#lg57",{opacity:0},{opacity:1,duration:.25},122.24);tl.to("#lg57",{opacity:0,duration:.25},123.37);
+      tl.fromTo("#lg58",{opacity:0},{opacity:1,duration:.25},123.67);tl.to("#lg58",{opacity:0,duration:.25},124.52);
+      tl.fromTo("#f1",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},37.47);tl.to("#f1",{opacity:0,duration:.35},40.61);
+      tl.fromTo("#f2",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},62.48);tl.to("#f2",{opacity:0,duration:.35},66.10);
+      tl.fromTo("#f3",{opacity:0,y:14},{opacity:1,y:0,duration:.45,ease:"power2.out"},103.98);tl.to("#f3",{opacity:0,duration:.35},106.09);
+      tl.fromTo("#disc",{opacity:0,scale:.92},{opacity:1,scale:1,duration:.35,ease:"back.out(1.6)"},53.14);tl.to("#disc",{opacity:0,duration:.25},56.25);
+      window.__timelines["texto"] = tl;
+    })();
+  </script>
+</template>
