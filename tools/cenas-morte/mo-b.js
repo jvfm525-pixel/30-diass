@@ -40,12 +40,12 @@ addSet("m7-poderes", (g) => {
   vazioArena(g); const mo = morteLP(); g.add(mo); mo.position.set(0, 0, 1.5); mo.rotation.y = Math.PI; olhosBrilho(mo);
   const dv = demonioComum({ seed: 731, cor: 0x6a5a62, scale: 1.9, olho: 0xffd040 }); g.add(dv); dv.position.set(0, 0, -1.8);
   const cs = Array.from({ length: 16 }, () => corvo(g)); const ef = efigie(() => demonioComum({ seed: 731, scale: 1 }), 0.09); g.add(ef);
-  const vida = glowSprite(0x8aff9a, 3, 0); vida.position.set(0, 1.2, -1.8); g.add(vida);
+  const vida = glowSprite(0x8aff9a, 1.2, 0); vida.position.set(0, 0.5, -1.8); g.add(vida);
   return { ...LUZ_VAZIO_M, hand: 0.004,
     update(t) { vive(mo, t, 711, { boca: "linha", palpebra: 0.62 }, 0.06); const ap = smr(t, K.matanahora - 0.25, K.matanahora + 0.05) * (1 - smr(t, K.ressuscita, K.ressuscita + 0.3));
       pose(mo, { armR: [-1.45 * ap, 0.05, -0.1, -0.1] }, 1); brilhoK(mo, 0.5 + 0.5 * ap);
       const morre = smr(t, K.matanahora, K.matanahora + 0.4) * (1 - smr(t, K.ressuscita, K.ressuscita + 0.8)); restPose(dv); idle(dv, t, 731, 0.2 * (1 - morre)); dv.rotation.x = -1.35 * morre; dv.position.y = 0.15 * morre; olhosK(dv, 1 - morre);
-      vida.material.opacity = 0.6 * Math.sin(Math.PI * seg(t, K.ressuscita, K.ressuscita + 1.0));
+      vida.material.opacity = 0.3 * Math.sin(Math.PI * seg(t, K.ressuscita, K.ressuscita + 1.0));
       const kc = seg(t, K.come - 0.3, K.fantoches - 0.4); dv.visible = kc < 0.75; if (kc > 0) dv.scale.setScalar(1.9 * (1 - 0.6 * smr(kc, 0.4, 0.75)));
       cs.forEach((c, i) => { const on = kc > 0 && kc < 0.95; c.visible = on; const an = t * 3 + i * 0.4, r = 0.9 - 0.5 * kc + 0.2 * Math.sin(i); c.position.set(Math.sin(an) * r, 0.6 + (i % 5) * 0.3 + Math.sin(t * 4 + i) * 0.1, -1.8 + Math.cos(an) * r); c.rotation.y = an + Math.PI / 2; bateAsas(c, t + i); });
       const kf = smr(t, K.fantoches - 0.4, K.fantoches); ef.visible = kf > 0.01; mo.updateMatrixWorld(true); const m = mo.userData.wr[0].localToWorld(V3(0, -0.06, 0.03)); ef.position.set(m.x, m.y + 0.02 + 0.3 * (1 - kf), m.z); ef.rotation.y = t;
@@ -53,8 +53,8 @@ addSet("m7-poderes", (g) => {
       flash(t, K.matanahora + 0.05, 0.03, 0.35, [0.6, 0.1, 0.2]); GU.uFlash.value *= 0.4; },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
       return planos(t, [
-        [a, mov([2.4, 1.3, 3.4], [2.0, 1.35, 3.0], [0, 1.1, -0.5], [0, 1.1, -0.8], 42, 40)],
-        [K.ressuscita - 0.25, mov([-2.2, 0.6, -0.2], [-2.0, 0.9, -0.4], [0, 0.8, -1.8], [0, 1.6, -1.8], 44, 42)],
+        [a, mov([1.3, 1.75, 4.2], [1.1, 1.7, 3.8], [0, 1.3, -1.6], [0, 1.4, -1.8], 48, 46)], // por cima do ombro dela: o demônio na frente
+        [K.ressuscita - 0.25, mov([-5.6, 2.2, 2.4], [-5.2, 2.4, 2.0], [0, 1.0, -1.8], [0, 1.6, -1.8], 48, 46)], // de lado e de longe: o demônio levanta do chão
         [K.come - 0.3, mov([4.4, 2.1, 0.4], [4.0, 2.0, 0.0], [0, 2.0, -1.8], [0, 1.7, -1.8], 50, 48)],
         [K.fantoches - 0.6, (tt, u) => { mo.updateMatrixWorld(true); const m = mo.userData.wr[0].localToWorld(V3(0, -0.06, 0.03)); return { pos: [m.x + 0.55, m.y + 0.3, m.z - 0.75], look: [m.x, m.y + 0.05, m.z], fov: 36, near: 0.02 }; }],
       ], b); },
