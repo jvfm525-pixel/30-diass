@@ -3213,6 +3213,9 @@ const LUZ_SANGUE = { bg: 0xff6a2a, fog: [30, 160], fogCol: 0x8a2a1a, look: { exp
 // brilho cor-de-rosa nos olhos da Morte (lê no escuro)
 function olhosBrilho(p, cor = 0xff4a6a, tam = 0.035) { const u = p.userData, out = []; [-1, 1].forEach((k) => { const gl = glowSprite(cor, tam, 0); gl.position.set(k * 0.036, CAB.EY, surfZ(u.headM, k * 0.036, CAB.EY) + 0.012); u.head.add(gl); out.push(gl); }); u.olhosBr = out; return out; }
 function brilhoK(p, k) { (p.userData.olhosBr || []).forEach((s) => { s.material.opacity = 0.45 * k; s.visible = k > 0.01; }); }
+// câmera de frente pro rosto seguindo a direção real da cabeça (serve pra personagem deitado/reclinado)
+function camRostoW(p, d, fov = 32, up = 0) { p.updateMatrixWorld(true); const h = p.userData.head, e = h.localToWorld(V3(0, CAB.EY, CAB.HW * 0.9)), f = h.localToWorld(V3(0, CAB.EY, CAB.HW * 0.9 + 1)).sub(e).normalize(), uu = h.localToWorld(V3(0, CAB.EY + 1, CAB.HW * 0.9)).sub(e).normalize();
+  return { pos: [e.x + f.x * d + uu.x * up, e.y + f.y * d + uu.y * up, e.z + f.z * d + uu.z * up], look: [e.x, e.y, e.z], fov, near: 0.02 }; }
 // pão / comida na mão
 function pao() { const c = grp(null); const m = LPmat(0xd8a060, { rim: 0.4, rough: 0.8 }); const b = mesh(sph(0.05, 8, 6), m, 0, 0, 0, c); b.scale.set(1.6, 0.8, 0.9); return c; }
 function pistola() { const c = grp(null), m = LPmat(0x1a1a1e, { metal: 0.6, rough: 0.35, rim: 0.6 }); mesh(box(0.06, 0.05, 0.3), m, 0, 0.04, 0.08, c); mesh(box(0.05, 0.14, 0.07), m, 0, -0.05, -0.04, c).rotation.x = 0.25; return c; }
@@ -3366,20 +3369,20 @@ addSet("m4b-onda", (g) => {
   const tOnda = K.explodir - 0.3, vel = 30;
   return { ...LUZ_CIDADE_M, hand: 0.004,
     update(t) { SB.brilho(t, 1);
-      restPose(mo); mo.position.set(0, 1.3 + 0.08 * Math.sin(t * 1.2), 0.8); mo.rotation.set(-Math.PI / 2 + 0.25, 0, 0.3 + t * 0.03); pose(mo, { spine: [0.25, 0, 0], neck: [0.15, 0, 0], armR: [-0.3, 0, -0.3, -1.2], armL: [-0.3, 0, 0.3, -1.2], legR: [-0.5, 0.05, 0, 0.9, 0], legL: [-0.3, -0.05, 0, 0.6, 0] }, 1);
-      rostoLP(mo, t, { boca: "linha", palpebra: 0, piscaCada: 99 }); brilhoK(mo, 0);
-      aneis.forEach((r, i) => { const ph = ((t - K.sozinho) * 0.45 + i / 4) % 1, on = t > K.sozinho - 0.2 ? 1 : 0; r.scale.setScalar(0.5 + ph * 12); r.material.opacity = on * 0.8 * (1 - ph); });
+      restPose(mo); mo.position.set(0, 1.1 + 0.08 * Math.sin(t * 1.2), 0.6); mo.rotation.set(-0.9, 0, 0.12); pose(mo, { spine: [0.3, 0, 0], neck: [0.2, 0, 0.15], armR: [-0.3, 0, -0.3, -1.2], armL: [-0.3, 0, 0.3, -1.2], legR: [-0.9, 0.05, 0, 1.4, 0], legL: [-0.7, -0.05, 0, 1.2, 0] }, 1); // flutuando reclinada, encolhida, dormindo
+      rostoLP(mo, t, { boca: "linha", fechados: true, piscaCada: 99 }); brilhoK(mo, 0); // dormindo de olhos fechados
+      aneis.forEach((r, i) => { const ph = ((t - K.sozinho) * 0.45 + i / 4) % 1, on = t > K.sozinho - 0.2 && t < K.explodir - 0.4 ? 1 : 0; r.scale.setScalar(0.5 + ph * 12); r.material.opacity = on * 0.8 * (1 - ph); });
       const R = Math.max(0.01, (t - tOnda) * vel); onda.visible = t > tOnda; onda.scale.set(R, R * 0.35, R);
       C.forEach((p, i) => { const d = Math.hypot(p.position.x, p.position.z + 40), cai = smr(t, tOnda + (d - 1) / vel, tOnda + (d - 1) / vel + 0.6);
         vive(p, t, 790 + i, { boca: cai > 0.02 && cai < 0.7 ? "grito" : cai >= 0.7 ? "aberta" : "linha", treme: cai < 0.7 ? cai * 2 : 0, palpebra: 1 - cai }, 0.2 * (1 - cai)); p.rotation.x = -1.45 * cai; p.position.y = 0.12 * cai; }); },
     cam(t) { { const d = dbgCam(__n); if (d) return d; }
-      const sono = () => (tt, u) => ({ ...closeRosto(mo, lerp(1.6, 1.1, E.inOut(u)), 0.3, 0.1, 34) });
+      const sono = () => (tt, u) => camRostoW(mo, lerp(1.5, 1.05, E.inOut(u)), 34, 0.15);
       return planos(t, [
         [a, sono()],
         [K.sozinho - 0.3, (tt, u) => ({ pos: [400 + Math.sin(0.6 + u * 0.8) * 8, 3 + u * 2, Math.cos(0.6 + u * 0.8) * 8], look: [400, 1.2, 0], fov: 44, near: 0.03 })],
         [K.explodir - 0.4, mov([0, 7, 16], [0, 5, 12], [0, 1, -30], [0, 1, -10], 52, 50)],
         [K.mata - 0.3, mov([-6, 1.2, 8], [-5, 1.0, 7], [0, 0.6, 0], [0, 0.4, 0], 46, 44)],
-        [K.inconsciente - 0.3, (tt, u) => ({ ...closeRosto(mo, lerp(0.85, 0.65, E.inOut(u)), 0.1, 0.0, 30) })],
+        [K.inconsciente - 0.3, (tt, u) => camRostoW(mo, lerp(0.8, 0.62, E.inOut(u)), 30, 0.03)],
       ], b); },
   };
 });
