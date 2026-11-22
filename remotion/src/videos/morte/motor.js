@@ -1607,6 +1607,7 @@ function headGeoLP(o = {}) {
   for (let i = 0; i < Y.length; i++) for (let j = 0; j <= NS; j++) { const v = supCab(ph0 + (j / NS) * Math.PI * 2, Y[i]); pos.push(v.x, v.y, v.z); }
   for (let i = 0; i < Y.length - 1; i++) for (let j = 0; j < NS; j++) { const a = i * (NS + 1) + j, b = a + NS + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
   const q = o.queixo ?? 1; if (q !== 1) for (let i = 0; i < pos.length; i += 3) { const y = pos[i + 1], z = pos[i + 2]; if (y < 0.062) { const f = 1 + (q - 1) * Math.min(1, Math.max(0, (z + 0.01) / 0.07)); pos[i + 1] = 0.062 + (y - 0.062) * f; } }
+  const mj = o.mand ?? 1; if (mj !== 1) for (let i = 0; i < pos.length; i += 3) { const yu = (pos[i + 1] - CAB.EY) / CAB.HW, f = clamp((0.2 - yu) / 1.6); pos[i] *= 1 + (mj - 1) * sm(f); }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx);
   return vincoNormais(g, o.vinco ?? 0.62);
 }
@@ -1633,7 +1634,7 @@ function lamina(parent, base, dir, radial, L, W, mat, curva, esp, giro = 0) {
   return m;
 }
 // altura (u) da borda da touca no ângulo ph: franja na frente, lados, nuca (interpolados)
-function bordaY(o, ph) { const f = Math.cos(ph); return f > 0 ? lerp(o.ladoY ?? 0.2, o.franjaY ?? 0.75, Math.pow(f, o.franjaK ?? 2.2)) : lerp(o.ladoY ?? 0.2, o.nucaY ?? -0.55, Math.pow(-f, 1.1)); }
+function bordaY(o, ph) { const f = Math.cos(ph); return f > 0 ? lerp(o.ladoY ?? 0.2, (o.franjaY ?? 0.75) - (o.franjaInc ?? 0) * Math.sin(ph), Math.pow(f, o.franjaK ?? 2.2)) : lerp(o.ladoY ?? 0.2, o.nucaY ?? -0.55, Math.pow(-f, 1.1)); }
 // touca de MECHAS (como no vídeo): mechas compridas em triângulo saindo do redemoinho no alto da cabeça e descendo até a borda.
 // Cada mecha tem uma aresta no meio (crista), então mostra um lado claro e um escuro; as pontas formam os dentes da franja.
 // Feito numa malha só: colunas alternam crista (mais alta, vai até a ponta do dente) e vale (mais baixa, termina no entalhe).
@@ -2959,26 +2960,26 @@ function tijolo(g, x, y, z, ry = 0, cor = 0xa0502e) { const b = mesh(box(0.22, 0
 const CAB_CSM = {
   // Morte ("Fami"): rosa-acinzentado, chanel liso até o pescoço; franja de lado varrendo a testa (cobre uma sobrancelha);
   // uma mecha comprida caindo na frente da orelha esquerda até o queixo; pontas da nuca viradas pra fora
-  morte: { cor: 0x947a8e, dentes: 30, dente: 0.1, denteFranja: 0.3, crista: 0.003, franjaY: 0.74, franjaK: 1.6, ladoY: -0.6, nucaY: -0.9, esp: 0.0095, espBorda: 0.004, varia: 0.04, seed: 701, rigidez: 1.0,
-    pontas: [[0.98, -0.2, 0.5, 0.55, 0.0, 0.0, 0.1, 0.25], [0.98, -0.04, 0.42, 0.5, 0.0, 0.0, 0.1, 0.25], // pontas da franja varrida (lisa, rente à testa)
+  morte: { cor: 0x8e7488, dentes: 34, dente: 0.12, denteFranja: 0.45, crista: 0.003, franjaY: 0.5, franjaInc: 0.16, franjaK: 1.4, ladoY: -0.7, nucaY: -0.9, esp: 0.0095, espBorda: 0.004, varia: 0.04, seed: 701, rigidez: 1.0,
+    pontas: [[0.62, 0.3, 0.55, 0.3, 0.0, 0.0, 0.05, 0.25], // mecha da franja caindo sobre o olho esquerdo dela
       [0.72, 0.43, 1.45, 0.34, 0.06, 0.0, 0.04, 0.45], [0.72, -0.43, 1.0, 0.34, 0.06, 0.0, 0.04, 0.45], // mechas na frente das orelhas (a esquerda dela mais comprida)
       ...Array.from({ length: 7 }, (_, i) => [0.42, 0.62 + i * 0.12, 0.85, 0.6, 0.22, 0.18, -0.3, 0.45])] }, // nuca: chanel com as pontas viradas pra fora
   // Denji (Parte 2): loiro bagunçado, tufos espetados pra cima e pros lados, franja em mechas grossas caindo na testa
-  denji: { cor: 0xe2c06a, dentes: 14, dente: 0.34, denteFranja: 0.45, crista: 0.0045, franjaY: 1.02, ladoY: 0.25, nucaY: -0.45, esp: 0.01, espBorda: 0.004, varia: 0.16, seed: 702,
-    pontas: [...coroa(12, 1.45, 0.46, 0.42, 0.14, 0.3, 0.05, 2, 0.25, 0.5), // tufos bagunçados em volta do alto, mais pra trás que pra cima
+  denji: { cor: 0xe2c06a, dentes: 18, dente: 0.45, denteFranja: 1.0, crista: 0.0045, franjaY: 0.56, franjaK: 1.6, ladoY: 0.25, nucaY: -0.45, esp: 0.01, espBorda: 0.004, varia: 0.16, seed: 702,
+    pontas: [...coroa(14, 1.4, 0.5, 0.42, 0.06, 0.32, 0.05, 2, 0.3, 0.45), // tufos bagunçados em volta do alto, mais pra trás que pra cima
       [1.24, -0.16, 0.8, 0.42, 0.05, 0.0, -0.12, 0.45], [1.26, 0.04, 0.78, 0.4, 0.04, 0.0, 0.12, 0.45], [1.18, 0.24, 0.66, 0.36, 0.06, 0.05, 0.15, 0.45], [1.2, -0.32, 0.6, 0.34, 0.08, 0.05, -0.15, 0.45], // franja em mechas grossas
       [1.08, 0.5, 0.45, 0.3, 0.4, 0.15, 0.25, 0.5], [1.08, -0.5, 0.45, 0.3, 0.4, 0.15, -0.25, 0.5]] }, // tufos pros lados
   // Yoru (no corpo da Asa): preto, liso, solto até o meio das costas; franja reta um pouco aberta no meio
-  yoru: { cor: 0x141218, dentes: 30, dente: 0.08, denteFranja: 0.5, crista: 0.0025, franjaY: 0.9, ladoY: -0.3, nucaY: -1.1, esp: 0.009, espBorda: 0.004, varia: 0.03, seed: 703, rigidez: 1.1,
+  yoru: { cor: 0x141218, dentes: 34, dente: 0.1, denteFranja: 0.5, crista: 0.0025, franjaY: 0.62, franjaK: 1.5, ladoY: -0.3, nucaY: -1.1, esp: 0.009, espBorda: 0.004, varia: 0.03, seed: 703, rigidez: 1.1,
     pontas: [[0.55, 0.4, 2.2, 0.34, 0.05, 0.0, 0.02, 0.45], [0.55, -0.4, 2.2, 0.34, 0.05, 0.0, 0.02, 0.45],
       ...Array.from({ length: 10 }, (_, i) => [0.35 + (i % 2) * 0.12, 0.58 + i * 0.09, 4.2 + (i % 3) * 0.3, 0.9, 0.0, 0.3, 0.1, 0.4])] },
   // Makima: ruivo-claro, franja passando das sobrancelhas, duas mechas laterais compridas emoldurando o rosto; o resto vai na trança
-  makima: { cor: 0xd8604c, dentes: 30, dente: 0.08, denteFranja: 0.45, crista: 0.0025, franjaY: 0.88, ladoY: -0.25, nucaY: -0.55, esp: 0.009, espBorda: 0.004, varia: 0.03, seed: 704, rigidez: 1.1,
+  makima: { cor: 0xd8604c, dentes: 34, dente: 0.1, denteFranja: 0.5, crista: 0.0025, franjaY: 0.58, franjaK: 1.5, ladoY: -0.25, nucaY: -0.55, esp: 0.009, espBorda: 0.004, varia: 0.03, seed: 704, rigidez: 1.1,
     pontas: [[0.62, 0.41, 1.6, 0.32, 0.05, 0.0, 0.02, 0.45], [0.62, -0.41, 1.6, 0.32, 0.05, 0.0, 0.02, 0.45]] },
   // Fome: loiro desgrenhado em camadas desiguais, franja na testa, duas mechas até a clavícula, um fio espetado no alto
-  fome: { cor: 0xbc9a78, dentes: 22, dente: 0.3, denteFranja: 0.45, crista: 0.004, franjaY: 0.92, ladoY: -0.3, nucaY: -0.8, esp: 0.0095, espBorda: 0.004, varia: 0.22, seed: 705,
+  fome: { cor: 0xbc9a78, dentes: 22, dente: 0.34, denteFranja: 0.6, crista: 0.004, franjaY: 0.7, ladoY: -0.3, nucaY: -0.8, esp: 0.0095, espBorda: 0.004, varia: 0.22, seed: 705,
     pontas: [[0.62, 0.42, 1.5, 0.3, 0.06, 0.05, 0.1, 0.45], [0.62, -0.42, 1.5, 0.3, 0.06, 0.05, -0.1, 0.45],
-      ...coroa(7, 0.85, 0.85, 0.48, 0.18, 0.35, 0.55, 0.9, 0.25, 0.5), // camadas desiguais atrás, pontas saindo
+      ...coroa(11, 0.75, 0.85, 0.5, 0.12, 0.22, 0.45, 1.1, 0.55, 0.45), ...coroa(6, 1.2, 0.55, 0.42, 0.1, 0.25, -0.5, 1.0, 0.5, 0.45), // camadas onduladas, volume dos lados
       [1.62, 0.02, 0.4, 0.12, 0.9, -0.3, 0.6, 0.4]] }, // fio espetado (antena)
 };
 const CSM = { pinMorte: 0x6a2634, pinAsa: 0x2c2a34, pinFome: 0x5a3a2c, camisa: 0xf0ece4, laco: 0x5a1a26, preto: 0x141418, gak: 0x16161c, serraLar: 0xe0782a, lamina: 0x9aa0a8 };
@@ -3015,8 +3016,8 @@ function boneMorte(p) { const u = p.userData, m = LPmat(0x18181c, { rim: 0.6 }),
 function tranca(p, cor, n = 9, passo = 0.045) { const u = p.userData, m = LPmat(cor, { rim: 0.5 }), g = grp(u.head, 0, CAB.EY - 0.03, -0.125); g.rotation.x = 0.2;
   for (let i = 0; i < n; i++) { const r = 0.04 - i * 0.0022, s = mesh(sph(r, 8, 6), m, (i % 2 ? 1 : -1) * 0.009, -i * passo, 0, g); s.scale.set(1.15, 1.25, 0.8); s.rotation.z = (i % 2 ? 1 : -1) * 0.4; }
   const pt = mesh(new THREE.ConeGeometry(0.016, 0.06, 6), m, 0, -n * passo - 0.01, 0, g); pt.rotation.x = Math.PI; u.tranca = g; return g; }
-function cicatrizesYoru(p) { const u = p.userData, m = new THREE.MeshBasicMaterial({ color: 0x7a4040 }); // riscos de cicatriz atravessando o rosto
-  [[-0.055, -0.04, 0.035, 0.3], [0.05, -0.035, 0.04, -0.35], [0.035, 0.05, 0.025, 0.6]].forEach(([x, y, L, r]) => { const s = mesh(box(L, 0.0018, 0.002), m, x, CAB.EY + y, surfZ(u.headM, x, CAB.EY + y) + 0.0015, u.head); s.rotation.z = r; s.castShadow = false; }); }
+function cicatrizesYoru(p) { const u = p.userData, m = new THREE.MeshBasicMaterial({ color: 0xa83a34 }); // riscos de cicatriz atravessando o rosto
+  [[0.0, -0.03, 0.11, 0.05], [0.045, -0.045, 0.05, 1.45], [-0.045, -0.03, 0.025, 0.05]].forEach(([x, y, L, r]) => { const s = mesh(box(L, 0.0018, 0.002), m, x, CAB.EY + y, surfZ(u.headM, x, CAB.EY + y) + 0.0015, u.head); s.rotation.z = r; s.castShadow = false; }); }
 function camisaFrente(p, cor = CSM.camisa) { const u = p.userData, mc = LPmat(cor, { rim: 0.6, side: THREE.DoubleSide }), sh = new THREE.Shape();
   sh.moveTo(-0.045, -0.02); sh.lineTo(0.045, -0.02); sh.lineTo(0.075, 0.3); sh.lineTo(-0.075, 0.3); sh.closePath(); mesh(new THREE.ShapeGeometry(sh), mc, 0, 0, 0.127, u.chest);
   const s2 = new THREE.Shape(); s2.moveTo(-0.04, -0.07); s2.lineTo(0.04, -0.07); s2.lineTo(0.045, 0.21); s2.lineTo(-0.045, 0.21); s2.closePath(); mesh(new THREE.ShapeGeometry(s2), mc, 0, 0, 0.107, u.spine);
@@ -3025,17 +3026,17 @@ function camisaFrente(p, cor = CSM.camisa) { const u = p.userData, mc = LPmat(co
   golaCamisa(p, cor); }
 
 function morteLP(o = {}) { // "Fami": olhos vermelhos de anéis, cara cansada, pintinhas, brincos verdes, jardineira vinho com laço
-  const p = pessoaLP({ seed: 711, fem: true, blush: true, pele: 0xf6e6e0, olho: "#d83a52", olhoAlt: 0.66, olhoTam: 1.06, olhoOpts: { aneis: 4, corAnel: "#5a0a18" }, brava: 0.0, browW: 0.046, queixo: 0.6, sobrancelha: 0x8a7080, roupa: CSM.camisa, calca: CSM.preto, sapato: 0xeeeeee, sola: 0xd8d8d8, botoes: false, scale: 0.93, cabelo: CAB_CSM.morte, ...o });
+  const p = pessoaLP({ seed: 711, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf6e6e0, olho: "#d83a52", olhoAlt: 0.58, olhoTam: 0.98, olhoOpts: { aneis: 4, corAnel: "#5a0a18" }, brava: 0.0, browW: 0.046, queixo: 0.6, sobrancelha: 0x8a7080, roupa: CSM.camisa, calca: CSM.preto, sapato: 0xeeeeee, sola: 0xd8d8d8, botoes: false, scale: 0.93, cabelo: CAB_CSM.morte, ...o });
   uniformeEscola(p, CSM.pinMorte, 0x5a1a28, { lacoGrande: true }); pintas(p, [[0.046, -0.042], [0.058, -0.056], [-0.03, -0.098], [0.035, -0.1]]); brincosMorte(p); if (o.bone) boneMorte(p); return p; }
 function famiFalsa(o = {}) { return morteLP(o); }
 function denjiLP(o = {}) { // Parte 2: gakuran preto aberto por cima da camisa branca; olhos amarelados com olheira
-  const p = pessoaLP({ seed: 712, pele: 0xf6dcc4, olho: "#b8902a", olhoAlt: 0.78, olhoTam: 0.95, brava: 0.1, browW: 0.056, queixo: 0.72, sobrancelha: 0xb89a50, roupa: CSM.gak, calca: CSM.gak, sapato: 0x2a2a2e, sola: 0xe8e4dc, botoes: false, cabelo: CAB_CSM.denji, ...o });
+  const p = pessoaLP({ seed: 712, cabeca: { mand: 0.9 }, pele: 0xf6dcc4, olho: "#b8902a", olhoAlt: 0.66, olhoTam: 0.9, brava: 0.1, browW: 0.056, queixo: 0.72, sobrancelha: 0xb89a50, roupa: CSM.gak, calca: CSM.gak, sapato: 0x2a2a2e, sola: 0xe8e4dc, botoes: false, cabelo: CAB_CSM.denji, ...o });
   camisaFrente(p); return p; }
-function yoruLP(o = {}) { const p = pessoaLP({ seed: 713, fem: true, blush: true, pele: 0xf4dcd0, olho: "#c8303a", olhoAlt: 0.84, olhoTam: 1.08, olhoOpts: { aneis: 4, corAnel: "#4a0a10" }, brava: 0.35, browW: 0.048, queixo: 0.6, sobrancelha: 0x141218, roupa: 0xd8d2c4, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.yoru, ...o });
+function yoruLP(o = {}) { const p = pessoaLP({ seed: 713, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf4dcd0, olho: "#c8303a", olhoAlt: 0.74, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#4a0a10" }, brava: 0.35, browW: 0.048, queixo: 0.6, sobrancelha: 0x141218, roupa: 0xd8d2c4, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.yoru, ...o });
   uniformeEscola(p, CSM.pinAsa, 0x1a1a22); cicatrizesYoru(p); return p; }
-function makimaLP(o = {}) { const p = pessoaLP({ seed: 714, fem: true, blush: true, pele: 0xf8e2d4, olho: "#e8c048", olhoAlt: 0.76, olhoTam: 1.06, olhoOpts: { aneis: 4, corAnel: "#a01818" }, brava: 0.0, browW: 0.048, queixo: 0.58, sobrancelha: 0xb84a3a, roupa: 0xf4f2ee, calca: 0x141418, sapato: 0x6a3a22, sola: 0x3a2014, botoes: false, scale: 0.97, cabelo: CAB_CSM.makima, ...o });
+function makimaLP(o = {}) { const p = pessoaLP({ seed: 714, fem: true, blush: true, cabeca: { mand: 0.86 }, pele: 0xf8e2d4, olho: "#e8a040", olhoAlt: 0.66, olhoTam: 1.0, olhoOpts: { aneis: 4, corAnel: "#a01818" }, brava: 0.0, browW: 0.048, queixo: 0.58, sobrancelha: 0xb84a3a, roupa: 0xf4f2ee, calca: 0x141418, sapato: 0x6a3a22, sola: 0x3a2014, botoes: false, scale: 0.97, cabelo: CAB_CSM.makima, ...o });
   tranca(p, CAB_CSM.makima.cor); gravata(p, 0x111114); golaCamisa(p, 0xf4f2ee); return p; }
-function fomeLP(o = {}) { const p = pessoaLP({ seed: 715, fem: true, blush: true, pele: 0xf6e0cc, olho: "#4a9a5a", olhoAlt: 0.94, olhoTam: 1.12, olhoOpts: { aneis: 4, corAnel: "#103a1a" }, brava: 0.0, browW: 0.045, queixo: 0.6, sobrancelha: 0xa88a5a, roupa: 0xc49494, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.fome, ...o });
+function fomeLP(o = {}) { const p = pessoaLP({ seed: 715, fem: true, blush: true, cabeca: { mand: 0.94 }, pele: 0xf6e0cc, olho: "#4a9a5a", olhoAlt: 1.0, olhoTam: 1.14, olhoOpts: { aneis: 4, corAnel: "#103a1a" }, brava: 0.0, browW: 0.045, queixo: 0.6, sobrancelha: 0xa88a5a, roupa: 0xc49494, calca: CSM.preto, sapato: 0x2a2a2e, sola: 0xd8d8d8, botoes: false, scale: 0.92, cabelo: CAB_CSM.fome, ...o });
   uniformeEscola(p, CSM.pinFome, 0x3a2418); return p; }
 
 // cabeça de motosserra (Chainsaw Man) e serras nos antebraços

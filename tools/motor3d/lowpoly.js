@@ -187,6 +187,7 @@ function headGeoLP(o = {}) {
   for (let i = 0; i < Y.length; i++) for (let j = 0; j <= NS; j++) { const v = supCab(ph0 + (j / NS) * Math.PI * 2, Y[i]); pos.push(v.x, v.y, v.z); }
   for (let i = 0; i < Y.length - 1; i++) for (let j = 0; j < NS; j++) { const a = i * (NS + 1) + j, b = a + NS + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
   const q = o.queixo ?? 1; if (q !== 1) for (let i = 0; i < pos.length; i += 3) { const y = pos[i + 1], z = pos[i + 2]; if (y < 0.062) { const f = 1 + (q - 1) * Math.min(1, Math.max(0, (z + 0.01) / 0.07)); pos[i + 1] = 0.062 + (y - 0.062) * f; } }
+  const mj = o.mand ?? 1; if (mj !== 1) for (let i = 0; i < pos.length; i += 3) { const yu = (pos[i + 1] - CAB.EY) / CAB.HW, f = clamp((0.2 - yu) / 1.6); pos[i] *= 1 + (mj - 1) * sm(f); }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx);
   return vincoNormais(g, o.vinco ?? 0.62);
 }
@@ -213,7 +214,7 @@ function lamina(parent, base, dir, radial, L, W, mat, curva, esp, giro = 0) {
   return m;
 }
 // altura (u) da borda da touca no ângulo ph: franja na frente, lados, nuca (interpolados)
-function bordaY(o, ph) { const f = Math.cos(ph); return f > 0 ? lerp(o.ladoY ?? 0.2, o.franjaY ?? 0.75, Math.pow(f, o.franjaK ?? 2.2)) : lerp(o.ladoY ?? 0.2, o.nucaY ?? -0.55, Math.pow(-f, 1.1)); }
+function bordaY(o, ph) { const f = Math.cos(ph); return f > 0 ? lerp(o.ladoY ?? 0.2, (o.franjaY ?? 0.75) - (o.franjaInc ?? 0) * Math.sin(ph), Math.pow(f, o.franjaK ?? 2.2)) : lerp(o.ladoY ?? 0.2, o.nucaY ?? -0.55, Math.pow(-f, 1.1)); }
 // touca de MECHAS (como no vídeo): mechas compridas em triângulo saindo do redemoinho no alto da cabeça e descendo até a borda.
 // Cada mecha tem uma aresta no meio (crista), então mostra um lado claro e um escuro; as pontas formam os dentes da franja.
 // Feito numa malha só: colunas alternam crista (mais alta, vai até a ponta do dente) e vale (mais baixa, termina no entalhe).
