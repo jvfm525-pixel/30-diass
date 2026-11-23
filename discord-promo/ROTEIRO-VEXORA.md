@@ -11,7 +11,9 @@ Fatos tirados do código do bot (`main.py`, `vexora_pix.py`, `vexora_anime_cards
 ```
 [excited] Você ainda não entrou no VEXORA? [pause] Então senta que eu vou te mostrar.
 
-[confident] Aqui tem loja aberta vinte e quatro horas. Você escolhe o produto, abre o ticket e o PIX já aparece na hora, com o valor certinho.
+[confident] Aqui tem loja aberta vinte e quatro horas. [excited] Key aleatória por dois reais. Steam Key Premium por quatro. Key Triple A por quarenta e quatro e noventa. [casual] Lista de fornecedores russos por cinco e quarenta. E o meu guia de como criar vídeos com IA por vinte e nove e noventa e nove.
+
+[confident] Você escolhe o produto, abre o ticket e o PIX já aparece na hora, com o valor certinho.
 
 [excited] Pagou? O bot confirma sozinho e entrega direto na sua DM. Sem esperar ninguém acordar.
 
@@ -35,6 +37,7 @@ Fatos tirados do código do bot (`main.py`, `vexora_pix.py`, `vexora_anime_cards
 | Trecho | O que aparece |
 | --- | --- |
 | Gancho | Tela preta, a palavra "VEXORA?" bate no centro com tremida; corte para o logo animado (GIF) |
+| Produtos | Cartões dos 5 produtos entrando um por batida, com o preço grande: Key Simples Aleatória R$ 2,00 · Steam Key Premium R$ 4,00 · Key Triple A+++ R$ 44,90 · Fornecedores russos R$ 5,40 · Guia de vídeos com IA R$ 29,99 (com a capa do ebook) |
 | Loja 24 h | Painel de vendas (GIF) + relógio "24h"; recriação do ticket com o PIX: valor em destaque, botão "Copiar Pix Copia e Cola" sendo tocado |
 | Confirma sozinho | Selo "PAGO ✓" carimbando, notificação de DM deslizando com a entrega |
 | VIP / Diamante | Dois cartões de cargo subindo com "5% OFF" e "10% OFF", contador de compras 3 → 10 |
