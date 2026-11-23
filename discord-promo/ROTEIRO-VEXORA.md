@@ -9,27 +9,27 @@ Fatos tirados do código do bot (`main.py`, `vexora_pix.py`, `vexora_anime_cards
 ## Roteiro (para gravar)
 
 ```
-[excited] Você ainda não entrou no VEXORA? [pause] Então senta que eu vou te mostrar.
+[excited] Você ainda não entrou no VEXORA? [pause] Tá de brincadeira, né? Senta aí que eu vou te mostrar.
 
-[confident] Aqui tem loja aberta vinte e quatro horas. [excited] Key aleatória por dois reais. Steam Key Premium por quatro. Key Triple A por quarenta e quatro e noventa. [casual] Lista de fornecedores russos por cinco e quarenta. E o meu guia de como criar vídeos com IA por vinte e nove e noventa e nove.
+[confident] Loja aberta vinte e quatro horas, porque a gente sabe que você compra às três da manhã. [excited] Key aleatória por dois reais. Steam Key Premium por quatro. Key Triple A por quarenta e quatro e noventa. [casual] Lista de fornecedores russos por cinco e quarenta. E o meu guia de como criar vídeos com IA por vinte e nove e noventa e nove. [laughs] Preço de lanche, qualidade de rei.
 
-[confident] Você escolhe o produto, abre o ticket e o PIX já aparece na hora, com o valor certinho.
+[confident] Escolheu? Abre o ticket e o PIX já aparece na hora, com o valor certinho. Zero burocracia, zero "me chama no privado".
 
-[excited] Pagou? O bot confirma sozinho e entrega direto na sua DM. Sem esperar ninguém acordar.
+[excited] Pagou? O bot confirma sozinho e entrega direto na sua DM. Mais rápido que o seu crush te deixando no vácuo.
 
-[casual] Quem compra mais, paga menos: três compras e você vira VIP, com cinco por cento de desconto. Dez compras, Diamante, com dez por cento. E ainda tem cupom e indicação de amigo.
+[casual] E quem compra mais, paga menos: três compras e você vira VIP, cinco por cento de desconto. Dez compras, Diamante, dez por cento. [pause] Aura farming nível máximo. Ainda tem cupom e indicação de amigo.
 
 [mysterious] Mas o VEXORA não é só loja. [pause] Tem o Anime Cards.
 
-[excited] Todo dia você invoca uma carta de graça: Naruto, Luffy, Goku, Sung Jin-Woo... e se der sorte, vem um Lendário.
+[excited] Todo dia você invoca uma carta de graça: Naruto, Luffy, Goku, Sung Jin-Woo... e se vier um Lendário, pode printar e esfregar na cara dos amigos.
 
-[dramatic] Monte sua equipe com as cinco cartas mais fortes, desafie qualquer um pra batalha e suba no ranking. Missão diária, semanal e mensal valendo V-Coins.
+[dramatic] Monta sua equipe com as cinco cartas mais fortes, desafia qualquer um pra batalha e sobe no ranking. [casual] Perdeu? Skill issue. Missão diária, semanal e mensal valendo V-Coins.
 
-[casual] E se der algum problema, o suporte tem painel próprio e atende por ticket.
+[casual] Deu algum B.O.? O suporte tem painel próprio e atende por ticket. Ninguém fica no vácuo aqui.
 
-[excited] E é lá também que eu ensino a fazer esses vídeos de anime que você vê aqui no canal.
+[excited] E é lá que eu ensino a fazer esses vídeos de anime que você vê aqui no canal.
 
-[confident] VEXORA. Link na bio. [pause] Te vejo lá dentro.
+[confident] VEXORA. Link na bio. [pause] Entra logo, senão é cringe.
 ```
 
 ## Plano de edição (provisório, ajusta no tempo do áudio)
