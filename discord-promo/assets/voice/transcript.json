@@ -1,0 +1,1490 @@
+[
+  {
+    "text": "Você",
+    "start": 0.08,
+    "end": 0.29,
+    "id": "w0"
+  },
+  {
+    "text": "ainda",
+    "start": 0.29,
+    "end": 0.65,
+    "id": "w1"
+  },
+  {
+    "text": "não",
+    "start": 0.65,
+    "end": 0.87,
+    "id": "w2"
+  },
+  {
+    "text": "entrou",
+    "start": 0.87,
+    "end": 1.3,
+    "id": "w3"
+  },
+  {
+    "text": "no",
+    "start": 1.3,
+    "end": 1.39,
+    "id": "w4"
+  },
+  {
+    "text": "vexora?",
+    "start": 1.5,
+    "end": 2.14,
+    "id": "w5"
+  },
+  {
+    "text": "Tá",
+    "start": 2.24,
+    "end": 2.28,
+    "id": "w6"
+  },
+  {
+    "text": "de",
+    "start": 2.28,
+    "end": 2.36,
+    "id": "w7"
+  },
+  {
+    "text": "brincadeira,",
+    "start": 2.46,
+    "end": 3.3,
+    "id": "w8"
+  },
+  {
+    "text": "né?",
+    "start": 3.3,
+    "end": 3.57,
+    "id": "w9"
+  },
+  {
+    "text": "Senta",
+    "start": 3.74,
+    "end": 3.9,
+    "id": "w10"
+  },
+  {
+    "text": "aí",
+    "start": 4,
+    "end": 4.1,
+    "id": "w11"
+  },
+  {
+    "text": "que",
+    "start": 4.1,
+    "end": 4.28,
+    "id": "w12"
+  },
+  {
+    "text": "eu",
+    "start": 4.28,
+    "end": 4.4,
+    "id": "w13"
+  },
+  {
+    "text": "vou",
+    "start": 4.4,
+    "end": 4.54,
+    "id": "w14"
+  },
+  {
+    "text": "te",
+    "start": 4.57,
+    "end": 4.67,
+    "id": "w15"
+  },
+  {
+    "text": "mostrar.",
+    "start": 4.73,
+    "end": 5.18,
+    "id": "w16"
+  },
+  {
+    "text": "Lógi",
+    "start": 5.27,
+    "end": 5.54,
+    "id": "w17"
+  },
+  {
+    "text": "aberta",
+    "start": 5.54,
+    "end": 6.09,
+    "id": "w18"
+  },
+  {
+    "text": "24",
+    "start": 6.09,
+    "end": 6.61,
+    "id": "w19"
+  },
+  {
+    "text": "horas,",
+    "start": 6.68,
+    "end": 7.24,
+    "id": "w20"
+  },
+  {
+    "text": "porque",
+    "start": 7.24,
+    "end": 7.54,
+    "id": "w21"
+  },
+  {
+    "text": "a",
+    "start": 7.54,
+    "end": 7.59,
+    "id": "w22"
+  },
+  {
+    "text": "gente",
+    "start": 7.59,
+    "end": 7.84,
+    "id": "w23"
+  },
+  {
+    "text": "sabe",
+    "start": 7.84,
+    "end": 8.03,
+    "id": "w24"
+  },
+  {
+    "text": "que",
+    "start": 8.06,
+    "end": 8.23,
+    "id": "w25"
+  },
+  {
+    "text": "você",
+    "start": 8.23,
+    "end": 8.46,
+    "id": "w26"
+  },
+  {
+    "text": "compra",
+    "start": 8.46,
+    "end": 8.67,
+    "id": "w27"
+  },
+  {
+    "text": "às",
+    "start": 8.79,
+    "end": 8.91,
+    "id": "w28"
+  },
+  {
+    "text": "3",
+    "start": 9.06,
+    "end": 9.08,
+    "id": "w29"
+  },
+  {
+    "text": "da",
+    "start": 9.15,
+    "end": 9.19,
+    "id": "w30"
+  },
+  {
+    "text": "manhã.",
+    "start": 9.19,
+    "end": 9.68,
+    "id": "w31"
+  },
+  {
+    "text": "Key",
+    "start": 9.79,
+    "end": 9.9,
+    "id": "w32"
+  },
+  {
+    "text": "aleatória",
+    "start": 10,
+    "end": 10.77,
+    "id": "w33"
+  },
+  {
+    "text": "por",
+    "start": 10.77,
+    "end": 11.03,
+    "id": "w34"
+  },
+  {
+    "text": "R$2.",
+    "start": 11.03,
+    "end": 11.57,
+    "id": "w35"
+  },
+  {
+    "text": "Stinky",
+    "start": 11.92,
+    "end": 12.32,
+    "id": "w36"
+  },
+  {
+    "text": "Premium",
+    "start": 12.32,
+    "end": 12.91,
+    "id": "w37"
+  },
+  {
+    "text": "por",
+    "start": 12.91,
+    "end": 13.16,
+    "id": "w38"
+  },
+  {
+    "text": "R$4.",
+    "start": 13.16,
+    "end": 13.62,
+    "id": "w39"
+  },
+  {
+    "text": "Key",
+    "start": 13.73,
+    "end": 13.84,
+    "id": "w40"
+  },
+  {
+    "text": "Triple-A",
+    "start": 13.94,
+    "end": 14.53,
+    "id": "w41"
+  },
+  {
+    "text": "por",
+    "start": 14.53,
+    "end": 14.78,
+    "id": "w42"
+  },
+  {
+    "text": "R$44,90.",
+    "start": 14.78,
+    "end": 16.12,
+    "id": "w43"
+  },
+  {
+    "text": "Lista",
+    "start": 16.18,
+    "end": 16.34,
+    "id": "w44"
+  },
+  {
+    "text": "de",
+    "start": 16.44,
+    "end": 16.54,
+    "id": "w45"
+  },
+  {
+    "text": "fornecedores",
+    "start": 16.54,
+    "end": 17.26,
+    "id": "w46"
+  },
+  {
+    "text": "russos",
+    "start": 17.26,
+    "end": 17.55,
+    "id": "w47"
+  },
+  {
+    "text": "por",
+    "start": 17.66,
+    "end": 17.8,
+    "id": "w48"
+  },
+  {
+    "text": "R$5,40.",
+    "start": 17.8,
+    "end": 18.82,
+    "id": "w49"
+  },
+  {
+    "text": "Eo",
+    "start": 18.89,
+    "end": 18.96,
+    "id": "w50"
+  },
+  {
+    "text": "meu",
+    "start": 18.96,
+    "end": 19.18,
+    "id": "w51"
+  },
+  {
+    "text": "guia",
+    "start": 19.18,
+    "end": 19.48,
+    "id": "w52"
+  },
+  {
+    "text": "de",
+    "start": 19.48,
+    "end": 19.63,
+    "id": "w53"
+  },
+  {
+    "text": "como",
+    "start": 19.63,
+    "end": 19.93,
+    "id": "w54"
+  },
+  {
+    "text": "criar",
+    "start": 19.93,
+    "end": 20.24,
+    "id": "w55"
+  },
+  {
+    "text": "vídeos",
+    "start": 20.32,
+    "end": 20.7,
+    "id": "w56"
+  },
+  {
+    "text": "com",
+    "start": 20.7,
+    "end": 20.97,
+    "id": "w57"
+  },
+  {
+    "text": "IA",
+    "start": 20.97,
+    "end": 21.11,
+    "id": "w58"
+  },
+  {
+    "text": "por",
+    "start": 21.18,
+    "end": 21.33,
+    "id": "w59"
+  },
+  {
+    "text": "R$29,99.",
+    "start": 21.33,
+    "end": 22.82,
+    "id": "w60"
+  },
+  {
+    "text": "Preço",
+    "start": 22.82,
+    "end": 23.27,
+    "id": "w61"
+  },
+  {
+    "text": "de",
+    "start": 23.27,
+    "end": 23.72,
+    "id": "w62"
+  },
+  {
+    "text": "lanche,",
+    "start": 23.72,
+    "end": 24.23,
+    "id": "w63"
+  },
+  {
+    "text": "qualidade",
+    "start": 24.23,
+    "end": 25.04,
+    "id": "w64"
+  },
+  {
+    "text": "de",
+    "start": 25.16,
+    "end": 25.28,
+    "id": "w65"
+  },
+  {
+    "text": "rei.",
+    "start": 25.28,
+    "end": 25.9,
+    "id": "w66"
+  },
+  {
+    "text": "Escolheu?",
+    "start": 25.98,
+    "end": 26.66,
+    "id": "w67"
+  },
+  {
+    "text": "Abre",
+    "start": 26.76,
+    "end": 26.99,
+    "id": "w68"
+  },
+  {
+    "text": "o",
+    "start": 26.99,
+    "end": 27.06,
+    "id": "w69"
+  },
+  {
+    "text": "ticket",
+    "start": 27.06,
+    "end": 27.5,
+    "id": "w70"
+  },
+  {
+    "text": "e",
+    "start": 27.5,
+    "end": 27.57,
+    "id": "w71"
+  },
+  {
+    "text": "o",
+    "start": 27.57,
+    "end": 27.64,
+    "id": "w72"
+  },
+  {
+    "text": "PIX",
+    "start": 27.64,
+    "end": 27.85,
+    "id": "w73"
+  },
+  {
+    "text": "já",
+    "start": 27.85,
+    "end": 27.99,
+    "id": "w74"
+  },
+  {
+    "text": "aparece",
+    "start": 27.99,
+    "end": 28.5,
+    "id": "w75"
+  },
+  {
+    "text": "na",
+    "start": 28.5,
+    "end": 28.55,
+    "id": "w76"
+  },
+  {
+    "text": "hora,",
+    "start": 28.93,
+    "end": 29.07,
+    "id": "w77"
+  },
+  {
+    "text": "com",
+    "start": 29.07,
+    "end": 29.29,
+    "id": "w78"
+  },
+  {
+    "text": "o",
+    "start": 29.29,
+    "end": 29.36,
+    "id": "w79"
+  },
+  {
+    "text": "valor",
+    "start": 29.36,
+    "end": 29.72,
+    "id": "w80"
+  },
+  {
+    "text": "certinho.",
+    "start": 29.72,
+    "end": 30.57,
+    "id": "w81"
+  },
+  {
+    "text": "Zero",
+    "start": 30.72,
+    "end": 30.91,
+    "id": "w82"
+  },
+  {
+    "text": "burocracia,",
+    "start": 30.92,
+    "end": 31.84,
+    "id": "w83"
+  },
+  {
+    "text": "zero",
+    "start": 31.88,
+    "end": 32.2,
+    "id": "w84"
+  },
+  {
+    "text": "me",
+    "start": 32.2,
+    "end": 32.36,
+    "id": "w85"
+  },
+  {
+    "text": "chama",
+    "start": 32.36,
+    "end": 32.49,
+    "id": "w86"
+  },
+  {
+    "text": "no",
+    "start": 32.49,
+    "end": 32.96,
+    "id": "w87"
+  },
+  {
+    "text": "privado.",
+    "start": 32.96,
+    "end": 33.74,
+    "id": "w88"
+  },
+  {
+    "text": "Pagou?",
+    "start": 33.82,
+    "end": 34.44,
+    "id": "w89"
+  },
+  {
+    "text": "O",
+    "start": 34.44,
+    "end": 34.5,
+    "id": "w90"
+  },
+  {
+    "text": "bote",
+    "start": 34.5,
+    "end": 34.73,
+    "id": "w91"
+  },
+  {
+    "text": "confirma",
+    "start": 34.79,
+    "end": 35.3,
+    "id": "w92"
+  },
+  {
+    "text": "sozinho",
+    "start": 35.3,
+    "end": 35.62,
+    "id": "w93"
+  },
+  {
+    "text": "e",
+    "start": 35.73,
+    "end": 35.89,
+    "id": "w94"
+  },
+  {
+    "text": "entrega",
+    "start": 36.1,
+    "end": 36.39,
+    "id": "w95"
+  },
+  {
+    "text": "direto",
+    "start": 36.4,
+    "end": 36.83,
+    "id": "w96"
+  },
+  {
+    "text": "na",
+    "start": 36.83,
+    "end": 36.97,
+    "id": "w97"
+  },
+  {
+    "text": "sua",
+    "start": 36.97,
+    "end": 37.19,
+    "id": "w98"
+  },
+  {
+    "text": "DM.",
+    "start": 37.19,
+    "end": 37.6,
+    "id": "w99"
+  },
+  {
+    "text": "Mais",
+    "start": 37.71,
+    "end": 37.82,
+    "id": "w100"
+  },
+  {
+    "text": "rápido",
+    "start": 37.92,
+    "end": 38.17,
+    "id": "w101"
+  },
+  {
+    "text": "que",
+    "start": 38.17,
+    "end": 38.34,
+    "id": "w102"
+  },
+  {
+    "text": "o",
+    "start": 38.34,
+    "end": 38.39,
+    "id": "w103"
+  },
+  {
+    "text": "seu",
+    "start": 38.39,
+    "end": 38.53,
+    "id": "w104"
+  },
+  {
+    "text": "crush",
+    "start": 38.53,
+    "end": 38.84,
+    "id": "w105"
+  },
+  {
+    "text": "te",
+    "start": 38.84,
+    "end": 38.95,
+    "id": "w106"
+  },
+  {
+    "text": "deixando",
+    "start": 39.01,
+    "end": 39.42,
+    "id": "w107"
+  },
+  {
+    "text": "no",
+    "start": 39.42,
+    "end": 39.49,
+    "id": "w108"
+  },
+  {
+    "text": "vácuo.",
+    "start": 39.64,
+    "end": 40.04,
+    "id": "w109"
+  },
+  {
+    "text": "Equem",
+    "start": 40.1,
+    "end": 40.35,
+    "id": "w110"
+  },
+  {
+    "text": "compra",
+    "start": 40.36,
+    "end": 40.73,
+    "id": "w111"
+  },
+  {
+    "text": "mais,",
+    "start": 40.73,
+    "end": 41.1,
+    "id": "w112"
+  },
+  {
+    "text": "paga",
+    "start": 41.1,
+    "end": 41.34,
+    "id": "w113"
+  },
+  {
+    "text": "menos.",
+    "start": 41.34,
+    "end": 41.88,
+    "id": "w114"
+  },
+  {
+    "text": "Três",
+    "start": 41.98,
+    "end": 42.19,
+    "id": "w115"
+  },
+  {
+    "text": "compras",
+    "start": 42.2,
+    "end": 42.74,
+    "id": "w116"
+  },
+  {
+    "text": "e",
+    "start": 42.74,
+    "end": 42.82,
+    "id": "w117"
+  },
+  {
+    "text": "você",
+    "start": 42.82,
+    "end": 43.12,
+    "id": "w118"
+  },
+  {
+    "text": "vira",
+    "start": 43.16,
+    "end": 43.45,
+    "id": "w119"
+  },
+  {
+    "text": "VIP,",
+    "start": 43.45,
+    "end": 43.77,
+    "id": "w120"
+  },
+  {
+    "text": "5%",
+    "start": 44.08,
+    "end": 44.15,
+    "id": "w121"
+  },
+  {
+    "text": "de",
+    "start": 44.24,
+    "end": 44.31,
+    "id": "w122"
+  },
+  {
+    "text": "desconto.",
+    "start": 44.31,
+    "end": 45.24,
+    "id": "w123"
+  },
+  {
+    "text": "Dez",
+    "start": 45.34,
+    "end": 45.46,
+    "id": "w124"
+  },
+  {
+    "text": "compras,",
+    "start": 45.56,
+    "end": 46.23,
+    "id": "w125"
+  },
+  {
+    "text": "diamante,",
+    "start": 46.29,
+    "end": 47.12,
+    "id": "w126"
+  },
+  {
+    "text": "10%.",
+    "start": 47.12,
+    "end": 48.04,
+    "id": "w127"
+  },
+  {
+    "text": "Aura",
+    "start": 48.16,
+    "end": 48.39,
+    "id": "w128"
+  },
+  {
+    "text": "Farming",
+    "start": 48.4,
+    "end": 48.94,
+    "id": "w129"
+  },
+  {
+    "text": "nível",
+    "start": 48.94,
+    "end": 49.32,
+    "id": "w130"
+  },
+  {
+    "text": "máximo.",
+    "start": 49.36,
+    "end": 49.96,
+    "id": "w131"
+  },
+  {
+    "text": "Ainda",
+    "start": 50.15,
+    "end": 50.43,
+    "id": "w132"
+  },
+  {
+    "text": "tem",
+    "start": 50.43,
+    "end": 50.64,
+    "id": "w133"
+  },
+  {
+    "text": "cupom",
+    "start": 50.64,
+    "end": 50.99,
+    "id": "w134"
+  },
+  {
+    "text": "e",
+    "start": 50.99,
+    "end": 51.06,
+    "id": "w135"
+  },
+  {
+    "text": "indicação",
+    "start": 51.06,
+    "end": 51.69,
+    "id": "w136"
+  },
+  {
+    "text": "de",
+    "start": 51.69,
+    "end": 51.83,
+    "id": "w137"
+  },
+  {
+    "text": "amigo.",
+    "start": 51.83,
+    "end": 52.42,
+    "id": "w138"
+  },
+  {
+    "text": "Mas",
+    "start": 52.54,
+    "end": 52.64,
+    "id": "w139"
+  },
+  {
+    "text": "o",
+    "start": 52.74,
+    "end": 52.8,
+    "id": "w140"
+  },
+  {
+    "text": "vexora",
+    "start": 52.8,
+    "end": 53.34,
+    "id": "w141"
+  },
+  {
+    "text": "não",
+    "start": 53.34,
+    "end": 53.66,
+    "id": "w142"
+  },
+  {
+    "text": "é",
+    "start": 53.66,
+    "end": 53.75,
+    "id": "w143"
+  },
+  {
+    "text": "a",
+    "start": 53.75,
+    "end": 53.84,
+    "id": "w144"
+  },
+  {
+    "text": "sua",
+    "start": 53.84,
+    "end": 54.11,
+    "id": "w145"
+  },
+  {
+    "text": "loja,",
+    "start": 54.13,
+    "end": 54.8,
+    "id": "w146"
+  },
+  {
+    "text": "tem",
+    "start": 54.8,
+    "end": 55.07,
+    "id": "w147"
+  },
+  {
+    "text": "o",
+    "start": 55.07,
+    "end": 55.16,
+    "id": "w148"
+  },
+  {
+    "text": "anime",
+    "start": 55.16,
+    "end": 55.61,
+    "id": "w149"
+  },
+  {
+    "text": "cards.",
+    "start": 55.61,
+    "end": 56.33,
+    "id": "w150"
+  },
+  {
+    "text": "Todo",
+    "start": 56.48,
+    "end": 56.58,
+    "id": "w151"
+  },
+  {
+    "text": "dia",
+    "start": 56.68,
+    "end": 56.86,
+    "id": "w152"
+  },
+  {
+    "text": "você",
+    "start": 56.86,
+    "end": 57.12,
+    "id": "w153"
+  },
+  {
+    "text": "invoca",
+    "start": 57.12,
+    "end": 57.52,
+    "id": "w154"
+  },
+  {
+    "text": "uma",
+    "start": 57.52,
+    "end": 57.71,
+    "id": "w155"
+  },
+  {
+    "text": "carta",
+    "start": 57.77,
+    "end": 58.05,
+    "id": "w156"
+  },
+  {
+    "text": "de",
+    "start": 58.05,
+    "end": 58.18,
+    "id": "w157"
+  },
+  {
+    "text": "graça.",
+    "start": 58.18,
+    "end": 58.76,
+    "id": "w158"
+  },
+  {
+    "text": "Naruto,",
+    "start": 58.9,
+    "end": 59.52,
+    "id": "w159"
+  },
+  {
+    "text": "Luffy,",
+    "start": 59.52,
+    "end": 60.18,
+    "id": "w160"
+  },
+  {
+    "text": "Goku,",
+    "start": 60.18,
+    "end": 60.65,
+    "id": "w161"
+  },
+  {
+    "text": "Sundin",
+    "start": 61.12,
+    "end": 61.32,
+    "id": "w162"
+  },
+  {
+    "text": "Woo.",
+    "start": 61.32,
+    "end": 61.66,
+    "id": "w163"
+  },
+  {
+    "text": "Ese",
+    "start": 61.72,
+    "end": 61.85,
+    "id": "w164"
+  },
+  {
+    "text": "vier",
+    "start": 61.85,
+    "end": 62.11,
+    "id": "w165"
+  },
+  {
+    "text": "um",
+    "start": 62.11,
+    "end": 62.24,
+    "id": "w166"
+  },
+  {
+    "text": "lendário,",
+    "start": 62.24,
+    "end": 62.9,
+    "id": "w167"
+  },
+  {
+    "text": "pode",
+    "start": 62.9,
+    "end": 63.21,
+    "id": "w168"
+  },
+  {
+    "text": "printar",
+    "start": 63.21,
+    "end": 63.76,
+    "id": "w169"
+  },
+  {
+    "text": "e",
+    "start": 63.76,
+    "end": 63.82,
+    "id": "w170"
+  },
+  {
+    "text": "esfregar",
+    "start": 63.95,
+    "end": 64.35,
+    "id": "w171"
+  },
+  {
+    "text": "na",
+    "start": 64.35,
+    "end": 64.46,
+    "id": "w172"
+  },
+  {
+    "text": "cara",
+    "start": 64.5,
+    "end": 64.75,
+    "id": "w173"
+  },
+  {
+    "text": "dos",
+    "start": 64.75,
+    "end": 64.95,
+    "id": "w174"
+  },
+  {
+    "text": "amigos.",
+    "start": 64.95,
+    "end": 65.57,
+    "id": "w175"
+  },
+  {
+    "text": "Monta",
+    "start": 65.71,
+    "end": 65.92,
+    "id": "w176"
+  },
+  {
+    "text": "a",
+    "start": 65.92,
+    "end": 65.98,
+    "id": "w177"
+  },
+  {
+    "text": "sua",
+    "start": 65.98,
+    "end": 66.18,
+    "id": "w178"
+  },
+  {
+    "text": "equipe",
+    "start": 66.18,
+    "end": 66.57,
+    "id": "w179"
+  },
+  {
+    "text": "com",
+    "start": 66.57,
+    "end": 66.77,
+    "id": "w180"
+  },
+  {
+    "text": "as",
+    "start": 66.77,
+    "end": 66.9,
+    "id": "w181"
+  },
+  {
+    "text": "5",
+    "start": 66.9,
+    "end": 67.03,
+    "id": "w182"
+  },
+  {
+    "text": "cartas",
+    "start": 67.14,
+    "end": 67.48,
+    "id": "w183"
+  },
+  {
+    "text": "mais",
+    "start": 67.48,
+    "end": 67.5,
+    "id": "w184"
+  },
+  {
+    "text": "fortes.",
+    "start": 67.96,
+    "end": 68.4,
+    "id": "w185"
+  },
+  {
+    "text": "Desafia",
+    "start": 68.5,
+    "end": 68.86,
+    "id": "w186"
+  },
+  {
+    "text": "qualquer",
+    "start": 68.86,
+    "end": 69.39,
+    "id": "w187"
+  },
+  {
+    "text": "um",
+    "start": 69.45,
+    "end": 69.53,
+    "id": "w188"
+  },
+  {
+    "text": "pra",
+    "start": 69.53,
+    "end": 69.73,
+    "id": "w189"
+  },
+  {
+    "text": "batalha",
+    "start": 69.73,
+    "end": 70.19,
+    "id": "w190"
+  },
+  {
+    "text": "e",
+    "start": 70.19,
+    "end": 70.25,
+    "id": "w191"
+  },
+  {
+    "text": "sobe",
+    "start": 70.25,
+    "end": 70.51,
+    "id": "w192"
+  },
+  {
+    "text": "no",
+    "start": 70.51,
+    "end": 70.76,
+    "id": "w193"
+  },
+  {
+    "text": "ranking.",
+    "start": 70.76,
+    "end": 71.36,
+    "id": "w194"
+  },
+  {
+    "text": "Perdeu?",
+    "start": 71.51,
+    "end": 72.22,
+    "id": "w195"
+  },
+  {
+    "text": "Ski-Wishu.",
+    "start": 72.22,
+    "end": 73.04,
+    "id": "w196"
+  },
+  {
+    "text": "Missão",
+    "start": 73.16,
+    "end": 73.52,
+    "id": "w197"
+  },
+  {
+    "text": "diária,",
+    "start": 73.52,
+    "end": 74.16,
+    "id": "w198"
+  },
+  {
+    "text": "semanal",
+    "start": 74.16,
+    "end": 74.72,
+    "id": "w199"
+  },
+  {
+    "text": "e",
+    "start": 74.72,
+    "end": 74.8,
+    "id": "w200"
+  },
+  {
+    "text": "mensal",
+    "start": 74.8,
+    "end": 75.28,
+    "id": "w201"
+  },
+  {
+    "text": "valendo",
+    "start": 75.4,
+    "end": 75.84,
+    "id": "w202"
+  },
+  {
+    "text": "vicões.",
+    "start": 75.84,
+    "end": 76.53,
+    "id": "w203"
+  },
+  {
+    "text": "Deu",
+    "start": 76.68,
+    "end": 76.8,
+    "id": "w204"
+  },
+  {
+    "text": "algum",
+    "start": 76.9,
+    "end": 77.18,
+    "id": "w205"
+  },
+  {
+    "text": "BO?",
+    "start": 77.18,
+    "end": 77.57,
+    "id": "w206"
+  },
+  {
+    "text": "O",
+    "start": 77.63,
+    "end": 77.64,
+    "id": "w207"
+  },
+  {
+    "text": "suporte",
+    "start": 77.64,
+    "end": 78,
+    "id": "w208"
+  },
+  {
+    "text": "tem",
+    "start": 78.12,
+    "end": 78.25,
+    "id": "w209"
+  },
+  {
+    "text": "painel",
+    "start": 78.25,
+    "end": 78.62,
+    "id": "w210"
+  },
+  {
+    "text": "próprio",
+    "start": 78.94,
+    "end": 79.08,
+    "id": "w211"
+  },
+  {
+    "text": "e",
+    "start": 79.08,
+    "end": 79.14,
+    "id": "w212"
+  },
+  {
+    "text": "atende",
+    "start": 79.14,
+    "end": 79.53,
+    "id": "w213"
+  },
+  {
+    "text": "por",
+    "start": 79.53,
+    "end": 79.72,
+    "id": "w214"
+  },
+  {
+    "text": "ticket.",
+    "start": 79.72,
+    "end": 80.34,
+    "id": "w215"
+  },
+  {
+    "text": "Ninguém",
+    "start": 80.4,
+    "end": 80.79,
+    "id": "w216"
+  },
+  {
+    "text": "fica",
+    "start": 80.79,
+    "end": 81.05,
+    "id": "w217"
+  },
+  {
+    "text": "no",
+    "start": 81.05,
+    "end": 81.18,
+    "id": "w218"
+  },
+  {
+    "text": "vácuo",
+    "start": 81.18,
+    "end": 81.5,
+    "id": "w219"
+  },
+  {
+    "text": "aqui.",
+    "start": 81.5,
+    "end": 81.98,
+    "id": "w220"
+  },
+  {
+    "text": "E",
+    "start": 81.98,
+    "end": 82.08,
+    "id": "w221"
+  },
+  {
+    "text": "é",
+    "start": 82.08,
+    "end": 82.1,
+    "id": "w222"
+  },
+  {
+    "text": "lá",
+    "start": 82.1,
+    "end": 82.2,
+    "id": "w223"
+  },
+  {
+    "text": "que",
+    "start": 82.28,
+    "end": 82.4,
+    "id": "w224"
+  },
+  {
+    "text": "eu",
+    "start": 82.4,
+    "end": 82.49,
+    "id": "w225"
+  },
+  {
+    "text": "ensino",
+    "start": 82.52,
+    "end": 82.84,
+    "id": "w226"
+  },
+  {
+    "text": "a",
+    "start": 82.87,
+    "end": 82.93,
+    "id": "w227"
+  },
+  {
+    "text": "fazer",
+    "start": 82.93,
+    "end": 83.22,
+    "id": "w228"
+  },
+  {
+    "text": "esses",
+    "start": 83.22,
+    "end": 83.4,
+    "id": "w229"
+  },
+  {
+    "text": "vídeos",
+    "start": 83.52,
+    "end": 83.85,
+    "id": "w230"
+  },
+  {
+    "text": "de",
+    "start": 83.85,
+    "end": 83.87,
+    "id": "w231"
+  },
+  {
+    "text": "anime",
+    "start": 83.87,
+    "end": 84.34,
+    "id": "w232"
+  },
+  {
+    "text": "que",
+    "start": 84.34,
+    "end": 84.48,
+    "id": "w233"
+  },
+  {
+    "text": "você",
+    "start": 84.48,
+    "end": 84.7,
+    "id": "w234"
+  },
+  {
+    "text": "vê",
+    "start": 84.7,
+    "end": 84.78,
+    "id": "w235"
+  },
+  {
+    "text": "aqui",
+    "start": 84.82,
+    "end": 85.03,
+    "id": "w236"
+  },
+  {
+    "text": "no",
+    "start": 85.03,
+    "end": 85.14,
+    "id": "w237"
+  },
+  {
+    "text": "canal.",
+    "start": 85.14,
+    "end": 85.48,
+    "id": "w238"
+  },
+  {
+    "text": "Vexora,",
+    "start": 85.72,
+    "end": 86.48,
+    "id": "w239"
+  },
+  {
+    "text": "link",
+    "start": 86.48,
+    "end": 86.91,
+    "id": "w240"
+  },
+  {
+    "text": "na",
+    "start": 86.91,
+    "end": 87.05,
+    "id": "w241"
+  },
+  {
+    "text": "bio.",
+    "start": 87.16,
+    "end": 87.5,
+    "id": "w242"
+  },
+  {
+    "text": "Entra",
+    "start": 87.5,
+    "end": 87.93,
+    "id": "w243"
+  },
+  {
+    "text": "logo,",
+    "start": 87.98,
+    "end": 88.42,
+    "id": "w244"
+  },
+  {
+    "text": "senão",
+    "start": 88.46,
+    "end": 88.87,
+    "id": "w245"
+  },
+  {
+    "text": "é",
+    "start": 88.87,
+    "end": 88.95,
+    "id": "w246"
+  },
+  {
+    "text": "cringe.",
+    "start": 88.95,
+    "end": 89.66,
+    "id": "w247"
+  }
+]
