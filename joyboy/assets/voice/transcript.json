@@ -1,0 +1,1412 @@
+[
+  {
+    "text": "Quando",
+    "start": 0.04,
+    "end": 0.35,
+    "id": "w0"
+  },
+  {
+    "text": "o",
+    "start": 0.39,
+    "end": 0.43,
+    "id": "w1"
+  },
+  {
+    "text": "Rodgers",
+    "start": 0.43,
+    "end": 0.85,
+    "id": "w2"
+  },
+  {
+    "text": "chegou",
+    "start": 0.85,
+    "end": 1.1,
+    "id": "w3"
+  },
+  {
+    "text": "ao",
+    "start": 1.33,
+    "end": 1.34,
+    "id": "w4"
+  },
+  {
+    "text": "fim",
+    "start": 1.34,
+    "end": 1.52,
+    "id": "w5"
+  },
+  {
+    "text": "do",
+    "start": 1.52,
+    "end": 1.64,
+    "id": "w6"
+  },
+  {
+    "text": "mundo",
+    "start": 1.64,
+    "end": 2,
+    "id": "w7"
+  },
+  {
+    "text": "e",
+    "start": 2,
+    "end": 2.08,
+    "id": "w8"
+  },
+  {
+    "text": "descobriu",
+    "start": 2.08,
+    "end": 2.8,
+    "id": "w9"
+  },
+  {
+    "text": "quem",
+    "start": 2.8,
+    "end": 3.12,
+    "id": "w10"
+  },
+  {
+    "text": "era",
+    "start": 3.12,
+    "end": 3.36,
+    "id": "w11"
+  },
+  {
+    "text": "o",
+    "start": 3.36,
+    "end": 3.43,
+    "id": "w12"
+  },
+  {
+    "text": "Joy",
+    "start": 3.43,
+    "end": 3.68,
+    "id": "w13"
+  },
+  {
+    "text": "Boy,",
+    "start": 3.68,
+    "end": 4.2,
+    "id": "w14"
+  },
+  {
+    "text": "ele",
+    "start": 4.24,
+    "end": 4.53,
+    "id": "w15"
+  },
+  {
+    "text": "começou",
+    "start": 4.53,
+    "end": 5.29,
+    "id": "w16"
+  },
+  {
+    "text": "a",
+    "start": 5.29,
+    "end": 5.4,
+    "id": "w17"
+  },
+  {
+    "text": "rir.",
+    "start": 5.52,
+    "end": 5.9,
+    "id": "w18"
+  },
+  {
+    "text": "Mas,",
+    "start": 5.94,
+    "end": 6.43,
+    "id": "w19"
+  },
+  {
+    "text": "afinal,",
+    "start": 6.43,
+    "end": 7.3,
+    "id": "w20"
+  },
+  {
+    "text": "quem",
+    "start": 7.3,
+    "end": 7.69,
+    "id": "w21"
+  },
+  {
+    "text": "é",
+    "start": 7.69,
+    "end": 7.79,
+    "id": "w22"
+  },
+  {
+    "text": "o",
+    "start": 7.79,
+    "end": 7.89,
+    "id": "w23"
+  },
+  {
+    "text": "Joy",
+    "start": 7.89,
+    "end": 8.17,
+    "id": "w24"
+  },
+  {
+    "text": "Boy?",
+    "start": 8.18,
+    "end": 8.8,
+    "id": "w25"
+  },
+  {
+    "text": "Fica",
+    "start": 8.84,
+    "end": 9.08,
+    "id": "w26"
+  },
+  {
+    "text": "até",
+    "start": 9.08,
+    "end": 9.3,
+    "id": "w27"
+  },
+  {
+    "text": "o",
+    "start": 9.3,
+    "end": 9.36,
+    "id": "w28"
+  },
+  {
+    "text": "final,",
+    "start": 9.36,
+    "end": 9.89,
+    "id": "w29"
+  },
+  {
+    "text": "porque",
+    "start": 10.13,
+    "end": 10.33,
+    "id": "w30"
+  },
+  {
+    "text": "a",
+    "start": 10.33,
+    "end": 10.4,
+    "id": "w31"
+  },
+  {
+    "text": "última",
+    "start": 10.4,
+    "end": 10.81,
+    "id": "w32"
+  },
+  {
+    "text": "revelação",
+    "start": 10.82,
+    "end": 11.48,
+    "id": "w33"
+  },
+  {
+    "text": "muda",
+    "start": 11.52,
+    "end": 11.76,
+    "id": "w34"
+  },
+  {
+    "text": "tudo.",
+    "start": 11.76,
+    "end": 12.3,
+    "id": "w35"
+  },
+  {
+    "text": "O",
+    "start": 12.3,
+    "end": 12.39,
+    "id": "w36"
+  },
+  {
+    "text": "Joy",
+    "start": 12.39,
+    "end": 12.62,
+    "id": "w37"
+  },
+  {
+    "text": "Boy",
+    "start": 12.62,
+    "end": 12.86,
+    "id": "w38"
+  },
+  {
+    "text": "viveu",
+    "start": 12.86,
+    "end": 13.26,
+    "id": "w39"
+  },
+  {
+    "text": "a",
+    "start": 13.26,
+    "end": 13.34,
+    "id": "w40"
+  },
+  {
+    "text": "cerca",
+    "start": 13.34,
+    "end": 13.74,
+    "id": "w41"
+  },
+  {
+    "text": "de",
+    "start": 13.74,
+    "end": 13.9,
+    "id": "w42"
+  },
+  {
+    "text": "800",
+    "start": 13.9,
+    "end": 14.62,
+    "id": "w43"
+  },
+  {
+    "text": "anos,",
+    "start": 14.62,
+    "end": 15.14,
+    "id": "w44"
+  },
+  {
+    "text": "no",
+    "start": 15.14,
+    "end": 15.28,
+    "id": "w45"
+  },
+  {
+    "text": "século",
+    "start": 15.28,
+    "end": 15.69,
+    "id": "w46"
+  },
+  {
+    "text": "perdido.",
+    "start": 15.69,
+    "end": 16.18,
+    "id": "w47"
+  },
+  {
+    "text": "Um",
+    "start": 16.44,
+    "end": 16.53,
+    "id": "w48"
+  },
+  {
+    "text": "pedaço",
+    "start": 16.53,
+    "end": 16.92,
+    "id": "w49"
+  },
+  {
+    "text": "da",
+    "start": 16.92,
+    "end": 17.05,
+    "id": "w50"
+  },
+  {
+    "text": "história",
+    "start": 17.05,
+    "end": 17.49,
+    "id": "w51"
+  },
+  {
+    "text": "que",
+    "start": 17.73,
+    "end": 17.78,
+    "id": "w52"
+  },
+  {
+    "text": "o",
+    "start": 17.78,
+    "end": 17.84,
+    "id": "w53"
+  },
+  {
+    "text": "governo",
+    "start": 17.84,
+    "end": 18.29,
+    "id": "w54"
+  },
+  {
+    "text": "mundial",
+    "start": 18.29,
+    "end": 18.76,
+    "id": "w55"
+  },
+  {
+    "text": "apagou.",
+    "start": 18.76,
+    "end": 19.4,
+    "id": "w56"
+  },
+  {
+    "text": "O",
+    "start": 19.4,
+    "end": 19.49,
+    "id": "w57"
+  },
+  {
+    "text": "pouco",
+    "start": 19.49,
+    "end": 19.82,
+    "id": "w58"
+  },
+  {
+    "text": "que",
+    "start": 19.82,
+    "end": 20.03,
+    "id": "w59"
+  },
+  {
+    "text": "sobrou",
+    "start": 20.03,
+    "end": 20.43,
+    "id": "w60"
+  },
+  {
+    "text": "ficou",
+    "start": 20.43,
+    "end": 20.78,
+    "id": "w61"
+  },
+  {
+    "text": "gravado",
+    "start": 20.78,
+    "end": 21.26,
+    "id": "w62"
+  },
+  {
+    "text": "nos",
+    "start": 21.26,
+    "end": 21.43,
+    "id": "w63"
+  },
+  {
+    "text": "Poneglyphs,",
+    "start": 21.47,
+    "end": 22.34,
+    "id": "w64"
+  },
+  {
+    "text": "pedras",
+    "start": 22.34,
+    "end": 22.8,
+    "id": "w65"
+  },
+  {
+    "text": "que",
+    "start": 22.8,
+    "end": 23.02,
+    "id": "w66"
+  },
+  {
+    "text": "nada",
+    "start": 23.02,
+    "end": 23.19,
+    "id": "w67"
+  },
+  {
+    "text": "consegue",
+    "start": 23.85,
+    "end": 23.9,
+    "id": "w68"
+  },
+  {
+    "text": "destruir.",
+    "start": 23.9,
+    "end": 24.5,
+    "id": "w69"
+  },
+  {
+    "text": "Ena",
+    "start": 24.54,
+    "end": 24.7,
+    "id": "w70"
+  },
+  {
+    "text": "mensagem",
+    "start": 24.72,
+    "end": 25.34,
+    "id": "w71"
+  },
+  {
+    "text": "do",
+    "start": 25.34,
+    "end": 25.49,
+    "id": "w72"
+  },
+  {
+    "text": "Vegapunk",
+    "start": 25.49,
+    "end": 26.1,
+    "id": "w73"
+  },
+  {
+    "text": "veio",
+    "start": 26.1,
+    "end": 26.39,
+    "id": "w74"
+  },
+  {
+    "text": "a",
+    "start": 26.42,
+    "end": 26.48,
+    "id": "w75"
+  },
+  {
+    "text": "revelação.",
+    "start": 26.48,
+    "end": 27.5,
+    "id": "w76"
+  },
+  {
+    "text": "O",
+    "start": 27.5,
+    "end": 27.59,
+    "id": "w77"
+  },
+  {
+    "text": "Joy",
+    "start": 27.59,
+    "end": 27.83,
+    "id": "w78"
+  },
+  {
+    "text": "Boy",
+    "start": 27.89,
+    "end": 28.07,
+    "id": "w79"
+  },
+  {
+    "text": "foi",
+    "start": 28.09,
+    "end": 28.33,
+    "id": "w80"
+  },
+  {
+    "text": "o",
+    "start": 28.33,
+    "end": 28.38,
+    "id": "w81"
+  },
+  {
+    "text": "primeiro",
+    "start": 28.41,
+    "end": 29.08,
+    "id": "w82"
+  },
+  {
+    "text": "pirata",
+    "start": 29.08,
+    "end": 29.58,
+    "id": "w83"
+  },
+  {
+    "text": "da",
+    "start": 29.58,
+    "end": 29.72,
+    "id": "w84"
+  },
+  {
+    "text": "história.",
+    "start": 29.76,
+    "end": 30.68,
+    "id": "w85"
+  },
+  {
+    "text": "Na",
+    "start": 30.74,
+    "end": 30.84,
+    "id": "w86"
+  },
+  {
+    "text": "Ilha",
+    "start": 30.84,
+    "end": 31.12,
+    "id": "w87"
+  },
+  {
+    "text": "dos",
+    "start": 31.12,
+    "end": 31.33,
+    "id": "w88"
+  },
+  {
+    "text": "Tritões,",
+    "start": 31.33,
+    "end": 32,
+    "id": "w89"
+  },
+  {
+    "text": "ele",
+    "start": 32.03,
+    "end": 32.17,
+    "id": "w90"
+  },
+  {
+    "text": "deixou",
+    "start": 32.2,
+    "end": 32.54,
+    "id": "w91"
+  },
+  {
+    "text": "um",
+    "start": 32.54,
+    "end": 32.66,
+    "id": "w92"
+  },
+  {
+    "text": "pedido",
+    "start": 32.66,
+    "end": 33.02,
+    "id": "w93"
+  },
+  {
+    "text": "de",
+    "start": 33.02,
+    "end": 33.14,
+    "id": "w94"
+  },
+  {
+    "text": "desculpas",
+    "start": 33.14,
+    "end": 33.7,
+    "id": "w95"
+  },
+  {
+    "text": "para",
+    "start": 33.74,
+    "end": 33.95,
+    "id": "w96"
+  },
+  {
+    "text": "a",
+    "start": 33.95,
+    "end": 34.01,
+    "id": "w97"
+  },
+  {
+    "text": "princesa",
+    "start": 34.01,
+    "end": 34.5,
+    "id": "w98"
+  },
+  {
+    "text": "sereia",
+    "start": 34.52,
+    "end": 34.87,
+    "id": "w99"
+  },
+  {
+    "text": "daquela",
+    "start": 35.01,
+    "end": 35.33,
+    "id": "w100"
+  },
+  {
+    "text": "época,",
+    "start": 35.33,
+    "end": 35.82,
+    "id": "w101"
+  },
+  {
+    "text": "por",
+    "start": 35.82,
+    "end": 35.99,
+    "id": "w102"
+  },
+  {
+    "text": "não",
+    "start": 36.01,
+    "end": 36.18,
+    "id": "w103"
+  },
+  {
+    "text": "conseguir",
+    "start": 36.18,
+    "end": 36.72,
+    "id": "w104"
+  },
+  {
+    "text": "cumprir",
+    "start": 36.72,
+    "end": 37.14,
+    "id": "w105"
+  },
+  {
+    "text": "uma",
+    "start": 37.14,
+    "end": 37.32,
+    "id": "w106"
+  },
+  {
+    "text": "promessa.",
+    "start": 37.32,
+    "end": 38,
+    "id": "w107"
+  },
+  {
+    "text": "Rapidinho,",
+    "start": 38.04,
+    "end": 38.71,
+    "id": "w108"
+  },
+  {
+    "text": "tem",
+    "start": 38.71,
+    "end": 38.86,
+    "id": "w109"
+  },
+  {
+    "text": "quiz",
+    "start": 38.89,
+    "end": 39.14,
+    "id": "w110"
+  },
+  {
+    "text": "aleatórias",
+    "start": 39.33,
+    "end": 39.8,
+    "id": "w111"
+  },
+  {
+    "text": "da",
+    "start": 39.8,
+    "end": 39.9,
+    "id": "w112"
+  },
+  {
+    "text": "Steam",
+    "start": 39.93,
+    "end": 40.29,
+    "id": "w113"
+  },
+  {
+    "text": "bem",
+    "start": 40.31,
+    "end": 40.48,
+    "id": "w114"
+  },
+  {
+    "text": "baratas",
+    "start": 40.48,
+    "end": 40.9,
+    "id": "w115"
+  },
+  {
+    "text": "no",
+    "start": 40.9,
+    "end": 41.02,
+    "id": "w116"
+  },
+  {
+    "text": "link",
+    "start": 41.02,
+    "end": 41.26,
+    "id": "w117"
+  },
+  {
+    "text": "da",
+    "start": 41.26,
+    "end": 41.38,
+    "id": "w118"
+  },
+  {
+    "text": "minha",
+    "start": 41.38,
+    "end": 41.69,
+    "id": "w119"
+  },
+  {
+    "text": "bio.",
+    "start": 41.69,
+    "end": 41.88,
+    "id": "w120"
+  },
+  {
+    "text": "Agora,",
+    "start": 42.14,
+    "end": 42.64,
+    "id": "w121"
+  },
+  {
+    "text": "a",
+    "start": 42.64,
+    "end": 42.71,
+    "id": "w122"
+  },
+  {
+    "text": "parte",
+    "start": 42.71,
+    "end": 43.11,
+    "id": "w123"
+  },
+  {
+    "text": "que",
+    "start": 43.11,
+    "end": 43.2,
+    "id": "w124"
+  },
+  {
+    "text": "liga",
+    "start": 43.42,
+    "end": 43.65,
+    "id": "w125"
+  },
+  {
+    "text": "tudo",
+    "start": 43.65,
+    "end": 43.96,
+    "id": "w126"
+  },
+  {
+    "text": "ao",
+    "start": 43.96,
+    "end": 44.11,
+    "id": "w127"
+  },
+  {
+    "text": "Luffy.",
+    "start": 44.11,
+    "end": 44.79,
+    "id": "w128"
+  },
+  {
+    "text": "O",
+    "start": 44.79,
+    "end": 44.89,
+    "id": "w129"
+  },
+  {
+    "text": "gigante",
+    "start": 44.89,
+    "end": 45.36,
+    "id": "w130"
+  },
+  {
+    "text": "de",
+    "start": 45.36,
+    "end": 45.5,
+    "id": "w131"
+  },
+  {
+    "text": "ferro",
+    "start": 45.5,
+    "end": 45.85,
+    "id": "w132"
+  },
+  {
+    "text": "de",
+    "start": 45.85,
+    "end": 45.97,
+    "id": "w133"
+  },
+  {
+    "text": "Egghead",
+    "start": 46.13,
+    "end": 46.48,
+    "id": "w134"
+  },
+  {
+    "text": "era",
+    "start": 46.48,
+    "end": 46.69,
+    "id": "w135"
+  },
+  {
+    "text": "amigo",
+    "start": 46.69,
+    "end": 47.02,
+    "id": "w136"
+  },
+  {
+    "text": "do",
+    "start": 47.06,
+    "end": 47.19,
+    "id": "w137"
+  },
+  {
+    "text": "Joy",
+    "start": 47.19,
+    "end": 47.31,
+    "id": "w138"
+  },
+  {
+    "text": "Boy.",
+    "start": 47.47,
+    "end": 47.9,
+    "id": "w139"
+  },
+  {
+    "text": "Ele",
+    "start": 47.94,
+    "end": 48.1,
+    "id": "w140"
+  },
+  {
+    "text": "guardou",
+    "start": 48.12,
+    "end": 48.63,
+    "id": "w141"
+  },
+  {
+    "text": "o",
+    "start": 48.63,
+    "end": 48.7,
+    "id": "w142"
+  },
+  {
+    "text": "poder",
+    "start": 48.7,
+    "end": 48.99,
+    "id": "w143"
+  },
+  {
+    "text": "do",
+    "start": 48.99,
+    "end": 49.23,
+    "id": "w144"
+  },
+  {
+    "text": "amigo",
+    "start": 49.23,
+    "end": 49.58,
+    "id": "w145"
+  },
+  {
+    "text": "por",
+    "start": 49.58,
+    "end": 49.79,
+    "id": "w146"
+  },
+  {
+    "text": "800",
+    "start": 49.79,
+    "end": 50.41,
+    "id": "w147"
+  },
+  {
+    "text": "anos",
+    "start": 50.57,
+    "end": 50.8,
+    "id": "w148"
+  },
+  {
+    "text": "e",
+    "start": 50.8,
+    "end": 50.87,
+    "id": "w149"
+  },
+  {
+    "text": "usou",
+    "start": 50.87,
+    "end": 51.17,
+    "id": "w150"
+  },
+  {
+    "text": "tudo",
+    "start": 51.17,
+    "end": 51.48,
+    "id": "w151"
+  },
+  {
+    "text": "para",
+    "start": 51.48,
+    "end": 51.69,
+    "id": "w152"
+  },
+  {
+    "text": "ajudar",
+    "start": 51.78,
+    "end": 52.23,
+    "id": "w153"
+  },
+  {
+    "text": "o",
+    "start": 52.23,
+    "end": 52.38,
+    "id": "w154"
+  },
+  {
+    "text": "Luffy",
+    "start": 52.38,
+    "end": 52.7,
+    "id": "w155"
+  },
+  {
+    "text": "a",
+    "start": 52.7,
+    "end": 52.77,
+    "id": "w156"
+  },
+  {
+    "text": "escapar.",
+    "start": 52.77,
+    "end": 53.37,
+    "id": "w157"
+  },
+  {
+    "text": "Equando",
+    "start": 53.64,
+    "end": 54.09,
+    "id": "w158"
+  },
+  {
+    "text": "o",
+    "start": 54.09,
+    "end": 54.16,
+    "id": "w159"
+  },
+  {
+    "text": "Luffy",
+    "start": 54.16,
+    "end": 54.46,
+    "id": "w160"
+  },
+  {
+    "text": "despertou",
+    "start": 54.51,
+    "end": 55.14,
+    "id": "w161"
+  },
+  {
+    "text": "a",
+    "start": 55.14,
+    "end": 55.21,
+    "id": "w162"
+  },
+  {
+    "text": "fruta",
+    "start": 55.21,
+    "end": 55.56,
+    "id": "w163"
+  },
+  {
+    "text": "nica,",
+    "start": 55.56,
+    "end": 55.98,
+    "id": "w164"
+  },
+  {
+    "text": "o",
+    "start": 55.98,
+    "end": 56.05,
+    "id": "w165"
+  },
+  {
+    "text": "elefante",
+    "start": 56.05,
+    "end": 56.61,
+    "id": "w166"
+  },
+  {
+    "text": "gigante",
+    "start": 56.61,
+    "end": 57.1,
+    "id": "w167"
+  },
+  {
+    "text": "Zuneisha",
+    "start": 57.1,
+    "end": 57.43,
+    "id": "w168"
+  },
+  {
+    "text": "disse,",
+    "start": 58.06,
+    "end": 58.1,
+    "id": "w169"
+  },
+  {
+    "text": "o",
+    "start": 58.14,
+    "end": 58.2,
+    "id": "w170"
+  },
+  {
+    "text": "Joy",
+    "start": 58.2,
+    "end": 58.5,
+    "id": "w171"
+  },
+  {
+    "text": "Boy",
+    "start": 58.5,
+    "end": 58.8,
+    "id": "w172"
+  },
+  {
+    "text": "voltou.",
+    "start": 58.8,
+    "end": 59.7,
+    "id": "w173"
+  },
+  {
+    "text": "Então,",
+    "start": 59.74,
+    "end": 60.33,
+    "id": "w174"
+  },
+  {
+    "text": "o",
+    "start": 60.33,
+    "end": 60.42,
+    "id": "w175"
+  },
+  {
+    "text": "Luffy",
+    "start": 60.42,
+    "end": 60.79,
+    "id": "w176"
+  },
+  {
+    "text": "é",
+    "start": 60.79,
+    "end": 61.03,
+    "id": "w177"
+  },
+  {
+    "text": "o",
+    "start": 61.03,
+    "end": 61.05,
+    "id": "w178"
+  },
+  {
+    "text": "Joy",
+    "start": 61.05,
+    "end": 61.32,
+    "id": "w179"
+  },
+  {
+    "text": "Boy?",
+    "start": 61.32,
+    "end": 61.9,
+    "id": "w180"
+  },
+  {
+    "text": "Não.",
+    "start": 61.94,
+    "end": 62.6,
+    "id": "w181"
+  },
+  {
+    "text": "Quando",
+    "start": 62.64,
+    "end": 62.94,
+    "id": "w182"
+  },
+  {
+    "text": "o",
+    "start": 62.94,
+    "end": 62.95,
+    "id": "w183"
+  },
+  {
+    "text": "Imun",
+    "start": 62.99,
+    "end": 63.21,
+    "id": "w184"
+  },
+  {
+    "text": "enfrentou",
+    "start": 63.21,
+    "end": 63.7,
+    "id": "w185"
+  },
+  {
+    "text": "o",
+    "start": 63.72,
+    "end": 63.76,
+    "id": "w186"
+  },
+  {
+    "text": "Luffy,",
+    "start": 63.76,
+    "end": 64.2,
+    "id": "w187"
+  },
+  {
+    "text": "disse",
+    "start": 64.2,
+    "end": 64.49,
+    "id": "w188"
+  },
+  {
+    "text": "que",
+    "start": 64.53,
+    "end": 64.73,
+    "id": "w189"
+  },
+  {
+    "text": "ele",
+    "start": 64.73,
+    "end": 64.93,
+    "id": "w190"
+  },
+  {
+    "text": "não",
+    "start": 64.93,
+    "end": 65.11,
+    "id": "w191"
+  },
+  {
+    "text": "é",
+    "start": 65.11,
+    "end": 65.19,
+    "id": "w192"
+  },
+  {
+    "text": "o",
+    "start": 65.19,
+    "end": 65.27,
+    "id": "w193"
+  },
+  {
+    "text": "Joy",
+    "start": 65.27,
+    "end": 65.45,
+    "id": "w194"
+  },
+  {
+    "text": "Boy.",
+    "start": 65.45,
+    "end": 65.9,
+    "id": "w195"
+  },
+  {
+    "text": "O",
+    "start": 65.9,
+    "end": 65.99,
+    "id": "w196"
+  },
+  {
+    "text": "Luffy",
+    "start": 65.99,
+    "end": 66.39,
+    "id": "w197"
+  },
+  {
+    "text": "herdou",
+    "start": 66.39,
+    "end": 66.88,
+    "id": "w198"
+  },
+  {
+    "text": "o",
+    "start": 66.88,
+    "end": 66.96,
+    "id": "w199"
+  },
+  {
+    "text": "poder",
+    "start": 66.96,
+    "end": 67.37,
+    "id": "w200"
+  },
+  {
+    "text": "e",
+    "start": 67.37,
+    "end": 67.45,
+    "id": "w201"
+  },
+  {
+    "text": "a",
+    "start": 67.45,
+    "end": 67.53,
+    "id": "w202"
+  },
+  {
+    "text": "vontade,",
+    "start": 67.53,
+    "end": 68.3,
+    "id": "w203"
+  },
+  {
+    "text": "mas",
+    "start": 68.3,
+    "end": 68.56,
+    "id": "w204"
+  },
+  {
+    "text": "a",
+    "start": 68.57,
+    "end": 68.66,
+    "id": "w205"
+  },
+  {
+    "text": "história",
+    "start": 68.66,
+    "end": 69.36,
+    "id": "w206"
+  },
+  {
+    "text": "é",
+    "start": 69.37,
+    "end": 69.46,
+    "id": "w207"
+  },
+  {
+    "text": "dele.",
+    "start": 69.46,
+    "end": 70.08,
+    "id": "w208"
+  },
+  {
+    "text": "Eo",
+    "start": 70.14,
+    "end": 70.28,
+    "id": "w209"
+  },
+  {
+    "text": "Roger",
+    "start": 70.28,
+    "end": 70.72,
+    "id": "w210"
+  },
+  {
+    "text": "riu",
+    "start": 70.72,
+    "end": 70.96,
+    "id": "w211"
+  },
+  {
+    "text": "do",
+    "start": 70.97,
+    "end": 71.15,
+    "id": "w212"
+  },
+  {
+    "text": "tesouro",
+    "start": 71.15,
+    "end": 71.8,
+    "id": "w213"
+  },
+  {
+    "text": "e",
+    "start": 71.8,
+    "end": 71.87,
+    "id": "w214"
+  },
+  {
+    "text": "disse",
+    "start": 71.87,
+    "end": 72.25,
+    "id": "w215"
+  },
+  {
+    "text": "que",
+    "start": 72.25,
+    "end": 72.47,
+    "id": "w216"
+  },
+  {
+    "text": "tinha",
+    "start": 72.47,
+    "end": 72.85,
+    "id": "w217"
+  },
+  {
+    "text": "chegado",
+    "start": 72.85,
+    "end": 73.37,
+    "id": "w218"
+  },
+  {
+    "text": "cedo",
+    "start": 73.37,
+    "end": 73.66,
+    "id": "w219"
+  },
+  {
+    "text": "demais.",
+    "start": 73.66,
+    "end": 74.4,
+    "id": "w220"
+  },
+  {
+    "text": "Epara",
+    "start": 74.44,
+    "end": 74.73,
+    "id": "w221"
+  },
+  {
+    "text": "você,",
+    "start": 74.79,
+    "end": 75.13,
+    "id": "w222"
+  },
+  {
+    "text": "o",
+    "start": 75.13,
+    "end": 75.19,
+    "id": "w223"
+  },
+  {
+    "text": "Luffy",
+    "start": 75.19,
+    "end": 75.49,
+    "id": "w224"
+  },
+  {
+    "text": "vai",
+    "start": 75.49,
+    "end": 75.73,
+    "id": "w225"
+  },
+  {
+    "text": "terminar",
+    "start": 75.73,
+    "end": 76.27,
+    "id": "w226"
+  },
+  {
+    "text": "o",
+    "start": 76.27,
+    "end": 76.3,
+    "id": "w227"
+  },
+  {
+    "text": "que",
+    "start": 76.33,
+    "end": 76.53,
+    "id": "w228"
+  },
+  {
+    "text": "o",
+    "start": 76.53,
+    "end": 76.59,
+    "id": "w229"
+  },
+  {
+    "text": "Joy",
+    "start": 76.59,
+    "end": 76.79,
+    "id": "w230"
+  },
+  {
+    "text": "Boy",
+    "start": 76.79,
+    "end": 76.91,
+    "id": "w231"
+  },
+  {
+    "text": "começou?",
+    "start": 77.07,
+    "end": 77.8,
+    "id": "w232"
+  },
+  {
+    "text": "Comenta",
+    "start": 77.84,
+    "end": 78.15,
+    "id": "w233"
+  },
+  {
+    "text": "aqui!",
+    "start": 78.19,
+    "end": 78.6,
+    "id": "w234"
+  }
+]

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/timing.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0a0806; }
+      #root { width: 100%; height: 100%; position: relative; }
+      #c3d { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 0; }
+      .fontwarm { position: absolute; left: -9999px; top: 0; }
+    </style>
+  </head>
+  <body>
+    <!-- Por que o Giorno é praticamente impossível de derrotar? — 3D motor v2, animação v3 (gerado por tools/build_giorno.py) -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="85.14" data-width="1080" data-height="1920">
+      <canvas id="c3d" width="1080" height="1920" data-layout-allow-overflow></canvas>
+      <div class="fontwarm" data-layout-allow-overflow><span style="font-family:'Archivo Black'">A</span></div>
+      <div id="s1-gancho" data-composition-id="s1-gancho" data-composition-src="compositions/s1-gancho.html" data-start="0.0" data-duration="16.80"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s2-flecha" data-composition-id="s2-flecha" data-composition-src="compositions/s2-flecha.html" data-start="16.8" data-duration="6.17"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s3-zero" data-composition-id="s3-zero" data-composition-src="compositions/s3-zero.html" data-start="22.97" data-duration="10.86"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s4-tempo" data-composition-id="s4-tempo" data-composition-src="compositions/s4-tempo.html" data-start="33.83" data-duration="8.04"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s5-keys" data-composition-id="s5-keys" data-composition-src="compositions/s5-keys.html" data-start="41.87" data-duration="6.27"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s6-sozinho" data-composition-id="s6-sozinho" data-composition-src="compositions/s6-sozinho.html" data-start="48.14" data-duration="8.53"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s7-destino" data-composition-id="s7-destino" data-composition-src="compositions/s7-destino.html" data-start="56.67" data-duration="12.85"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s8-ninguem" data-composition-id="s8-ninguem" data-composition-src="compositions/s8-ninguem.html" data-start="69.52" data-duration="7.53"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s9-pergunta" data-composition-id="s9-pergunta" data-composition-src="compositions/s9-pergunta.html" data-start="77.05" data-duration="8.09"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="caps" data-composition-id="caps" data-composition-src="compositions/caps.html" data-start="0" data-duration="85.14"
+        data-track-index="3" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:20"></div>
+      <audio id="voz" class="clip" src="assets/voice/narracao-giorno.wav" data-start="0" data-duration="82.08" data-volume="1" data-track-index="4"></audio>
+      <audio id="trilha" class="clip" src="assets/music/trilha-giorno.wav" data-start="0" data-duration="85.14" data-volume="0.27" data-fade-out="2" data-track-index="5"></audio>
+      <audio id="sfx-00-vento" class="clip" src="assets/sfx/vento.wav" data-start="0" data-duration="6.0" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-01-passos" class="clip" src="assets/sfx/passos.wav" data-start="0.3" data-duration="2.2" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-02-golpe" class="clip" src="assets/sfx/golpe.wav" data-start="2.57" data-duration="0.9" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-03-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="3.64" data-duration="1.3" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-04-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="3.94" data-duration="1.8" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-05-tempo" class="clip" src="assets/sfx/tempo.wav" data-start="5.12" data-duration="2.0" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-06-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="5.92" data-duration="1.3" data-volume="0.35" data-track-index="8"></audio>
+      <audio id="sfx-07-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="6.92" data-duration="2.59" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-08-coracao" class="clip" src="assets/sfx/coracao.wav" data-start="11.56" data-duration="1.6" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-09-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="16.8" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-10-flecha" class="clip" src="assets/sfx/flecha.wav" data-start="18.81" data-duration="1.1" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx-11-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="19.26" data-duration="2.12" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-12-brilho" class="clip" src="assets/sfx/brilho.wav" data-start="21.77" data-duration="1.6" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-13-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="22.36" data-duration="1.8" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-14-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="22.97" data-duration="0.57" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-15-relogio" class="clip" src="assets/sfx/relogio.wav" data-start="25.32" data-duration="2.2" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-16-golpe" class="clip" src="assets/sfx/golpe.wav" data-start="26.07" data-duration="0.9" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-17-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="26.47" data-duration="1.3" data-volume="0.4" data-track-index="8"></audio>
+      <audio id="sfx-18-golpe" class="clip" src="assets/sfx/golpe.wav" data-start="27.74" data-duration="0.9" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-19-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="28.14" data-duration="1.3" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-20-coracao" class="clip" src="assets/sfx/coracao.wav" data-start="28.35" data-duration="1.6" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-21-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="29.98" data-duration="1.3" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-22-golpe" class="clip" src="assets/sfx/golpe.wav" data-start="31.47" data-duration="0.9" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-23-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="33.12" data-duration="1.8" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-24-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="33.83" data-duration="0.57" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-25-tempo" class="clip" src="assets/sfx/tempo.wav" data-start="35.38" data-duration="2.0" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx-26-glitch-1" class="clip" src="assets/sfx/glitch-1.mp3" data-start="36.44" data-duration="2.64" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-27-portal" class="clip" src="assets/sfx/portal.wav" data-start="38.49" data-duration="2.2" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-28-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="38.79" data-duration="1.3" data-volume="0.4" data-track-index="8"></audio>
+      <audio id="sfx-29-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="40.74" data-duration="1.8" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-30-notification" class="clip" src="assets/sfx/notification.mp3" data-start="42.02" data-duration="2.46" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-31-moedas" class="clip" src="assets/sfx/moedas.wav" data-start="43.72" data-duration="1.2" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-32-pop" class="clip" src="assets/sfx/pop.mp3" data-start="45.38" data-duration="0.72" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-33-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="45.89" data-duration="0.57" data-volume="0.25" data-track-index="7"></audio>
+      <audio id="sfx-34-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="48.14" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-35-passos" class="clip" src="assets/sfx/passos.wav" data-start="49.3" data-duration="2.2" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-36-brilho" class="clip" src="assets/sfx/brilho.wav" data-start="51.88" data-duration="1.6" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-37-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="54.39" data-duration="2.12" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-38-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="56.67" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-39-vento" class="clip" src="assets/sfx/vento.wav" data-start="56.82" data-duration="6.0" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-40-agua" class="clip" src="assets/sfx/agua.wav" data-start="60.11" data-duration="2.0" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx-41-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="60.78" data-duration="1.3" data-volume="0.4" data-track-index="8"></audio>
+      <audio id="sfx-42-coracao" class="clip" src="assets/sfx/coracao.wav" data-start="61.96" data-duration="1.6" data-volume="0.35" data-track-index="9"></audio>
+      <audio id="sfx-43-buzina" class="clip" src="assets/sfx/buzina.wav" data-start="62.86" data-duration="1.8" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-44-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="63.88" data-duration="1.3" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-45-relogio" class="clip" src="assets/sfx/relogio.wav" data-start="65.37" data-duration="2.2" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-46-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="68.77" data-duration="2.59" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-47-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="69.52" data-duration="0.57" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-48-vento" class="clip" src="assets/sfx/vento.wav" data-start="69.67" data-duration="6.0" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-49-golpe" class="clip" src="assets/sfx/golpe.wav" data-start="72.15" data-duration="0.9" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-50-rebobinar" class="clip" src="assets/sfx/rebobinar.wav" data-start="73.65" data-duration="1.3" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-51-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="75.65" data-duration="2.12" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-52-whoosh-short" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="77.09" data-duration="0.57" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-53-grilos" class="clip" src="assets/sfx/grilos.wav" data-start="77.29" data-duration="6.0" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-54-pop" class="clip" src="assets/sfx/pop.mp3" data-start="81.31" data-duration="0.72" data-volume="0.3" data-track-index="6"></audio>
+    </div>
+    <script type="module" src="assets/giorno3d.js"></script>
+    <script>
+      gsap.defaults({ ease: "power3.out", duration: 0.6 });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

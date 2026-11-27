@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/timing.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0a0806; }
+      #root { width: 100%; height: 100%; position: relative; }
+      #c3d { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 0; }
+      .fontwarm { position: absolute; left: -9999px; top: 0; }
+    </style>
+  </head>
+  <body>
+    <!-- Por que o Kakashi nunca ficou cego? — 3D motor v2 (gerado por tools/build_kakashi.py) -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="87.0" data-width="1080" data-height="1920">
+      <canvas id="c3d" width="1080" height="1920" data-layout-allow-overflow></canvas>
+      <div class="fontwarm" data-layout-allow-overflow><span style="font-family:'Archivo Black'">A</span></div>
+      <div id="s1-gancho" data-composition-id="s1-gancho" data-composition-src="compositions/s1-gancho.html" data-start="0.0" data-duration="12.40"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s2-regra" data-composition-id="s2-regra" data-composition-src="compositions/s2-regra.html" data-start="12.4" data-duration="13.30"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s3-presente" data-composition-id="s3-presente" data-composition-src="compositions/s3-presente.html" data-start="25.7" data-duration="14.10"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s4-keys" data-composition-id="s4-keys" data-composition-src="compositions/s4-keys.html" data-start="39.8" data-duration="5.75"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s5-desmaio" data-composition-id="s5-desmaio" data-composition-src="compositions/s5-desmaio.html" data-start="45.55" data-duration="11.05"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s6-segundos" data-composition-id="s6-segundos" data-composition-src="compositions/s6-segundos.html" data-start="56.6" data-duration="8.65"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s7-guerra" data-composition-id="s7-guerra" data-composition-src="compositions/s7-guerra.html" data-start="65.25" data-duration="7.25"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s8-amigo" data-composition-id="s8-amigo" data-composition-src="compositions/s8-amigo.html" data-start="72.5" data-duration="7.75"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="s9-pergunta" data-composition-id="s9-pergunta" data-composition-src="compositions/s9-pergunta.html" data-start="80.25" data-duration="6.75"
+        data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <div id="caps" data-composition-id="caps" data-composition-src="compositions/caps.html" data-start="0" data-duration="87.0"
+        data-track-index="3" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:20"></div>
+      <audio id="voz" class="clip" src="assets/voice/narracao-kakashi.wav" data-start="0" data-duration="84.82" data-volume="1" data-track-index="4"></audio>
+      <audio id="trilha" class="clip" src="assets/music/trilha-kakashi.wav" data-start="0" data-duration="87.0" data-volume="0.27" data-fade-out="2" data-track-index="5"></audio>
+      <audio id="sfx-00-vento" class="clip" src="assets/sfx/vento.wav" data-start="0" data-duration="6.0" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-01-brilho" class="clip" src="assets/sfx/brilho.wav" data-start="0.37" data-duration="1.6" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-02-impact-bass-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="3.34" data-duration="2.12" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-03-glitch-1" class="clip" src="assets/sfx/glitch-1.mp3" data-start="5.04" data-duration="2.64" data-volume="0.25" data-track-index="8"></audio>
+      <audio id="sfx-04-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="8.15" data-duration="2.59" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-05-coracao" class="clip" src="assets/sfx/coracao.wav" data-start="9.1" data-duration="1.6" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-06-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="12.4" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-07-relogio" class="clip" src="assets/sfx/relogio.wav" data-start="17.44" data-duration="2.2" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-08-brilho" class="clip" src="assets/sfx/brilho.wav" data-start="18.87" data-duration="1.6" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-09-vidro" class="clip" src="assets/sfx/vidro.wav" data-start="20.01" data-duration="1.8" data-volume="0.25" data-track-index="6"></audio>
+      <audio id="sfx-10-coracao" class="clip" src="assets/sfx/coracao.wav" data-start="21.05" data-duration="1.6" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-11-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="25.7" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-12-pedras" class="clip" src="assets/sfx/pedras.wav" data-start="26.15" data-duration="2.6" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-13-brilho" class="clip" src="assets/sfx/brilho.wav" data-start="28.75" data-duration="1.6" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-14-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="29.4" data-duration="1.8" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-15-dreno" class="clip" src="assets/sfx/dreno.wav" data-start="34.83" data-duration="1.8" data-volume="0.4" data-track-index="6"></audio>
+      <audio id="sfx-16-pop" class="clip" src="assets/sfx/pop.mp3" data-start="39.16" data-duration="0.72" data-volume="0.25" data-track-index="6"></audio>
+      <audio id="sfx-17-notification" class="clip" src="assets/sfx/notification.mp3" data-start="39.95" data-duration="2.46" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-18-moedas" class="clip" src="assets/sfx/moedas.wav" data-start="41.84" data-duration="1.2" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-19-pop" class="clip" src="assets/sfx/pop.mp3" data-start="43.62" data-duration="0.72" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-20-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="43.85" data-duration="0.57" data-volume="0.25" data-track-index="7"></audio>
+      <audio id="sfx-21-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="45.55" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-22-portal" class="clip" src="assets/sfx/portal.wav" data-start="50.85" data-duration="2.2" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx-23-explosao" class="clip" src="assets/sfx/explosao.wav" data-start="53.56" data-duration="2.6" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-24-impact-bass-2" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="54.04" data-duration="2.59" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-25-vento" class="clip" src="assets/sfx/vento.wav" data-start="55.25" data-duration="6.0" data-volume="0.25" data-track-index="8"></audio>
+      <audio id="sfx-26-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="56.6" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-27-relogio" class="clip" src="assets/sfx/relogio.wav" data-start="58.61" data-duration="2.2" data-volume="0.35" data-track-index="6"></audio>
+      <audio id="sfx-28-fogo" class="clip" src="assets/sfx/fogo.wav" data-start="59.75" data-duration="1.2" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-29-portal" class="clip" src="assets/sfx/portal.wav" data-start="63.35" data-duration="2.2" data-volume="0.45" data-track-index="6"></audio>
+      <audio id="sfx-30-pop" class="clip" src="assets/sfx/pop.mp3" data-start="64.17" data-duration="0.72" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-31-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="65.25" data-duration="0.57" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-32-vento" class="clip" src="assets/sfx/vento.wav" data-start="65.4" data-duration="6.0" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-33-brilho" class="clip" src="assets/sfx/brilho.wav" data-start="68.96" data-duration="1.6" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-34-sparkle" class="clip" src="assets/sfx/sparkle.mp3" data-start="71.71" data-duration="1.8" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-35-whoosh" class="clip" src="assets/sfx/whoosh.mp3" data-start="72.5" data-duration="0.57" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-36-vento" class="clip" src="assets/sfx/vento.wav" data-start="72.65" data-duration="6.0" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-37-coracao" class="clip" src="assets/sfx/coracao.wav" data-start="77.23" data-duration="1.6" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-38-whoosh-short" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="80.51" data-duration="0.57" data-volume="0.3" data-track-index="6"></audio>
+      <audio id="sfx-39-grilos" class="clip" src="assets/sfx/grilos.wav" data-start="80.71" data-duration="6.0" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-40-pop" class="clip" src="assets/sfx/pop.mp3" data-start="83.95" data-duration="0.72" data-volume="0.3" data-track-index="6"></audio>
+    </div>
+    <script type="module" src="assets/kakashi3d.js"></script>
+    <script>
+      gsap.defaults({ ease: "power3.out", duration: 0.6 });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

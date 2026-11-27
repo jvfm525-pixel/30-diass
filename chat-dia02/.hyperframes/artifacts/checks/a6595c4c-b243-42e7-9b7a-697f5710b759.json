@@ -1,0 +1,2472 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 484 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/30-diass/chat-dia02/compositions/caps.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      }
+    ],
+    "filesScanned": 13
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 12,
+    "warningCount": 0,
+    "infoCount": 47,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 0,
+        "selector": "#s1-card-in > div:nth-of-type(2)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 532.27,
+          "top": 763.85,
+          "right": 561.62,
+          "bottom": 792.23,
+          "width": 29.35,
+          "height": 28.38
+        },
+        "containerSelector": "#s1-card-in > div:nth-of-type(3)",
+        "text": "💼",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 532.27,
+          "y": 763.85,
+          "width": 29.35,
+          "height": 28.38
+        },
+        "firstSeen": 0,
+        "lastSeen": 1.001,
+        "occurrences": 3,
+        "heldMs": 1000.9999999999999,
+        "times": [
+          0,
+          0.5,
+          1.001
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 32.518,
+        "selector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(5)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 560,
+          "top": 322,
+          "right": 639.86,
+          "bottom": 393,
+          "width": 79.86,
+          "height": 71
+        },
+        "containerSelector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(6)",
+        "text": "🪙",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 560,
+          "y": 322,
+          "width": 79.86,
+          "height": 71
+        },
+        "firstSeen": 32.518,
+        "lastSeen": 33.519,
+        "occurrences": 3,
+        "heldMs": 1000.9999999999977,
+        "times": [
+          32.518,
+          33.019,
+          33.519
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 32.518,
+        "selector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(6)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 620,
+          "top": 317.51,
+          "right": 699.86,
+          "bottom": 388.51,
+          "width": 79.86,
+          "height": 71
+        },
+        "containerSelector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(10)",
+        "text": "🪙",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 620,
+          "y": 317.51,
+          "width": 79.86,
+          "height": 71
+        },
+        "firstSeen": 32.518,
+        "lastSeen": 33.519,
+        "occurrences": 3,
+        "heldMs": 1000.9999999999977,
+        "times": [
+          32.518,
+          33.019,
+          33.519
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 32.518,
+        "selector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(7)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 680,
+          "top": 302.8,
+          "right": 759.86,
+          "bottom": 373.8,
+          "width": 79.86,
+          "height": 71
+        },
+        "containerSelector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(10)",
+        "text": "🪙",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 680,
+          "y": 302.8,
+          "width": 79.86,
+          "height": 71
+        },
+        "firstSeen": 32.518,
+        "lastSeen": 33.519,
+        "occurrences": 3,
+        "heldMs": 1000.9999999999977,
+        "times": [
+          32.518,
+          33.019,
+          33.519
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 33.019,
+        "selector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(8)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 740,
+          "top": 322,
+          "right": 819.86,
+          "bottom": 393,
+          "width": 79.86,
+          "height": 71
+        },
+        "containerSelector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(11)",
+        "text": "🪙",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 740,
+          "y": 322,
+          "width": 79.86,
+          "height": 71
+        },
+        "firstSeen": 33.019,
+        "lastSeen": 33.519,
+        "occurrences": 2,
+        "heldMs": 500,
+        "times": [
+          33.019,
+          33.519
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 33.019,
+        "selector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(9)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 560,
+          "top": 322,
+          "right": 639.86,
+          "bottom": 393,
+          "width": 79.86,
+          "height": 71
+        },
+        "containerSelector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(10)",
+        "text": "🪙",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 560,
+          "y": 322,
+          "width": 79.86,
+          "height": 71
+        },
+        "firstSeen": 33.019,
+        "lastSeen": 33.519,
+        "occurrences": 2,
+        "heldMs": 500,
+        "times": [
+          33.019,
+          33.519
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 33.019,
+        "selector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(10)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 620,
+          "top": 322,
+          "right": 699.86,
+          "bottom": 393,
+          "width": 79.86,
+          "height": 71
+        },
+        "containerSelector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(11)",
+        "text": "🪙",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 620,
+          "y": 322,
+          "width": 79.86,
+          "height": 71
+        },
+        "firstSeen": 33.019,
+        "lastSeen": 33.519,
+        "occurrences": 2,
+        "heldMs": 500,
+        "times": [
+          33.019,
+          33.519
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 33.019,
+        "selector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(11)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 680,
+          "top": 322,
+          "right": 759.86,
+          "bottom": 393,
+          "width": 79.86,
+          "height": 71
+        },
+        "containerSelector": "#s5-barras > div:nth-of-type(1) > div:nth-of-type(12)",
+        "text": "🪙",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 680,
+          "y": 322,
+          "width": 79.86,
+          "height": 71
+        },
+        "firstSeen": 33.019,
+        "lastSeen": 33.519,
+        "occurrences": 2,
+        "heldMs": 500,
+        "times": [
+          33.019,
+          33.519
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 35.02,
+        "selector": "#s5-v0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 860,
+          "top": 376,
+          "right": 924.05,
+          "bottom": 428,
+          "width": 64.05,
+          "height": 52
+        },
+        "containerSelector": "#s5-d1-in",
+        "text": "30",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-barras.html",
+        "bbox": {
+          "x": 860,
+          "y": 376,
+          "width": 64.05,
+          "height": 52
+        },
+        "firstSeen": 35.02,
+        "lastSeen": 40.023,
+        "occurrences": 11,
+        "heldMs": 5003,
+        "times": [
+          35.02,
+          35.52,
+          36.02,
+          36.521,
+          37.021,
+          37.521,
+          38.022,
+          38.522,
+          39.022,
+          39.522,
+          40.023
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 53.808,
+        "selector": "#s7-tag-in",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 99,
+          "top": 208,
+          "right": 479.59,
+          "bottom": 256,
+          "width": 380.59,
+          "height": 48
+        },
+        "containerSelector": "#hud-in",
+        "text": "SAÍDA: 12:00 🩴",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "lifetime": {
+          "start": 47.1,
+          "end": 54.160000000000004
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7-rodrigo.html",
+        "bbox": {
+          "x": 99,
+          "y": 208,
+          "width": 380.59,
+          "height": 48
+        },
+        "firstSeen": 53.808,
+        "lastSeen": 53.808,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          53.808
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 53.808,
+        "selector": "#s7-tag-in",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 99,
+          "top": 208,
+          "right": 479.59,
+          "bottom": 256,
+          "width": 380.59,
+          "height": 48
+        },
+        "containerSelector": "#hud-in > div:nth-of-type(1)",
+        "text": "SAÍDA: 12:00 🩴",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7-rodrigo.html",
+        "bbox": {
+          "x": 99,
+          "y": 208,
+          "width": 380.59,
+          "height": 48
+        },
+        "firstSeen": 50.529,
+        "lastSeen": 54.031,
+        "occurrences": 9,
+        "heldMs": 3501.9999999999955,
+        "times": [
+          50.529,
+          51.029,
+          51.529,
+          52.03,
+          52.53,
+          53.03,
+          53.53,
+          53.808,
+          54.031
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 63.592,
+        "selector": "#s8-note-in > svg:nth-of-type(1) > text:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 716.82,
+          "top": 1228.93,
+          "right": 783.08,
+          "bottom": 1285.07,
+          "width": 66.26,
+          "height": 56.14
+        },
+        "containerSelector": "#cw48-1",
+        "text": "20",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-geladeira.html",
+        "bbox": {
+          "x": 716.82,
+          "y": 1228.93,
+          "width": 66.26,
+          "height": 56.14
+        },
+        "firstSeen": 59.034,
+        "lastSeen": 67.538,
+        "occurrences": 16,
+        "heldMs": 4501.999999999995,
+        "times": [
+          59.034,
+          59.534,
+          60.034,
+          60.534,
+          61.035,
+          63.036,
+          63.536,
+          63.592,
+          64.036,
+          64.537,
+          65.037,
+          65.537,
+          66.038,
+          66.538,
+          67.038,
+          67.538
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 4.503,
+        "selector": "#cw2-1",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 226.31,
+          "top": 1248.75,
+          "right": 528.19,
+          "bottom": 1315.95,
+          "width": 301.88,
+          "height": 67.2
+        },
+        "containerSelector": "#cw3-0",
+        "text": "ARMANDO",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 226.31,
+          "y": 1248.75,
+          "width": 301.88,
+          "height": 67.2
+        },
+        "firstSeen": 4.503,
+        "lastSeen": 4.503,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.503
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 4.503,
+        "selector": "#cw2-2",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 542.92,
+          "top": 1245.03,
+          "right": 795.04,
+          "bottom": 1311.53,
+          "width": 252.12,
+          "height": 66.5
+        },
+        "containerSelector": "#cw3-1",
+        "text": "ACEITOU",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 542.92,
+          "y": 1245.03,
+          "width": 252.12,
+          "height": 66.5
+        },
+        "firstSeen": 4.503,
+        "lastSeen": 4.503,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.503
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 4.503,
+        "selector": "#cw2-4",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 316.45,
+          "top": 1307.61,
+          "right": 483.87,
+          "bottom": 1372.93,
+          "width": 167.42,
+          "height": 65.32
+        },
+        "containerSelector": "#cw3-2",
+        "text": "HORA",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 316.45,
+          "y": 1307.61,
+          "width": 167.42,
+          "height": 65.32
+        },
+        "firstSeen": 4.503,
+        "lastSeen": 4.503,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.503
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 4.503,
+        "selector": "#cw2-5",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 498.6,
+          "top": 1304.53,
+          "right": 704.35,
+          "bottom": 1370.39,
+          "width": 205.75,
+          "height": 65.86
+        },
+        "containerSelector": "#cw3-2",
+        "text": "EXTRA.",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 498.6,
+          "y": 1304.53,
+          "width": 205.75,
+          "height": 65.86
+        },
+        "firstSeen": 4.503,
+        "lastSeen": 4.503,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.503
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 4.892,
+        "selector": "#s1-card-in > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 395.9,
+          "top": 878.95,
+          "right": 700.26,
+          "bottom": 961.63,
+          "width": 304.36,
+          "height": 82.68
+        },
+        "containerSelector": "#s1-face-in",
+        "text": "ACEITAR",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.33,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 395.9,
+          "y": 878.95,
+          "width": 304.36,
+          "height": 82.68
+        },
+        "firstSeen": 4.892,
+        "lastSeen": 4.892,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.892
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 4.892,
+        "selector": "#s1-votes > div:nth-of-type(1) > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 783.97,
+          "top": 1085,
+          "right": 908,
+          "bottom": 1125,
+          "width": 124.03,
+          "height": 40
+        },
+        "containerSelector": "#s1-face-in",
+        "text": "32% B",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.85,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 783.97,
+          "y": 1085,
+          "width": 124.03,
+          "height": 40
+        },
+        "firstSeen": 4.892,
+        "lastSeen": 4.892,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.892
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 4.892,
+        "selector": "#s1-face-in > div:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 595.71,
+          "top": 757.3,
+          "right": 1026.47,
+          "bottom": 1315.7,
+          "width": 430.76,
+          "height": 558.39
+        },
+        "containerSelector": "#s1-face-in",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 626.63,
+          "top": 766.63,
+          "right": 983.37,
+          "bottom": 1123.37,
+          "width": 356.75,
+          "height": 356.75
+        },
+        "overflow": {
+          "left": 30.92,
+          "right": 43.1,
+          "top": 9.33,
+          "bottom": 192.33
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 595.71,
+          "y": 757.3,
+          "width": 430.76,
+          "height": 558.39
+        },
+        "firstSeen": 4.892,
+        "lastSeen": 4.892,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.892
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 12.507,
+        "selector": "#cw6-0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 206.85,
+          "top": 1251.8,
+          "right": 309.79,
+          "bottom": 1316.22,
+          "width": 102.94,
+          "height": 64.42
+        },
+        "containerSelector": "#cw7-0",
+        "text": "ELE",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 206.85,
+          "y": 1251.8,
+          "width": 102.94,
+          "height": 64.42
+        },
+        "firstSeen": 12.507,
+        "lastSeen": 12.507,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.507
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 12.507,
+        "selector": "#cw6-1",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 324.52,
+          "top": 1250.55,
+          "right": 399.5,
+          "bottom": 1314.58,
+          "width": 74.98,
+          "height": 64.03
+        },
+        "containerSelector": "#cw7-1",
+        "text": "TÁ",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 324.52,
+          "y": 1250.55,
+          "width": 74.98,
+          "height": 64.03
+        },
+        "firstSeen": 12.507,
+        "lastSeen": 12.507,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.507
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 12.507,
+        "selector": "#cw6-2",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 414.23,
+          "top": 1244.79,
+          "right": 812.31,
+          "bottom": 1313.33,
+          "width": 398.08,
+          "height": 68.54
+        },
+        "containerSelector": "#cw7-1",
+        "text": "CARIMBANDO",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 414.23,
+          "y": 1244.79,
+          "width": 398.08,
+          "height": 68.54
+        },
+        "firstSeen": 12.507,
+        "lastSeen": 12.507,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.507
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 12.507,
+        "selector": "#cw6-3",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 409.58,
+          "top": 1305.83,
+          "right": 611.22,
+          "bottom": 1371.63,
+          "width": 201.64,
+          "height": 65.8
+        },
+        "containerSelector": "#cw7-3",
+        "text": "PAPEL.",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 409.58,
+          "y": 1305.83,
+          "width": 201.64,
+          "height": 65.8
+        },
+        "firstSeen": 12.507,
+        "lastSeen": 12.507,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.507
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 14.675,
+        "selector": "#s2-top",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -12,
+          "top": -12,
+          "right": 1092,
+          "bottom": 888,
+          "width": 1104,
+          "height": 900
+        },
+        "containerSelector": "#s2-sabado > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 12,
+          "right": 12,
+          "top": 12
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s2-sabado.html",
+        "bbox": {
+          "x": -12,
+          "y": -12,
+          "width": 1104,
+          "height": 900
+        },
+        "firstSeen": 14.675,
+        "lastSeen": 14.675,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          14.675
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 14.675,
+        "selector": "#s2-bot",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -12,
+          "top": 876,
+          "right": 1092,
+          "bottom": 1936,
+          "width": 1104,
+          "height": 1060
+        },
+        "containerSelector": "#s2-sabado > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 12,
+          "right": 12,
+          "bottom": 16
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s2-sabado.html",
+        "bbox": {
+          "x": -12,
+          "y": 876,
+          "width": 1104,
+          "height": 1060
+        },
+        "firstSeen": 14.675,
+        "lastSeen": 14.675,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          14.675
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 14.675,
+        "selector": "#s2-post-in > div:nth-of-type(2) > svg:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 210.47,
+          "top": 271.79,
+          "right": 877.68,
+          "bottom": 855.66,
+          "width": 667.2,
+          "height": 583.87
+        },
+        "containerSelector": "#s2-post-in > div:nth-of-type(2)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 206.34,
+          "top": 267.66,
+          "right": 873.45,
+          "bottom": 620.35,
+          "width": 667.12,
+          "height": 352.69
+        },
+        "overflow": {
+          "right": 4.23,
+          "bottom": 235.31
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s2-sabado.html",
+        "bbox": {
+          "x": 210.47,
+          "y": 271.79,
+          "width": 667.2,
+          "height": 583.87
+        },
+        "firstSeen": 14.675,
+        "lastSeen": 14.675,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          14.675
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 14.675,
+        "selector": "#s2-bot > div:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 0,
+          "top": 12,
+          "right": 1080,
+          "bottom": 1932,
+          "width": 1080,
+          "height": 1920
+        },
+        "containerSelector": "#s2-bot",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": -12,
+          "top": 876,
+          "right": 1092,
+          "bottom": 1936,
+          "width": 1104,
+          "height": 1060
+        },
+        "overflow": {
+          "top": 864
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s2-sabado.html",
+        "bbox": {
+          "x": 0,
+          "y": 12,
+          "width": 1080,
+          "height": 1920
+        },
+        "firstSeen": 14.675,
+        "lastSeen": 14.675,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          14.675
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 24.458,
+        "selector": "#s4-crack",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 520,
+          "top": 760,
+          "right": 1141.02,
+          "bottom": 910,
+          "width": 621.02,
+          "height": 150
+        },
+        "containerSelector": "#s4-coluna > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 61.02
+        },
+        "dataAttributes": {
+          "data-layout-allow-overlap": "",
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s4-coluna.html",
+        "bbox": {
+          "x": 520,
+          "y": 760,
+          "width": 621.02,
+          "height": 150
+        },
+        "firstSeen": 24.458,
+        "lastSeen": 24.458,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          24.458
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 43.024,
+        "selector": "#cw31-1",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 217.05,
+          "top": 1240.84,
+          "right": 582.26,
+          "bottom": 1313.97,
+          "width": 365.21,
+          "height": 73.13
+        },
+        "containerSelector": "#cw32-0",
+        "text": "PAGAMENTO",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 217.05,
+          "y": 1240.84,
+          "width": 365.21,
+          "height": 73.13
+        },
+        "firstSeen": 43.024,
+        "lastSeen": 43.024,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          43.024
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 43.024,
+        "selector": "#cw31-2",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 596.1,
+          "top": 1251.43,
+          "right": 682.19,
+          "bottom": 1316.76,
+          "width": 86.09,
+          "height": 65.33
+        },
+        "containerSelector": "#cw32-3",
+        "text": "DA",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 596.1,
+          "y": 1251.43,
+          "width": 86.09,
+          "height": 65.33
+        },
+        "firstSeen": 43.024,
+        "lastSeen": 43.024,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          43.024
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 43.024,
+        "selector": "#cw31-3",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 696.03,
+          "top": 1254.22,
+          "right": 864.29,
+          "bottom": 1321.85,
+          "width": 168.26,
+          "height": 67.63
+        },
+        "containerSelector": "#cw32-4",
+        "text": "HORA",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 696.03,
+          "y": 1254.22,
+          "width": 168.26,
+          "height": 67.63
+        },
+        "firstSeen": 43.024,
+        "lastSeen": 43.024,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          43.024
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-notif-in > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 229,
+          "top": -157,
+          "right": 711.33,
+          "bottom": -113,
+          "width": 482.33,
+          "height": 44
+        },
+        "containerSelector": "#root",
+        "text": "Recursos Humanos · agora",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 157
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": 229,
+          "y": -157,
+          "width": 482.33,
+          "height": 44
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-notif-in > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 159.72,
+          "top": -153,
+          "right": 202.27,
+          "bottom": -117,
+          "width": 42.55,
+          "height": 36
+        },
+        "containerSelector": "#root",
+        "text": "RH",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 153
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": 159.72,
+          "y": -153,
+          "width": 42.55,
+          "height": 36
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-notif-in > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 149,
+          "top": -89,
+          "right": 888.33,
+          "bottom": 14.5,
+          "width": 739.33,
+          "height": 103.5
+        },
+        "containerSelector": "#root",
+        "text": "O pagamento da hora extra será feito no 🙂",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 89
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": 149,
+          "y": -89,
+          "width": 739.33,
+          "height": 103.5
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-notif-in > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 149,
+          "top": -89,
+          "right": 888.33,
+          "bottom": 14.5,
+          "width": 739.33,
+          "height": 103.5
+        },
+        "containerSelector": "#hud-in",
+        "text": "O pagamento da hora extra será feito no 🙂",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.22,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": 149,
+          "y": -89,
+          "width": 739.33,
+          "height": 103.5
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-notif-in > div:nth-of-type(2) > b:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 210.81,
+          "top": -36.5,
+          "right": 474.94,
+          "bottom": 14.5,
+          "width": 264.13,
+          "height": 51
+        },
+        "containerSelector": "#root",
+        "text": "próximo mês",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 36.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": 210.81,
+          "y": -36.5,
+          "width": 264.13,
+          "height": 51
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-notif-in > div:nth-of-type(2) > b:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 210.81,
+          "top": -36.5,
+          "right": 474.94,
+          "bottom": 14.5,
+          "width": 264.13,
+          "height": 51
+        },
+        "containerSelector": "#hud-in",
+        "text": "próximo mês",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.33,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": 210.81,
+          "y": -36.5,
+          "width": 264.13,
+          "height": 51
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-bar-in > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -762,
+          "top": 670,
+          "right": -697.11,
+          "bottom": 727,
+          "width": 64.89,
+          "height": 57
+        },
+        "containerSelector": "#root",
+        "text": "💰",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 762
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": -762,
+          "y": 670,
+          "width": 64.89,
+          "height": 57
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-notif-in > div:nth-of-type(2) > b:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 210.81,
+          "top": 0,
+          "right": 474.94,
+          "bottom": 14.5,
+          "width": 264.13,
+          "height": 14.5
+        },
+        "containerSelector": "#hud-in > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+        "text": "próximo mês",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": 210.81,
+          "y": 0,
+          "width": 264.13,
+          "height": 14.5
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-notif-in",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 110,
+          "top": -200,
+          "right": 970,
+          "bottom": 49,
+          "width": 860,
+          "height": 249
+        },
+        "containerSelector": "#root",
+        "text": "RH Recursos Humanos · agora O pagamento da hora ",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 200
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": 110,
+          "y": -200,
+          "width": 860,
+          "height": 249
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 44.025,
+        "selector": "#s6-bar-in",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": -790,
+          "top": 640,
+          "right": 70,
+          "bottom": 755,
+          "width": 860,
+          "height": 115
+        },
+        "containerSelector": "#root",
+        "text": "💰 🔒",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 790
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-golpe.html",
+        "bbox": {
+          "x": -790,
+          "y": 640,
+          "width": 860,
+          "height": 115
+        },
+        "firstSeen": 44.025,
+        "lastSeen": 44.025,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.025
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 44.525,
+        "selector": "#cw32-2",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 407.69,
+          "top": 1248.56,
+          "right": 528.08,
+          "bottom": 1314.65,
+          "width": 120.39,
+          "height": 66.09
+        },
+        "containerSelector": "#cw33-0",
+        "text": "MÊS",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 407.69,
+          "y": 1248.56,
+          "width": 120.39,
+          "height": 66.09
+        },
+        "firstSeen": 44.525,
+        "lastSeen": 44.525,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.525
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 44.525,
+        "selector": "#cw32-3",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 542.04,
+          "top": 1245.01,
+          "right": 663.52,
+          "bottom": 1311.13,
+          "width": 121.48,
+          "height": 66.12
+        },
+        "containerSelector": "#cw33-1",
+        "text": "QUE",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 542.04,
+          "y": 1245.01,
+          "width": 121.48,
+          "height": 66.12
+        },
+        "firstSeen": 44.525,
+        "lastSeen": 44.525,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.525
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 45.526,
+        "selector": "#cw33-0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 364.31,
+          "top": 1245.97,
+          "right": 450.48,
+          "bottom": 1310.73,
+          "width": 86.17,
+          "height": 64.76
+        },
+        "containerSelector": "#cw34-1",
+        "text": "OU",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 364.31,
+          "y": 1245.97,
+          "width": 86.17,
+          "height": 64.76
+        },
+        "firstSeen": 45.526,
+        "lastSeen": 45.526,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          45.526
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 45.526,
+        "selector": "#cw33-1",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 464.77,
+          "top": 1248.07,
+          "right": 655.7,
+          "bottom": 1315.03,
+          "width": 190.93,
+          "height": 66.96
+        },
+        "containerSelector": "#cw34-1",
+        "text": "SEJA…",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/caps.html",
+        "bbox": {
+          "x": 464.77,
+          "y": 1248.07,
+          "width": 190.93,
+          "height": 66.96
+        },
+        "firstSeen": 45.526,
+        "lastSeen": 45.526,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          45.526
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 53.808,
+        "selector": "#s7-resort-in",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 514.07,
+          "top": 286.3,
+          "right": 1165.54,
+          "bottom": 430.36,
+          "width": 651.47,
+          "height": 144.06
+        },
+        "containerSelector": "#s7-rodrigo > div:nth-of-type(1)",
+        "text": "RESORT?!",
+        "fixHint": "Text is 651px x 144px inside 1080px x 1920px and overflows by up to 86px; widen the container to at least ~1166px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 85.54
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s7-rodrigo.html",
+        "bbox": {
+          "x": 514.07,
+          "y": 286.3,
+          "width": 651.47,
+          "height": 144.06
+        },
+        "firstSeen": 53.808,
+        "lastSeen": 53.808,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          53.808
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 53.808,
+        "selector": "#s7-resort-in",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 514.07,
+          "top": 251.12,
+          "right": 1165.54,
+          "bottom": 468.88,
+          "width": 651.47,
+          "height": 217.76
+        },
+        "containerSelector": "#root",
+        "text": "RESORT?!",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 85.54
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s7-rodrigo.html",
+        "bbox": {
+          "x": 514.07,
+          "y": 251.12,
+          "width": 651.47,
+          "height": 217.76
+        },
+        "firstSeen": 53.808,
+        "lastSeen": 53.808,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          53.808
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 53.808,
+        "selector": "#s7-resort-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 514.76,
+          "top": 256.08,
+          "right": 1164.85,
+          "bottom": 463.92,
+          "width": 650.09,
+          "height": 207.85
+        },
+        "containerSelector": "#s7-resort",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 520,
+          "top": 300,
+          "right": 1159.61,
+          "bottom": 420,
+          "width": 639.61,
+          "height": 120
+        },
+        "overflow": {
+          "left": 5.24,
+          "right": 5.24
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s7-rodrigo.html",
+        "bbox": {
+          "x": 514.76,
+          "y": 256.08,
+          "width": 650.09,
+          "height": 207.85
+        },
+        "firstSeen": 53.808,
+        "lastSeen": 53.808,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          53.808
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 63.592,
+        "selector": "#s8-note-in > svg:nth-of-type(1) > text:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 716.82,
+          "top": 1228.93,
+          "right": 783.08,
+          "bottom": 1285.07,
+          "width": 66.27,
+          "height": 56.14
+        },
+        "containerSelector": "#cg48-in",
+        "text": "20",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-geladeira.html",
+        "bbox": {
+          "x": 716.82,
+          "y": 1228.93,
+          "width": 66.27,
+          "height": 56.14
+        },
+        "firstSeen": 63.592,
+        "lastSeen": 63.592,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          63.592
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 63.592,
+        "selector": "#s8-note-in > svg:nth-of-type(1) > text:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 634.91,
+          "top": 1210.87,
+          "right": 675.2,
+          "bottom": 1242.64,
+          "width": 40.3,
+          "height": 31.77
+        },
+        "containerSelector": "#cg48-in",
+        "text": "R$",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.33,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-geladeira.html",
+        "bbox": {
+          "x": 634.91,
+          "y": 1210.87,
+          "width": 40.3,
+          "height": 31.77
+        },
+        "firstSeen": 63.592,
+        "lastSeen": 63.592,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          63.592
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 63.592,
+        "selector": "#s8-note-in > svg:nth-of-type(1) > rect:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 594.79,
+          "top": 1160.9,
+          "right": 904.69,
+          "bottom": 1349.13,
+          "width": 309.9,
+          "height": 188.23
+        },
+        "containerSelector": "#s8-note-in > svg:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 592.72,
+          "top": 1164.75,
+          "right": 906.76,
+          "bottom": 1345.28,
+          "width": 314.04,
+          "height": 180.54
+        },
+        "overflow": {
+          "top": 3.85,
+          "bottom": 3.85
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-geladeira.html",
+        "bbox": {
+          "x": 594.79,
+          "y": 1160.9,
+          "width": 309.9,
+          "height": 188.23
+        },
+        "firstSeen": 63.592,
+        "lastSeen": 63.592,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          63.592
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 63.592,
+        "selector": "#s8-tic-in",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 116.76,
+          "top": 152.35,
+          "right": 657.04,
+          "bottom": 297.65,
+          "width": 540.28,
+          "height": 145.3
+        },
+        "containerSelector": "#s8-tic",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 120,
+          "top": 180,
+          "right": 653.8,
+          "bottom": 270,
+          "width": 533.8,
+          "height": 90
+        },
+        "overflow": {
+          "left": 3.24,
+          "right": 3.24
+        },
+        "dataAttributes": {
+          "data-layout-allow-occlusion": ""
+        },
+        "sourceFile": "compositions/s8-geladeira.html",
+        "bbox": {
+          "x": 116.76,
+          "y": 152.35,
+          "width": 540.28,
+          "height": 145.3
+        },
+        "firstSeen": 63.592,
+        "lastSeen": 63.592,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          63.592
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 73.375,
+        "selector": "#hud-in > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 95,
+          "top": -241,
+          "right": 182.45,
+          "bottom": -209,
+          "width": 87.45,
+          "height": 32
+        },
+        "containerSelector": "#root",
+        "text": "⏳ 29",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 241
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/hud.html",
+        "bbox": {
+          "x": 95,
+          "y": -241,
+          "width": 87.45,
+          "height": 32
+        },
+        "firstSeen": 73.375,
+        "lastSeen": 83.158,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          73.375,
+          83.158
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 73.375,
+        "selector": "#hud-in > div:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 101.38,
+          "top": -211,
+          "right": 176.06,
+          "bottom": -180,
+          "width": 74.68,
+          "height": 31
+        },
+        "containerSelector": "#root",
+        "text": "DIAS",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 211
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/hud.html",
+        "bbox": {
+          "x": 101.38,
+          "y": -211,
+          "width": 74.68,
+          "height": 31
+        },
+        "firstSeen": 73.375,
+        "lastSeen": 83.158,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          73.375,
+          83.158
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 73.375,
+        "selector": "#hud-in > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 200.45,
+          "top": -251,
+          "right": 242.89,
+          "bottom": -214,
+          "width": 42.44,
+          "height": 37
+        },
+        "containerSelector": "#root",
+        "text": "💰",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 251
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/hud.html",
+        "bbox": {
+          "x": 200.45,
+          "y": -251,
+          "width": 42.44,
+          "height": 37
+        },
+        "firstSeen": 73.375,
+        "lastSeen": 83.158,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          73.375,
+          83.158
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 73.375,
+        "selector": "#hud-in > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 376.89,
+          "top": -251,
+          "right": 419.33,
+          "bottom": -214,
+          "width": 42.44,
+          "height": 37
+        },
+        "containerSelector": "#root",
+        "text": "❤️",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 251
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/hud.html",
+        "bbox": {
+          "x": 376.89,
+          "y": -251,
+          "width": 42.44,
+          "height": 37
+        },
+        "firstSeen": 73.375,
+        "lastSeen": 83.158,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          73.375,
+          83.158
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 73.375,
+        "selector": "#hud-in > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 200.45,
+          "top": -205,
+          "right": 242.89,
+          "bottom": -168,
+          "width": 42.44,
+          "height": 37
+        },
+        "containerSelector": "#root",
+        "text": "💘",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 205
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/hud.html",
+        "bbox": {
+          "x": 200.45,
+          "y": -205,
+          "width": 42.44,
+          "height": 37
+        },
+        "firstSeen": 73.375,
+        "lastSeen": 83.158,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          73.375,
+          83.158
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 73.375,
+        "selector": "#hud-in > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 376.89,
+          "top": -205,
+          "right": 419.33,
+          "bottom": -168,
+          "width": 42.44,
+          "height": 37
+        },
+        "containerSelector": "#root",
+        "text": "⭐",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 205
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/hud.html",
+        "bbox": {
+          "x": 376.89,
+          "y": -205,
+          "width": 42.44,
+          "height": 37
+        },
+        "firstSeen": 73.375,
+        "lastSeen": 83.158,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          73.375,
+          83.158
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 86.049,
+        "selector": "#s10-end-in",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 28.93,
+          "top": 1255.02,
+          "right": 1051.06,
+          "bottom": 1309.24,
+          "width": 1022.13,
+          "height": 54.22
+        },
+        "containerSelector": "#cw63-0",
+        "text": "DIA 3 AMANHÃ · COMENTA A OU B 👇",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10-final.html",
+        "bbox": {
+          "x": 28.93,
+          "y": 1255.02,
+          "width": 1022.13,
+          "height": 54.22
+        },
+        "firstSeen": 86.049,
+        "lastSeen": 86.049,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          86.049
+        ]
+      }
+    ],
+    "duration": 88.05,
+    "samples": [
+      4.892,
+      14.675,
+      24.458,
+      34.242,
+      44.025,
+      53.808,
+      63.592,
+      73.375,
+      83.158
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 59,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      4.892,
+      24.458,
+      44.025,
+      63.592,
+      83.158
+    ],
+    "checked": 47,
+    "passed": 47
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"ACEITAR\" renders at 12 px for 1.47 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "ACEITAR",
+        "selector": "#s1-card-in > div:nth-of-type(3)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1-resultado.html",
+        "bbox": {
+          "x": 526.01,
+          "y": 771.9,
+          "width": 58.88,
+          "height": 41.73
+        },
+        "time": 0,
+        "times": [
+          0
+        ],
+        "fontPx": 12.4,
+        "floorPx": 28,
+        "seconds": 1.47,
+        "elements": [
+          {
+            "selector": "#s1-card-in > div:nth-of-type(3)",
+            "text": "ACEITAR",
+            "fontPx": 12.4,
+            "time": 0,
+            "seconds": 1.47
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 2 text elements stay under it for 0.5 s or more, the smallest \"VAZIO\" at 22 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "VAZIO",
+        "selector": "#s8-fridge > svg:nth-of-type(1) > text:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8-geladeira.html",
+        "bbox": {
+          "x": 470.54,
+          "y": 982.16,
+          "width": 74.45,
+          "height": 23.58
+        },
+        "time": 57.769,
+        "times": [
+          57.769,
+          57.769
+        ],
+        "fontPx": 21.62,
+        "floorPx": 28,
+        "seconds": 9.996,
+        "elements": [
+          {
+            "selector": "#s8-fridge > svg:nth-of-type(1) > text:nth-of-type(1)",
+            "text": "VAZIO",
+            "fontPx": 21.62,
+            "time": 57.769,
+            "seconds": 9.996
+          },
+          {
+            "selector": "#s8-note-in > svg:nth-of-type(1) > text:nth-of-type(2)",
+            "text": "R$",
+            "fontPx": 26,
+            "time": 57.769,
+            "seconds": 9.996
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.14699999999999847,
+    "samples": 599
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}
